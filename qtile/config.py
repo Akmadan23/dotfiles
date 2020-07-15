@@ -30,7 +30,10 @@ from libqtile import layout, bar, widget
 from typing import List  # noqa: F401
 
 mod = "mod4"
+ctrl = "control"
 terminal = "gnome-terminal"
+darkgrey = "#212121"
+teal = "#1ABC9C"
 
 keys = [
     # Switch between windows in current stack pane
@@ -38,11 +41,11 @@ keys = [
     Key([mod], "j", lazy.layout.up()),
 
     # Move windows up or down in current stack
-    Key([mod, "control"], "k", lazy.layout.shuffle_down()),
-    Key([mod, "control"], "j", lazy.layout.shuffle_up()),
+    Key([mod, ctrl], "k", lazy.layout.shuffle_down()),
+    Key([mod, ctrl], "j", lazy.layout.shuffle_up()),
 
     # Switch window focus to other pane(s) of stack
-    Key([mod], "space", lazy.layout.next()),
+    # Key([mod], "space", lazy.layout.next()),
 
     # Swap panes of split stack
     Key([mod, "shift"], "space", lazy.layout.rotate()),
@@ -56,15 +59,20 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
+    Key([mod, "shift"], "Tab", lazy.previous_layout()),
     Key([mod, "shift"], "q", lazy.window.kill()),
 
     Key([mod, "shift"], "r", lazy.restart()),
     Key([mod, "shift"], "e", lazy.shutdown()),
-    Key([mod], "d", lazy.spawn("dmenu")),
     Key([mod], "r", lazy.spawncmd()),
+
+    # Other personal key bindings
+    Key([mod, "shift"], "f", lazy.window.bring_to_front()), # not working
+    Key([mod], "space", lazy.spawn("rofi -show run")),
+    Key([mod], "f", lazy.spawn("firefox")),
 ]
 
-groups = [Group(i) for i in "1234"]
+groups = [Group(i) for i in "12345678"]
 
 for i in groups:
     keys.extend([
@@ -105,15 +113,43 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(),
+                widget.GroupBox(
+                    this_current_screen_border=teal,
+                    hide_unused="true",
+                ),
                 widget.Prompt(),
                 widget.WindowName(),
-                # widget.TextBox("default config", name="default"),
+                widget.TextBox("Layout: ", name="layout"),
                 widget.CurrentLayout(),
+            ], 
+            24,
+            background=darkgrey,
+        ),
+    ),
+
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(
+                    this_current_screen_border=teal,
+                    hide_unused="true",
+                ),
+                widget.Prompt(),
+                widget.WindowName(),
+                widget.TextBox("Layout:", name="layout"),
+                widget.CurrentLayout(),
+                widget.TextBox("CPU:", name="cpu"),
+                widget.CPUGraph(),
+                widget.TextBox("RAM:", name="ram"),
+                widget.MemoryGraph(),
+                widget.TextBox("NET: ", name="net"),
+                widget.NetGraph(),
                 widget.Systray(),
                 widget.Clock(format='%d-%m-%Y, %I:%M %p'),
                 widget.QuickExit(5),
-            ], 24,
+            ], 
+            24,
+            background=darkgrey,
         ),
     ),
 ]
@@ -153,12 +189,6 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"
+# neofetch fixes
+dename = ""
+wmname = "Qtile"
