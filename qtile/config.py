@@ -1,3 +1,9 @@
+#     _    _                        _             ____  _____ 
+#    / \  | | ___ __ ___   __ _  __| | __ _ _ __ |___ \|___ / 
+#   / _ \ | |/ / '_ ` _ \ / _` |/ _` |/ _` | '_ \  __) | |_ \ 
+#  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
+# /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
+#
 # Copyright (c) 2010 Aldo Cortesi
 # Copyright (c) 2010, 2014 dequis
 # Copyright (c) 2012 Randall Ma
@@ -24,16 +30,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
+import re
+import socket
+import subprocess
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.lazy import lazy
-from libqtile import layout, bar, widget
+from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
 
+# Keys and default apps
 mod = "mod4"
 ctrl = "control"
 terminal = "gnome-terminal"
-darkgrey = "#212121"
+
+# Colors
+red = "#CC0000"
 teal = "#1ABC9C"
+darkteal = "#24574D"
+yellow = "#C4A000"
+darkgrey = "#212121"
+black = "#000000"
+white = "#FFFFFF"
+
+# Suspend function
+
+def suspend(qtile):
+    qtile.cmd_spawn("systemctl suspend && i3lock -i ~/Immagini/Wallpapers/aurora-over-iceland.png -ft")
 
 keys = [
     # Switch between windows in current stack pane
@@ -59,7 +82,7 @@ keys = [
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
-    Key([mod, "shift"], "Tab", lazy.previous_layout()),
+    Key([mod, "shift"], "Tab", lazy.prev_layout()),
     Key([mod, "shift"], "q", lazy.window.kill()),
 
     Key([mod, "shift"], "r", lazy.restart()),
@@ -67,9 +90,17 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 
     # Other personal key bindings
-    Key([mod, "shift"], "f", lazy.window.bring_to_front()), # not working
+    # Key([mod, "shift"], "s", lazy.spawn(systemctl suspend)),
+    # Key([mod, "shift"], "s", qtile.cmd_spawn("systemctl suspend && i3lock -i ~/Immagini/Wallpapers/aurora-over-iceland.png -ft"),
+    # Key([mod, "shift"], "s", suspend,
     Key([mod], "space", lazy.spawn("rofi -show run")),
+    Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
+    Key([mod], "t", lazy.spawn("thunderbird")),
+    Key([mod], "s", lazy.spawn("deepin-screenshot")),
+    Key([mod], "h", lazy.spawn("gnome-terminal -- htop")),
+    Key([mod], "e", lazy.spawn("gnome-terminal -- ranger")),
+    Key([mod], "l", lazy.spawn("i3lock -ift ~/Immagini/Wallpapers/aurora-over-iceland.png")),
 ]
 
 groups = [Group(i) for i in "12345678"]
@@ -87,10 +118,33 @@ for i in groups:
     ])
 
 layouts = [
-    layout.MonadTall(),
-    layout.MonadWide(),
-    layout.Max(),
-    layout.TreeTab(),
+    layout.MonadTall(
+        border_focus = teal,
+        border_width = 1,
+        margin = 10,
+        single_border_width = 0,
+        single_margin = 0,
+    ),
+    
+    layout.MonadWide(
+        border_focus = teal,
+        border_width = 1,
+        margin = 10,
+        single_border_width = 0,
+        single_margin = 0,
+    ),
+    
+    layout.TreeTab(
+        bg_color = darkgrey,
+        active_bg = teal,
+        active_fg = black,
+        inactive_bg = darkgrey,
+        inactive_fg = white,
+        panel_width = 200,
+        fontsize = 12,
+        section_fontsize = 10,
+    ),
+    
     # layout.Floating(),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -109,58 +163,204 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+# Mouse callbacks
+
+def open_rofi(qtile):
+    qtile.cmd_spawn("rofi -show run")
+    
+def open_pavucontrol(qtile):
+    qtile.cmd_spawn("pavucontrol")
+
 screens = [
+    # Integrated display
     Screen(
         top=bar.Bar(
             [
                 widget.GroupBox(
-                    this_current_screen_border=teal,
-                    hide_unused="true",
+                    this_current_screen_border = teal,
+                    this_screen_border = teal,
+                    hide_unused = True,
+                    rounded = False,
+                    highlight_color = darkteal,
+                    highlight_method = "line",
                 ),
+                
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.TextBox("Layout: ", name="layout"),
-                widget.CurrentLayout(),
+
+                widget.Clipboard(
+                    #add stuff
+                ),
+                
+                widget.Clock(
+                    format = '%a %d/%m/%Y, %I:%M %p',
+                ),
+                
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
+                ),
             ], 
             24,
-            background=darkgrey,
+            background = darkgrey,
         ),
     ),
 
+    # Main external monitor
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(
-                    this_current_screen_border=teal,
-                    hide_unused="true",
+                widget.Image(
+                    filename = "/home/azadahmadi/Documenti/Progetti PhotoShop/logo/logo-redwhite-round.png",
+                    mouse_callbacks = {"Button1": open_rofi},
                 ),
+                
+                widget.GroupBox(
+                    this_current_screen_border = teal,
+                    this_screen_border = teal,
+                    hide_unused = True,
+                    rounded = False,
+                    highlight_color = darkteal,
+                    highlight_method = "line",
+                ),
+                
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.TextBox("Layout:", name="layout"),
-                widget.CurrentLayout(),
-                widget.TextBox("CPU:", name="cpu"),
-                widget.CPUGraph(),
-                widget.TextBox("RAM:", name="ram"),
-                widget.MemoryGraph(),
-                widget.TextBox("NET: ", name="net"),
-                widget.NetGraph(),
-                widget.Systray(),
-                widget.Clock(format='%d-%m-%Y, %I:%M %p'),
-                widget.QuickExit(5),
+                
+                widget.TextBox(
+                    text = "CPU:", 
+                ),
+
+                widget.TextBox(
+                   text = "🌡",
+                   padding = 2,
+                   fontsize = 11,
+                ),
+                
+                widget.ThermalSensor(
+                    update_interval = 1,
+                    foreground_alert = red,
+                    threshold = 90,
+                    padding = 5,
+                ),
+                
+                widget.CPUGraph(
+                    graph_color = teal,
+                    border_color = darkgrey,
+                ),
+                
+                widget.TextBox(
+                    text = "RAM:", 
+                ),
+                
+                widget.MemoryGraph(
+                    graph_color = yellow,
+                    border_color = darkgrey,
+                ),
+                
+                widget.TextBox(
+                    text = "NET:", 
+                ),
+                
+                widget.NetGraph(
+                    graph_color = red,
+                    border_color = darkgrey,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 37,
+                    padding = 0,
+                    margin = 0,
+                    background = darkgrey,
+                    foreground = darkteal,
+                ),
+
+                widget.BatteryIcon(
+                    background = darkteal,
+                ),
+
+                widget.Battery(
+                    background = darkteal,
+                ),
+
+                #widget.Net(
+                #    background = darkteal,
+                #),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 37,
+                    padding = 0,
+                    margin = 0,
+                    background = darkteal,
+                    foreground = teal,
+                ),
+
+                widget.TextBox(
+                    text = "Vol:", 
+                    background = teal,
+                    foreground = black,
+                ),
+                
+                widget.Volume(
+                    step = 5,
+                    mouse_callbacks = {"Button1": open_pavucontrol},
+                    background = teal,
+                    foreground = black,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 37,
+                    padding = 0,
+                    margin = 0,
+                    background = teal,
+                    foreground = darkteal,
+                ),
+                
+                widget.Clock(
+                    format = '%a %d/%m/%Y, %I:%M %p',
+                    background = darkteal,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 37,
+                    padding = 0,
+                    margin = 0,
+                    background = darkteal,
+                    foreground = darkgrey,
+                ),
+                
+                widget.Systray(
+                    # add stuff
+                ),
+                
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
+                ),
             ], 
-            24,
-            background=darkgrey,
+            20,
+            background = darkgrey,
         ),
-    ),
+    ), 
 ]
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Drag(
+        [mod], "Button1", lazy.window.set_position_floating(), 
+        start=lazy.window.get_position()
+    ),
+
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(),
+        start=lazy.window.get_size()
+    ),
+
+    Click(
+        [mod], "Button2", lazy.window.bring_to_front()
+    ),
 ]
 
 dgroups_key_binder = None
@@ -186,8 +386,15 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
 ])
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+
+# Startup commands
+@hook.subscribe.startup
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 # neofetch fixes
 dename = ""
