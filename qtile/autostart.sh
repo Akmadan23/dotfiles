@@ -1,4 +1,3 @@
 #!/bin/sh
-
-feh --bg-scale ~/Immagini/Wallpapers/aurora-over-iceland.png &
+feh --bg-scale ~/.config/qtile/wallpaper.jpg
 picom -f &

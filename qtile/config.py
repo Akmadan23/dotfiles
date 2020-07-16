@@ -100,7 +100,7 @@ keys = [
     Key([mod], "s", lazy.spawn("deepin-screenshot")),
     Key([mod], "h", lazy.spawn(term + " -- htop")),
     Key([mod], "e", lazy.spawn(term + " -- ranger")),
-    Key([mod], "l", lazy.spawn("lock-script")),
+    Key([mod], "l", lazy.spawn("lock-script")), # Copied che i3lock.sh script in /bin/ as "lock-script"
 ]
 
 groups = [Group(i) for i in "12345678"]
