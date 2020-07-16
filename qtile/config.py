@@ -41,6 +41,7 @@ from typing import List  # noqa: F401
 
 # Keys and default apps
 mod = "mod4"
+sft = "shift"
 ctrl = "control"
 term = "gnome-terminal"
 
@@ -59,29 +60,29 @@ keys = [
     Key([mod], "j", lazy.layout.up()),
 
     # Move windows up or down in current stack
-    Key([mod, ctrl], "k", lazy.layout.shuffle_down()),
-    Key([mod, ctrl], "j", lazy.layout.shuffle_up()),
+    Key([mod, sft], "k", lazy.layout.shuffle_down()),
+    Key([mod, sft], "j", lazy.layout.shuffle_up()),
 
     # Switch window focus to other pane(s) of stack
     # Key([mod], "space", lazy.layout.next()),
 
     # Swap panes of split stack
-    Key([mod, "shift"], "space", lazy.layout.rotate()),
+    Key([mod, sft], "space", lazy.layout.rotate()),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
+    Key([mod, sft], "Return", lazy.layout.toggle_split()),
     Key([mod], "Return", lazy.spawn(term)),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
-    Key([mod, "shift"], "Tab", lazy.prev_layout()),
-    Key([mod, "shift"], "q", lazy.window.kill()),
+    Key([mod, sft], "Tab", lazy.prev_layout()),
+    Key([mod, sft], "q", lazy.window.kill()),
 
-    Key([mod, "shift"], "r", lazy.restart()),
-    Key([mod, "shift"], "e", lazy.shutdown()),
+    Key([mod, sft], "r", lazy.restart()),
+    Key([mod, sft], "e", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
 
     # Other personal key bindings
@@ -103,7 +104,7 @@ for i in groups:
         Key([mod], i.name, lazy.group[i.name].toscreen()),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True)),
+        Key([mod, sft], i.name, lazy.window.togroup(i.name, switch_group=True)),
         # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
@@ -170,17 +171,10 @@ def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
 
 def suspend(qtile):
-    qtile.cmd_spawn("lock-script")
-    qtile.cmd_spawn("systemctl suspend")
+    qtile.cmd_spawn("lock-suspend")
 
-def logout(qtile):
+# def logout(qtile):
     # qtile.cmd_shutdown()
-    
-# Startup commands
-@hook.subscribe.startup
-def autostart():
-    home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 # Monitor setup check    
 f = open("/home/azadahmadi/.config/qtile/temp.txt", "r")
@@ -193,8 +187,7 @@ f.close()
 
 if x == y: # if the output of "xrandr | grep HDMI-1" 
     screens = [
-        
-        Screen( # Main external monitor
+        Screen( # Only screen
             top = bar.Bar([
                 widget.Image(
                     filename = "~/.config/qtile/logo.png",
@@ -385,7 +378,7 @@ if x == y: # if the output of "xrandr | grep HDMI-1"
                     padding = 2,
                     fontsize = 22,
                     background = darkgrey,
-                    mouse_callbacks = {"Button1": logout},
+                    # mouse_callbacks = {"Button1": logout},
                 ),
                 
                 widget.CurrentLayoutIcon(
@@ -413,13 +406,42 @@ else:
                 
                 widget.Prompt(),
                 widget.WindowName(),
+                
+                widget.TextBox(
+                    text = "CPU:", 
+                ),
+                
+                widget.CPUGraph(
+                    graph_color = teal,
+                    border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_stui},
+                ),
+                
+                widget.TextBox(
+                    text = "RAM:", 
+                ),
+                
+                widget.MemoryGraph(
+                    graph_color = yellow,
+                    border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_htop},
+                ),
+                
+                widget.TextBox(
+                    text = "NET:", 
+                ),
+                
+                widget.NetGraph(
+                    graph_color = red,
+                    border_color = darkgrey,
+                ),
 
                 widget.TextBox(
                     text = "Clipboard:",
                 ),
 
                 widget.Clipboard(
-                    timeout = None,
+                    timeout = 60,
                     max_width = 40,
                     padding = 5,
                     foreground = teal,
@@ -456,35 +478,6 @@ else:
                 
                 widget.Prompt(),
                 widget.WindowName(),
-                
-                widget.TextBox(
-                    text = "CPU:", 
-                ),
-                
-                widget.CPUGraph(
-                    graph_color = teal,
-                    border_color = darkgrey,
-                    mouse_callbacks = {"Button1": open_stui},
-                ),
-                
-                widget.TextBox(
-                    text = "RAM:", 
-                ),
-                
-                widget.MemoryGraph(
-                    graph_color = yellow,
-                    border_color = darkgrey,
-                    mouse_callbacks = {"Button1": open_htop},
-                ),
-                
-                widget.TextBox(
-                    text = "NET:", 
-                ),
-                
-                widget.NetGraph(
-                    graph_color = red,
-                    border_color = darkgrey,
-                ),
 
                 widget.TextBox(
                     text = "",
@@ -629,7 +622,7 @@ else:
                     padding = 2,
                     fontsize = 22,
                     background = darkgrey,
-                    mouse_callbacks = {"Button1": logout},
+                    #mouse_callbacks = {"Button1": logout},
                 ),
                 
                 widget.CurrentLayoutIcon(
@@ -665,6 +658,8 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
+auto_fullscreen = True
+focus_on_window_activation = "smart"
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     {'wmclass': 'confirm'},
@@ -683,8 +678,12 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
 ])
 
-auto_fullscreen = True
-focus_on_window_activation = "smart"
+    
+# Startup commands
+@hook.subscribe.startup
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 # neofetch fixes
 dename = ""
