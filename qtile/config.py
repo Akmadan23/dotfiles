@@ -53,11 +53,6 @@ darkgrey = "#212121"
 black = "#000000"
 white = "#FFFFFF"
 
-# Suspend function
-
-def suspend(qtile):
-    qtile.cmd_spawn("")
-
 keys = [
     # Switch between windows in current stack pane
     Key([mod], "k", lazy.layout.down()),
@@ -90,9 +85,6 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 
     # Other personal key bindings
-    # Key([mod, "shift"], "s", qtile.cmd_spawn("systemctl suspend && i3lock -i ~/Immagini/Wallpapers/aurora-over-iceland.png -ft"),
-    # Key([mod, "shift"], "s", suspend,
-    Key([mod, "shift"], "f", lazy.window.set_position_tiling()),
     Key([mod], "space", lazy.spawn("rofi -show run")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
@@ -176,50 +168,34 @@ def open_stui(qtile):
 
 def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
+
+def suspend(qtile):
+    qtile.cmd_spawn("lock-script")
+    qtile.cmd_spawn("systemctl suspend")
+
+def logout(qtile):
+    # qtile.cmd_shutdown()
     
-def open_pavucontrol(qtile):
-    qtile.cmd_spawn("pavucontrol")
+# Startup commands
+@hook.subscribe.startup
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
 
-screens = [
-    # Integrated display
-    Screen(
-        top=bar.Bar(
-            [
-                widget.GroupBox(
-                    this_current_screen_border = teal,
-                    this_screen_border = teal,
-                    hide_unused = True,
-                    rounded = False,
-                    highlight_color = darkteal,
-                    highlight_method = "line",
-                ),
-                
-                widget.Prompt(),
-                widget.WindowName(),
+# Monitor setup check    
+f = open("/home/azadahmadi/.config/qtile/temp.txt", "r")
+x = f.read()
+f.close()
 
-                widget.Clipboard(
-                    timeout = None,
-                    max_width = 30,
-                    padding = 10,
-                ),
-                
-                widget.Clock(
-                    format = '%a %d/%m/%Y, %I:%M %p',
-                ),
-                
-                widget.CurrentLayoutIcon(
-                    scale = 0.8,
-                ),
-            ], 
-            24,
-            background = darkgrey,
-        ),
-    ),
+f = open("/home/azadahmadi/.config/qtile/no-hdmi.txt", "r")
+y = f.read()
+f.close()
 
-    # Main external monitor
-    Screen(
-        top=bar.Bar(
-            [
+if x == y: # if the output of "xrandr | grep HDMI-1" 
+    screens = [
+        
+        Screen( # Main external monitor
+            top = bar.Bar([
                 widget.Image(
                     filename = "~/.config/qtile/logo.png",
                     mouse_callbacks = {"Button1": open_rofi},
@@ -239,19 +215,6 @@ screens = [
                 
                 widget.TextBox(
                     text = "CPU:", 
-                ),
-
-                widget.TextBox(
-                   text = "🌡",
-                   padding = 2,
-                   fontsize = 11,
-                ),
-                
-                widget.ThermalSensor(
-                    update_interval = 1,
-                    foreground_alert = red,
-                    threshold = 90,
-                    padding = 5,
                 ),
                 
                 widget.CPUGraph(
@@ -284,16 +247,26 @@ screens = [
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
+                    step = 5,
                     background = darkgrey,
                     foreground = darkteal,
                 ),
 
-                widget.BatteryIcon(
+                widget.TextBox(
+                    text = "🌡",
+                    padding = 2,
+                    fontsize = 20,
                     background = darkteal,
+                    foreground = white,
                 ),
-
-                widget.Battery(
+                
+                widget.ThermalSensor(
+                    update_interval = 1,
+                    foreground_alert = red,
+                    threshold = 90,
+                    padding = 5,
                     background = darkteal,
+                    foreground = white,
                 ),
 
                 widget.TextBox(
@@ -306,7 +279,55 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "Vol:", 
+                    text = "☼",
+                    fontsize = 24,
+                    background = teal,
+                    foreground = black,
+                ),
+
+                widget.Backlight(
+                    backlight_name = "intel_backlight",
+                    brightness_file = "brightness",
+                    background = teal,
+                    foreground = black,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    step = 5,
+                    background = teal,
+                    foreground = darkteal,
+                ),
+
+                widget.BatteryIcon(
+                    background = darkteal,
+                ),
+
+                widget.Battery(
+                    format = '{char} {percent:2.0%}',
+                    background = darkteal,
+                    charge_char = "▲",
+                    discharge_char = "▼",
+                    low_foreground = red,
+                    notify_below = 10,
+                    update_interval = 10
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    background = darkteal,
+                    foreground = teal,
+                ),
+
+                widget.TextBox(
+                    text = "🕬", 
+                    fontsize = 24,
                     background = teal,
                     foreground = black,
                 ),
@@ -328,7 +349,7 @@ screens = [
                 ),
                 
                 widget.Clock(
-                    format = '%a %d/%m/%Y, %I:%M %p',
+                    format = '%a %d/%m/%Y, %H:%M %p',
                     background = darkteal,
                 ),
 
@@ -350,17 +371,277 @@ screens = [
                     background = darkgrey,
                     mouse_callbacks = {"Button1": open_settings},
                 ),
+
+                widget.TextBox(
+                    text = "⏾",
+                    padding = 2,
+                    fontsize = 22,
+                    background = darkgrey,
+                    mouse_callbacks = {"Button1": suspend},
+                ),
+
+                widget.TextBox(
+                    text = "⏻",
+                    padding = 2,
+                    fontsize = 22,
+                    background = darkgrey,
+                    mouse_callbacks = {"Button1": logout},
+                ),
                 
                 widget.CurrentLayoutIcon(
                     scale = 0.8,
-                ),
-            ], 
-            24,
-            background = darkgrey,
+                )],
+                
+                24,
+                background = darkgrey,
+            ),
         ),
-    ), 
-]
+    ]
 
+else:
+    screens = [
+        Screen( # Integrated display
+            top = bar.Bar([
+                widget.GroupBox(
+                    this_current_screen_border = teal,
+                    this_screen_border = teal,
+                    hide_unused = True,
+                    rounded = False,
+                    highlight_color = darkteal,
+                    highlight_method = "line",
+                ),
+                
+                widget.Prompt(),
+                widget.WindowName(),
+
+                widget.TextBox(
+                    text = "Clipboard:",
+                ),
+
+                widget.Clipboard(
+                    timeout = None,
+                    max_width = 40,
+                    padding = 5,
+                    foreground = teal,
+                ),
+                
+                widget.Clock(
+                    format = '%a %d/%m/%Y, %H:%M %p',
+                ),
+                
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
+                )],
+                
+                24,
+                background = darkgrey,
+            ),
+        ),
+        
+        Screen( # Main external monitor
+            top = bar.Bar([
+                widget.Image(
+                    filename = "~/.config/qtile/logo.png",
+                    mouse_callbacks = {"Button1": open_rofi},
+                ),
+                
+                widget.GroupBox(
+                    this_current_screen_border = teal,
+                    this_screen_border = teal,
+                    hide_unused = True,
+                    rounded = False,
+                    highlight_color = darkteal,
+                    highlight_method = "line",
+                ),
+                
+                widget.Prompt(),
+                widget.WindowName(),
+                
+                widget.TextBox(
+                    text = "CPU:", 
+                ),
+                
+                widget.CPUGraph(
+                    graph_color = teal,
+                    border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_stui},
+                ),
+                
+                widget.TextBox(
+                    text = "RAM:", 
+                ),
+                
+                widget.MemoryGraph(
+                    graph_color = yellow,
+                    border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_htop},
+                ),
+                
+                widget.TextBox(
+                    text = "NET:", 
+                ),
+                
+                widget.NetGraph(
+                    graph_color = red,
+                    border_color = darkgrey,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    step = 5,
+                    background = darkgrey,
+                    foreground = darkteal,
+                ),
+
+                widget.TextBox(
+                    text = "🌡",
+                    padding = 2,
+                    fontsize = 20,
+                    background = darkteal,
+                    foreground = white,
+                ),
+                
+                widget.ThermalSensor(
+                    update_interval = 1,
+                    foreground_alert = red,
+                    threshold = 90,
+                    padding = 5,
+                    background = darkteal,
+                    foreground = white,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    background = darkteal,
+                    foreground = teal,
+                ),
+
+                widget.TextBox(
+                    text = "☼",
+                    fontsize = 24,
+                    background = teal,
+                    foreground = black,
+                ),
+
+                widget.Backlight(
+                    backlight_name = "intel_backlight",
+                    brightness_file = "brightness",
+                    background = teal,
+                    foreground = black,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    step = 5,
+                    background = teal,
+                    foreground = darkteal,
+                ),
+
+                widget.BatteryIcon(
+                    background = darkteal,
+                ),
+
+                widget.Battery(
+                    format = '{char} {percent:2.0%}',
+                    background = darkteal,
+                    charge_char = "▲",
+                    discharge_char = "▼",
+                    low_foreground = red,
+                    notify_below = 10,
+                    update_interval = 10
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    background = darkteal,
+                    foreground = teal,
+                ),
+
+                widget.TextBox(
+                    text = "🕬", 
+                    fontsize = 24,
+                    background = teal,
+                    foreground = black,
+                ),
+                
+                widget.Volume(
+                    step = 5,
+                    # mouse_callbacks = {"Button1": open_pavucontrol},
+                    background = teal,
+                    foreground = black,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    background = teal,
+                    foreground = darkteal,
+                ),
+                
+                widget.Clock(
+                    format = '%a %d/%m/%Y, %H:%M %p',
+                    background = darkteal,
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    fontsize = 43,
+                    padding = 0,
+                    margin = 0,
+                    background = darkteal,
+                    foreground = darkgrey,
+                ),
+                
+                widget.Systray(),
+
+                widget.TextBox(
+                    text = "⚙",
+                    padding = 2,
+                    fontsize = 26,
+                    background = darkgrey,
+                    mouse_callbacks = {"Button1": open_settings},
+                ),
+
+                widget.TextBox(
+                    text = "⏾",
+                    padding = 2,
+                    fontsize = 22,
+                    background = darkgrey,
+                    mouse_callbacks = {"Button1": suspend},
+                ),
+
+                widget.TextBox(
+                    text = "⏻",
+                    padding = 2,
+                    fontsize = 22,
+                    background = darkgrey,
+                    mouse_callbacks = {"Button1": logout},
+                ),
+                
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
+                )],
+                
+                24,
+                background = darkgrey,
+            ),
+        ),
+    ]
+            
 # Drag floating layouts.
 mouse = [
     Drag(
@@ -404,12 +685,6 @@ floating_layout = layout.Floating(float_rules=[
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-
-# Startup commands
-@hook.subscribe.startup
-def autostart():
-    home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 # neofetch fixes
 dename = ""
