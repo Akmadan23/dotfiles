@@ -211,6 +211,8 @@ if x == y: # if the output of "xrandr | grep HDMI-1"
                 ),
                 
                 widget.CPUGraph(
+                    samples = 50,
+                    line_width = 2,
                     graph_color = teal,
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_stui},
@@ -221,6 +223,8 @@ if x == y: # if the output of "xrandr | grep HDMI-1"
                 ),
                 
                 widget.MemoryGraph(
+                    samples = 50,
+                    line_width = 2,
                     graph_color = yellow,
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_htop},
@@ -231,6 +235,8 @@ if x == y: # if the output of "xrandr | grep HDMI-1"
                 ),
                 
                 widget.NetGraph(
+                    samples = 50,
+                    line_width = 2,
                     graph_color = red,
                     border_color = darkgrey,
                 ),
@@ -412,6 +418,7 @@ else:
                 ),
                 
                 widget.CPUGraph(
+                    line_width = 2,
                     graph_color = teal,
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_stui},
@@ -422,6 +429,7 @@ else:
                 ),
                 
                 widget.MemoryGraph(
+                    line_width = 2,
                     graph_color = yellow,
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_htop},
@@ -432,12 +440,9 @@ else:
                 ),
                 
                 widget.NetGraph(
+                    line_width = 2,
                     graph_color = red,
                     border_color = darkgrey,
-                ),
-
-                widget.TextBox(
-                    text = "Clipboard:",
                 ),
 
                 widget.Clipboard(
