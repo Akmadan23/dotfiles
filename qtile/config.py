@@ -56,7 +56,7 @@ white = "#FFFFFF"
 # Suspend function
 
 def suspend(qtile):
-    qtile.cmd_spawn("systemctl suspend && i3lock -i ~/Immagini/Wallpapers/aurora-over-iceland.png -ft")
+    qtile.cmd_spawn("")
 
 keys = [
     # Switch between windows in current stack pane
@@ -100,7 +100,7 @@ keys = [
     Key([mod], "s", lazy.spawn("deepin-screenshot")),
     Key([mod], "h", lazy.spawn("gnome-terminal -- htop")),
     Key([mod], "e", lazy.spawn("gnome-terminal -- ranger")),
-    Key([mod], "l", lazy.spawn("i3lock -ift ~/Immagini/Wallpapers/aurora-over-iceland.png")),
+    Key([mod], "l", lazy.spawn("i3lock -i ~/Immagini/Wallpapers/aurora-over-iceland.png ft")),
 ]
 
 groups = [Group(i) for i in "12345678"]
@@ -168,6 +168,12 @@ extension_defaults = widget_defaults.copy()
 def open_rofi(qtile):
     qtile.cmd_spawn("rofi -show run")
     
+def open_htop(qtile):
+    qtile.cmd_spawn("gnome-terminal -- htop")
+    
+def open_stui(qtile):
+    qtile.cmd_spawn("gnome-terminal -- s-tui")
+    
 def open_pavucontrol(qtile):
     qtile.cmd_spawn("pavucontrol")
 
@@ -189,7 +195,9 @@ screens = [
                 widget.WindowName(),
 
                 widget.Clipboard(
-                    #add stuff
+                    timeout = None,
+                    max_width = 30,
+                    padding = 10,
                 ),
                 
                 widget.Clock(
@@ -246,6 +254,7 @@ screens = [
                 widget.CPUGraph(
                     graph_color = teal,
                     border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_stui},
                 ),
                 
                 widget.TextBox(
@@ -255,6 +264,7 @@ screens = [
                 widget.MemoryGraph(
                     graph_color = yellow,
                     border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_htop},
                 ),
                 
                 widget.TextBox(
@@ -268,7 +278,7 @@ screens = [
 
                 widget.TextBox(
                     text = "",
-                    fontsize = 37,
+                    fontsize = 43,
                     padding = 0,
                     margin = 0,
                     background = darkgrey,
@@ -283,13 +293,9 @@ screens = [
                     background = darkteal,
                 ),
 
-                #widget.Net(
-                #    background = darkteal,
-                #),
-
                 widget.TextBox(
                     text = "",
-                    fontsize = 37,
+                    fontsize = 43,
                     padding = 0,
                     margin = 0,
                     background = darkteal,
@@ -311,7 +317,7 @@ screens = [
 
                 widget.TextBox(
                     text = "",
-                    fontsize = 37,
+                    fontsize = 43,
                     padding = 0,
                     margin = 0,
                     background = teal,
@@ -325,22 +331,20 @@ screens = [
 
                 widget.TextBox(
                     text = "",
-                    fontsize = 37,
+                    fontsize = 43,
                     padding = 0,
                     margin = 0,
                     background = darkteal,
                     foreground = darkgrey,
                 ),
                 
-                widget.Systray(
-                    # add stuff
-                ),
+                widget.Systray(),
                 
                 widget.CurrentLayoutIcon(
                     scale = 0.8,
                 ),
             ], 
-            20,
+            24,
             background = darkgrey,
         ),
     ), 
