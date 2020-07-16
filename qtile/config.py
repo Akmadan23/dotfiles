@@ -42,7 +42,7 @@ from typing import List  # noqa: F401
 # Keys and default apps
 mod = "mod4"
 ctrl = "control"
-terminal = "gnome-terminal"
+term = "gnome-terminal"
 
 # Colors
 red = "#CC0000"
@@ -78,7 +78,7 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn(terminal)),
+    Key([mod], "Return", lazy.spawn(term)),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
@@ -90,17 +90,17 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 
     # Other personal key bindings
-    # Key([mod, "shift"], "s", lazy.spawn(systemctl suspend)),
     # Key([mod, "shift"], "s", qtile.cmd_spawn("systemctl suspend && i3lock -i ~/Immagini/Wallpapers/aurora-over-iceland.png -ft"),
     # Key([mod, "shift"], "s", suspend,
+    Key([mod, "shift"], "f", lazy.window.set_position_tiling()),
     Key([mod], "space", lazy.spawn("rofi -show run")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
     Key([mod], "s", lazy.spawn("deepin-screenshot")),
-    Key([mod], "h", lazy.spawn("gnome-terminal -- htop")),
-    Key([mod], "e", lazy.spawn("gnome-terminal -- ranger")),
-    Key([mod], "l", lazy.spawn("i3lock -i ~/Immagini/Wallpapers/aurora-over-iceland.png ft")),
+    Key([mod], "h", lazy.spawn(term + " -- htop")),
+    Key([mod], "e", lazy.spawn(term + " -- ranger")),
+    Key([mod], "l", lazy.spawn("lock-script")),
 ]
 
 groups = [Group(i) for i in "12345678"]
@@ -173,6 +173,9 @@ def open_htop(qtile):
     
 def open_stui(qtile):
     qtile.cmd_spawn("gnome-terminal -- s-tui")
+
+def open_settings(qtile):
+    qtile.cmd_spawn("gnome-control-center")
     
 def open_pavucontrol(qtile):
     qtile.cmd_spawn("pavucontrol")
@@ -218,7 +221,7 @@ screens = [
         top=bar.Bar(
             [
                 widget.Image(
-                    filename = "/home/azadahmadi/Documenti/Progetti PhotoShop/logo/logo-redwhite-round.png",
+                    filename = "~/.config/qtile/logo.png",
                     mouse_callbacks = {"Button1": open_rofi},
                 ),
                 
@@ -310,7 +313,7 @@ screens = [
                 
                 widget.Volume(
                     step = 5,
-                    mouse_callbacks = {"Button1": open_pavucontrol},
+                    # mouse_callbacks = {"Button1": open_pavucontrol},
                     background = teal,
                     foreground = black,
                 ),
@@ -339,6 +342,14 @@ screens = [
                 ),
                 
                 widget.Systray(),
+
+                widget.TextBox(
+                    text = "⚙",
+                    padding = 2,
+                    fontsize = 26,
+                    background = darkgrey,
+                    mouse_callbacks = {"Button1": open_settings},
+                ),
                 
                 widget.CurrentLayoutIcon(
                     scale = 0.8,
@@ -358,12 +369,12 @@ mouse = [
     ),
 
     Drag(
-        [mod], "Button3", lazy.window.set_size_floating(),
+        [mod, "shift"], "Button1", lazy.window.set_size_floating(),
         start=lazy.window.get_size()
     ),
 
     Click(
-        [mod], "Button2", lazy.window.bring_to_front()
+        [mod], "Button3", lazy.window.bring_to_front()
     ),
 ]
 
