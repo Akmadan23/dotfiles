@@ -2,7 +2,7 @@
 # Credits to BoBomann18 on github: https://github.com/BoBomann18/dotfiles
 
 tmpbg='/tmp/lockscreen.png' 
-icon='/home/azadahmadi/.config/qtile/lock_icon.png'
+icon='/home/azadahmadi/.config/qtile/images/lock_icon.png'
 
 (( $# )) && { icon=$1; }
 

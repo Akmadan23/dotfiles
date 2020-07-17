@@ -86,6 +86,10 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 
     # Other personal key bindings
+    Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
+    Key([mod, sft], "v", lazy.spawn("flatpak run com.visualstudio.code-oss")),
+    Key([mod, sft], "k", lazy.spawn("flatpak run okg.kde.kdenlive")),
+    Key([mod, sft], "l", lazy.spawn("flatpak run io.lmms.LMMS")),
     Key([mod], "space", lazy.spawn("rofi -show run")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
@@ -171,7 +175,7 @@ def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
 
 def suspend(qtile):
-    qtile.cmd_spawn("lock-suspend")
+    qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
 
 # def logout(qtile):
     # qtile.cmd_shutdown()
@@ -190,7 +194,7 @@ if x == y: # if the output of "xrandr | grep HDMI-1"
         Screen( # Only screen
             top = bar.Bar([
                 widget.Image(
-                    filename = "~/.config/qtile/logo.png",
+                    filename = "~/.config/qtile/images/logo.png",
                     mouse_callbacks = {"Button1": open_rofi},
                 ),
                 
@@ -468,7 +472,7 @@ else:
         Screen( # Main external monitor
             top = bar.Bar([
                 widget.Image(
-                    filename = "~/.config/qtile/logo.png",
+                    filename = "~/.config/qtile/images/logo.png",
                     mouse_callbacks = {"Button1": open_rofi},
                 ),
                 
