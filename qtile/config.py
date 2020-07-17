@@ -114,22 +114,26 @@ for i in groups:
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
 
+layout_theme = {
+    margin = 10,
+    single_margin = 0,
+    single_border_width = 0,
+    border_focus = teal,
+    border_width = 1,
+}
+
 layouts = [
-    layout.MonadTall(
-        border_focus = teal,
-        border_width = 1,
-        margin = 10,
-        single_border_width = 0,
-        single_margin = 0,
-    ),
-    
-    layout.MonadWide(
-        border_focus = teal,
-        border_width = 1,
-        margin = 10,
-        single_border_width = 0,
-        single_margin = 0,
-    ),
+    # layout.Floating(),
+    # layout.Stack(num_stacks=2),
+    # layout.Bsp(),
+    # layout.Columns(),
+    # layout.Matrix(),    
+    # layout.RatioTile(),
+    # layout.Tile(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
     
     layout.TreeTab(
         bg_color = darkgrey,
@@ -141,16 +145,6 @@ layouts = [
         fontsize = 12,
         section_fontsize = 10,
     ),
-    
-    # layout.Floating(),
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Columns(),
-    # layout.Matrix(),    
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
@@ -383,12 +377,11 @@ if x == y: # if the output of "xrandr | grep HDMI-1"
                     mouse_callbacks = {"Button1": suspend},
                 ),
 
-                widget.TextBox(
-                    text = "⏻",
+                widget.QuickExit(
                     padding = 2,
                     fontsize = 22,
-                    background = darkgrey,
-                    # mouse_callbacks = {"Button1": logout},
+                    default_text = "⏻",
+                    countdown_format = "{}"
                 ),
                 
                 widget.CurrentLayoutIcon(
@@ -626,12 +619,11 @@ else:
                     mouse_callbacks = {"Button1": suspend},
                 ),
 
-                widget.TextBox(
-                    text = "⏻",
+                widget.QuickExit(
                     padding = 2,
                     fontsize = 22,
-                    background = darkgrey,
-                    #mouse_callbacks = {"Button1": logout},
+                    default_text = "⏻",
+                    countdown_format = "{}"
                 ),
                 
                 widget.CurrentLayoutIcon(

@@ -11,4 +11,5 @@ gnome-screenshot -f "$tmpbg"
 convert "$tmpbg" -scale 10% -scale 1000% "$tmpbg"
 convert "$tmpbg" "$icon" -gravity center -composite -matte "$tmpbg"
 i3lock -i "$tmpbg"
+sleep 2s
 systemctl suspend # added this line to the standard script to suspend
