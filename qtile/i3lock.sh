@@ -9,5 +9,6 @@ icon='/home/azadahmadi/.config/qtile/images/lock_icon.png'
 # scrot "$tmpbg"
 gnome-screenshot -f "$tmpbg"
 convert "$tmpbg" -scale 10% -scale 1000% "$tmpbg"
+convert "$tmpbg" -blur 100% "$tmpbg"
 convert "$tmpbg" "$icon" -gravity center -composite -matte "$tmpbg"
 i3lock -i "$tmpbg"
