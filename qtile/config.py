@@ -50,7 +50,8 @@ red = "#CC0000"
 teal = "#1ABC9C"
 darkteal = "#24574D"
 yellow = "#C4A000"
-darkgrey = "#212121"
+darkgrey = "#242424"
+darkgrey1 = "#212121"
 black = "#000000"
 white = "#FFFFFF"
 
@@ -90,7 +91,7 @@ keys = [
     Key([mod, sft], "v", lazy.spawn("flatpak run com.visualstudio.code-oss")),
     Key([mod, sft], "k", lazy.spawn("flatpak run okg.kde.kdenlive")),
     Key([mod, sft], "l", lazy.spawn("flatpak run io.lmms.LMMS")),
-    Key([mod], "space", lazy.spawn("rofi -show run")),
+    Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/qtile/rofi-onedark.rasi")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
@@ -115,11 +116,11 @@ for i in groups:
     ])
 
 layout_theme = {
-    margin = 10,
-    single_margin = 0,
-    single_border_width = 0,
-    border_focus = teal,
-    border_width = 1,
+    "margin": 10,
+    "single_margin": 0,
+    "single_border_width": 0,
+    "border_focus": teal,
+    "border_width": 1,
 }
 
 layouts = [
@@ -165,14 +166,13 @@ def open_htop(qtile):
 def open_stui(qtile):
     qtile.cmd_spawn("gnome-terminal -- s-tui")
 
+def open_pavucontrol(qtile):
+    qtile.cmd_spawn("pavucontrol")
 def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
 
 def suspend(qtile):
     qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
-
-# def logout(qtile):
-    # qtile.cmd_shutdown()
 
 # Monitor setup check    
 f = open("/home/azadahmadi/.config/qtile/temp.txt", "r")
@@ -327,11 +327,11 @@ if x == y: # if the output of "xrandr | grep HDMI-1"
                     fontsize = 24,
                     background = teal,
                     foreground = black,
+                    mouse_callbacks = {"Button1": open_pavucontrol},
                 ),
                 
                 widget.Volume(
                     step = 5,
-                    # mouse_callbacks = {"Button1": open_pavucontrol},
                     background = teal,
                     foreground = black,
                 ),
@@ -569,11 +569,11 @@ else:
                     fontsize = 24,
                     background = teal,
                     foreground = black,
+                    mouse_callbacks = {"Button1": open_pavucontrol},
                 ),
                 
                 widget.Volume(
                     step = 5,
-                    # mouse_callbacks = {"Button1": open_pavucontrol},
                     background = teal,
                     foreground = black,
                 ),
