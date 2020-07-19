@@ -64,27 +64,20 @@ keys = [
     Key([mod, sft], "k", lazy.layout.shuffle_down()),
     Key([mod, sft], "j", lazy.layout.shuffle_up()),
 
-    # Switch window focus to other pane(s) of stack
-    # Key([mod], "space", lazy.layout.next()),
-
-    # Swap panes of split stack
-    Key([mod, sft], "space", lazy.layout.rotate()),
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod, sft], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn(term)),
+    # Windows and layout behaviour
+    Key([mod, sft], "h", lazy.layout.grow(), lazy.layout.increase_nmaster()),
+    Key([mod, sft], "l", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
+    Key([mod, sft], "n", lazy.layout.normalize()),
+    Key([mod, sft], "f", lazy.window.toggle_floating()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod, sft], "Tab", lazy.prev_layout()),
     Key([mod, sft], "q", lazy.window.kill()),
-
     Key([mod, sft], "r", lazy.restart()),
     Key([mod, sft], "e", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
+    Key([mod], "Return", lazy.spawn(term)),
 
     # Other personal key bindings
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
@@ -100,20 +93,15 @@ keys = [
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
 ]
 
-groups = [Group(i) for i in "12345678"]
+group_names = [("1: >_"), ("2: WWW"), ("3: @"), ("4"), ("5"), ("6"), ("7"), ("8")]
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
-
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, sft], i.name, lazy.window.togroup(i.name, switch_group=True)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+groups = [Group(name) for name in group_names]
+for i, (name) in enumerate(group_names, 1):
+	keys.extend([
+        Key([mod], str(i), lazy.group[name].toscreen()),
+        Key([mod, sft], str(i), lazy.window.togroup(name, switch_group=True)),
     ])
-
+    
 layout_theme = {
     "margin": 10,
     "single_margin": 0,
@@ -648,12 +636,12 @@ mouse = [
     ),
 
     Drag(
-        [mod, "shift"], "Button1", lazy.window.set_size_floating(),
+        [mod, sft], "Button1", lazy.window.set_size_floating(),
         start=lazy.window.get_size()
     ),
 
     Click(
-        [mod], "Button3", lazy.window.bring_to_front()
+        [mod], "Button2", lazy.window.bring_to_front()
     ),
 ]
 
