@@ -157,7 +157,7 @@ extension_defaults = widget_defaults.copy()
 # Mouse callbacks
 
 def open_rofi(qtile):
-    qtile.cmd_spawn("rofi -show run")
+    qtile.cmd_spawn("rofi -show run -config ~/.config/qtile/rofi-onedark.rasi")
     
 def open_htop(qtile):
     qtile.cmd_spawn("gnome-terminal -- htop")
@@ -167,6 +167,7 @@ def open_stui(qtile):
 
 def open_pavucontrol(qtile):
     qtile.cmd_spawn("pavucontrol")
+    
 def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
 
@@ -174,15 +175,19 @@ def suspend(qtile):
     qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
 
 # Monitor setup check    
-f = open("/home/azadahmadi/.config/qtile/temp.txt", "r")
+f = open("/home/azadahmadi/.config/qtile/.hdmi/temp.txt", "r")
 x = f.read()
 f.close()
 
-f = open("/home/azadahmadi/.config/qtile/no-hdmi.txt", "r")
+f = open("/home/azadahmadi/.config/qtile/.hdmi/no-hdmi1.txt", "r")
 y = f.read()
 f.close()
 
-if x == y: # if the output of "xrandr | grep HDMI-1" 
+f = open("/home/azadahmadi/.config/qtile/.hdmi/no-hdmi2.txt", "r")
+z = f.read()
+f.close()
+
+if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device connected
     screens = [
         Screen( # Only screen
             top = bar.Bar([
