@@ -3,29 +3,21 @@ window {
 }
 
 button {
-    color: #FFFFFF;
-	background-color: #24574D;
-	border-style: solid;
-	border-width: 2px;
+    color: white;
+    margin: 12px;
+	border-radius: 12px;
+	background-color: rgba(36, 87, 77, 0.8);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 25%;
 }
 
-button:focus {
-	background-color: #1ABC9C;
-	outline-style: none;
-}
-
-button:active {
-	background-color: #CC0000;
-	outline-style: none;
-	
-}
-
 button:hover {
-	outline-style: none;
-	
+	background-color: rgba(36, 87, 77, 1);
+}
+
+button:focus, button:active {
+	background-color: rgba(26, 188, 156, 0.8);
 }
 
 #lock {
