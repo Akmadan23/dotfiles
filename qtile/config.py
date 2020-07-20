@@ -39,8 +39,10 @@ from libqtile.lazy import lazy
 from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
 
+
 # Keys and default apps
 mod = "mod4"
+alt = "mod1"
 sft = "shift"
 ctrl = "control"
 term = "gnome-terminal"
@@ -65,8 +67,8 @@ keys = [
     Key([mod, sft], "j", lazy.layout.shuffle_up()),
 
     # Windows and layout behaviour
-    Key([mod, sft], "h", lazy.layout.grow(), lazy.layout.increase_nmaster()),
-    Key([mod, sft], "l", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
+    Key([mod, sft], "l", lazy.layout.grow(), lazy.layout.increase_nmaster()),
+    Key([mod, sft], "h", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
     Key([mod, sft], "n", lazy.layout.normalize()),
     Key([mod, sft], "f", lazy.window.toggle_floating()),
 
@@ -77,12 +79,12 @@ keys = [
     Key([mod, sft], "r", lazy.restart()),
     Key([mod, sft], "e", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
-    Key([mod], "Return", lazy.spawn(term)),
 
     # Other personal key bindings
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
     Key([mod, sft], "v", lazy.spawn("flatpak run com.visualstudio.code-oss")),
     Key([mod, sft], "k", lazy.spawn("flatpak run okg.kde.kdenlive")),
+    Key([mod], "Return", lazy.spawn(term)),
     Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/qtile/rofi-onedark.rasi")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
@@ -93,7 +95,7 @@ keys = [
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
 ]
 
-group_names = [("1: >_"), ("2: WWW"), ("3: @"), ("4"), ("5"), ("6"), ("7"), ("8")]
+group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4"), ("5"), ("6"), ("7"), ("8")]
 
 groups = [Group(name) for name in group_names]
 for i, (name) in enumerate(group_names, 1):
@@ -114,7 +116,6 @@ layouts = [
     # layout.Floating(),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
-    # layout.Columns(),
     # layout.Matrix(),    
     # layout.RatioTile(),
     # layout.Tile(),
@@ -140,7 +141,9 @@ widget_defaults = dict(
     fontsize=12,
     padding=3,
 )
+
 extension_defaults = widget_defaults.copy()
+home = os.path.expanduser('~')
 
 # Mouse callbacks
 
@@ -163,15 +166,16 @@ def suspend(qtile):
     qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
 
 # Monitor setup check    
-f = open("/home/azadahmadi/.config/qtile/.hdmi/temp.txt", "r")
+
+f = open(home + "/.config/qtile/.hdmi/temp.txt", "r")
 x = f.read()
 f.close()
 
-f = open("/home/azadahmadi/.config/qtile/.hdmi/no-hdmi1.txt", "r")
+f = open(home + "/.config/qtile/.hdmi/no-hdmi1.txt", "r")
 y = f.read()
 f.close()
 
-f = open("/home/azadahmadi/.config/qtile/.hdmi/no-hdmi2.txt", "r")
+f = open(home + "/.config/qtile/.hdmi/no-hdmi2.txt", "r")
 z = f.read()
 f.close()
 
@@ -180,7 +184,7 @@ if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device conn
         Screen( # Only screen
             top = bar.Bar([
                 widget.Image(
-                    filename = "~/.config/qtile/images/logo.png",
+                    filename = home + "/.config/qtile/images/logo.png",
                     mouse_callbacks = {"Button1": open_rofi},
                 ),
                 
@@ -457,7 +461,7 @@ else:
         Screen( # Main external monitor
             top = bar.Bar([
                 widget.Image(
-                    filename = "~/.config/qtile/images/logo.png",
+                    filename = home + "/.config/qtile/images/logo.png",
                     mouse_callbacks = {"Button1": open_rofi},
                 ),
                 
@@ -675,7 +679,6 @@ floating_layout = layout.Floating(float_rules=[
 # Startup commands
 @hook.subscribe.startup
 def autostart():
-    home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 # neofetch fixes
