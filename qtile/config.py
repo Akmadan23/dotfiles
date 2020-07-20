@@ -162,6 +162,9 @@ def open_pavucontrol(qtile):
 def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
 
+def logout_menu(qtile):
+    qtile.cmd_spawn("wlogout")
+
 def suspend(qtile):
     qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
 
@@ -355,7 +358,9 @@ if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device conn
                     foreground = darkgrey,
                 ),
                 
-                widget.Systray(),
+                widget.Systray(
+                    background = darkgrey,
+                ),
 
                 widget.TextBox(
                     text = "⚙",
@@ -366,19 +371,19 @@ if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device conn
                 ),
 
                 widget.TextBox(
-                    text = "⏾",
+                    text = "⏻",
                     padding = 2,
                     fontsize = 22,
                     background = darkgrey,
-                    mouse_callbacks = {"Button1": suspend},
+                    mouse_callbacks = {"Button1": logout_menu},
                 ),
 
-                widget.QuickExit(
-                    padding = 2,
-                    fontsize = 22,
-                    default_text = "⏻",
-                    countdown_format = "{}"
-                ),
+                #widget.QuickExit(
+                #    padding = 2,
+                #    fontsize = 22,
+                #    default_text = "⏻",
+                #    countdown_format = "{}"
+                #),
                 
                 widget.CurrentLayoutIcon(
                     scale = 0.8,
@@ -597,7 +602,9 @@ else:
                     foreground = darkgrey,
                 ),
                 
-                widget.Systray(),
+                widget.Systray(
+                    background = darkgrey,
+                ),
 
                 widget.TextBox(
                     text = "⚙",
@@ -608,19 +615,19 @@ else:
                 ),
 
                 widget.TextBox(
-                    text = "⏾",
+                    text = "⏻",
                     padding = 2,
                     fontsize = 22,
                     background = darkgrey,
-                    mouse_callbacks = {"Button1": suspend},
+                    mouse_callbacks = {"Button1": logout_menu},
                 ),
 
-                widget.QuickExit(
-                    padding = 2,
-                    fontsize = 22,
-                    default_text = "⏻",
-                    countdown_format = "{}"
-                ),
+                #widget.QuickExit(
+                #    padding = 2,
+                #    fontsize = 22,
+                #    default_text = "⏻",
+                #    countdown_format = "{}"
+                #),
                 
                 widget.CurrentLayoutIcon(
                     scale = 0.8,

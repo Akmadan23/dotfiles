@@ -6,11 +6,13 @@ icon='/home/azadahmadi/.config/qtile/images/lock_icon.png'
 
 (( $# )) && { icon=$1; }
 
+sleep 1s
+gnome-screenshot -f "$tmpbg" 
 # scrot "$tmpbg"
-gnome-screenshot -f "$tmpbg"
+
 convert "$tmpbg" -scale 10% -scale 1000% "$tmpbg"
 convert "$tmpbg" -blur 100% "$tmpbg"
 convert "$tmpbg" "$icon" -gravity center -composite -matte "$tmpbg"
 i3lock -i "$tmpbg"
-sleep 2s
+sleep 1s
 systemctl suspend # added this line to the standard script to suspend
