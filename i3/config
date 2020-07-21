@@ -149,11 +149,11 @@ set $black		 #000000
 set $white		 #ffffff
 
 # window colors
-# tag			 border			background		text			indicator
-client.focused		 $red			$red			$black			#00ff00
-client.unfocused         $black			$black			$red			#00ff00
-client.focused_inactive  $red			$red			$black			#00ff00
-client.urgent            $white			$white		        $white			#00ff00
+# tag			 		border			background		text			indicator
+client.focused		 	$red			$red			$black			#00ff00
+client.unfocused        $black			$black			$red			#00ff00
+client.focused_inactive $red			$red			$black			#00ff00
+client.urgent           $white			$white	        $white			#00ff00
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -162,7 +162,7 @@ bar {
 	colors {
 		background $black
 		separator $black
-		#			border		background	text
+		#					border		background	text
 		inactive_workspace	$black		$black		$red
 		focused_workspace	$red		$red		$black
 		urgent_workspace	$white		$white		$black
@@ -183,13 +183,14 @@ bindsym $mod+d exec dmenu_run -nb "$black" -nf "$white" -sb "$red" -sf "$white"
 # Custom commands
 bindsym $mod+l exec i3lock -f -i ~/Immagini/fedorablackred.png
 bindsym $mod+g exec gimp
-bindsym $mod+e exec caja
+bindsym $mod+e exec pcmanfm
 bindsym $mod+Shift+f exec firefox
-bindsym $mod+F12 exec gnome-screenshot
 
 # Startup
-exec_always feh --bg-scale ~/Immagini/fedorablackred.png
-exec_always compton -f --no-startup-id
+exec_always feh --bg-scale ~/Immagini/Wallpapers/fedorablackred.png
+exec_always picom -f
+exec_always flameshot
+exec_always nm-applet
 
 # Polybar
 #exec_always --no-startup-id ~/.config/polybar/launch.sh

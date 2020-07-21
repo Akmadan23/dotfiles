@@ -664,7 +664,7 @@ floating_layout = layout.Floating(float_rules=[
 # Startup commands
 @hook.subscribe.startup
 def autostart():
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+    subprocess.call([home + '/.config/scripts/autostart.sh'])
 
 # neofetch fixes
 dename = ""
