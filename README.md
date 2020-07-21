@@ -1,4 +1,5 @@
-### dotfiles
+# My dotfiles for i3 and qtile
+___
 
-Here you can find my dotfiles.
-Work in progress...
+### i3
+
