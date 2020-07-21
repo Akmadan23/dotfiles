@@ -89,7 +89,6 @@ keys = [
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
-    Key([mod], "s", lazy.spawn("deepin-screenshot")),
     Key([mod], "h", lazy.spawn(term + " -- htop")),
     Key([mod], "e", lazy.spawn(term + " -- ranger")),
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
@@ -186,9 +185,8 @@ if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device conn
     screens = [
         Screen( # Only screen
             top = bar.Bar([
-                widget.Image(
-                    filename = home + "/.config/qtile/images/logo.png",
-                    mouse_callbacks = {"Button1": open_rofi},
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
                 ),
                 
                 widget.GroupBox(
@@ -377,20 +375,10 @@ if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device conn
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
-
-                #widget.QuickExit(
-                #    padding = 2,
-                #    fontsize = 22,
-                #    default_text = "⏻",
-                #    countdown_format = "{}"
-                #),
-                
-                widget.CurrentLayoutIcon(
-                    scale = 0.8,
-                )],
-                
-                24,
-                background = darkgrey,
+            ],
+            
+            24,
+            background = darkgrey,
             ),
         ),
     ]
@@ -399,6 +387,10 @@ else:
     screens = [
         Screen( # Integrated display
             top = bar.Bar([
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
+                ),
+                
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
@@ -453,21 +445,17 @@ else:
                 widget.Clock(
                     format = '%a %d/%m/%Y, %H:%M %p',
                 ),
-                
-                widget.CurrentLayoutIcon(
-                    scale = 0.8,
-                )],
-                
-                24,
-                background = darkgrey,
+            ],
+            
+            24,
+            background = darkgrey,
             ),
         ),
         
         Screen( # Main external monitor
             top = bar.Bar([
-                widget.Image(
-                    filename = home + "/.config/qtile/images/logo.png",
-                    mouse_callbacks = {"Button1": open_rofi},
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
                 ),
                 
                 widget.GroupBox(
@@ -621,20 +609,10 @@ else:
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
-
-                #widget.QuickExit(
-                #    padding = 2,
-                #    fontsize = 22,
-                #    default_text = "⏻",
-                #    countdown_format = "{}"
-                #),
-                
-                widget.CurrentLayoutIcon(
-                    scale = 0.8,
-                )],
-                
-                24,
-                background = darkgrey,
+            ],
+            
+            24,
+            background = darkgrey,
             ),
         ),
     ]
