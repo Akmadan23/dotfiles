@@ -45,7 +45,7 @@ mod = "mod4"
 alt = "mod1"
 sft = "shift"
 ctrl = "control"
-term = "gnome-terminal"
+term = "alacritty"
 
 # Colors
 red = "#CC0000"
@@ -89,8 +89,8 @@ keys = [
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
-    Key([mod], "h", lazy.spawn(term + " -- htop")),
-    Key([mod], "e", lazy.spawn(term + " -- ranger")),
+    Key([mod], "h", lazy.spawn(term + " -e htop")),
+    Key([mod], "e", lazy.spawn(term + " -e ranger")),
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
 ]
 
@@ -150,10 +150,10 @@ def open_rofi(qtile):
     qtile.cmd_spawn("rofi -show run -config ~/.config/qtile/rofi-onedark.rasi")
     
 def open_htop(qtile):
-    qtile.cmd_spawn("gnome-terminal -- htop")
+    qtile.cmd_spawn(term + " -e htop")
     
 def open_stui(qtile):
-    qtile.cmd_spawn("gnome-terminal -- s-tui")
+    qtile.cmd_spawn(term + " -e s-tui")
 
 def open_pavucontrol(qtile):
     qtile.cmd_spawn("pavucontrol")
