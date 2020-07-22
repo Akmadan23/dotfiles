@@ -1,4 +1,5 @@
 #!/bin/sh
+
 picom -f &
 nm-applet &
 flameshot &

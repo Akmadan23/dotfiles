@@ -174,14 +174,20 @@ x = f.read()
 f.close()
 
 f = open(home + "/.config/qtile/.hdmi/no-hdmi1.txt", "r")
-y = f.read()
+y1 = f.read()
 f.close()
 
 f = open(home + "/.config/qtile/.hdmi/no-hdmi2.txt", "r")
-z = f.read()
+y2 = f.read()
 f.close()
 
-if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device connected
+f = open(home + "/.config/qtile/.hdmi/no-hdmi3.txt", "r")
+y3 = f.read()
+f.close()
+
+if (x == y1) or (x == y2) or (x == y3): # if "xrandr | grep HDMI-1" outputs no hdmi device connected
+    @hook.subscribe.startup
+    def integrated_display(): subprocess.call([home + "/.config/scripts/integrated-display.sh"])
     screens = [
         Screen( # Only screen
             top = bar.Bar([
@@ -384,74 +390,9 @@ if (x == y) or (x == z): # if "xrandr | grep HDMI-1" outputs no hdmi device conn
     ]
 
 else:
+    @hook.subscribe.startup
+    def dual_monitor(): subprocess.call([home + '/.config/scripts/dual-monitor.sh'])
     screens = [
-        Screen( # Integrated display
-            top = bar.Bar([
-                widget.CurrentLayoutIcon(
-                    scale = 0.8,
-                ),
-                
-                widget.GroupBox(
-                    this_current_screen_border = teal,
-                    this_screen_border = teal,
-                    hide_unused = True,
-                    rounded = False,
-                    highlight_color = darkteal,
-                    highlight_method = "line",
-                ),
-                
-                widget.Prompt(),
-                widget.WindowName(),
-                
-                widget.TextBox(
-                    text = "CPU:", 
-                ),
-                
-                widget.CPUGraph(
-                    line_width = 2,
-                    graph_color = teal,
-                    border_color = darkgrey,
-                    mouse_callbacks = {"Button1": open_stui},
-                ),
-                
-                widget.TextBox(
-                    text = "RAM:", 
-                ),
-                
-                widget.MemoryGraph(
-                    line_width = 2,
-                    graph_color = yellow,
-                    border_color = darkgrey,
-                    mouse_callbacks = {"Button1": open_htop},
-                ),
-                
-                widget.TextBox(
-                    text = "NET:", 
-                ),
-                
-                widget.NetGraph(
-                    line_width = 2,
-                    graph_color = red,
-                    border_color = darkgrey,
-                ),
-
-                widget.Clipboard(
-                    timeout = 60,
-                    max_width = 40,
-                    padding = 5,
-                    foreground = teal,
-                ),
-                
-                widget.Clock(
-                    format = '%a %d/%m/%Y, %H:%M %p',
-                ),
-            ],
-            
-            24,
-            background = darkgrey,
-            ),
-        ),
-        
         Screen( # Main external monitor
             top = bar.Bar([
                 widget.CurrentLayoutIcon(
@@ -608,6 +549,73 @@ else:
                     fontsize = 22,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
+                ),
+            ],
+            
+            24,
+            background = darkgrey,
+            ),
+        ),
+        
+        Screen( # Integrated display
+            top = bar.Bar([
+                widget.CurrentLayoutIcon(
+                    scale = 0.8,
+                ),
+                
+                widget.GroupBox(
+                    this_current_screen_border = teal,
+                    this_screen_border = teal,
+                    hide_unused = True,
+                    rounded = False,
+                    highlight_color = darkteal,
+                    highlight_method = "line",
+                ),
+                
+                widget.Prompt(),
+                widget.WindowName(),
+                
+                widget.TextBox(
+                    text = "CPU:", 
+                ),
+                
+                widget.CPUGraph(
+                    line_width = 2,
+                    graph_color = teal,
+                    border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_stui},
+                ),
+                
+                widget.TextBox(
+                    text = "RAM:", 
+                ),
+                
+                widget.MemoryGraph(
+                    line_width = 2,
+                    graph_color = yellow,
+                    border_color = darkgrey,
+                    mouse_callbacks = {"Button1": open_htop},
+                ),
+                
+                widget.TextBox(
+                    text = "NET:", 
+                ),
+                
+                widget.NetGraph(
+                    line_width = 2,
+                    graph_color = red,
+                    border_color = darkgrey,
+                ),
+
+                widget.Clipboard(
+                    timeout = 60,
+                    max_width = 40,
+                    padding = 5,
+                    foreground = teal,
+                ),
+                
+                widget.Clock(
+                    format = '%a %d/%m/%Y, %H:%M %p',
                 ),
             ],
             
