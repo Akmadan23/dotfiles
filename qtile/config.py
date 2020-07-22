@@ -85,7 +85,7 @@ keys = [
     Key([mod, sft], "v", lazy.spawn("flatpak run com.visualstudio.code-oss")),
     Key([mod, sft], "k", lazy.spawn("flatpak run okg.kde.kdenlive")),
     Key([mod], "Return", lazy.spawn(term)),
-    Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/qtile/rofi-onedark.rasi")),
+    Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/rofi/config.rasi")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
