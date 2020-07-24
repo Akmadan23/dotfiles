@@ -94,7 +94,7 @@ keys = [
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
 ]
 
-group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4"), ("5"), ("6"), ("7"), ("8")]
+group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
 
 groups = [Group(name) for name in group_names]
 for i, (name) in enumerate(group_names, 1):
@@ -633,7 +633,7 @@ mouse = [
     ),
 
     Drag(
-        [mod, sft], "Button1", lazy.window.set_size_floating(),
+        [mod], "Button3", lazy.window.set_size_floating(),
         start=lazy.window.get_size()
     ),
 
