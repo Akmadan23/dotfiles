@@ -5,7 +5,7 @@ tmpbg="/tmp/background.png"
 icon="/home/azadahmadi/.config/qtile/images/lock_icon.png"
 (( $# )) && { icon=$1; }
 
-sleep 1s
+sleep s
 maim "$tmpbg"
 # scrot "$tmpbg"
 

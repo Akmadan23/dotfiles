@@ -59,16 +59,16 @@ white = "#FFFFFF"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.down()),
-    Key([mod], "j", lazy.layout.up()),
+    Key([alt], "Tab", lazy.layout.down()),
+    Key([alt, sft], "Tab", lazy.layout.up()),
 
     # Move windows up or down in current stack
-    Key([mod, sft], "k", lazy.layout.shuffle_down()),
-    Key([mod, sft], "j", lazy.layout.shuffle_up()),
+    Key([alt, ctrl], "Tab", lazy.layout.shuffle_down()),
+    Key([alt, ctrl, sft], "Tab", lazy.layout.shuffle_up()),
 
     # Windows and layout behaviour
-    Key([mod, sft], "l", lazy.layout.grow(), lazy.layout.increase_nmaster()),
-    Key([mod, sft], "h", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
+    Key([mod], "plus", lazy.layout.grow(), lazy.layout.increase_nmaster()),
+    Key([mod], "minus", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
     Key([mod, sft], "n", lazy.layout.normalize()),
     Key([mod, sft], "f", lazy.window.toggle_floating()),
 
@@ -77,7 +77,7 @@ keys = [
     Key([mod, sft], "Tab", lazy.prev_layout()),
     Key([mod, sft], "q", lazy.window.kill()),
     Key([mod, sft], "r", lazy.restart()),
-    Key([mod, sft], "e", lazy.shutdown()),
+    Key([mod, sft], "e", lazy.spawn("wlogout")),
     Key([mod], "r", lazy.spawncmd()),
 
     # Other personal key bindings
@@ -185,7 +185,7 @@ f = open(home + "/.config/qtile/.hdmi/no-hdmi3.txt", "r")
 y3 = f.read()
 f.close()
 
-if (x == y1) or (x == y2) or (x == y3): # if "xrandr | grep HDMI-1" outputs no hdmi device connected
+if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no hdmi device connected
     @hook.subscribe.startup
     def integrated_display(): subprocess.call([home + "/.config/scripts/integrated-display.sh"])
     screens = [
@@ -615,7 +615,7 @@ else:
                 ),
                 
                 widget.Clock(
-                    format = '%a %d/%m/%Y, %H:%M %p',
+                    format = '%A %d/%m/%Y, %H:%M %p',
                 ),
             ],
             
