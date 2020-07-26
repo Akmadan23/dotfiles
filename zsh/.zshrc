@@ -104,10 +104,9 @@ alias swap="sudo swapon -v /dev/sda2"
 alias displayonly="xrandr --output eDP-1 --mode 1600x900 --rotate normal --output HDMI-1 --off"
 alias hdmionly="xrandr --output eDP-1 --off --output HDMI-1 --mode 1920x1080 --rotate normal"
 alias dualscreen="xrandr --output eDP-1 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 1600x0 --rotate normal"
+alias dualscreen-tv="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1600x0 --rotate normal"
 alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
-alias gca="git commit -a"
-alias gpom="git push origin master"
 alias update-qtile="cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/"
 alias update-scripts="cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/"
 alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
@@ -116,11 +115,20 @@ alias ahmadi-cloud="cd ~/Doumenti/git-repos/ahmadi-cloud.in"
 # Flatpaks
 alias spotify="flatpak run com.spotify.Client"
 alias netbeans="flatpak run org.apache.netbeans"
+alias kdenlive="flatpak run org.kde.kdenlive"
+alias vscode="flatpak run com.visualstudio.code-oss"
 alias lmms="flatpak run io.lmms.LMMS"
+alias kodi="flatpak run tv.kodi.Kodi"
 
 # Appimages
 alias etcher="./Appimage/balenaEtcher-1.5.57-x64_188f7ef7e14cec6f1fab92fb726026e7.AppImage"
 alias openra="./Appimage/OpenRA-Red-Alert-x86_64.appimage"
+
+# Git
+alias gs="git status"
+alias gc="git commit"
+alias gca="git commit -a"
+alias gpom="git push origin master"
 
 # Systemctl shortcuts
 alias poweroff="systemctl poweroff"
