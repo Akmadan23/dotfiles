@@ -98,19 +98,23 @@ source $ZSH/oh-my-zsh.sh
 # Config files
 alias zshconf="micro ~/.zshrc"
 alias alconf="micro ~/.config/alacritty/alacritty.yml"
+alias awconf="micro ~/.config/awesome/rc.lua"
 alias qconf="micro ~/.config/qtile/config.py"
 alias i3conf="micro ~/.config/i3/config"
 alias swap="sudo swapon -v /dev/sda2"
+
+# Xrandr settings
 alias displayonly="xrandr --output eDP-1 --mode 1600x900 --rotate normal --output HDMI-1 --off"
 alias hdmionly="xrandr --output eDP-1 --off --output HDMI-1 --mode 1920x1080 --rotate normal"
 alias dualscreen="xrandr --output eDP-1 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 1600x0 --rotate normal"
 alias dualscreen-tv="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1600x0 --rotate normal"
-alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
-alias ssh-pi="ssh pi@nextcloud-pi"
-alias update-qtile="cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/"
-alias update-scripts="cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/"
+
+# Directory shorctuts
+alias magnatut="cd ~/Documenti/git-repos/magnatut"
 alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
 alias ahmadi-cloud="cd ~/Doumenti/git-repos/ahmadi-cloud.in"
+alias update-qtile="cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/"
+alias update-scripts="cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/"
 
 # Flatpaks
 alias spotify="flatpak run com.spotify.Client"
@@ -123,6 +127,7 @@ alias kodi="flatpak run tv.kodi.Kodi"
 # Appimages
 alias etcher="./Appimage/balenaEtcher-1.5.57-x64_188f7ef7e14cec6f1fab92fb726026e7.AppImage"
 alias openra="./Appimage/OpenRA-Red-Alert-x86_64.appimage"
+alias krita="./Appimage/krita-4.2.6-x86_64.appimage"
 
 # Git
 alias gs="git status"
@@ -135,3 +140,7 @@ alias poweroff="systemctl poweroff"
 alias suspend="systemctl suspend"
 alias suspend-lock="systemctl suspend && lock-script"
 alias reboot="systemctl reboot"
+
+# Other
+alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
+alias ssh-pi="ssh pi@nextcloud-pi"

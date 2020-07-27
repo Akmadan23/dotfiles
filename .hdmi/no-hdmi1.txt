@@ -1,1 +1,0 @@
-HDMI-1 disconnected 1920x1080+1600+0 (normal left inverted right x axis y axis) 0mm x 0mm
