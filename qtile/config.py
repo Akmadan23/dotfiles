@@ -304,6 +304,7 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
 
                 widget.BatteryIcon(
                     background = darkteal,
+                    fontsize = 20,
                 ),
 
                 widget.Battery(
@@ -327,7 +328,7 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
 
                 widget.TextBox(
                     text = "🕬", 
-                    fontsize = 24,
+                    fontsize = 22,
                     background = teal,
                     foreground = black,
                     mouse_callbacks = {"Button1": open_pavucontrol},
@@ -369,7 +370,7 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
                 widget.TextBox(
                     text = "⚙",
                     padding = 2,
-                    fontsize = 26,
+                    fontsize = 24,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": open_settings},
                 ),
@@ -377,13 +378,13 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
                 widget.TextBox(
                     text = "⏻",
                     padding = 2,
-                    fontsize = 22,
+                    fontsize = 20,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
             ],
             
-            24,
+            22,
             background = darkgrey,
             ),
         ),
@@ -473,6 +474,7 @@ else:
 
                 widget.BatteryIcon(
                     background = darkteal,
+                    fontsize = 20,
                 ),
 
                 widget.Battery(
@@ -482,7 +484,7 @@ else:
                     discharge_char = "▼",
                     low_foreground = red,
                     notify_below = 10,
-                    update_interval = 10
+                    update_interval = 10,
                 ),
 
                 widget.TextBox(
@@ -496,7 +498,7 @@ else:
 
                 widget.TextBox(
                     text = "🕬", 
-                    fontsize = 24,
+                    fontsize = 22,
                     background = teal,
                     foreground = black,
                     mouse_callbacks = {"Button1": open_pavucontrol},
@@ -538,7 +540,7 @@ else:
                 widget.TextBox(
                     text = "⚙",
                     padding = 2,
-                    fontsize = 26,
+                    fontsize = 24,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": open_settings},
                 ),
@@ -546,13 +548,13 @@ else:
                 widget.TextBox(
                     text = "⏻",
                     padding = 2,
-                    fontsize = 22,
+                    fontsize = 20,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
             ],
             
-            24,
+            22,
             background = darkgrey,
             ),
         ),
