@@ -57,6 +57,11 @@ darkgrey1 = "#212121"
 black = "#000000"
 white = "#FFFFFF"
 
+# Startup commands
+@hook.subscribe.startup
+def autostart():
+    subprocess.call([home + "/.config/qtile/autostart.sh"])
+
 keys = [
     # Switch between windows in current stack pane
     Key([alt], "Tab", lazy.layout.down()),
@@ -192,7 +197,7 @@ def logout_menu(qtile):
 def suspend(qtile):
     qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
 
-# Monitor setup check    
+# Monitor setup check
 
 f = open(home + "/.config/qtile/.hdmi/temp.txt", "r")
 x = f.read()
@@ -637,7 +642,7 @@ else:
                 ),
 
                 widget.Clipboard(
-                    timeout = 60,
+                    timeout = 10,
                     max_width = 40,
                     padding = 5,
                     foreground = teal,
@@ -680,11 +685,6 @@ bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-    
-# Startup commands
-@hook.subscribe.startup
-def autostart():
-    subprocess.call([home + "/.config/scripts/autostart.sh"])
 
 # neofetch fixes
 dename = ""
