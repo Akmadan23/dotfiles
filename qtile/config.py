@@ -135,6 +135,28 @@ layouts = [
     ),
 ]
 
+floating_layout = layout.Floating(
+    float_rules = [
+        # Run the utility of `xprop` to see the wm class and name of an X client.
+        {'wmclass': 'confirm'},
+        {'wmclass': 'dialog'},
+        {'wmclass': 'download'},
+        {'wmclass': 'error'},
+        {'wmclass': 'file_progress'},
+        {'wmclass': 'notification'},
+        {'wmclass': 'splash'},
+        {'wmclass': 'toolbar'},
+        {'wmclass': 'confirmreset'},    # gitk
+        {'wmclass': 'makebranch'},      # gitk
+        {'wmclass': 'maketag'},         # gitk
+        {'wmclass': 'ssh-askpass'},     # ssh-askpass
+        {'wmclass': 'pavucontrol'},     # pavucontrol windows
+        {'wmclass': 'galculator'},      # galculator windows
+        {'wname': 'branchdialog'},      # gitk
+        {'wname': 'pinentry'},          # GPG key password entry
+    ]
+)
+
 widget_defaults = dict(
     font='sans',
     fontsize=12,
@@ -157,6 +179,9 @@ def open_stui(qtile):
 
 def open_pavucontrol(qtile):
     qtile.cmd_spawn("pavucontrol")
+    
+def open_calendar(qtile):
+    qtile.cmd_spawn(term + " -e calcurse")
     
 def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
@@ -350,8 +375,9 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
                 ),
                 
                 widget.Clock(
-                    format = '%a %d/%m/%Y, %H:%M %p',
                     background = darkteal,
+                    format = '%a %d/%m/%Y, %H:%M %p',
+                    mouse_callbacks = {"Button1": open_calendar},
                 ),
 
                 widget.TextBox(
@@ -392,7 +418,7 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
 
 else:
     @hook.subscribe.startup
-    def dual_monitor(): subprocess.call([home + '/.config/scripts/dual-monitor.sh'])
+    def dual_monitor(): subprocess.call([home + "/.config/scripts/dual-monitor.sh"])
     screens = [
         Screen( # Main external monitor
             top = bar.Bar([
@@ -520,8 +546,9 @@ else:
                 ),
                 
                 widget.Clock(
-                    format = '%a %d/%m/%Y, %H:%M %p',
                     background = darkteal,
+                    format = '%a %d/%m/%Y, %H:%M %p',
+                    mouse_callbacks = {"Button1": open_calendar},
                 ),
 
                 widget.TextBox(
@@ -618,6 +645,7 @@ else:
                 
                 widget.Clock(
                     format = '%A %d/%m/%Y, %H:%M %p',
+                    mouse_callbacks = {"Button1": open_calendar},
                 ),
             ],
             
@@ -652,29 +680,11 @@ bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-floating_layout = layout.Floating(float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
-])
-
     
 # Startup commands
 @hook.subscribe.startup
 def autostart():
-    subprocess.call([home + '/.config/scripts/autostart.sh'])
+    subprocess.call([home + "/.config/scripts/autostart.sh"])
 
 # neofetch fixes
 dename = ""
