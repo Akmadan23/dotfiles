@@ -57,11 +57,6 @@ darkgrey1 = "#212121"
 black = "#000000"
 white = "#FFFFFF"
 
-# Startup commands
-@hook.subscribe.startup
-def autostart():
-    subprocess.call([home + "/.config/qtile/autostart.sh"])
-
 keys = [
     # Switch between windows in current stack pane
     Key([alt], "Tab", lazy.layout.down()),
@@ -97,6 +92,11 @@ keys = [
     Key([mod], "h", lazy.spawn(term + " -e htop")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
+
+    # Phisical Volume keys
+    Key([alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
+    Key([alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+    Key([alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
 ]
 
 group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
@@ -155,6 +155,7 @@ floating_layout = layout.Floating(
         {'wmclass': 'makebranch'},      # gitk
         {'wmclass': 'maketag'},         # gitk
         {'wmclass': 'ssh-askpass'},     # ssh-askpass
+        {'wmclass': 'gcolor2'},         # gcolor2 windows
         {'wmclass': 'pavucontrol'},     # pavucontrol windows
         {'wmclass': 'galculator'},      # galculator windows
         {'wname': 'branchdialog'},      # gitk
@@ -196,28 +197,22 @@ def logout_menu(qtile):
 
 def suspend(qtile):
     qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
+    
+# Single/dual monitor check
 
-# Monitor setup check
+@hook.subscribe.startup
+def autostart():
+    subprocess.call([home + "/.config/qtile/monitor-detection.sh"])
 
-f = open(home + "/.config/qtile/.hdmi/temp.txt", "r")
+f = open(home + "/.config/qtile/hdmi.txt", "r")
 x = f.read()
 f.close()
 
-f = open(home + "/.config/qtile/.hdmi/no-hdmi1.txt", "r")
-y1 = f.read()
-f.close()
-
-f = open(home + "/.config/qtile/.hdmi/no-hdmi2.txt", "r")
-y2 = f.read()
-f.close()
-
-f = open(home + "/.config/qtile/.hdmi/no-hdmi3.txt", "r")
-y3 = f.read()
-f.close()
-
-if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no hdmi device connected
+if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device connected
     @hook.subscribe.startup
-    def integrated_display(): subprocess.call([home + "/.config/scripts/integrated-display.sh"])
+    def integrated_display(): 
+        subprocess.call([home + "/.config/scripts/integrated-display.sh"])
+
     screens = [
         Screen( # Only screen
             top = bar.Bar([
@@ -366,6 +361,7 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
                 
                 widget.Volume(
                     step = 5,
+                    mute_character = "⮿",
                     background = teal,
                     foreground = black,
                 ),
@@ -423,7 +419,9 @@ if (x == y1) and (x == y2) and (x == y3): # if "xrandr | grep HDMI-1" outputs no
 
 else:
     @hook.subscribe.startup
-    def dual_monitor(): subprocess.call([home + "/.config/scripts/dual-monitor.sh"])
+    def dual_monitor(): 
+        subprocess.call([home + "/.config/scripts/dual-monitor.sh"])
+
     screens = [
         Screen( # Main external monitor
             top = bar.Bar([
@@ -531,12 +529,13 @@ else:
                     text = "🕬", 
                     fontsize = 22,
                     background = teal,
-                    foreground = black,
+                    foreground = black,                    
                     mouse_callbacks = {"Button1": open_pavucontrol},
                 ),
                 
                 widget.Volume(
                     step = 5,
+                    mute_character = "⮿",
                     background = teal,
                     foreground = black,
                 ),
@@ -685,6 +684,11 @@ bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+
+# Startup commands
+@hook.subscribe.startup
+def autostart():
+    subprocess.call([home + "/.config/qtile/autostart.sh"])
 
 # neofetch fixes
 dename = ""
