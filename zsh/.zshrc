@@ -101,7 +101,8 @@ alias alconf="micro ~/.config/alacritty/alacritty.yml"
 alias awconf="micro ~/.config/awesome/rc.lua"
 alias qconf="micro ~/.config/qtile/config.py"
 alias i3conf="micro ~/.config/i3/config"
-alias swap="sudo swapon -v /dev/sda2"
+alias ffconf="micro ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
+alias ffcolors="micro ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
 
 # Xrandr settings
 alias displayonly="xrandr --output eDP-1 --mode 1600x900 --rotate normal --output HDMI-1 --off"
@@ -112,9 +113,11 @@ alias dualscreen-tv="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 -
 # Directory shorctuts
 alias magnatut="cd ~/Documenti/git-repos/magnatut"
 alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
-alias ahmadi-cloud="cd ~/Doumenti/git-repos/ahmadi-cloud.in"
+alias ahmadi-cloud="cd ~/Documenti/git-repos/ahmadi-cloud.in"
+alias ff-review="cd ~/Documenti/git-repos/firefox-review"
 alias update-qtile="cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/"
 alias update-scripts="cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/"
+alias update-ff="cp ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/* ~/Documenti/git-repos/firefox-review/"
 
 # Flatpaks
 alias spotify="flatpak run com.spotify.Client"
@@ -144,3 +147,4 @@ alias reboot="systemctl reboot"
 # Other
 alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
+alias swap="sudo swapon -v /dev/sda2"
