@@ -93,10 +93,13 @@ keys = [
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
 
-    # Phisical Volume keys
-    Key([alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
-    Key([alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
-    Key([alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+    # Volume and brightness controls key bindings
+    Key([alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),       # +5% volume
+    Key([alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),     # -5% volume
+    Key([alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),       # mute
+    Key([alt, ctrl], "Up", lazy.spawn("brightlight -i 239")),                       # +5% backlight
+    Key([alt, ctrl], "Down", lazy.spawn("brightlight -d 239")),                     # -5% backlight
+    Key([alt, ctrl], "r", lazy.spawn("brightlight -w 2390")),                           # resets to 50%
 ]
 
 group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
@@ -155,9 +158,11 @@ floating_layout = layout.Floating(
         {'wmclass': 'makebranch'},      # gitk
         {'wmclass': 'maketag'},         # gitk
         {'wmclass': 'ssh-askpass'},     # ssh-askpass
+        {'wmclass': 'gcr-prompter'},    # password input prompts
         {'wmclass': 'gcolor2'},         # gcolor2 windows
         {'wmclass': 'pavucontrol'},     # pavucontrol windows
         {'wmclass': 'galculator'},      # galculator windows
+        {'wmclass': 'Msgcompose'},      # Thunderbird message window
         {'wname': 'branchdialog'},      # gitk
         {'wname': 'pinentry'},          # GPG key password entry
     ]
@@ -485,10 +490,12 @@ else:
                 ),
 
                 widget.Backlight(
+                    change_command = "xbacklight -set {0}", # not working on my system
                     backlight_name = "intel_backlight",
                     brightness_file = "brightness",
                     background = teal,
                     foreground = black,
+                    step = 5,
                 ),
 
                 widget.TextBox(
@@ -686,7 +693,7 @@ auto_fullscreen = True
 focus_on_window_activation = "smart"
 
 # Startup commands
-@hook.subscribe.startup
+@hook.subscribe.startup_once
 def autostart():
     subprocess.call([home + "/.config/qtile/autostart.sh"])
 
