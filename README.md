@@ -1,15 +1,17 @@
-# My dotfiles for i3 and qtile
+# My dotfiles for qtile, i3, AwesomeWM and other minimal tools
 
 ___
 
 ## qtile
 
-![screenshot1](.screenshot/qtile1.png)
-![screenshot1](.screenshot/qtile2.png)
-![screenshot1](.screenshot/qtile3.png)
-![screenshot1](.screenshot/wlogout.png)
+[screenshot1](.screenshots/qtile1.png)
+[screenshot1](.screenshots/qtile2.png)
+[screenshot1](.screenshots/qtile3.png)
+[screenshot1](.screenshots/wlogout.png)
+
 ___
 
 ## i3
 
-![screenshot]()
+[screenshot](.screenshots/i3wallpaper.png)
+[screenshot](.screenshots/i3.png)
