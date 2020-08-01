@@ -658,6 +658,14 @@ else:
                     format = '%A %d/%m/%Y, %H:%M %p',
                     mouse_callbacks = {"Button1": open_calendar},
                 ),
+
+                widget.TextBox(
+                    text = "⏻",
+                    padding = 2,
+                    fontsize = 20,
+                    background = darkgrey,
+                    mouse_callbacks = {"Button1": logout_menu},
+                ),
             ],
             
             24,
@@ -693,7 +701,7 @@ auto_fullscreen = True
 focus_on_window_activation = "smart"
 
 # Startup commands
-@hook.subscribe.startup_once
+@hook.subscribe.startup
 def autostart():
     subprocess.call([home + "/.config/qtile/autostart.sh"])
 
