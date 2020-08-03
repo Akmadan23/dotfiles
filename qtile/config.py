@@ -86,9 +86,11 @@ keys = [
     Key([mod, sft], "k", lazy.spawn("flatpak run okg.kde.kdenlive")),
     Key([mod], "Return", lazy.spawn(term)),
     Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/rofi/config.rasi")),
+    Key([mod, sft], "g", lazy.spawn("galculator")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
+    Key([mod], "s", lazy.spawn("flameshot gui")),
     Key([mod], "h", lazy.spawn(term + " -e htop")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
@@ -99,7 +101,7 @@ keys = [
     Key([alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),       # mute
     Key([alt, ctrl], "Up", lazy.spawn("brightlight -i 239")),                       # +5% backlight
     Key([alt, ctrl], "Down", lazy.spawn("brightlight -d 239")),                     # -5% backlight
-    Key([alt, ctrl], "r", lazy.spawn("brightlight -w 2390")),                           # resets to 50%
+    Key([alt, ctrl], "r", lazy.spawn("brightlight -w 2390")),                       # resets to 50%
 ]
 
 group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
@@ -108,6 +110,7 @@ groups = [Group(name) for name in group_names]
 for i, (name) in enumerate(group_names, 1):
 	keys.extend([
         Key([mod], str(i), lazy.group[name].toscreen()),
+        Key([mod, ctrl], str(i), lazy.window.togroup(name)),
         Key([mod, sft], str(i), lazy.window.togroup(name, switch_group=True)),
     ])
     
@@ -159,10 +162,13 @@ floating_layout = layout.Floating(
         {'wmclass': 'maketag'},         # gitk
         {'wmclass': 'ssh-askpass'},     # ssh-askpass
         {'wmclass': 'gcr-prompter'},    # password input prompts
-        {'wmclass': 'gcolor2'},         # gcolor2 windows
+        {'wmclass': 'blueberry.py'},    # blueberry windows
+        {'wmclass': 'TelegramDesktop'}, # Telegram desktop windows
         {'wmclass': 'pavucontrol'},     # pavucontrol windows
         {'wmclass': 'galculator'},      # galculator windows
         {'wmclass': 'Msgcompose'},      # Thunderbird message window
+        {'wmclass': 'gsimplecal'},      # My minimal calendar of choice
+        {'wmclass': 'gcolor2'},         # gcolor2 windows
         {'wname': 'branchdialog'},      # gitk
         {'wname': 'pinentry'},          # GPG key password entry
     ]
@@ -192,7 +198,7 @@ def open_pavucontrol(qtile):
     qtile.cmd_spawn("pavucontrol")
     
 def open_calendar(qtile):
-    qtile.cmd_spawn(term + " -e calcurse")
+    qtile.cmd_spawn("gsimplecal")
     
 def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
@@ -201,7 +207,7 @@ def logout_menu(qtile):
     qtile.cmd_spawn("wlogout")
 
 def suspend(qtile):
-    qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /bin/ as "lock-suspend"
+    qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /usr/bin/ as "lock-suspend"
     
 # Single/dual monitor check
 
