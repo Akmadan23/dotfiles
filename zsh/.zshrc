@@ -5,6 +5,9 @@
 export ZSH="/home/azadahmadi/.oh-my-zsh"
 export PATH="/home/azadahmadi/.local/bin":$PATH
 
+# Setting default text editor
+editor="nvim"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -96,13 +99,13 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Config files
-alias zshconf="micro ~/.zshrc"
-alias alconf="micro ~/.config/alacritty/alacritty.yml"
-alias awconf="micro ~/.config/awesome/rc.lua"
-alias qconf="micro ~/.config/qtile/config.py"
-alias i3conf="micro ~/.config/i3/config"
-alias ffconf="micro ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
-alias ffcolors="micro ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
+alias zshconf="nvim ~/.zshrc"
+alias alconf="nvim ~/.config/alacritty/alacritty.yml"
+alias awconf="nvim ~/.config/awesome/rc.lua"
+alias qconf="nvim ~/.config/qtile/config.py"
+alias i3conf="nvim ~/.config/i3/config"
+alias ffconf="nvim ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
+alias ffcolors="nvim ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
 
 # Xrandr settings
 alias displayonly="xrandr --output eDP-1 --mode 1600x900 --rotate normal --output HDMI-1 --off"
@@ -115,6 +118,7 @@ alias magnatut="cd ~/Documenti/git-repos/magnatut"
 alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
 alias ahmadi-cloud="cd ~/Documenti/git-repos/ahmadi-cloud.in"
 alias ff-review="cd ~/Documenti/git-repos/firefox-review"
+alias update-nvim="cp -r ~/.config/nvim/* ~/Documenti/git-repos/dotfiles/nvim/"
 alias update-qtile="cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/"
 alias update-scripts="cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/"
 alias update-ff="cp ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/* ~/Documenti/git-repos/firefox-review/"
