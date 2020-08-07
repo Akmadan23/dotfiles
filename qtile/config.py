@@ -5,6 +5,7 @@
 # /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 #
 # Copyright (c) 2010 Aldo Cortesi
+# Copyright (c) 2010 Aldo Cortesi
 # Copyright (c) 2010, 2014 dequis
 # Copyright (c) 2012 Randall Ma
 # Copyright (c) 2012-2014 Tycho Andersen
@@ -38,7 +39,6 @@ from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.lazy import lazy
 from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
-
 
 # Keys and default apps
 mod = "mod4"
@@ -93,27 +93,28 @@ keys = [
     Key([mod], "s", lazy.spawn("flameshot gui")),
     Key([mod], "h", lazy.spawn(term + " -e htop")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
-    Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /bin/ as "lock-script"
+    Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /usr/bin/ as "lock-script"
 
     # Volume and brightness controls key bindings
-    Key([alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),       # +5% volume
-    Key([alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),     # -5% volume
-    Key([alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),       # mute
-    Key([alt, ctrl], "Up", lazy.spawn("brightlight -i 239")),                       # +5% backlight
-    Key([alt, ctrl], "Down", lazy.spawn("brightlight -d 239")),                     # -5% backlight
-    Key([alt, ctrl], "r", lazy.spawn("brightlight -w 2390")),                       # resets to 50%
+    Key([mod], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),      # +5% volume
+    Key([mod], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
+    Key([mod], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),      # mute
+    Key([mod, alt], "Up", lazy.spawn("brightlight -i 239")),                           # +5% backlight
+    Key([mod, alt], "Down", lazy.spawn("brightlight -d 239")),                         # -5% backlight
+    Key([mod, alt], "r", lazy.spawn("brightlight -w 2390")),                           # resets to 50%
 ]
 
 group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
-
 groups = [Group(name) for name in group_names]
-for i, (name) in enumerate(group_names, 1):
-	keys.extend([
-        Key([mod], str(i), lazy.group[name].toscreen()),
-        Key([mod, ctrl], str(i), lazy.window.togroup(name)),
-        Key([mod, sft], str(i), lazy.window.togroup(name, switch_group=True)),
-    ])
-    
+
+for i, name in enumerate(group_names, 1):
+    # if str(i) != name:
+        keys.extend([
+            Key([mod], str(i), lazy.group[name].toscreen()),
+            Key([mod, sft], str(i), lazy.window.togroup(name, switch_group = True)),
+            Key([mod, ctrl], str(i), lazy.window.togroup(name, switch_group = False)),
+        ])
+
 layout_theme = {
     "margin": 10,
     "single_margin": 0,
@@ -133,7 +134,7 @@ layouts = [
     # layout.Zoomy(),
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
-    
+
     layout.TreeTab(
         bg_color = darkgrey,
         active_bg = teal,
@@ -161,6 +162,7 @@ floating_layout = layout.Floating(
         {'wmclass': 'makebranch'},      # gitk
         {'wmclass': 'maketag'},         # gitk
         {'wmclass': 'ssh-askpass'},     # ssh-askpass
+        {'wmclass': 'cpu-x'},           # cpu-x windows
         {'wmclass': 'gcr-prompter'},    # password input prompts
         {'wmclass': 'blueberry.py'},    # blueberry windows
         {'wmclass': 'TelegramDesktop'}, # Telegram desktop windows
@@ -187,19 +189,19 @@ home = os.path.expanduser('~')
 
 def open_rofi(qtile):
     qtile.cmd_spawn("rofi -show run -config ~/.config/qtile/rofi-onedark.rasi")
-    
+
 def open_htop(qtile):
     qtile.cmd_spawn(term + " -e htop")
-    
+
 def open_stui(qtile):
     qtile.cmd_spawn(term + " -e s-tui")
 
 def open_pavucontrol(qtile):
     qtile.cmd_spawn("pavucontrol")
-    
+
 def open_calendar(qtile):
     qtile.cmd_spawn("gsimplecal")
-    
+
 def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
 
@@ -208,7 +210,7 @@ def logout_menu(qtile):
 
 def suspend(qtile):
     qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /usr/bin/ as "lock-suspend"
-    
+
 # Single/dual monitor check
 
 @hook.subscribe.startup
@@ -221,7 +223,7 @@ f.close()
 
 if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device connected
     @hook.subscribe.startup
-    def integrated_display(): 
+    def integrated_display():
         subprocess.call([home + "/.config/scripts/integrated-display.sh"])
 
     screens = [
@@ -230,7 +232,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                 widget.CurrentLayoutIcon(
                     scale = 0.8,
                 ),
-                
+
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
@@ -239,14 +241,14 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     highlight_color = darkteal,
                     highlight_method = "line",
                 ),
-                
+
                 widget.Prompt(),
                 widget.WindowName(),
-                
+
                 widget.TextBox(
-                    text = "CPU:", 
+                    text = "CPU:",
                 ),
-                
+
                 widget.CPUGraph(
                     samples = 50,
                     line_width = 2,
@@ -254,11 +256,11 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_stui},
                 ),
-                
+
                 widget.TextBox(
-                    text = "RAM:", 
+                    text = "RAM:",
                 ),
-                
+
                 widget.MemoryGraph(
                     samples = 50,
                     line_width = 2,
@@ -266,11 +268,11 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_htop},
                 ),
-                
+
                 widget.TextBox(
-                    text = "NET:", 
+                    text = "NET:",
                 ),
-                
+
                 widget.NetGraph(
                     samples = 50,
                     line_width = 2,
@@ -295,7 +297,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     background = darkteal,
                     foreground = white,
                 ),
-                
+
                 widget.ThermalSensor(
                     update_interval = 1,
                     foreground_alert = red,
@@ -363,13 +365,13 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                 ),
 
                 widget.TextBox(
-                    text = "🕬", 
+                    text = "🕬",
                     fontsize = 22,
                     background = teal,
                     foreground = black,
                     mouse_callbacks = {"Button1": open_pavucontrol},
                 ),
-                
+
                 widget.Volume(
                     step = 5,
                     mute_character = "⮿",
@@ -385,7 +387,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     background = teal,
                     foreground = darkteal,
                 ),
-                
+
                 widget.Clock(
                     background = darkteal,
                     format = '%a %d/%m/%Y, %H:%M %p',
@@ -400,7 +402,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     background = darkteal,
                     foreground = darkgrey,
                 ),
-                
+
                 widget.Systray(
                     background = darkgrey,
                 ),
@@ -421,7 +423,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
             ],
-            
+
             22,
             background = darkgrey,
             ),
@@ -430,7 +432,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
 else:
     @hook.subscribe.startup
-    def dual_monitor(): 
+    def dual_monitor():
         subprocess.call([home + "/.config/scripts/dual-monitor.sh"])
 
     screens = [
@@ -439,7 +441,7 @@ else:
                 widget.CurrentLayoutIcon(
                     scale = 0.8,
                 ),
-                
+
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
@@ -448,7 +450,7 @@ else:
                     highlight_color = darkteal,
                     highlight_method = "line",
                 ),
-                
+
                 widget.Prompt(),
                 widget.WindowName(),
 
@@ -469,7 +471,7 @@ else:
                     background = darkteal,
                     foreground = white,
                 ),
-                
+
                 widget.ThermalSensor(
                     update_interval = 1,
                     foreground_alert = red,
@@ -539,13 +541,13 @@ else:
                 ),
 
                 widget.TextBox(
-                    text = "🕬", 
+                    text = "🕬",
                     fontsize = 22,
                     background = teal,
-                    foreground = black,                    
+                    foreground = black,
                     mouse_callbacks = {"Button1": open_pavucontrol},
                 ),
-                
+
                 widget.Volume(
                     step = 5,
                     mute_character = "⮿",
@@ -561,7 +563,7 @@ else:
                     background = teal,
                     foreground = darkteal,
                 ),
-                
+
                 widget.Clock(
                     background = darkteal,
                     format = '%a %d/%m/%Y, %H:%M %p',
@@ -576,7 +578,7 @@ else:
                     background = darkteal,
                     foreground = darkgrey,
                 ),
-                
+
                 widget.Systray(
                     background = darkgrey,
                 ),
@@ -597,18 +599,18 @@ else:
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
             ],
-            
+
             22,
             background = darkgrey,
             ),
         ),
-        
+
         Screen( # Integrated display
             top = bar.Bar([
                 widget.CurrentLayoutIcon(
                     scale = 0.8,
                 ),
-                
+
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
@@ -617,36 +619,36 @@ else:
                     highlight_color = darkteal,
                     highlight_method = "line",
                 ),
-                
+
                 widget.Prompt(),
                 widget.WindowName(),
-                
+
                 widget.TextBox(
-                    text = "CPU:", 
+                    text = "CPU:",
                 ),
-                
+
                 widget.CPUGraph(
                     line_width = 2,
                     graph_color = teal,
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_stui},
                 ),
-                
+
                 widget.TextBox(
-                    text = "RAM:", 
+                    text = "RAM:",
                 ),
-                
+
                 widget.MemoryGraph(
                     line_width = 2,
                     graph_color = yellow,
                     border_color = darkgrey,
                     mouse_callbacks = {"Button1": open_htop},
                 ),
-                
+
                 widget.TextBox(
-                    text = "NET:", 
+                    text = "NET:",
                 ),
-                
+
                 widget.NetGraph(
                     line_width = 2,
                     graph_color = red,
@@ -659,7 +661,7 @@ else:
                     padding = 5,
                     foreground = teal,
                 ),
-                
+
                 widget.Clock(
                     format = '%A %d/%m/%Y, %H:%M %p',
                     mouse_callbacks = {"Button1": open_calendar},
@@ -673,17 +675,17 @@ else:
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
             ],
-            
+
             24,
             background = darkgrey,
             ),
         ),
     ]
-            
+
 # Drag floating layouts.
 mouse = [
     Drag(
-        [mod], "Button1", lazy.window.set_position_floating(), 
+        [mod], "Button1", lazy.window.set_position_floating(),
         start=lazy.window.get_position()
     ),
 
