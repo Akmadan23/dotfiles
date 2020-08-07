@@ -12,4 +12,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'jiangmiao/auto-pairs'
     Plug 'alvan/vim-closetag'
     Plug 'tpope/vim-surround'
+    Plug 'mattn/emmet-vim'
 call plug#end()

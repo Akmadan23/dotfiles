@@ -8,7 +8,6 @@ set splitbelow
 set splitright
 set tabstop=4                           
 set shiftwidth=4
-set expandtab
 set smartindent
 set autoindent
 set ignorecase
@@ -17,7 +16,6 @@ set cursorline
 set background=light
 set clipboard+=unnamedplus
 set termguicolors
+colorscheme codedark-teal
 
 let g:airline_theme = 'codedark'
-
-colorscheme codedark
