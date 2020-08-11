@@ -13,9 +13,9 @@ set autoindent
 set ignorecase
 set number relativenumber 
 set cursorline
-set background=light
+set background=dark
 set clipboard+=unnamedplus
 set termguicolors
-colorscheme codedark-teal
+colorscheme eink
 
 let g:airline_theme = 'codedark'
