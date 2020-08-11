@@ -5,7 +5,7 @@ y=""
 
 if [ $x == $y ] 
 then
-	echo connected > ~/.config/qtile/hdmi.txt
+	echo connected > ~/.config/qtile/.hdmi.txt
 else
-	echo disconnected > ~/.config/qtile/hdmi.txt
+	echo disconnected > ~/.config/qtile/.hdmi.txt
 fi

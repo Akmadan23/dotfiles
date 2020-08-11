@@ -83,7 +83,8 @@ keys = [
     # Other personal key bindings
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
     Key([mod, sft], "v", lazy.spawn("flatpak run com.visualstudio.code-oss")),
-    Key([mod, sft], "k", lazy.spawn("flatpak run okg.kde.kdenlive")),
+    Key([mod, sft], "k", lazy.spawn("flatpak run org.kde.kdenlive")),
+    Key([mod, sft], "l", lazy.spawn("flatpak run io.lmms.LMMS")),
     Key([mod], "Return", lazy.spawn(term)),
     Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/rofi/config.rasi")),
     Key([mod, sft], "g", lazy.spawn("galculator")),
@@ -96,24 +97,29 @@ keys = [
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /usr/bin/ as "lock-script"
 
     # Volume and brightness controls key bindings
-    Key([mod], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),      # +5% volume
-    Key([mod], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
-    Key([mod], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),      # mute
-    Key([mod, alt], "Up", lazy.spawn("brightlight -i 239")),                           # +5% backlight
-    Key([mod, alt], "Down", lazy.spawn("brightlight -d 239")),                         # -5% backlight
-    Key([mod, alt], "r", lazy.spawn("brightlight -w 2390")),                           # resets to 50%
+    Key([mod, alt], "space", lazy.spawn("deadbeef --play-pause")),                      # deadbeef toggle play/pause
+    Key([mod, alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),      # +5% volume
+    Key([mod, alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
+    Key([mod, alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),      # mute
+    Key([mod, alt], "Right", lazy.spawn("brightlight -i 239")),                         # +5% backlight
+    Key([mod, alt], "Left", lazy.spawn("brightlight -d 239")),                          # -5% backlight
+    Key([mod, alt], "r", lazy.spawn("brightlight -w 2390")),                            # resets to 50%
 ]
 
 group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
 groups = [Group(name) for name in group_names]
 
 for i, name in enumerate(group_names, 1):
-    # if str(i) != name:
-        keys.extend([
-            Key([mod], str(i), lazy.group[name].toscreen()),
-            Key([mod, sft], str(i), lazy.window.togroup(name, switch_group = True)),
-            Key([mod, ctrl], str(i), lazy.window.togroup(name, switch_group = False)),
-        ])
+    keys.extend([
+        Key([mod], str(i), lazy.group[name].toscreen()),
+        Key([mod, sft], str(i), lazy.window.togroup(name, switch_group = True)),
+        Key([mod, ctrl], str(i), lazy.window.togroup(name, switch_group = False)),
+    ])
+
+# IMPORTANT: 
+# in order to avoid switching groups typing
+# the current group name, comment out from line 355 to 359 in 
+# /usr/local/lib/python3.8/site-packages/libqtile/config.py
 
 layout_theme = {
     "margin": 10,
@@ -171,8 +177,6 @@ floating_layout = layout.Floating(
         {'wmclass': 'Msgcompose'},      # Thunderbird message window
         {'wmclass': 'gsimplecal'},      # My minimal calendar of choice
         {'wmclass': 'gcolor2'},         # gcolor2 windows
-        {'wname': 'branchdialog'},      # gitk
-        {'wname': 'pinentry'},          # GPG key password entry
     ]
 )
 
@@ -217,7 +221,7 @@ def suspend(qtile):
 def autostart():
     subprocess.call([home + "/.config/qtile/monitor-detection.sh"])
 
-f = open(home + "/.config/qtile/hdmi.txt", "r")
+f = open(home + "/.config/qtile/.hdmi.txt", "r")
 x = f.read()
 f.close()
 
