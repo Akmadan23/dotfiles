@@ -72,7 +72,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -101,6 +101,8 @@ source $ZSH/oh-my-zsh.sh
 # Config files
 alias zshconf="nvim ~/.zshrc"
 alias alconf="nvim ~/.config/alacritty/alacritty.yml"
+alias bspconf="nvim ~/.config/bspwm/bspwmrc"
+alias vimconf="nvim ~/.config/nvim/init.vim"
 alias awconf="nvim ~/.config/awesome/rc.lua"
 alias qconf="nvim ~/.config/qtile/config.py"
 alias i3conf="nvim ~/.config/i3/config"
@@ -116,9 +118,10 @@ alias dualscreen-tv="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 -
 # Directory shorctuts
 alias magnatut="cd ~/Documenti/git-repos/magnatut"
 alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
+alias startpage="cd ~/Documenti/git-repos/startpage"
 alias ahmadi-cloud="cd ~/Documenti/git-repos/ahmadi-cloud.in"
-alias ff-review="cd ~/Documenti/git-repos/firefox-review"
-alias update-nvim="cp -r ~/.config/nvim/* ~/Documenti/git-repos/dotfiles/nvim/"
+alias ff-teal="cd ~/Documenti/git-repos/firefox-teal"
+alias update-nvim="cp ~/.config/nvim/* ~/Documenti/git-repos/dotfiles/nvim/"
 alias update-qtile="cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/"
 alias update-scripts="cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/"
 alias update-ff="cp ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/* ~/Documenti/git-repos/firefox-review/"
@@ -149,6 +152,7 @@ alias suspend-lock="systemctl suspend && lock-script"
 alias reboot="systemctl reboot"
 
 # Other
+alias vim="nvim"
 alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
 alias swap="sudo swapon -v /dev/sda2"
