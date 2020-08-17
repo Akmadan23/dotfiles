@@ -99,13 +99,14 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Config files
-alias zshconf="nvim ~/.zshrc"
-alias alconf="nvim ~/.config/alacritty/alacritty.yml"
-alias bspconf="nvim ~/.config/bspwm/bspwmrc"
-alias vimconf="nvim ~/.config/nvim/init.vim"
-alias awconf="nvim ~/.config/awesome/rc.lua"
+alias zconf="nvim ~/.zshrc"
+alias vconf="nvim ~/.config/nvim/init.vim"
 alias qconf="nvim ~/.config/qtile/config.py"
+alias asonf="nvim ~/.config/qtile/autostart.sh"
+alias alconf="nvim ~/.config/alacritty/alacritty.yml"
+alias awconf="nvim ~/.config/awesome/rc.lua"
 alias i3conf="nvim ~/.config/i3/config"
+alias bspconf="nvim ~/.config/bspwm/bspwmrc"
 alias ffconf="nvim ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
 alias ffcolors="nvim ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
 
