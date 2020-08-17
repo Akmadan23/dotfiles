@@ -5,7 +5,6 @@
 # /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 #
 # Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010 Aldo Cortesi
 # Copyright (c) 2010, 2014 dequis
 # Copyright (c) 2012 Randall Ma
 # Copyright (c) 2012-2014 Tycho Andersen
@@ -80,13 +79,15 @@ keys = [
     Key([mod, sft], "e", lazy.spawn("wlogout")),
     Key([mod], "r", lazy.spawncmd()),
 
-    # Other personal key bindings
+    # Terminal and rofi
+    Key([mod], "Return", lazy.spawn(term)),
+    Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/rofi/config.rasi")),
+
+    # App spawning
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
     Key([mod, sft], "v", lazy.spawn("flatpak run com.visualstudio.code-oss")),
     Key([mod, sft], "k", lazy.spawn("flatpak run org.kde.kdenlive")),
     Key([mod, sft], "l", lazy.spawn("flatpak run io.lmms.LMMS")),
-    Key([mod], "Return", lazy.spawn(term)),
-    Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/rofi/config.rasi")),
     Key([mod, sft], "g", lazy.spawn("galculator")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
@@ -156,27 +157,28 @@ layouts = [
 floating_layout = layout.Floating(
     float_rules = [
         # Run the utility of `xprop` to see the wm class and name of an X client.
-        {'wmclass': 'confirm'},
-        {'wmclass': 'dialog'},
-        {'wmclass': 'download'},
-        {'wmclass': 'error'},
-        {'wmclass': 'file_progress'},
-        {'wmclass': 'notification'},
-        {'wmclass': 'splash'},
-        {'wmclass': 'toolbar'},
-        {'wmclass': 'confirmreset'},    # gitk
-        {'wmclass': 'makebranch'},      # gitk
-        {'wmclass': 'maketag'},         # gitk
-        {'wmclass': 'ssh-askpass'},     # ssh-askpass
-        {'wmclass': 'cpu-x'},           # cpu-x windows
-        {'wmclass': 'gcr-prompter'},    # password input prompts
-        {'wmclass': 'blueberry.py'},    # blueberry windows
-        {'wmclass': 'TelegramDesktop'}, # Telegram desktop windows
-        {'wmclass': 'pavucontrol'},     # pavucontrol windows
-        {'wmclass': 'galculator'},      # galculator windows
-        {'wmclass': 'Msgcompose'},      # Thunderbird message window
-        {'wmclass': 'gsimplecal'},      # My minimal calendar of choice
-        {'wmclass': 'gcolor2'},         # gcolor2 windows
+        {"wmclass": "confirm"},
+        {"wmclass": "dialog"},
+        {"wmclass": "download"},
+        {"wmclass": "error"},
+        {"wmclass": "file_progress"},
+        {"wmclass": "notification"},
+        {"wmclass": "splash"},
+        {"wmclass": "toolbar"},
+        {"wmclass": "confirmreset"},    # gitk
+        {"wmclass": "makebranch"},      # gitk
+        {"wmclass": "maketag"},         # gitk
+        {"wmclass": "ssh-askpass"},     # ssh-askpass
+        {"wmclass": "cpu-x"},           # cpu-x windows
+        {"wmclass": "gcr-prompter"},    # password input prompts
+        {"wmclass": "blueman-manager"}, # blueman windows
+        {"wmclass": "TelegramDesktop"}, # Telegram desktop windows
+        {"wmclass": "pavucontrol"},     # pavucontrol windows
+        {"wmclass": "volumeicon"},      # volumeicon preferences window
+        {"wmclass": "galculator"},      # galculator windows
+        {"wmclass": "Msgcompose"},      # Thunderbird message window
+        {"wmclass": "gsimplecal"},      # My minimal calendar of choice
+        {"wmclass": "gcolor2"},         # gcolor2 windows
     ]
 )
 

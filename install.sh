@@ -36,6 +36,10 @@ cp wlogout/* ~/.config/wlogout/
 mkdir -p ~/.config/zathura/
 cp zathura/* ~/.config/zathura/
 
+# dunst
+mkdir -p ~/.config/dunst/
+cp dunst/* ~/.config/dunst/
+
 # zsh 
 cp zsh/* ~/
 
