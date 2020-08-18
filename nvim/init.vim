@@ -1,11 +1,11 @@
 """""" PUGINS
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+	Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
     Plug 'sheerun/vim-polyglot'
     Plug 'scrooloose/NERDTree'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
-    Plug 'norcalli/nvim-colorizer.lua'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'flazz/vim-colorschemes'
@@ -42,23 +42,26 @@ set nobackup
 set background=dark
 set clipboard+=unnamedplus
 set termguicolors
-colorscheme codedark
 
-luafile $HOME/.config/nvim/colorizer.lua
-let g:airline_theme = 'codedark'
+colorscheme codedark
 hi Normal ctermbg=NONE guibg=NONE
+
+let g:airline_theme = 'codedark'
+let g:Hexokinase_highlighters = ['backgroundfull']
+let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla,'
 
 """""" KEY BINDINGS
 
-map U redo
-map Y y$
-map H 0
-map J <S-Down>
-map K <S-Up>
-map L $
+nmap U <C-r>
+nmap Y y$
+nmap H 0
+nmap J <S-Down>
+nmap K <S-Up>
+nmap L $
 
 vmap <Tab> >
 vmap <S-Tab> <
+imap ii <Esc>
 
 cmap gs G status
 cmap ga G add
@@ -66,4 +69,20 @@ cmap gc G commit
 cmap gca G commit -a
 cmap gpom G push origin master
 
-imap ii <Esc>
+"""""" Disabling arrow keys
+
+nmap <Left> :echo "USE HJKL!"<CR>
+nmap <Right> :echo "USE HJKL!"<CR>
+nmap <Up> :echo "USE HJKL!"<CR>
+nmap <Down> :echo "USE HJKL!"<CR>
+
+vmap <Left> :<C-u>echo "USE HJKL!"<CR>
+vmap <Right> :<C-u>echo "USE HJKL!"<CR>
+vmap <Up> :<C-u>echo "USE HJKL!"<CR>
+vmap <Down> :<C-u>echo "USE HJKL!"<CR>
+
+imap <Left> <C-o>:echo "USE HJKL!"<CR>
+imap <Right> <C-o>:echo "USE HJKL!"<CR>
+imap <Up> <C-o>:echo "USE HJKL!"<CR>
+imap <Down> <C-o>:echo "USE HJKL!"<CR>
+
