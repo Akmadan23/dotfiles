@@ -1,7 +1,7 @@
 """""" PUGINS
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-	Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+    Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
     Plug 'sheerun/vim-polyglot'
     Plug 'scrooloose/NERDTree'
     Plug 'junegunn/fzf.vim'
@@ -71,18 +71,27 @@ cmap gpom G push origin master
 
 """""" Disabling arrow keys
 
-nmap <Left> :echo "USE HJKL!"<CR>
-nmap <Right> :echo "USE HJKL!"<CR>
-nmap <Up> :echo "USE HJKL!"<CR>
-nmap <Down> :echo "USE HJKL!"<CR>
+inoremap <up> <nop>
+nnoremap <up> <nop>
+vnoremap <up> <nop>
 
-vmap <Left> :<C-u>echo "USE HJKL!"<CR>
-vmap <Right> :<C-u>echo "USE HJKL!"<CR>
-vmap <Up> :<C-u>echo "USE HJKL!"<CR>
-vmap <Down> :<C-u>echo "USE HJKL!"<CR>
+inoremap <down> <nop>
+nnoremap <down> <nop>
+vnoremap <down> <nop>
 
-imap <Left> <C-o>:echo "USE HJKL!"<CR>
-imap <Right> <C-o>:echo "USE HJKL!"<CR>
-imap <Up> <C-o>:echo "USE HJKL!"<CR>
-imap <Down> <C-o>:echo "USE HJKL!"<CR>
+inoremap <left> <nop>
+nnoremap <left> <nop>
+vnoremap <left> <nop>
+
+inoremap <right> <nop>
+nnoremap <right> <nop>
+vnoremap <right> <nop>
+
+inoremap <PageUp> <nop>
+nnoremap <PageUp> <nop>
+vnoremap <PageUp> <nop>
+
+inoremap <PageDown> <nop>
+nnoremap <PageDown> <nop>
+vnoremap <PageDown> <nop>
 
