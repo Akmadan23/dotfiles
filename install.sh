@@ -46,4 +46,5 @@ cp zsh/* ~/
 # scripts
 cp scripts/i3lock.sh ~/.local/bin/lock-script
 cp scripts/lock-suspend.sh ~/.local/bin/lock-suspend
+cp scripts/update-dotfiles.sh ~/.local/bin/update-dotfiles
 

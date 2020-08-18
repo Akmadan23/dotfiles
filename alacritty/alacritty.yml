@@ -15,7 +15,7 @@ env:
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  TERM: xterm-256color
+  TERM: alacritty
 
 window:
   # Window dimensions (changes require restart)
@@ -172,7 +172,7 @@ colors:
     green: '#5aa513'
     magenta: '#AC64CF'
     red: '#d71c15'
-    white: '#efefef'
+    white: '#dfdfdf'
     yellow: '#fdb40c'
     
   bright:
@@ -187,35 +187,7 @@ colors:
     
   primary:
     background: '#242424'
-    foreground: '#efefef'
-    
-  selection:
-    background: '#b5d5ff'
-    text: '#000000'
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  #dim:
-  #  black:   '0x000000'
-  #  red:     '0x8c3336'
-  #  green:   '0x7a8530'
-  #  yellow:  '0x97822e'
-  #  blue:    '0x506d8f'
-  #  magenta: '0x80638e'
-  #  cyan:    '0x497e7a'
-  #  white:   '0x9a9a9a'
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  # Example:
-  #   `- { index: 16, color: '0xff00ff' }`
-  #
-  #indexed_colors: []
+    foreground: '#dfdfdf'
 
 # Visual Bell
 #
@@ -247,7 +219,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.75
+background_opacity: 0.8
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -385,7 +357,7 @@ cursor:
 #
 # - `mods` (see key bindings)
 #mouse_bindings:
-#  - { mouse: Middle, action: PasteSelection }
+# - { mouse: Middle, action: PasteSelection }
 
 # Key bindings
 #
@@ -491,6 +463,7 @@ cursor:
 key_bindings:
   - {key: V, mods: Control|Shift, action: Paste}
   - {key: C, mods: Control|Shift, action: Copy}
+  - {key: N, mods: Control, action: SpawnNewInstance}
   - {key: Insert, mods: Shift, action: PasteSelection}
   - {key: Key0, mods: Control, action: ResetFontSize}
   - {key: Equals, mods: Control, action: IncreaseFontSize}

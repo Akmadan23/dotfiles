@@ -100,6 +100,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Config files
 alias zconf="nvim ~/.zshrc"
+alias rconf="nvim ~/.config/rofi/config.rasi"
 alias vconf="nvim ~/.config/nvim/init.vim"
 alias qconf="nvim ~/.config/qtile/config.py"
 alias asonf="nvim ~/.config/qtile/autostart.sh"
@@ -122,9 +123,6 @@ alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
 alias startpage="cd ~/Documenti/git-repos/startpage"
 alias ahmadi-cloud="cd ~/Documenti/git-repos/ahmadi-cloud.in"
 alias ff-teal="cd ~/Documenti/git-repos/firefox-teal"
-alias update-nvim="cp ~/.config/nvim/* ~/Documenti/git-repos/dotfiles/nvim/"
-alias update-qtile="cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/"
-alias update-scripts="cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/"
 alias update-ff="cp ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/* ~/Documenti/git-repos/firefox-review/"
 
 # Flatpaks

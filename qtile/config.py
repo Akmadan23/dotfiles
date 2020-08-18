@@ -52,7 +52,6 @@ teal = "#1ABC9C"
 darkteal = "#24574D"
 yellow = "#C4A000"
 darkgrey = "#242424"
-darkgrey1 = "#212121"
 black = "#000000"
 white = "#FFFFFF"
 
@@ -81,14 +80,9 @@ keys = [
 
     # Terminal and rofi
     Key([mod], "Return", lazy.spawn(term)),
-    Key([mod], "space", lazy.spawn("rofi -show run -config ~/.config/rofi/config.rasi")),
+    Key([mod], "space", lazy.spawn("rofi -modi 'drun,run' -show drun")),
 
     # App spawning
-    Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
-    Key([mod, sft], "v", lazy.spawn("flatpak run com.visualstudio.code-oss")),
-    Key([mod, sft], "k", lazy.spawn("flatpak run org.kde.kdenlive")),
-    Key([mod, sft], "l", lazy.spawn("flatpak run io.lmms.LMMS")),
-    Key([mod, sft], "g", lazy.spawn("galculator")),
     Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
@@ -96,6 +90,8 @@ keys = [
     Key([mod], "h", lazy.spawn(term + " -e htop")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
     Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /usr/bin/ as "lock-script"
+    Key([mod, sft], "g", lazy.spawn("galculator")),
+    Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
 
     # Volume and brightness controls key bindings
     Key([mod, alt], "space", lazy.spawn("deadbeef --play-pause")),                      # deadbeef toggle play/pause
@@ -107,7 +103,7 @@ keys = [
     Key([mod, alt], "r", lazy.spawn("brightlight -w 2390")),                            # resets to 50%
 ]
 
-group_names = [("1: >_"), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
+group_names = [("1: "), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
 groups = [Group(name) for name in group_names]
 
 for i, name in enumerate(group_names, 1):
@@ -194,7 +190,7 @@ home = os.path.expanduser('~')
 # Mouse callbacks
 
 def open_rofi(qtile):
-    qtile.cmd_spawn("rofi -show run -config ~/.config/qtile/rofi-onedark.rasi")
+    qtile.cmd_spawn("rofi -show drun -config ~/.config/qtile/rofi-onedark.rasi")
 
 def open_htop(qtile):
     qtile.cmd_spawn(term + " -e htop")
