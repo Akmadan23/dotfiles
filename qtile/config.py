@@ -103,15 +103,46 @@ keys = [
     Key([mod, alt], "r", lazy.spawn("brightlight -w 2390")),                            # resets to 50%
 ]
 
-group_names = [("1: "), ("2: 🔗"), ("3: @"), ("4: 🗁"), ("5"), ("6"), ("7"), ("8")]
-groups = [Group(name) for name in group_names]
+groups = []
+group_names = ["1", "2", "3", "4", "5", "6", "7", "8"]
+group_labels = ["", "", "@", "", "", "", "", "8"]
 
-for i, name in enumerate(group_names, 1):
+for i in range(len(group_names)):
+    groups.append(
+        Group(
+            name = group_names [i],
+            label = group_labels [i],
+        )
+    )
+
+for i in groups:
     keys.extend([
-        Key([mod], str(i), lazy.group[name].toscreen()),
-        Key([mod, sft], str(i), lazy.window.togroup(name, switch_group = True)),
-        Key([mod, ctrl], str(i), lazy.window.togroup(name, switch_group = False)),
+        Key([mod], i.name, lazy.group[i.name].toscreen()),
+        Key([mod, sft], i.name, lazy.window.togroup(i.name, switch_group = True)),
+        Key([mod, ctrl], i.name, lazy.window.togroup(i.name, switch_group = False)),
     ])
+
+
+# ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
+@hook.subscribe.client_new
+def assign_app_group(client):
+    d = {}
+    d["1"] = []
+    d["2"] = ["firefox"]
+    d["3"] = ["Mail", "Thunderbird"]
+    d["4"] = ["ranger", "Ranger"]
+    d["5"] = ["telegram-desktop.bin", "TelegramDesktop"]
+    d["7"] = []
+    d["8"] = []
+    d["9"] = []
+    d["0"] = []
+
+    wm_class = client.window.get_wm_class()[0]
+    for i in range(len(d)):
+        if wm_class in list(d.values())[i]:
+             group = list(d.keys())[i]
+             client.togroup(group)
+             client.group.cmd_toscreen()
 
 # IMPORTANT: 
 # in order to avoid switching groups typing
@@ -240,6 +271,8 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                     this_screen_border = teal,
                     hide_unused = True,
                     rounded = False,
+                    font= "FontAwesome",
+                    fontsize = 20,
                     highlight_color = darkteal,
                     highlight_method = "line",
                 ),
@@ -449,6 +482,8 @@ else:
                     this_screen_border = teal,
                     hide_unused = True,
                     rounded = False,
+                    font= "FontAwesome",
+                    fontsize = 16,
                     highlight_color = darkteal,
                     highlight_method = "line",
                 ),
@@ -618,6 +653,8 @@ else:
                     this_screen_border = teal,
                     hide_unused = True,
                     rounded = False,
+                    font= "FontAwesome",
+                    fontsize = 16,
                     highlight_color = darkteal,
                     highlight_method = "line",
                 ),

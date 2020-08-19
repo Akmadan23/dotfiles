@@ -1,11 +1,10 @@
 #!/bin/sh
 
 dunst &					# notification manager
-picom -f &				# compositor
+picom -f & 				# compositor
 nm-applet &				# network manager
 flameshot &				# screenshot tool
 parcellite &			# clipboard manager
-volumeicon &			# volume icon tool
 blueman-applet &		# bluetooth manager
 
 xss-lock -l -- lock-script &
