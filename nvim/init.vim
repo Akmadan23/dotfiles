@@ -9,7 +9,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'flazz/vim-colorschemes'
-    Plug 'tomasiser/vim-code-dark'
 
     " dev tools
     Plug 'jiangmiao/auto-pairs'
@@ -43,12 +42,12 @@ set background=dark
 set clipboard+=unnamedplus
 set termguicolors
 
-colorscheme codedark
+colorscheme molokai
 hi Normal ctermbg=NONE guibg=NONE
 
-let g:airline_theme = 'codedark'
+let g:airline_theme = 'molokai'
 let g:Hexokinase_highlighters = ['backgroundfull']
-let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla,'
+let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
 
 """""" KEY BINDINGS
 
@@ -94,4 +93,7 @@ vnoremap <PageUp> <nop>
 inoremap <PageDown> <nop>
 nnoremap <PageDown> <nop>
 vnoremap <PageDown> <nop>
+
+nnoremap <Return> <nop>
+nnoremap <Space> <nop>
 
