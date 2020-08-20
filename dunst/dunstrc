@@ -32,7 +32,6 @@ class = Dunst
 [shortcuts]
 close = ctrl+space
 close_all = ctrl+shift+space
-history = ctrl+h
 context = ctrl+shift+period
 
 [urgency_low]

@@ -57,12 +57,12 @@ white = "#FFFFFF"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([alt], "Tab", lazy.layout.down()),
-    Key([alt, sft], "Tab", lazy.layout.up()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
 
     # Move windows up or down in current stack
-    Key([alt, ctrl], "Tab", lazy.layout.shuffle_down()),
-    Key([alt, ctrl, sft], "Tab", lazy.layout.shuffle_up()),
+    Key([mod, sft], "j", lazy.layout.shuffle_down()),
+    Key([mod, sft], "k", lazy.layout.shuffle_up()),
 
     # Windows and layout behaviour
     Key([mod], "plus", lazy.layout.grow(), lazy.layout.increase_nmaster()),
@@ -105,7 +105,7 @@ keys = [
 
 groups = []
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8"]
-group_labels = ["", "", "@", "", "", "", "", "8"]
+group_labels = ["", "", "@", "", "", "🎜", "", ""]
 
 for i in range(len(group_names)):
     groups.append(
@@ -122,20 +122,18 @@ for i in groups:
         Key([mod, ctrl], i.name, lazy.window.togroup(i.name, switch_group = False)),
     ])
 
-
 # ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
 @hook.subscribe.client_new
 def assign_app_group(client):
     d = {}
     d["1"] = []
-    d["2"] = ["firefox"]
+    d["2"] = ["firefox", "Firefox", "Navigator"]
     d["3"] = ["Mail", "Thunderbird"]
     d["4"] = ["ranger", "Ranger"]
     d["5"] = ["telegram-desktop.bin", "TelegramDesktop"]
+    d["6"] = ["deadbeef", "Deadbeef"]
     d["7"] = []
     d["8"] = []
-    d["9"] = []
-    d["0"] = []
 
     wm_class = client.window.get_wm_class()[0]
     for i in range(len(d)):
@@ -153,6 +151,7 @@ layout_theme = {
     "margin": 10,
     "single_margin": 0,
     "single_border_width": 0,
+    "border_normal": darkgrey,
     "border_focus": teal,
     "border_width": 1,
 }
@@ -204,15 +203,16 @@ floating_layout = layout.Floating(
         {"wmclass": "volumeicon"},      # volumeicon preferences window
         {"wmclass": "galculator"},      # galculator windows
         {"wmclass": "Msgcompose"},      # Thunderbird message window
+        {"wmclass": "Calendar"},        # Thunderbird calendar window
         {"wmclass": "gsimplecal"},      # My minimal calendar of choice
         {"wmclass": "gcolor2"},         # gcolor2 windows
     ]
 )
 
 widget_defaults = dict(
-    font='sans',
-    fontsize=12,
-    padding=3,
+    font = "sans",
+    fontsize = 12,
+    padding = 3,
 )
 
 extension_defaults = widget_defaults.copy()
@@ -221,7 +221,7 @@ home = os.path.expanduser('~')
 # Mouse callbacks
 
 def open_rofi(qtile):
-    qtile.cmd_spawn("rofi -show drun -config ~/.config/qtile/rofi-onedark.rasi")
+    qtile.cmd_spawn("rofi -modi 'drun,run' -show drun")
 
 def open_htop(qtile):
     qtile.cmd_spawn(term + " -e htop")
@@ -269,7 +269,6 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
-                    hide_unused = True,
                     rounded = False,
                     font= "FontAwesome",
                     fontsize = 20,
@@ -480,8 +479,7 @@ else:
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
-                    hide_unused = True,
-                    rounded = False,
+                    rounded = True,
                     font= "FontAwesome",
                     fontsize = 16,
                     highlight_color = darkteal,
@@ -651,7 +649,6 @@ else:
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
-                    hide_unused = True,
                     rounded = False,
                     font= "FontAwesome",
                     fontsize = 16,

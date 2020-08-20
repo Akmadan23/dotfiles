@@ -18,7 +18,7 @@ configuration {
 
 * {
 	text-color: @foreground;
-	active-background: #1ACB9C;
+	active-background: #1ABC9C;
 	active-foreground: @foreground;
 	normal-background: @background;
 	normal-foreground: @foreground;
@@ -30,9 +30,9 @@ configuration {
 	alternate-normal-foreground: @foreground;
 	alternate-urgent-background: @background;
 	alternate-urgent-foreground: @foreground;
-	selected-active-background: #1ACB9C;
+	selected-active-background: #1ABC9C;
 	selected-active-foreground: @foreground;
-	selected-normal-background: #1ACB9C;
+	selected-normal-background: #1ABC9C;
 	selected-normal-foreground: #242424;
 	selected-urgent-background: #9D596B;
 	selected-urgent-foreground: @foreground;
