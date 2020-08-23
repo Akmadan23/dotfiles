@@ -89,7 +89,7 @@ keys = [
     Key([mod], "s", lazy.spawn("flameshot gui")),
     Key([mod], "h", lazy.spawn(term + " -e htop")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
-    Key([mod], "l", lazy.spawn("lock-script")), # Copied the i3lock.sh script in /usr/bin/ as "lock-script"
+    Key([mod], "l", lazy.spawn("i3lock-fancy")),
     Key([mod, sft], "g", lazy.spawn("galculator")),
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
 
@@ -242,7 +242,7 @@ def logout_menu(qtile):
     qtile.cmd_spawn("wlogout")
 
 def suspend(qtile):
-    qtile.cmd_spawn("lock-suspend") # Copied che lock-suspend.sh script in /usr/bin/ as "lock-suspend"
+    qtile.cmd_spawn("i3lock-fancy && systemctl suspend")
 
 # Single/dual monitor check
 
