@@ -8,6 +8,14 @@ cp alacritty/* ~/.config/alacritty/
 mkdir -p ~/.config/awesome/
 cp awesome/* ~/.config/awesome/
 
+# bspwm
+mkdir -p ~/.config/bspwm/
+cp bspwm/* ~/.config/bspwm/
+
+# sxhkd
+mkdir -p ~/.config/sxhkd/
+cp sxhkd/* ~/.config/sxhkd/
+
 # i3
 mkdir -p ~/.config/i3/
 cp i3/* ~/.config/i3/
@@ -41,10 +49,6 @@ mkdir -p ~/.config/dunst/
 cp dunst/* ~/.config/dunst/
 
 # zsh 
-cp zsh/* ~/
-
-# scripts
-cp scripts/i3lock.sh ~/.local/bin/lock-script
-cp scripts/lock-suspend.sh ~/.local/bin/lock-suspend
-cp scripts/update-dotfiles.sh ~/.local/bin/update-dotfiles
+cp zsh/.zshrc ~/
+cp zsh/.zshenv ~/
 

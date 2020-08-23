@@ -1,24 +1,19 @@
 #!/bin/sh
 
-level=$(acpi -b | grep -Eo '[0-9][0-9]?%' | grep -Eo '[0-9][0-9]?')
-charging=$(acpi -b | grep Charging)
+kill -9 $(pidof bin/sh /home/azadahmadi/.config/scripts/battery-check.sh)
 
-while [ $level > 50 ]
-do 
-	sleep 600s	# waits 10 minutes to avoid pointless power consumption	
-	level=$(acpi -b | grep -Eo '[0-9][0-9]?%' | grep -Eo '[0-9][0-9]?')
+while :; do
+	if [ $(acpi -b | grep -Eo '[0-9][0-9][0-9]?%' | grep -Eo '[0-9][0-9][0-9]?') -gt 40 ]; then
+		while [ $(acpi -b | grep -Eo '[0-9][0-9][0-9]?%' | grep -Eo '[0-9][0-9][0-9]?') -gt 50 ]; do 
+			sleep 600s; done
+
+	elif [ $(acpi -b | grep -Eo '[0-9][0-9][0-9]?%' | grep -Eo '[0-9][0-9][0-9]?') -gt 20 ]; then
+		while [ $(acpi -b | grep -Eo '[0-9][0-9][0-9]?%' | grep -Eo '[0-9][0-9][0-9]?') -gt 20 ]; do 
+			sleep 120s; done
+
+	else
+		while [ $(acpi -b | grep -Eo '[0-9][0-9][0-9]?%' | grep -Eo '[0-9][0-9][0-9]?') -le 20 -a $(acpi -b | grep " Charging") != $null ]; do
+			sleep 60s; notify-send "Battery low: $(acpi -b | grep -Eo '[0-9][0-9][0-9]?%' | grep -Eo '[0-9][0-9][0-9]?')%" -u critical; done
+	fi
 done
-
-while [ $level > 20 ]
-do 
-	sleep 120s	# waits 2 minutes since the battery is under 50%	
-	level=$(acpi -b | grep -Eo '[0-9][0-9]?%' | grep -Eo '[0-9][0-9]?')
-done
-
-while [ $level <= 20 ] and [ $charging != $null ] 
-do
-	sleep 60s
-	notify-send "Battery low: $level%" -u critical
-	level=$(acpi -b | grep -Eo '[0-9][0-9]?%' | grep -Eo '[0-9][0-9]?')
-	charging=$(acpi -b | grep Charging)
 
