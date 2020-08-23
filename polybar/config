@@ -33,17 +33,12 @@ width = 98%
 height = 32
 offset-x = 1%
 offset-y = 1%
-radius = 4
+radius = 0
 fixed-center = true
-padding-right = 4
-padding-left = 4
-padding = 4
+padding = 2
 
 background = #282828
 foreground = #e8e8e8
-
-line-size = 2
-line-color = #ab4642
 
 module-margin-left = 1
 module-margin-right = 1
@@ -53,7 +48,7 @@ font-1 = "sans"
 
 modules-left = bspwm
 modules-center = date
-modules-right = pulseaudio memory cpu battery
+modules-right = pulseaudio memory cpu battery xbacklight
 
 tray-position = right
 tray-padding = 10
@@ -62,6 +57,7 @@ tray-background = #242424
 
 cursor-click = pointer
 enable-ipc = true
+wm-restack = bspwm
 
 ;================Modules================
 
@@ -72,18 +68,18 @@ enable-scroll = true
 label-focused = %name%
 label-focused-background = #24574D
 label-focused-underline = #1ABC9C
-label-focused-padding = 1
+label-focused-padding = 2
 
 label-occupied = %name%
-label-occupied-padding = 1
+label-occupied-padding = 2
 
 label-urgent = %name%!
 label-urgent-background = #cc0000
-label-urgent-padding = 1
+label-urgent-padding = 2
 
 label-empty = %name%
 label-empty-foreground = #666666
-label-empty-padding = 1
+label-empty-padding = 2
 
 format-underline =
 format-background =
@@ -123,9 +119,6 @@ label-urgent = %index%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
 
-; Separator in between workspaces
-; label-separator = |
-
 [module/mpd]
 type = internal/mpd
 format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
@@ -157,11 +150,6 @@ bar-fill-foreground = #9f78e1
 bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
-
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight
 
 [module/cpu]
 type = internal/cpu
@@ -224,13 +212,9 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-time =  %I:%M %p
-time-alt =  %d/%m/%Y%
-
-format-prefix = 
-
+time = %d/%m/%Y %H:%M
 label = %date% %time%
-label-foreground = #ba8baf
+label-foreground = #ffffff
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -238,8 +222,8 @@ format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage%
 label-volume-foreground = #ab4642
 format-muted-prefix = "  "
-label-muted =  MUTE
-padding-right = 5
+label-muted = MUTE
+padding = 2
 
 ramp-volume-0 =  
 ramp-volume-1 =  
@@ -253,10 +237,10 @@ adapter = ADP1
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-foreground = #93c7c0
+format-charging-foreground = #008800
 
 format-discharging = <animation-discharging> <label-discharging>
-format-discharging-foreground = #93c7c0
+format-discharging-foreground = #dddd00
 
 format-full-prefix = "  "
 
@@ -334,4 +318,3 @@ screenchange-reload = true
 margin-top = 5
 margin-bottom = 5
 
-; vim:ft=dosini

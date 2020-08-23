@@ -2,21 +2,22 @@
 bspc rule -r "*"
 
 ###---Autostart---###
+killall sxhkd
 sxhkd &
 dunst &
-picom -f &
 nm-applet &
 flameshot &
 parcellite &
 blueman-applet &
-xss-lock -l -- lock-script &
+picom --corner-radius 12 -f &
+xss-lock -l -- i3lock-fancy &
 ~/.config/polybar/launch.sh &
 ~/.config/scripts/battery-check.sh &
 feh --bg-scale ~/.config/qtile/images/wallpaper.jpg
 
 ###---MONITORS---###
-bspc monitor eDP-1 HDMI-1 -d 1 2 3 4 5 6 7 8
-# bspc monitor HDMI-1 -d 1 2 3 4 5 6 7 8
+bspc monitor eDP-1  -d 1 3 4 5 6 7 8
+bspc monitor HDMI-1 -d 2
 
 ###---Global Settings---###
 bspc config automatic_scheme alternate
@@ -35,14 +36,16 @@ bspc config merge_overlapping_monitors true
 bspc config normal_border_color	"#242424"
 bspc config active_border_color	"#24574D"
 bspc config focused_border_color "#1ABC9C"
-bspc config presel_feedback_color "#00FF00"
+bspc config presel_feedback_color "#00cc00"
 bspc config urgent_border_color "#CC0000"
 
 ###---Monitor And Desktop Settings----###
-bspc config top_padding 0
-bspc config bottom_padding 0
-bspc config left_padding 0
-bspc config right_padding 0
-bspc config window_gap 10
-bspc config border_width 1
+bspc config padding 0
+bspc config window_gap 20
+bspc config border_width 2
+
+###---App launcher rules---###
+bspc rule -a Firefox desktop='^2'
+bspc rule -a Thunderbird desktop='^3'
+bspc rule -a Toolkit state=floating
 
