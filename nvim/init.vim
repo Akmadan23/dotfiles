@@ -3,7 +3,6 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
     Plug 'sheerun/vim-polyglot'
-    Plug 'scrooloose/NERDTree'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'vim-airline/vim-airline'
@@ -47,7 +46,8 @@ hi Normal ctermbg=NONE guibg=NONE
 
 let g:airline_theme = 'molokai'
 let g:Hexokinase_highlighters = ['backgroundfull']
-let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
+let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba'
+let g:Hexokinase_refreshEvents = ['BufWrite', 'BufRead', 'TextChanged', 'InsertLeave']
 
 """""" KEY BINDINGS
 
@@ -57,16 +57,18 @@ nmap H 0
 nmap J <S-Down>
 nmap K <S-Up>
 nmap L $
+nmap Q <nop>
 
 vmap <Tab> >
 vmap <S-Tab> <
+
 imap ii <Esc>
 
-cmap gs G status
-cmap ga G add
-cmap gc G commit
-cmap gca G commit -a
-cmap gpom G push origin master
+" cnoremap gs<CR> G status
+" cnoremap ga<CR> G add
+" cnoremap gc<CR> G commit
+" cnoremap gca<CR> G commit -a
+" cnoremap gpom<CR> G push ori<CR> Gin master
 
 """""" Disabling arrow keys
 
@@ -94,6 +96,5 @@ inoremap <PageDown> <nop>
 nnoremap <PageDown> <nop>
 vnoremap <PageDown> <nop>
 
-nnoremap <Return> <nop>
-nnoremap <Space> <nop>
-
+nmap <Return> <nop>
+nmap <Space> <nop>

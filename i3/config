@@ -4,7 +4,7 @@
 #  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
 # /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 #
-
+#
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -38,7 +38,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec $term
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -49,40 +49,18 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
 
 # move focused window
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
 
-# split in horizontal orientation
 bindsym $mod+h split h
-
-# split in vertical orientation
 bindsym $mod+v split v
-
-# enter floating mode for the focused container
 bindsym $mod+Shift+f floating toggle
-
-# change container layout (stacked, tabbed, toggle split)
 bindsym $mod+Shift+s layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+f floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space exec rofi -modi "drun,run" -show drun
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+space exec "rofi -modi 'drun,run' -show drun"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple pqlaces.
@@ -109,7 +87,6 @@ bindsym $mod+Shift+5 move container to workspace number $ws5
 # Workspaces assignations apps
 assign [class="Firefox"] $ws2
 assign [class="Thunderbird"] $ws2
-assign [class="Firefox"] $ws2
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -141,47 +118,26 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $red		 #cc0000
-set $black		 #000000
-set $white		 #ffffff
+set $teal		#1ABC9C
+set $darkgrey	#242424
+set $white		#ffffff
 
 # window colors
 # tag			 		border			background		text			indicator
-client.focused		 	$red			$red			$black			#00ff00
-client.unfocused        $black			$black			$red			#00ff00
-client.focused_inactive $red			$red			$black			#00ff00
+client.focused		 	$teal			$teal			$darkgrey			#00ff00
+client.unfocused        $darkgrey			$darkgrey			$teal			#00ff00
+client.focused_inactive $teal			$teal			$darkgrey			#00ff00
 client.urgent           $white			$white	        $white			#00ff00
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-	font pango: DejaVu Sans Mono, FontAwesome 12
-	colors {
-		background $black
-		separator $black
-		#					border		background	text
-		inactive_workspace	$black		$black		$red
-		focused_workspace	$red		$red		$black
-		urgent_workspace	$white		$white		$black
-	}
-	
-	height 20
-	position top
-	#workspace_buttons no
-	#status_command bumblebee-status -m cpu memory battery time pasink pasource -p time.format="%H:%M" -t solarized
-	#status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	status_command i3status-rs ~/.config/i3/i3status-rs.toml
-}
-
 # Custom commands
-bindsym $mod+l exec i3lock -f -i ~/Immagini/fedorablackred.png
+bindsym $mod+l exec i3lock -f -i ~/Immagini/fedoradarkgreyteal.png
 bindsym $mod+g exec gimp
 bindsym $mod+e exec ranger
 bindsym $mod+f exec firefox
 bindsym $mod+t exec thunderbird
 
 # Startup
-exec_always feh --bg-scale ~/Immagini/Wallpapers/fedorablackred.png
+exec_always feh --bg-scale ~/Immagini/Wallpapers/fedoradarkgreyteal.png
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 exec --no-startup-id nm-applet

@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "lock-script",
+    "action" : "sleep 0.5s && i3lock-fancy",
     "text" : "Lock",
     "keybind" : "l"
 }
@@ -24,7 +24,7 @@
 }
 {
     "label" : "suspend",
-    "action" : "lock-suspend",
+    "action" : "sleep 0.5s && i3lock-fancy && systemctl suspend",
     "text" : "Suspend",
     "keybind" : "u"
 }
