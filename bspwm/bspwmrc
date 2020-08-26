@@ -16,8 +16,12 @@ xss-lock -l -- i3lock-fancy &
 feh --bg-scale ~/.config/qtile/images/wallpaper.jpg
 
 ###---MONITORS---###
-bspc monitor eDP-1  -d 1 3 4 5 6 7 8
-bspc monitor HDMI-1 -d 2
+if [ $(xrandr | grep "HDMI-1 disconnected") ]; then
+	bspc monitor eDP-1  -d 1 2 3 4 5 6 7 8
+else
+	bspc monitor eDP-1  -d 1 3 4 5 6 7 8
+	bspc monitor HDMI-1 -d 2
+fi
 
 ###---Global Settings---###
 bspc config automatic_scheme alternate
