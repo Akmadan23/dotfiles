@@ -4,7 +4,7 @@ follow = mouse
 geometry = "300x60-20+48"
 indicate_hidden = yes
 shrink = no
-separator_height = 12
+separator_height = 0
 padding = 12
 horizontal_padding = 12
 frame_width = 2
@@ -47,7 +47,7 @@ foreground = "#DFDFDF"
 frame_color = "#1ABC9C"
 
 [urgency_critical]
-timeout = 0
+timeout = 60
 background = "#242424"
 foreground = "#DFDFDF"
 frame_color = "#D71C15"

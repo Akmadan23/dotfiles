@@ -424,7 +424,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
                 widget.Clock(
                     background = darkteal,
-                    format = '%a %d/%m/%Y, %H:%M %p',
+                    format = "%A %d %B, %H:%M",
                     mouse_callbacks = {"Button1": open_calendar},
                 ),
 
@@ -601,7 +601,7 @@ else:
 
                 widget.Clock(
                     background = darkteal,
-                    format = '%a %d/%m/%Y, %H:%M %p',
+                    format = "%A %d %B, %H:%M",
                     mouse_callbacks = {"Button1": open_calendar},
                 ),
 
@@ -699,7 +699,7 @@ else:
                 ),
 
                 widget.Clock(
-                    format = '%A %d/%m/%Y, %H:%M %p',
+                    format = "%A %d %B, %H:%M",
                     mouse_callbacks = {"Button1": open_calendar},
                 ),
 
