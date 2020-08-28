@@ -166,54 +166,28 @@ font:
 # Colors (Elementary)
 colors:
   normal:
-    black: '#000000'
-    blue: '#1ABC9C'
-    cyan: '#2595e1'
-    green: '#5aa513'
-    magenta: '#AC64CF'
-    red: '#d71c15'
-    white: '#dfdfdf'
-    yellow: '#fdb40c'
+    black:      '#000000'
+    red:        '#FD971F'
+    green:      '#A6E22E'
+    yellow:     '#E6DB74'
+    blue:       '#1ABC9C'
+    magenta:    '#F92672'
+    cyan:       '#66D9EF'
+    white:      '#FFFFFF'
     
   bright:
-    black: '#4b4b4b'
-    blue: '#6FD4C1'
-    cyan: '#3ea8fc'
-    green: '#6bc219'
-    magenta: '#c397d8'
-    red: '#fc1c18'
-    white: '#b5d5ff'
-    yellow: '#fec80e'
+    black:      '#666666'
+    red:        '#FDBC6F'
+    green:      '#C0E27A'
+    yellow:     '#E6DF9C'
+    magenta:    '#F95A92'
+    blue:       '#64CCB8'
+    cyan:       '#AEE5EF'
+    white:      '#eeeeee'
     
   primary:
     background: '#242424'
-    foreground: '#dfdfdf'
-
-# Visual Bell
-#
-# Any time the BEL code is received, Alacritty "rings" the visual bell. Once
-# rung, the terminal background will be set to white and transition back to the
-# default background color. You can control the rate of this transition by
-# setting the `duration` property (represented in milliseconds). You can also
-# configure the transition function by setting the `animation` property.
-#
-# Values for `animation`:
-#   - Ease
-#   - EaseOut
-#   - EaseOutSine
-#   - EaseOutQuad
-#   - EaseOutCubic
-#   - EaseOutQuart
-#   - EaseOutQuint
-#   - EaseOutExpo
-#   - EaseOutCirc
-#   - Linear
-#
-# Specifying a `duration` of `0` will disable the visual bell.
-#visual_bell:
-#  animation: EaseOutExpo
-#  duration: 0
-#  color: '0xffffff'
+    foreground: '#eeeeee'
 
 # Background opacity
 #
