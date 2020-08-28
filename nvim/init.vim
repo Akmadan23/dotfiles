@@ -3,8 +3,6 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
     Plug 'sheerun/vim-polyglot'
-    Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/goyo.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'flazz/vim-colorschemes'
@@ -41,7 +39,7 @@ set background=dark
 set clipboard+=unnamedplus
 set termguicolors
 
-colorscheme molokai
+colorscheme molokai-teal " fork of molokai theme "
 hi Normal ctermbg=NONE guibg=NONE
 
 let g:airline_theme = 'molokai'
