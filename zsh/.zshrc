@@ -72,7 +72,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting) 
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,19 +99,19 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Config files
-alias zconf="nvim ~/.zshrc"
-alias rconf="nvim ~/.config/rofi/config.rasi"
-alias vconf="nvim ~/.config/nvim/init.vim"
-alias qconf="nvim ~/.config/qtile/config.py"
-alias asonf="nvim ~/.config/qtile/autostart.sh"
-alias alconf="nvim ~/.config/alacritty/alacritty.yml"
-alias awconf="nvim ~/.config/awesome/rc.lua"
-alias i3conf="nvim ~/.config/i3/config"
-alias pbconf="nvim ~/.config/polybar/config"
-alias kbconf="nvim ~/.config/sxhkd/sxhkdrc"
-alias bspconf="nvim ~/.config/bspwm/bspwmrc"
-alias ffconf="nvim ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
-alias ffcolors="nvim ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
+alias zconf="$editor ~/.zshrc"
+alias rconf="$editor ~/.config/rofi/config.rasi"
+alias vconf="$editor ~/.config/nvim/init.vim"
+alias qconf="$editor ~/.config/qtile/config.py"
+alias asonf="$editor ~/.config/qtile/autostart.sh"
+alias alconf="$editor ~/.config/alacritty/alacritty.yml"
+alias awconf="$editor ~/.config/awesome/rc.lua"
+alias i3conf="$editor ~/.config/i3/config"
+alias pbconf="$editor ~/.config/polybar/config"
+alias kbconf="$editor ~/.config/sxhkd/sxhkdrc"
+alias bspconf="$editor ~/.config/bspwm/bspwmrc"
+alias ffconf="$editor ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
+alias ffcolors="$editor ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
 
 # Xrandr settings
 alias displayonly="xrandr --output eDP-1 --mode 1600x900 --rotate normal --output HDMI-1 --off"
@@ -143,6 +143,9 @@ alias krita="./Appimage/krita-4.2.6-x86_64.appimage"
 
 # Git
 alias gs="git status"
+alias ga="git add"
+alias gaa="git add -u"
+alias gd="git diff"
 alias gc="git commit"
 alias gca="git commit -a"
 alias gpom="git push origin master"
@@ -154,7 +157,7 @@ alias suspend-lock="systemctl suspend && lock-script"
 alias reboot="systemctl reboot"
 
 # Other
-alias vim="nvim"
+alias vim="$editor"
 alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
 alias swap="sudo swapon -v /dev/sda2"

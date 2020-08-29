@@ -167,9 +167,9 @@ font:
 colors:
   normal:
     black:      '#000000'
-    red:        '#FD971F'
+    red:        '#E12824'
     green:      '#A6E22E'
-    yellow:     '#E6DB74'
+    yellow:     '#FD971F'
     blue:       '#1ABC9C'
     magenta:    '#F92672'
     cyan:       '#66D9EF'
@@ -177,17 +177,17 @@ colors:
     
   bright:
     black:      '#666666'
-    red:        '#FDBC6F'
-    green:      '#C0E27A'
-    yellow:     '#E6DF9C'
+    red:        '#E1413F'
+    green:      '#B7E25F'
+    yellow:     '#FDAA47'
+    blue:       '#5ABCA9'
     magenta:    '#F95A92'
-    blue:       '#64CCB8'
-    cyan:       '#AEE5EF'
-    white:      '#eeeeee'
+    cyan:       '#8BDFEF'
+    white:      '#dddddd'
     
   primary:
     background: '#242424'
-    foreground: '#eeeeee'
+    foreground: '#dddddd'
 
 # Background opacity
 #
