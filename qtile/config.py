@@ -131,7 +131,7 @@ def assign_app_group(client):
     d["3"] = ["Mail", "Thunderbird"]
     d["4"] = ["ranger", "Ranger"]
     d["5"] = ["telegram-desktop.bin", "TelegramDesktop"]
-    d["6"] = ["deadbeef", "Deadbeef"]
+    d["6"] = ["lmms", "deadbeef", "Deadbeef"]
     d["7"] = []
     d["8"] = []
 

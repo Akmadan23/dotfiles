@@ -158,6 +158,7 @@ alias reboot="systemctl reboot"
 
 # Other
 alias vim="$editor"
+alias svim="sudo $editor"
 alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
 alias swap="sudo swapon -v /dev/sda2"

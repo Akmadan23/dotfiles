@@ -44,7 +44,7 @@ hi Normal ctermbg=NONE guibg=NONE
 
 let g:airline_theme = 'molokai'
 let g:Hexokinase_highlighters = ['backgroundfull']
-let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba'
+let g:Hexokinase_optOutPatterns = 'colour_names'
 let g:Hexokinase_refreshEvents = ['BufWrite', 'BufRead', 'TextChanged', 'InsertLeave']
 
 """""" KEY BINDINGS
@@ -62,11 +62,11 @@ vmap <S-Tab> <
 
 imap ii <Esc>
 
-" cnoremap gs<CR> G status
-" cnoremap ga<CR> G add
-" cnoremap gc<CR> G commit
-" cnoremap gca<CR> G commit -a
-" cnoremap gpom<CR> G push ori<CR> Gin master
+" cnoremap gs<CR> G status<CR>
+" cnoremap ga<CR> G add<CR>
+" cnoremap gc<CR> G commit<CR>
+" cnoremap gca<CR> G commit -a<CR>
+" cnoremap gpom<CR> G push origin master<CR>
 
 """""" Disabling arrow keys
 
