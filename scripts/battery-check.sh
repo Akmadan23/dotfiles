@@ -16,8 +16,8 @@ while :; do
 			if [ $(acpi -b | grep -Eo "Charging") = "Charging" ]; then
 				sleep 300s
 			else
-				sleep 60s
 				notify-send "Battery low: $(acpi -b | grep -Eo '[0-9][0-9][0-9]?%' | grep -Eo '[0-9][0-9][0-9]?')%" -u critical
+				sleep 60s
 			fi
 		fi
 	fi
