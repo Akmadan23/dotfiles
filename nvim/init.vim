@@ -1,7 +1,7 @@
 """""" PUGINS
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-    Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+    Plug 'norcalli/nvim-colorizer.lua'
     Plug 'sheerun/vim-polyglot'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -40,6 +40,7 @@ set clipboard+=unnamedplus
 set termguicolors
 
 colorscheme molokai-teal " fork of molokai theme "
+lua require'colorizer'.setup()
 hi Normal ctermbg=NONE guibg=NONE
 
 let g:airline_theme = 'molokai'
@@ -56,6 +57,9 @@ nmap J <S-Down>
 nmap K <S-Up>
 nmap L $
 nmap Q <nop>
+
+nmap <C-q> <nop>
+vmap <C-q> <nop>
 
 vmap <Tab> >
 vmap <S-Tab> <
@@ -95,4 +99,5 @@ nnoremap <PageDown> <nop>
 vnoremap <PageDown> <nop>
 
 nmap <Return> <nop>
+nmap <Backspace> <nop>
 nmap <Space> <nop>
