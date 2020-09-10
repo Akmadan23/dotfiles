@@ -153,7 +153,7 @@ alias gpom="git push origin master"
 # Systemctl shortcuts
 alias poweroff="systemctl poweroff"
 alias suspend="systemctl suspend"
-alias suspend-lock="systemctl suspend && lock-script"
+alias suspend-lock="i3lock-fancy && systemctl suspend"
 alias reboot="systemctl reboot"
 
 # Other
