@@ -1,21 +1,7 @@
-"""""" PUGINS
+"""""" MODULES
 
-call plug#begin('~/.config/nvim/autoload/plugged')
-    Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'flazz/vim-colorschemes'
-
-    " dev tools
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'alvan/vim-closetag'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-commentary'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'mattn/emmet-vim'
-call plug#end()
+source ~/.config/nvim/plugins.vim
+source ~/.config/nvim/keybindings.vim
 
 """""" GENERAL SETTINGS
 
@@ -48,56 +34,3 @@ let g:Hexokinase_highlighters = ['backgroundfull']
 let g:Hexokinase_optOutPatterns = 'colour_names'
 let g:Hexokinase_refreshEvents = ['BufWrite', 'BufRead', 'TextChanged', 'InsertLeave']
 
-"""""" KEY BINDINGS
-
-nmap U <C-r>
-nmap Y y$
-nmap H 0
-nmap J <S-Down>
-nmap K <S-Up>
-nmap L $
-nmap Q <nop>
-
-nmap <C-q> <nop>
-vmap <C-q> <nop>
-
-vmap <Tab> >
-vmap <S-Tab> <
-
-imap ii <Esc>
-
-" cnoremap gs<CR> G status<CR>
-" cnoremap ga<CR> G add<CR>
-" cnoremap gc<CR> G commit<CR>
-" cnoremap gca<CR> G commit -a<CR>
-" cnoremap gpom<CR> G push origin master<CR>
-
-"""""" Disabling arrow keys
-
-inoremap <up> <nop>
-nnoremap <up> <nop>
-vnoremap <up> <nop>
-
-inoremap <down> <nop>
-nnoremap <down> <nop>
-vnoremap <down> <nop>
-
-inoremap <left> <nop>
-nnoremap <left> <nop>
-vnoremap <left> <nop>
-
-inoremap <right> <nop>
-nnoremap <right> <nop>
-vnoremap <right> <nop>
-
-inoremap <PageUp> <nop>
-nnoremap <PageUp> <nop>
-vnoremap <PageUp> <nop>
-
-inoremap <PageDown> <nop>
-nnoremap <PageDown> <nop>
-vnoremap <PageDown> <nop>
-
-nmap <Return> <nop>
-nmap <Backspace> <nop>
-nmap <Space> <nop>
