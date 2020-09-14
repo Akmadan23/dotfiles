@@ -7,8 +7,8 @@ set recolor-lightcolor		"#242424"
 set inputbar-fg				"#FFFFFF"
 set inputbar-bg				"#242424"
 
-set statusbar-bg			"#B5D5FF"
-set statusbar-fg			"#242424"
+set statusbar-bg			"#1ABC9C"
+set statusbar-fg			"#000000"
 
 set highlight-color			"#24574D"
 set highlight-active-color	"#1ABC9C"
@@ -23,5 +23,5 @@ set completion-highlight-fg	"#242424"
 # Keys
 map i recolor
 map p print
-map <C-Up> zoom in
-map <C-Down> zoom out
+map <C-j> zoom out
+map <C-k> zoom in

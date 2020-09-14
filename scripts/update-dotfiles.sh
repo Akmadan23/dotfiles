@@ -15,6 +15,7 @@ cp ~/.config/rofi/* ~/Documenti/git-repos/dotfiles/rofi/
 cp ~/.config/ranger/* ~/Documenti/git-repos/dotfiles/ranger/
 cp ~/.config/wlogout/* ~/Documenti/git-repos/dotfiles/wlogout/
 cp ~/.config/zathura/* ~/Documenti/git-repos/dotfiles/zathura/
-cp ~/.config/dunst/* ~/Documenti/git-repos/dotfiles/dunst/
 cp ~/.config/mpv/* ~/Documenti/git-repos/dotfiles/mpv/
+cp -r ~/.config/dunst/* ~/Documenti/git-repos/dotfiles/dunst/
+cp -r ~/.config/deadbeef/* ~/Documenti/git-repos/dotfiles/deadbeef/
 cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/
