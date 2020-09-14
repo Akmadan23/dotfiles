@@ -1,24 +1,28 @@
-nmap U <C-r>
-nmap Y y$
 nmap H 0
 nmap J <S-Down>
 nmap K <S-Up>
 nmap L $
+
+nmap U <C-r>
+nmap Y y$
 nmap Q <nop>
 
 nmap <C-q> <nop>
 vmap <C-q> <nop>
 
-vmap <Tab> >
-vmap <S-Tab> <
+vmap <Tab> >gv
+vmap <S-Tab> <gv
 
-imap ii <Esc>
+imap <A-i> <Esc>
 
-" cnoremap gs<CR> G status<CR>
-" cnoremap ga<CR> G add<CR>
-" cnoremap gc<CR> G commit<CR>
-" cnoremap gca<CR> G commit -a<CR>
-" cnoremap gpom<CR> G push origin master<CR>
+map <C-n> :NERDTreeToggle<CR>
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+nmap <A-z> <C-y>,
+imap <A-z> <C-y>,
 
 """""" Disabling arrow keys
 
@@ -46,6 +50,9 @@ inoremap <PageDown> <nop>
 nnoremap <PageDown> <nop>
 vnoremap <PageDown> <nop>
 
-nmap <Return> <nop>
-nmap <Backspace> <nop>
-nmap <Space> <nop>
+"""""" Disabling space return and backspace in normal mode
+
+nnoremap <Space> <nop>
+nnoremap <Return> <nop>
+nnoremap <Backspace> <nop>
+

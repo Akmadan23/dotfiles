@@ -1,9 +1,12 @@
-"""""" MODULES
+"     _    _                        _             ____  _____ 
+"    / \  | | ___ __ ___   __ _  __| | __ _ _ __ |___ \|___ / 
+"   / _ \ | |/ / '_ ` _ \ / _` |/ _` |/ _` | '_ \  __) | |_ \ 
+"  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
+" /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/keybindings.vim
-
-"""""" GENERAL SETTINGS
+source ~/.config/nvim/coc.vim
 
 syntax enable
 set hidden
@@ -13,7 +16,7 @@ set iskeyword+=-
 set mouse=a
 set splitbelow
 set splitright
-set tabstop=4                           
+set tabstop=4 
 set shiftwidth=4
 set smartindent
 set autoindent
@@ -25,12 +28,10 @@ set background=dark
 set clipboard+=unnamedplus
 set termguicolors
 
-colorscheme molokai-teal " fork of molokai theme "
-lua require'colorizer'.setup()
+colorscheme molokai-teal
+lua require 'colorizer'.setup()
 hi Normal ctermbg=NONE guibg=NONE
 
 let g:airline_theme = 'molokai'
-let g:Hexokinase_highlighters = ['backgroundfull']
-let g:Hexokinase_optOutPatterns = 'colour_names'
-let g:Hexokinase_refreshEvents = ['BufWrite', 'BufRead', 'TextChanged', 'InsertLeave']
+" let g:user_emmet_leader_key = '<Alt>'
 
