@@ -21,7 +21,8 @@ ignore_newline = no
 stack_duplicates = false
 hide_duplicate_count = yes
 show_indicators = no
-icon_position = off
+icon_position = left
+max_icon_size = 32
 sticky_history = yes
 history_length = 20
 browser = /usr/bin/firefox -new-tab
@@ -39,15 +40,18 @@ timeout = 2
 background = "#242424"
 foreground = "#DFDFDF"
 frame_color = "#1ABC9C"
+icon = /home/azadahmadi/.config/dunst/icons/normal.png
 
 [urgency_normal]
 timeout = 4
 background = "#242424"
 foreground = "#DFDFDF"
 frame_color = "#1ABC9C"
+icon = /home/azadahmadi/.config/dunst/icons/normal.png
 
 [urgency_critical]
 timeout = 60
 background = "#242424"
 foreground = "#DFDFDF"
 frame_color = "#D71C15"
+icon = /home/azadahmadi/.config/dunst/icons/critical.png
