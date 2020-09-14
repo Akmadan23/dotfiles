@@ -1,0 +1,202 @@
+add_folders_follow_symlinks 0
+alsa_soundcard default
+artwork.filemask *cover*.jpg;*front*.jpg;*folder*.jpg;*cover*.png;*front*.png;*folder*.png
+chip.voices 255
+cli_add_playlist_name Default
+close_send_to_tray 1
+deadbeef_version 1.8.4
+filebrowser.autofilter 1
+filebrowser.bgcolor 
+filebrowser.bgcolor_selected 
+filebrowser.coverart_files cover.png;cover.jpg;folder.png;folder.jpg;front.png;front.jpg
+filebrowser.coverart_scale 1
+filebrowser.coverart_size 24
+filebrowser.defaultpath 
+filebrowser.enabled 1
+filebrowser.expanded_rows 
+filebrowser.extra_bookmarks $HOME/.config/deadbeef/bookmarks
+filebrowser.fgcolor 
+filebrowser.fgcolor_selected 
+filebrowser.filter 
+filebrowser.filter_enabled 1
+filebrowser.font_size 0
+filebrowser.fullsearch_wait 5
+filebrowser.hidden 0
+filebrowser.hide_navigation 0
+filebrowser.hide_search 0
+filebrowser.hide_toolbar 0
+filebrowser.icon_size 24
+filebrowser.save_treeview 1
+filebrowser.search_delay 1000
+filebrowser.show_coverart 1
+filebrowser.showbookmarks 1
+filebrowser.showhidden 0
+filebrowser.showicons 1
+filebrowser.sidebar_width 220
+filebrowser.sort_treeview 1
+filebrowser.treelines 0
+filechooser.lastdir file:///home/azadahmadi/Musica/Rancore
+gtkui.color.bar_background 9252 9252 9252
+gtkui.columns.playlist [{"title":"♫","id":"1","format":"%playstatus%","sort_format":"","size":"34","align":"0","color_override":"0","color":"#ff000000"},{"title":"Artista","id":"-1","format":"$if(%artist%,%artist%,Unknown Artist)","sort_format":"","size":"134","align":"0","color_override":"0","color":"#fff9f8f7"},{"title":"Album","id":"-1","format":"%album%","sort_format":"","size":"197","align":"0","color_override":"0","color":"#ff000000"},{"title":"Traccia N°","id":"-1","format":"%tracknumber%","sort_format":"","size":"43","align":"1","color_override":"0","color":"#ff000000"},{"title":"Titolo","id":"-1","format":"%title%","sort_format":"","size":"279","align":"0","color_override":"0","color":"#ff000000"},{"title":"Durata","id":"-1","format":"%length%","sort_format":"","size":"57","align":"0","color_override":"0","color":"#ff000000"}]
+gtkui.columns.search [{"title":"Artista / Album","id":"-1","format":"$if(%artist%,%artist%,Unknown Artist)[ - %album%]","sort_format":"","size":"150","align":"0","color_override":"0","color":"#ff000000"},{"title":"Titolo","id":"-1","format":"%title%","sort_format":"","size":"221","align":"0","color_override":"0","color":"#ff000000"},{"title":"Traccia N°","id":"-1","format":"%tracknumber%","sort_format":"","size":"50","align":"1","color_override":"0","color":"#ff000000"},{"title":"Durata","id":"-1","format":"%length%","sort_format":"","size":"50","align":"0","color_override":"0","color":"#ff000000"}]
+gtkui.eq.visible 0
+gtkui.hide_tray_icon 0
+gtkui.layout.0.6.2 vsplitter locked=2 ratio=0.970737 pos=0 size2=26 {hsplitter locked=1 ratio=0.395833 pos=760 size2=837 {tabbed_playlist hideheaders=0 width=760 {} vsplitter locked=0 ratio=0.516624 pos=0 size2=0 {hsplitter locked=0 ratio=0.508961 pos=0 size2=0 {spectrogram {} coverart {} } musical_spectrum {} } } hsplitter locked=1 ratio=0.083333 pos=160 size2=0 {playtb {} hsplitter locked=2 ratio=0.961867 pos=0 size2=64 {seekbar {} volumebar {} } } } 
+gtkui.override_bar_colors 1
+gtkui.override_tabstrip_colors 0
+gtkui.playlist.group_by_tf ""
+gtkui.selection_properties.show_headers 0
+gtkui.start_hidden 0
+gtkui.statusbar.visible 1
+gtkui.tabscroll 0
+gtkui.titlebar_playing_tf %artist% - %title% - DeaDBeeF-%_deadbeef_version%
+gtkui.titlebar_stopped_tf DeaDBeeF-%_deadbeef_version%
+hotkey.key01 "Ctrl f" 0 0 find
+hotkey.key02 "Ctrl o" 0 0 open_files
+hotkey.key03 "Ctrl q" 0 0 quit
+hotkey.key04 "Ctrl n" 0 0 new_playlist
+hotkey.key05 "Ctrl a" 0 0 select_all
+hotkey.key06 "Ctrl m" 0 0 toggle_stop_after_current
+hotkey.key07 "Ctrl j" 0 0 jump_to_current_track
+hotkey.key08 "F1" 0 0 help
+hotkey.key09 "Delete" 1 0 remove_from_playlist
+hotkey.key10 "Alt Return" 1 0 track_properties
+hotkey.key11 "Alt 1" 0 0 playlist1
+hotkey.key12 "Alt 2" 0 0 playlist2
+hotkey.key13 "Alt 3" 0 0 playlist3
+hotkey.key14 "Alt 4" 0 0 playlist4
+hotkey.key15 "Alt 5" 0 0 playlist5
+hotkey.key16 "Alt 6" 0 0 playlist6
+hotkey.key17 "Alt 7" 0 0 playlist7
+hotkey.key18 "Alt 8" 0 0 playlist8
+hotkey.key19 "Alt 9" 0 0 playlist9
+hotkey.key20 "Alt 0" 0 0 playlist10
+hotkey.key21 "Ctrl Left" 0 0 prev
+hotkey.key22 "space" 0 0 play_pause
+hotkey.key23 "Ctrl Right" 0 0 next
+hotkey.key24 "Ctrl Up" 0 0 volume_up
+hotkey.key25 "Ctrl Down" 0 0 volume_down
+hotkey.key26 "Left" 0 0 seek_5s_back
+hotkey.key27 "Right" 0 0 seek_5s_fwd
+hotkey.key28 "m" 0 0 toggle_mute
+hotkey.key29 "Return" 0 0 play
+hotkeys_created 1
+logwindow.geometry.h 856
+logwindow.geometry.w 778
+logwindow.geometry.x 810
+logwindow.geometry.y 32
+mainwin.geometry.h 1058
+mainwin.geometry.w 1920
+mainwin.geometry.x 1600
+mainwin.geometry.y 22
+musical_spectrum.alignment 2
+musical_spectrum.amp_max 0
+musical_spectrum.amp_min -60
+musical_spectrum.bar_delay 100
+musical_spectrum.bar_falloff 100
+musical_spectrum.bar_w 0
+musical_spectrum.channel 262143
+musical_spectrum.color.background 0 0 0
+musical_spectrum.color.black_keys 0 0 0
+musical_spectrum.color.gradient_00 65535 0 0
+musical_spectrum.color.gradient_01 65535 32896 0
+musical_spectrum.color.gradient_02 65535 65535 0
+musical_spectrum.color.gradient_03 32896 65535 30840
+musical_spectrum.color.gradient_04 0 38036 41120
+musical_spectrum.color.gradient_05 0 8224 25700
+musical_spectrum.color.hgrid 21845 21845 21845
+musical_spectrum.color.ogrid 42148 0 0
+musical_spectrum.color.peaks 42148 0 0
+musical_spectrum.color.text 65535 65535 65535
+musical_spectrum.color.vgrid 21845 21845 21845
+musical_spectrum.color.white_keys 10240 10240 10240
+musical_spectrum.draw_style 0
+musical_spectrum.enable_amp 0
+musical_spectrum.enable_bar_mode 0
+musical_spectrum.enable_black_keys 0
+musical_spectrum.enable_bottom_labels 1
+musical_spectrum.enable_hgrid 1
+musical_spectrum.enable_left_labels 1
+musical_spectrum.enable_ogrid 0
+musical_spectrum.enable_peaks 1
+musical_spectrum.enable_peaks_color 0
+musical_spectrum.enable_right_labels 1
+musical_spectrum.enable_tooltip 1
+musical_spectrum.enable_top_labels 0
+musical_spectrum.enable_vgrid 1
+musical_spectrum.enable_white_keys 1
+musical_spectrum.fft_size 8192
+musical_spectrum.fill_spectrum 1
+musical_spectrum.font Sans 7
+musical_spectrum.font_tooltip Sans 9
+musical_spectrum.gaps 1
+musical_spectrum.gradient_orientation 0
+musical_spectrum.interpolate 0
+musical_spectrum.note_max 125
+musical_spectrum.note_min 0
+musical_spectrum.num_colors 6
+musical_spectrum.peak_delay 500
+musical_spectrum.peak_falloff 50
+musical_spectrum.pitch 440
+musical_spectrum.refresh_interval 25
+musical_spectrum.spacing 0
+musical_spectrum.transpose 0
+musical_spectrum.window 1
+network.proxy.port 8080
+output_plugin pulseaudio
+playback.loop 1
+playback.volume -10.00000
+playlist.current 2
+playlist.cursor.0 14
+playlist.cursor.1 5
+playlist.cursor.2 85
+playlist.cursor.3 0
+playlist.cursor.4 12
+playlist.cursor.5 0
+playlist.scroll.0 -14
+playlist.scroll.1 0
+playlist.scroll.2 2022
+playlist.scroll.3 0
+playlist.scroll.4 -12
+playlist.scroll.5 0
+playlist.scroll.cursorfollowplayback 1
+playlist.tab.00000 Acrobati
+playlist.tab.00001 JZ
+playlist.tab.00002 Altro
+playlist.tab.00003 René Aubry
+playlist.tab.00004 L'uomo che viaggiava nel vento (E altri racconti di brezze e correnti)
+playlist.tab.00005 Rancore
+prefwin.geometry.h 580
+prefwin.geometry.w 701
+prefwin.geometry.x 450
+prefwin.geometry.y 171
+replaygain.processing_flags 0
+resume.paused 1
+resume.playlist 2
+resume.position 76.523132
+resume.track 0
+searchwin.geometry.h 856
+searchwin.geometry.w 778
+searchwin.geometry.x 810
+searchwin.geometry.y 32
+spectrogram.color.gradient_00 65535 0 0
+spectrogram.color.gradient_01 65535 32896 0
+spectrogram.color.gradient_02 65535 65535 0
+spectrogram.color.gradient_03 32896 65535 30840
+spectrogram.color.gradient_04 0 38036 41120
+spectrogram.color.gradient_05 0 8224 25700
+spectrogram.color.gradient_06 0 0 0
+spectrogram.db_range 70
+spectrogram.log_scale 1
+spectrogram.num_colors 7
+spectrogram.refresh_interval 25
+streamer.16_to_24 0
+streamer.8_to_16 1
+streamer.override_samplerate 0
+streamer.samplerate 44100
+streamer.samplerate_mult_44 44100
+streamer.samplerate_mult_48 48000
+trkproperties.geometry.h 856
+trkproperties.geometry.w 779
+trkproperties.geometry.x 809
+trkproperties.geometry.y 32
