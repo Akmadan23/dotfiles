@@ -1,12 +1,9 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
-    Plug 'norcalli/nvim-colorizer.lua'
     Plug 'sheerun/vim-polyglot'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'preservim/nerdtree'
-    Plug 'flazz/vim-colorschemes'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'ryanoasis/vim-devicons'
 
     " dev tools
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -18,5 +15,11 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'airblade/vim-gitgutter'
     Plug 'mattn/emmet-vim'
+
+    " appearance plugins
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'flazz/vim-colorschemes'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 

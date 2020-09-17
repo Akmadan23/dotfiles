@@ -11,7 +11,7 @@ source ~/.config/nvim/coc.vim
 syntax enable
 set hidden
 set nowrap
-set encoding=utf-8
+set encoding=UTF-8
 set iskeyword+=-
 set mouse=a
 set splitbelow
@@ -31,7 +31,6 @@ set termguicolors
 colorscheme molokai-teal
 lua require 'colorizer'.setup()
 hi Normal ctermbg=NONE guibg=NONE
-
 let g:airline_theme = 'molokai'
-" let g:user_emmet_leader_key = '<Alt>'
+let g:airline_powerline_fonts = 1
 
