@@ -104,28 +104,32 @@ font:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    family: Source Code Pro
+    # family: Source Code Pro
+    style: mononoki Nerd Font Mono
     style: Regular
 
   bold:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    family: Source Code Pro
+    # family: Source Code Pro
+    style: mononoki Nerd Font Mono
     style: Bold
 
   italic:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    family: Source Code Pro
+    # family: Source Code Pro
+    style: mononoki Nerd Font Mono
     style: Italic
 
   bold_italic:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    family: Source Code Pro
+    # family: Source Code Pro
+    style: mononoki Nerd Font Mono
     style: Bold Italic
 
   # Point size
