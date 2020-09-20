@@ -31,6 +31,13 @@ set termguicolors
 colorscheme molokai-teal
 lua require 'colorizer'.setup()
 hi Normal ctermbg=NONE guibg=NONE
+
+" Airline settings
 let g:airline_theme = 'molokai'
 let g:airline_powerline_fonts = 1
+
+" NERDTree custom mappings
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapOpenSplit = 'h'
+let g:NERDTreeMapOpenVSplit = 'v'
 

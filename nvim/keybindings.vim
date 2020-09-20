@@ -1,21 +1,28 @@
-nmap H 0
-nmap J <S-Down>
-nmap K <S-Up>
-nmap L $
+nnoremap H 0
+nnoremap J <PageDown>
+nnoremap K <PageUp>
+nnoremap L $
 
-nmap U <C-r>
-nmap Y y$
-nmap Q <nop>
+nnoremap U <C-r>
+nnoremap Y y$
+nnoremap Q <nop>
 
-nmap <C-q> <nop>
-vmap <C-q> <nop>
+nnoremap <C-q> <nop>
+vnoremap <C-q> <nop>
 
-vmap <Tab> >gv
-vmap <S-Tab> <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
-imap <A-i> <Esc>
+inoremap <A-i> <Esc>
+inoremap <A-h> <Left>
+inoremap <A-j> <Down>
+inoremap <A-k> <Up>
+inoremap <A-l> <Right>
 
-map <C-n> :NERDTreeToggle<CR>
+nmap <C-n> :NERDTreeToggle<CR>
+imap <C-n> <Esc>:NERDTreeToggle<CR>
+vmap <C-n> <Esc>:NERDTreeToggle<CR>
+
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
@@ -24,23 +31,25 @@ map <C-l> <C-w>l
 nmap <A-z> <C-y>,
 imap <A-z> <C-y>,
 
+nmap q: <nop>
+
 """""" Disabling arrow keys
 
-inoremap <up> <nop>
-nnoremap <up> <nop>
-vnoremap <up> <nop>
+inoremap <Up> <nop>
+nnoremap <Up> <nop>
+vnoremap <Up> <nop>
 
-inoremap <down> <nop>
-nnoremap <down> <nop>
-vnoremap <down> <nop>
+inoremap <Down> <nop>
+nnoremap <Down> <nop>
+vnoremap <Down> <nop>
 
-inoremap <left> <nop>
-nnoremap <left> <nop>
-vnoremap <left> <nop>
+inoremap <Left> <nop>
+nnoremap <Left> <nop>
+vnoremap <Left> <nop>
 
-inoremap <right> <nop>
-nnoremap <right> <nop>
-vnoremap <right> <nop>
+inoremap <Right> <nop>
+nnoremap <Right> <nop>
+vnoremap <Right> <nop>
 
 inoremap <PageUp> <nop>
 nnoremap <PageUp> <nop>
