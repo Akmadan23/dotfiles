@@ -2,51 +2,51 @@
 
 # Alacritty
 mkdir -p ~/.config/alacritty/
-cp alacritty/* ~/.config/alacritty/
+cp -r alacritty/* ~/.config/alacritty/
 
 # Awesome
 mkdir -p ~/.config/awesome/
-cp awesome/* ~/.config/awesome/
+cp -r awesome/* ~/.config/awesome/
 
 # bspwm
 mkdir -p ~/.config/bspwm/
-cp bspwm/* ~/.config/bspwm/
+cp -r bspwm/* ~/.config/bspwm/
 
 # sxhkd
 mkdir -p ~/.config/sxhkd/
-cp sxhkd/* ~/.config/sxhkd/
+cp -r sxhkd/* ~/.config/sxhkd/
 
 # i3
 mkdir -p ~/.config/i3/
-cp i3/* ~/.config/i3/
+cp -r i3/* ~/.config/i3/
 
 # nvim
 mkdir -p ~/.config/nvim/
-cp nvim/* ~/.config/nvim/
+cp -r nvim/* ~/.config/nvim/
 
 # qtile
 mkdir -p ~/.config/qtile/
-cp qtile/* ~/.config/qtile/
+cp -r qtile/* ~/.config/qtile/
 
 # ranger
 mkdir -p ~/.config/ranger/
-cp ranger/* ~/.config/ranger/
+cp -r ranger/* ~/.config/ranger/
 
 # rofi
 mkdir -p ~/.config/rofi/
-cp rofi/* ~/.config/rofi/
+cp -r rofi/* ~/.config/rofi/
 
 # wlogout
 mkdir -p ~/.config/wlogout/
-cp wlogout/* ~/.config/wlogout/
+cp -r wlogout/* ~/.config/wlogout/
 
 # zathura
 mkdir -p ~/.config/zathura/
-cp zathura/* ~/.config/zathura/
+cp -r zathura/* ~/.config/zathura/
 
 # dunst
 mkdir -p ~/.config/dunst/
-cp dunst/* ~/.config/dunst/
+cp -r dunst/* ~/.config/dunst/
 
 # zsh 
 cp zsh/.zshrc ~/
