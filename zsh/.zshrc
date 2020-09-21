@@ -119,6 +119,7 @@ alias displayonly="xrandr --output eDP-1 --mode 1600x900 --rotate normal --outpu
 alias hdmionly="xrandr --output eDP-1 --off --output HDMI-1 --mode 1920x1080 --rotate normal"
 alias dualscreen="xrandr --output eDP-1 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 1600x0 --rotate normal"
 alias dualscreen-tv="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1600x0 --rotate normal"
+alias singlescreen-tv="xrandr --output eDP-1 --off --output HDMI-1 --mode 1360x768  --rotate normal"
 
 # Directory shorctuts
 alias magnatut="cd ~/Documenti/git-repos/magnatut"
@@ -138,15 +139,15 @@ alias lmms="flatpak run io.lmms.LMMS"
 alias kodi="flatpak run tv.kodi.Kodi"
 
 # Appimages
-alias etcher="./Appimage/balenaEtcher-1.5.57-x64_188f7ef7e14cec6f1fab92fb726026e7.AppImage"
-alias openra="./Appimage/OpenRA-Red-Alert-x86_64.appimage"
-alias krita="./Appimage/krita-4.2.6-x86_64.appimage"
+alias etcher="~/Appimage/BalenaEtcher.appimage"
+alias openra="~/Appimage/OpenRA.appimage"
+alias krita="~/Appimage/krita-4.2.6-x86_64.appimage"
 
 # Git
 alias gs="git status"
 alias ga="git add"
 alias gaa="git add -u"
-alias gd="git diff | $editor"
+alias gd="git diff"
 alias gc="git commit"
 alias gca="git commit -a"
 alias gpom="git push origin master"

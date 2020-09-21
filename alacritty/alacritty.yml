@@ -104,36 +104,36 @@ font:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
-    style: mononoki Nerd Font Mono
+    family: Source Code Pro
+    # family: mononoki Nerd Font Mono
     style: Regular
 
   bold:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
-    style: mononoki Nerd Font Mono
+    family: Source Code Pro
+    # family: mononoki Nerd Font Mono
     style: Bold
 
   italic:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
-    style: mononoki Nerd Font Mono
+    family: Source Code Pro
+    # family: mononoki Nerd Font Mono
     style: Italic
 
   bold_italic:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
-    style: mononoki Nerd Font Mono
+    family: Source Code Pro
+    # family: mononoki Nerd Font Mono
     style: Bold Italic
 
   # Point size
-  size: 10.0
+  size: 10.5
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
