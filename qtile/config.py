@@ -127,7 +127,7 @@ for i in groups:
 def assign_app_group(client):
     d = {}
     d["1"] = []
-    d["2"] = ["firefox", "Firefox", "Navigator"]
+    d["2"] = ["firefox", "Firefox"]
     d["3"] = ["Mail", "Thunderbird"]
     d["4"] = ["ranger", "Ranger"]
     d["5"] = ["telegram-desktop.bin", "TelegramDesktop"]
@@ -207,6 +207,7 @@ floating_layout = layout.Floating(
         {"wmclass": "Calendar"},        # Thunderbird calendar window
         {"wmclass": "gsimplecal"},      # My minimal calendar of choice
         {"wmclass": "gcolor2"},         # gcolor2 windows
+        {"wmclass": "balena-etcher-electron"}, # balena etcher
     ]
 )
 
@@ -256,10 +257,6 @@ x = f.read()
 f.close()
 
 if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device connected
-    @hook.subscribe.startup
-    def integrated_display():
-        subprocess.call([home + "/.config/scripts/integrated-display.sh"])
-
     screens = [
         Screen( # Only screen
             top = bar.Bar([
@@ -317,6 +314,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -344,6 +342,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -367,6 +366,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -392,6 +392,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -416,6 +417,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -431,6 +433,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -453,7 +456,7 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                 widget.TextBox(
                     text = "⏻",
                     padding = 2,
-                    fontsize = 20,
+                    fontsize = 30,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
@@ -466,10 +469,6 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
     ]
 
 else:
-    @hook.subscribe.startup
-    def dual_monitor():
-        subprocess.call([home + "/.config/scripts/dual-monitor.sh"])
-
     screens = [
         Screen( # Main external monitor
             top = bar.Bar([
@@ -492,6 +491,7 @@ else:
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -519,6 +519,7 @@ else:
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -544,6 +545,7 @@ else:
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -569,6 +571,7 @@ else:
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -593,6 +596,7 @@ else:
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -608,6 +612,7 @@ else:
 
                 widget.TextBox(
                     text = "",
+                    font= "FontAwesome",
                     fontsize = 43,
                     padding = 0,
                     margin = 0,
@@ -630,7 +635,7 @@ else:
                 widget.TextBox(
                     text = "⏻",
                     padding = 2,
-                    fontsize = 20,
+                    fontsize = 30,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
                 ),
@@ -707,7 +712,7 @@ else:
                 widget.TextBox(
                     text = "⏻",
                     padding = 2,
-                    fontsize = 20,
+                    fontsize = 30,
                     background = darkgrey,
                     mouse_callbacks = {"Button1": logout_menu},
                 ),

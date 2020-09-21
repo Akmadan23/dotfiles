@@ -1,6 +1,7 @@
 #!/bin/sh
 
 dunst &					# notification manager
+lxpolkit & 				# simple policykit authentication agent
 picom -f & 				# compositor
 nm-applet &				# network manager
 flameshot &				# screenshot tool
