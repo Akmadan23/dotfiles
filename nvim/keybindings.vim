@@ -27,9 +27,13 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+map <C-a> ggvG
 
 nmap <A-z> <C-y>,
 imap <A-z> <C-y>,
+
+cmap Q q
+cmap W w
 
 nmap q: <nop>
 
@@ -58,10 +62,4 @@ vnoremap <PageUp> <nop>
 inoremap <PageDown> <nop>
 nnoremap <PageDown> <nop>
 vnoremap <PageDown> <nop>
-
-"""""" Disabling space return and backspace in normal mode
-
-nnoremap <Space> <nop>
-nnoremap <Return> <nop>
-nnoremap <Backspace> <nop>
 

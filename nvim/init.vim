@@ -30,6 +30,7 @@ set termguicolors
 
 colorscheme molokai-teal
 lua require 'colorizer'.setup()
+let mapleader = ' '
 hi Normal ctermbg=NONE guibg=NONE
 
 " Airline settings
@@ -41,3 +42,5 @@ let g:NERDTreeMapActivateNode = 'l'
 let g:NERDTreeMapOpenSplit = 'h'
 let g:NERDTreeMapOpenVSplit = 'v'
 
+" WimWiki
+let g:vimwiki_list = [{'path': '~/Documenti/vimwiki/', 'auto_diary_index': 1}]
