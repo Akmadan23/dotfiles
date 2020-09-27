@@ -1,0 +1,142 @@
+/**
+ * User: keystroke3
+ * Copyright: keystroke3
+ *
+ * Inspired from keystroke3's flamingo theme
+ *
+ */
+
+configuration {
+	display-drun: "";
+	display-run: "";
+	display-window: "";
+	display-ssh: "~#";
+	show-icons: true;
+	sidebar-mode: false;
+	font: "sans 12";
+}
+
+* {
+	text-color: @foreground;
+	active-background: #1ABC9C;
+	active-foreground: @foreground;
+	normal-background: @background;
+	normal-foreground: @foreground;
+	urgent-background: #9E2A5E;
+	urgent-foreground: @foreground;
+	alternate-active-background: @background;
+	alternate-active-foreground: @foreground;
+	alternate-normal-background: @background;
+	alternate-normal-foreground: @foreground;
+	alternate-urgent-background: @background;
+	alternate-urgent-foreground: @foreground;
+	selected-active-background: #1ABC9C;
+	selected-active-foreground: @foreground;
+	selected-normal-background: #1ABC9C;
+	selected-normal-foreground: #242424;
+	selected-urgent-background: #9D596B;
+	selected-urgent-foreground: @foreground;
+	background-color: #24242400;
+	background: #24574D;
+	foreground: #DFDFDF;
+	spacing: 0;
+}
+
+window {
+	location: west;
+	anchor: west;
+	width: 25%;
+	height: 95%;
+	bottom: 0%;
+	orientation: vertical;
+	children: [mainbox];
+	// border: 2px;
+	// border-color: @active-background;
+	hide-scrollbar: true;
+}
+
+mainbox {
+	spacing: 0.2em;
+	children: [inputbar, listview];
+}
+
+listview {
+	spacing: 0.6em;
+	dynamic: true;
+	cycle: true;
+	padding: 0px 5px 0px 5px;
+}
+
+inputbar {
+	background-color: #242424;
+	border-color: @foreground;
+	border-spacing: 5px 0 0 0;
+	border-radius: 50%;
+	padding: 5px;
+	border: 1px;
+	spacing: 10px;
+	margin: 5px;
+}
+
+entry{
+	padding: 2px;
+}
+
+prompt{
+	padding: 5px;
+	background-color: @foreground;
+	text-color: #242424;
+	border: 1px;
+	border-radius: 50%;
+}
+
+element {
+	padding: 10px;
+	border-radius: 50%;
+}
+
+element normal.normal {
+	background-color: @normal-background;
+	text-color: @normal-foreground;
+}
+
+element normal.urgent {
+	background-color: @urgent-background;
+	text-color: @urgent-foreground;
+}
+
+element normal.active {
+	background-color: @active-background;
+	text-color: @active-foreground;
+}
+
+element selected.normal {
+	background-color: @selected-normal-background;
+	text-color: @selected-normal-foreground;
+	border-color: @active-background;
+}
+
+element selected.urgent {
+	background-color: @selected-urgent-background;
+	text-color: @selected-urgent-foreground;
+}
+
+element selected.active {
+	background-color: @selected-active-background;
+	text-color: @selected-active-foreground;
+}
+
+element alternate.normal {
+	background-color: @normal-background;
+	text-color: @normal-foreground;
+}
+
+element alternate.urgent {
+	background-color: @urgent-background;
+	text-color: @urgent-foreground;
+}
+
+element alternate.active {
+	background-color: @active-background;
+	text-color: @active-foreground;
+}
