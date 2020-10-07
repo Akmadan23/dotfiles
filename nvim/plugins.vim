@@ -2,7 +2,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'sheerun/vim-polyglot'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
-    Plug 'preservim/nerdtree'
     Plug 'ryanoasis/vim-devicons'
     Plug 'vimwiki/vimwiki'
 
