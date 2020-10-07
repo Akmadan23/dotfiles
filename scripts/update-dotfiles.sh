@@ -19,3 +19,4 @@ cp -r ~/.config/ranger/* ~/Documenti/git-repos/dotfiles/ranger/
 cp -r ~/.config/dunst/* ~/Documenti/git-repos/dotfiles/dunst/
 cp -r ~/.config/deadbeef/* ~/Documenti/git-repos/dotfiles/deadbeef/
 cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/
+cp ~/.config/Dharkael/* ~/Documenti/git-repos/dotfiles/Dharkael/
