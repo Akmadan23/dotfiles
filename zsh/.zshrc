@@ -100,9 +100,10 @@ source $ZSH/oh-my-zsh.sh
 
 # Config files
 alias zconf="$editor ~/.zshrc"
-alias rconf="$editor ~/.config/rofi/config.rasi"
+alias rconf="$editor ~/.config/ranger/rc.conf"
 alias qconf="$editor ~/.config/qtile/config.py"
 alias vconf="$editor ~/.config/nvim/init.vim"
+alias vwiki="$editor ~/Documenti/vimwiki/index.wiki"
 alias vpconf="$editor ~/.config/nvim/plugins.vim"
 alias vkconf="$editor ~/.config/nvim/keybindings.vim"
 alias alconf="$editor ~/.config/alacritty/alacritty.yml"
@@ -159,8 +160,10 @@ alias suspend-lock="i3lock-fancy && systemctl suspend"
 alias reboot="systemctl reboot"
 
 # Other
+alias pm="pacman"
+alias ytdl="youtube-dl"
 alias vim="$editor"
 alias svim="sudo $editor"
-alias tlauncher="sudo java -jar ~/Scaricati/TLauncher-2.69/TLauncher-2.69.jar"
+alias tlauncher="java -jar ~/Scaricati/TLauncher-2.72/TLauncher-2.72.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
 alias swap="sudo swapon -v /dev/sda2"
