@@ -47,13 +47,13 @@ ctrl = "control"
 term = "alacritty"
 
 # Colors
-red = "#CC0000"
-teal = "#1ABC9C"
-darkteal = "#24574D"
-yellow = "#C4A000"
-darkgrey = "#242424"
-black = "#000000"
-white = "#FFFFFF"
+red =       "#CC0000"
+teal =      "#1ABC9C"
+darkteal =  "#24574D"
+yellow =    "#C4A000"
+darkgrey =  "#242424"
+black =     "#000000"
+white =     "#FFFFFF"
 
 keys = [
     # Switch between windows in current stack pane
@@ -130,7 +130,7 @@ def assign_app_group(client):
     d["2"] = ["firefox", "Firefox"]
     d["3"] = ["Mail", "Thunderbird"]
     d["4"] = ["ranger", "Ranger"]
-    d["5"] = ["telegram-desktop.bin", "TelegramDesktop"]
+    d["5"] = ["telegram-desktop", "TelegramDesktop"]
     d["6"] = ["lmms", "deadbeef", "Deadbeef"]
     d["7"] = []
     d["8"] = []
@@ -199,7 +199,8 @@ floating_layout = layout.Floating(
         {"wmclass": "cpu-x"},           # cpu-x windows
         {"wmclass": "gcr-prompter"},    # password input prompts
         {"wmclass": "blueman-manager"}, # blueman windows
-        {"wmclass": "TelegramDesktop"}, # Telegram desktop windows
+        {"wmclass": "blueman-manager"}, # blueman windows
+        {"wmclass": "telegram-desktop"}, # Telegram desktop windows
         {"wmclass": "pavucontrol"},     # pavucontrol windows
         {"wmclass": "volumeicon"},      # volumeicon preferences window
         {"wmclass": "galculator"},      # galculator windows
@@ -250,7 +251,7 @@ def suspend(qtile):
 
 @hook.subscribe.startup
 def autostart():
-    subprocess.call([home + "/.config/qtile/monitor-detection.sh"])
+    subprocess.call([home + "/.config/qtile/autostart.sh"])
 
 f = open(home + "/.config/qtile/.hdmi.txt", "r")
 x = f.read()
@@ -749,11 +750,6 @@ bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-
-# Startup commands
-@hook.subscribe.startup
-def autostart():
-    subprocess.call([home + "/.config/qtile/autostart.sh"])
 
 # neofetch fixes
 dename = ""
