@@ -36,10 +36,5 @@ hi Normal ctermbg=NONE guibg=NONE
 let g:airline_theme = 'molokai'
 let g:airline_powerline_fonts = 1
 
-" NERDTree custom mappings
-let g:NERDTreeMapActivateNode = 'l'
-let g:NERDTreeMapOpenSplit = 'h'
-let g:NERDTreeMapOpenVSplit = 'v'
-
 " WimWiki
 let g:vimwiki_list = [{'path': '~/Documenti/vimwiki/', 'path_html': '~/Documenti/vimwiki/html/'}]

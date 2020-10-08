@@ -21,25 +21,27 @@ inoremap <A-k> <Up>
 inoremap <A-l> <Right>
 
 " coc-explorer toggle keybinding
-nmap <C-e> :CocCommand explorer<CR>
-imap <C-e> <Esc>:CocCommand explorer<CR>
-vmap <C-e> <Esc>:CocCommand explorer<CR>
+nnoremap <C-e> :CocCommand explorer<CR>
+inoremap <C-e> <Esc>:CocCommand explorer<CR>
+vnoremap <C-e> <Esc>:CocCommand explorer<CR>
 
 " Moving between splits
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-map <C-a> ggVG
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+nnoremap <C-a> ggVG
+inoremap <C-a> <Esc>ggVG
 
 " Emmet key
-nmap <A-z> <C-y>,
-imap <A-z> <C-y>,
+nnoremap <A-z> <C-y>,
+inoremap <A-z> <C-y>,
 
-cmap Q q
-cmap W w
+cnoremap Q q
+cnoremap W w
 
-nmap q: <nop>
+nnoremap q: <nop>
 
 """""" Disabling arrow keys
 
