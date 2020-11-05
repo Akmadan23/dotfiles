@@ -36,5 +36,9 @@ hi Normal ctermbg=NONE guibg=NONE
 let g:airline_theme = 'molokai'
 let g:airline_powerline_fonts = 1
 
+" IndentLine
+let g:indentLine_fileTypeExclude = ['vimwiki', 'coc-explorer', 'help']
+let g:indentLine_char = '|'
+
 " WimWiki
 let g:vimwiki_list = [{'path': '~/Documenti/vimwiki/', 'path_html': '~/Documenti/vimwiki/html/'}]

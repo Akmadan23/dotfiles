@@ -15,6 +15,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'airblade/vim-gitgutter'
     Plug 'mattn/emmet-vim'
+    Plug 'Yggdroot/indentLine'
 
     " appearance plugins
     Plug 'norcalli/nvim-colorizer.lua'
