@@ -1,8 +1,9 @@
 #!/bin/sh
 
 notification() {
-	notify-send "Min: $(cpufreqctl-azadahmadi min get), \
-		Max: $(cpufreqctl-azadahmadi max get), \
+	notify-send "$@:
+		Min: $(cpufreqctl-azadahmadi min get),
+		Max: $(cpufreqctl-azadahmadi max get),
 		Turbo: $(cpufreqctl-azadahmadi turbo get)"
 }
 
@@ -21,6 +22,8 @@ elif [[ "$@" = "high" ]]; then
 	cpufreqctl-azadahmadi min 50
 	cpufreqctl-azadahmadi max 100
 	cpufreqctl-azadahmadi turbo 1
+	notification
+elif [[ "$@" = "status" ]]; then
 	notification
 else
 	echo "Select a valid mode between low, normal and high"

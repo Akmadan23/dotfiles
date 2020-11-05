@@ -1,6 +1,7 @@
 #!/bin/sh
 
 cp ~/.zshrc ~/Documenti/git-repos/dotfiles/zsh
+cp ~/.zshenv ~/Documenti/git-repos/dotfiles/zsh
 cp ~/.config/i3/* ~/Documenti/git-repos/dotfiles/i3/
 cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/
 cp ~/.config/bspwm/* ~/Documenti/git-repos/dotfiles/bspwm/

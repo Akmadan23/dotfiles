@@ -138,9 +138,9 @@ def assign_app_group(client):
     wm_class = client.window.get_wm_class()[0]
     for i in range(len(d)):
         if wm_class in list(d.values())[i]:
-             group = list(d.keys())[i]
-             client.togroup(group)
-             client.group.cmd_toscreen()
+            group = list(d.keys())[i]
+            client.togroup(group)
+            client.group.cmd_toscreen()
 
 # IMPORTANT: 
 # in order to avoid switching groups typing
@@ -279,7 +279,8 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                 widget.WindowName(),
 
                 widget.TextBox(
-                    text = "CPU:",
+                    text = "㎓",
+                    fontsize = 20,
                 ),
 
                 widget.CPUGraph(
@@ -303,7 +304,8 @@ if x == "disconnected\n": # if "xrandr | grep HDMI-1" outputs no hdmi device con
                 ),
 
                 widget.TextBox(
-                    text = "NET:",
+                    text = "⇵",
+                    fontsize = 20,
                 ),
 
                 widget.NetGraph(
@@ -667,7 +669,8 @@ else:
                 widget.WindowName(),
 
                 widget.TextBox(
-                    text = "CPU:",
+                    text = "㎓",
+                    fontsize = 20,
                 ),
 
                 widget.CPUGraph(
@@ -689,7 +692,8 @@ else:
                 ),
 
                 widget.TextBox(
-                    text = "NET:",
+                    text = "⇵",
+                    fontsize = 20,
                 ),
 
                 widget.NetGraph(
