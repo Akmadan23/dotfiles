@@ -99,9 +99,12 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Config files
+alias zenv="$editor ~/.zshenv"
+alias zhist="$editor ~/.zsh_history"
 alias zconf="$editor ~/.zshrc"
 alias rconf="$editor ~/.config/ranger/rc.conf"
 alias qconf="$editor ~/.config/qtile/config.py"
+alias qaconf="$editor ~/.config/qtile/autostart.sh"
 alias vconf="$editor ~/.config/nvim/init.vim"
 alias vwiki="$editor ~/Documenti/vimwiki/index.wiki"
 alias vpconf="$editor ~/.config/nvim/plugins.vim"
@@ -159,11 +162,13 @@ alias suspend="systemctl suspend"
 alias suspend-lock="i3lock-fancy && systemctl suspend"
 alias reboot="systemctl reboot"
 
-# Other
+# Misc
 alias pm="pacman"
+alias ps="ps axu | less"
 alias ytdl="youtube-dl"
-alias vim="$editor"
-alias svim="sudo $editor"
+alias vim="nvim"
+alias svim="sudo nvim"
 alias tlauncher="java -jar ~/Scaricati/TLauncher-2.72/TLauncher-2.72.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
 alias swap="sudo swapon -v /dev/sda2"
+alias ps="ps axu | less"
