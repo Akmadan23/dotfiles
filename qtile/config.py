@@ -135,7 +135,7 @@ def assign_app_group(client):
     d["7"] = []
     d["8"] = []
 
-    wm_class = client.window.get_wm_class()[0]
+    wm_class = client.window.get_wm_class()[d]
     for i in range(len(d)):
         if wm_class in list(d.values())[i]:
             group = list(d.keys())[i]
@@ -144,8 +144,8 @@ def assign_app_group(client):
 
 # IMPORTANT: 
 # in order to avoid switching groups typing
-# the current group name, comment out from line 355 to 359 in 
-# /usr/local/lib/python3.8/site-packages/libqtile/config.py
+# the current group name, comment out the "toggle_group" funcion in
+# /usr/local/lib/python3.x/site-packages/libqtile/config.py
 
 layout_theme = {
     "margin": 10,
