@@ -20,8 +20,17 @@ set completion-group-fg 	"#FFFFFF"
 set completion-highlight-bg	"#1ABC9C"
 set completion-highlight-fg	"#242424"
 
-# Keys
-map i recolor
+# Keys in normal mode
 map p print
+map i recolor
+map f toggle_fullscreen
 map <C-j> zoom out
 map <C-k> zoom in
+map <C-i> toggle_index
+
+# Keybindings in fullscreen mode
+map [fullscreen] i recolor
+map [fullscreen] p print
+map [fullscreen] f toggle_fullscreen
+map [fullscreen] <C-j> zoom out
+map [fullscreen] <C-k> zoom in
