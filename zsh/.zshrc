@@ -99,9 +99,9 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Config files
-alias zenv="$editor ~/.zshenv"
-alias zhist="$editor ~/.zsh_history"
-alias zconf="$editor ~/.zshrc"
+alias zenv="$editor ~/.config/zsh/.zshenv"
+alias zhist="$editor ~/.config/zsh/.zsh_history"
+alias zconf="$editor ~/.config/zsh/.zshrc"
 alias rconf="$editor ~/.config/ranger/rc.conf"
 alias qconf="$editor ~/.config/qtile/config.py"
 alias qaconf="$editor ~/.config/qtile/autostart.sh"
@@ -134,14 +134,6 @@ alias ff-teal="cd ~/Documenti/git-repos/firefox-teal"
 alias update-ff="cp ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/* ~/Documenti/git-repos/firefox-review/"
 alias update-dotfiles="~/.config/scripts/update-dotfiles.sh"
 
-# Flatpaks
-alias spotify="flatpak run com.spotify.Client"
-alias netbeans="flatpak run org.apache.netbeans"
-alias kdenlive="flatpak run org.kde.kdenlive"
-alias vscode="flatpak run com.visualstudio.code-oss"
-alias lmms="flatpak run io.lmms.LMMS"
-alias kodi="flatpak run tv.kodi.Kodi"
-
 # Appimages
 alias etcher="~/Appimage/BalenaEtcher.appimage"
 alias openra="~/Appimage/OpenRA.appimage"
@@ -161,6 +153,11 @@ alias poweroff="systemctl poweroff"
 alias suspend="systemctl suspend"
 alias suspend-lock="i3lock-fancy && systemctl suspend"
 alias reboot="systemctl reboot"
+
+# Replacing ls with lsd
+alias ls="lsd"
+alias ll="lsd -l"
+alias la="lsd -lA"
 
 # Misc
 alias pm="pacman"

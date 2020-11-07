@@ -5,11 +5,12 @@ colorscripts -r
 export TERMINAL="alacritty"
 export EDITOR="nvim"
 export READER="zathura"
+export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
 
-# Pulseaudio
-export PULSE_SINK=@DEFAULT_SINK@
+# Setting zsh history file
+export HISTFILE="/home/azadahmadi/.config/zsh/.zsh_history"
 
 # Java fix for Qtile
 export _JAVA_AWT_WM_NONREPARENTING=1
