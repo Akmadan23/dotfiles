@@ -4,6 +4,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/goyo.vim'
     Plug 'ryanoasis/vim-devicons'
     Plug 'vimwiki/vimwiki'
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
     " dev tools
     Plug 'neoclide/coc.nvim', {'branch': 'release'}

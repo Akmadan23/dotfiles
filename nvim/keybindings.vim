@@ -1,18 +1,36 @@
-nnoremap H 0
+" Start/end of line with H/Left
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
+
+" PageUp and PageDown with J/K
 nnoremap J <C-d>zz
 nnoremap K <C-u>zz
-nnoremap L $
+vnoremap J <C-d>zz
+vnoremap K <C-u>zz
 
+" Undo with U
 nnoremap U <C-r>
+
+" Fixing Y behaviour
 nnoremap Y y$
+
+" Disabling Q
 nnoremap Q <nop>
+
+" Join lines with dj
 nnoremap dj J
 
 " Disabling Ctrl+q for visual block
 nnoremap <C-q> <nop>
 vnoremap <C-q> <nop>
 
-" Adding standard tabbing
+" Moving between tabs
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+
+" Adding visual tabbing
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
@@ -64,19 +82,15 @@ nnoremap q: <nop>
 
 """""" Disabling arrow keys
 
-inoremap <Up> <nop>
 nnoremap <Up> <nop>
 vnoremap <Up> <nop>
 
-inoremap <Down> <nop>
 nnoremap <Down> <nop>
 vnoremap <Down> <nop>
 
-inoremap <Left> <nop>
 nnoremap <Left> <nop>
 vnoremap <Left> <nop>
 
-inoremap <Right> <nop>
 nnoremap <Right> <nop>
 vnoremap <Right> <nop>
 

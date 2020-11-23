@@ -4,6 +4,7 @@
 "  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
 " /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 
+source ~/.config/nvim/escape.vim
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/keybindings.vim
 source ~/.config/nvim/coc.vim
@@ -16,6 +17,7 @@ set iskeyword+=-
 set mouse=a
 set splitbelow
 set splitright
+set expandtab
 set tabstop=4 
 set shiftwidth=4
 set smartindent
@@ -34,7 +36,7 @@ hi Normal ctermbg=NONE guibg=NONE
 
 " Airline settings
 let g:airline_theme = 'molokai'
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 
 " IndentLine
 let g:indentLine_fileTypeExclude = ['vimwiki', 'coc-explorer', 'help']
