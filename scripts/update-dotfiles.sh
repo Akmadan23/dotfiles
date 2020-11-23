@@ -1,7 +1,7 @@
 #!/bin/sh
 
-cp ~/.zshrc ~/Documenti/git-repos/dotfiles/zsh
-cp ~/.zshenv ~/Documenti/git-repos/dotfiles/zsh
+cp ~/.config/zsh/.zshrc ~/Documenti/git-repos/dotfiles/zsh
+cp ~/.config/zsh/.zshenv ~/Documenti/git-repos/dotfiles/zsh
 cp ~/.config/i3/* ~/Documenti/git-repos/dotfiles/i3/
 cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/
 cp ~/.config/bspwm/* ~/Documenti/git-repos/dotfiles/bspwm/
@@ -17,6 +17,5 @@ cp ~/.config/zathura/* ~/Documenti/git-repos/dotfiles/zathura/
 cp ~/.config/mpv/* ~/Documenti/git-repos/dotfiles/mpv/
 cp -r ~/.config/ranger/* ~/Documenti/git-repos/dotfiles/ranger/
 cp -r ~/.config/dunst/* ~/Documenti/git-repos/dotfiles/dunst/
-cp -r ~/.config/deadbeef/* ~/Documenti/git-repos/dotfiles/deadbeef/
 cp ~/.config/scripts/* ~/Documenti/git-repos/dotfiles/scripts/
 cp ~/.config/Dharkael/* ~/Documenti/git-repos/dotfiles/Dharkael/
