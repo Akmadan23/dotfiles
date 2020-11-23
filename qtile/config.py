@@ -57,16 +57,16 @@ white =     "#FFFFFF"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "j", lazy.layout.down()),
-    Key([mod], "k", lazy.layout.up()),
+    Key([mod], "h", lazy.layout.down()),
+    Key([mod], "j", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
+    Key([mod], "k", lazy.layout.grow(), lazy.layout.increase_nmaster()),
+    Key([mod], "l", lazy.layout.up()),
 
     # Move windows up or down in current stack
-    Key([mod, sft], "j", lazy.layout.shuffle_down()),
-    Key([mod, sft], "k", lazy.layout.shuffle_up()),
+    Key([mod, sft], "h", lazy.layout.shuffle_down()),
+    Key([mod, sft], "l", lazy.layout.shuffle_up()),
 
     # Windows and layout behaviour
-    Key([mod], "plus", lazy.layout.grow(), lazy.layout.increase_nmaster()),
-    Key([mod], "minus", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
     Key([mod, sft], "n", lazy.layout.normalize()),
     Key([mod, sft], "f", lazy.window.toggle_floating()),
 
@@ -87,9 +87,7 @@ keys = [
     Key([mod], "f", lazy.spawn("firefox")),
     Key([mod], "t", lazy.spawn("thunderbird")),
     Key([mod], "s", lazy.spawn("flameshot gui")),
-    Key([mod], "h", lazy.spawn(term + " -e htop")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
-    Key([mod], "l", lazy.spawn("i3lock-fancy")),
     Key([mod, sft], "g", lazy.spawn("galculator")),
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
 
@@ -135,7 +133,7 @@ def assign_app_group(client):
     d["7"] = []
     d["8"] = []
 
-    wm_class = client.window.get_wm_class()[d]
+    wm_class = client.window.get_wm_class()[0]
     for i in range(len(d)):
         if wm_class in list(d.values())[i]:
             group = list(d.keys())[i]
@@ -200,7 +198,7 @@ floating_layout = layout.Floating(
         {"wmclass": "gcr-prompter"},    # password input prompts
         {"wmclass": "blueman-manager"}, # blueman windows
         {"wmclass": "blueman-manager"}, # blueman windows
-        {"wmclass": "telegram-desktop"}, # Telegram desktop windows
+        # {"wmclass": "telegram-desktop"}, # Telegram desktop windows
         {"wmclass": "pavucontrol"},     # pavucontrol windows
         {"wmclass": "volumeicon"},      # volumeicon preferences window
         {"wmclass": "galculator"},      # galculator windows
@@ -209,6 +207,9 @@ floating_layout = layout.Floating(
         {"wmclass": "gsimplecal"},      # My minimal calendar of choice
         {"wmclass": "gcolor2"},         # gcolor2 windows
         {"wmclass": "balena-etcher-electron"}, # balena etcher
+        {"wmclass": "osxmanager"},      # XAMPP windows
+        {"wmclass": "authentication"},  # polkit authentication
+        {"wmclass": "autenticazione"},  # italian version
     ]
 )
 
@@ -753,7 +754,7 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
-focus_on_window_activation = "smart"
+focus_on_window_activation = "auto"
 
 # neofetch fixes
 dename = ""
