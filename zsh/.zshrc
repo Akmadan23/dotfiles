@@ -99,6 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 # Config files
+alias vw="$editor ~/Documenti/git-repos/vimwiki/index.wiki"
 alias zenv="$editor ~/.config/zsh/.zshenv"
 alias zhist="$editor ~/.config/zsh/.zsh_history"
 alias zconf="$editor ~/.config/zsh/.zshrc"
@@ -106,7 +107,6 @@ alias rconf="$editor ~/.config/ranger/rc.conf"
 alias qconf="$editor ~/.config/qtile/config.py"
 alias qaconf="$editor ~/.config/qtile/autostart.sh"
 alias vconf="$editor ~/.config/nvim/init.vim"
-alias vwiki="$editor ~/Documenti/vimwiki/index.wiki"
 alias vpconf="$editor ~/.config/nvim/plugins.vim"
 alias vkconf="$editor ~/.config/nvim/keybindings.vim"
 alias alconf="$editor ~/.config/alacritty/alacritty.yml"
@@ -142,7 +142,8 @@ alias krita="~/Appimage/krita-4.2.6-x86_64.appimage"
 # Git
 alias gs="git status"
 alias ga="git add"
-alias gaa="git add -u"
+alias gaa="git add -A"
+alias gau="git add -u"
 alias gd="git diff"
 alias gc="git commit"
 alias gca="git commit -a"

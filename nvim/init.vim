@@ -43,4 +43,4 @@ let g:indentLine_fileTypeExclude = ['vimwiki', 'coc-explorer', 'help']
 let g:indentLine_char = '|'
 
 " WimWiki
-let g:vimwiki_list = [{'path': '~/Documenti/vimwiki/', 'path_html': '~/Documenti/vimwiki/html/'}]
+let g:vimwiki_list = [{'path': '~/Documenti/git-repos/vimwiki/', 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]
