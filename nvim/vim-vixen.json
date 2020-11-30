@@ -1,0 +1,88 @@
+{
+    "keymaps": {
+        "0":        { "type": "scroll.home" },
+        ":":        { "type": "command.show" },
+        "o":        { "type": "command.show.open", "alter": false },
+        "O":        { "type": "command.show.open", "alter": true },
+        "t":        { "type": "command.show.tabopen", "alter": false },
+        "T":        { "type": "command.show.tabopen", "alter": true },
+        "w":        { "type": "command.show.winopen", "alter": false },
+        "W":        { "type": "command.show.winopen", "alter": true },
+        "b":        { "type": "command.show.buffer" },
+        "__a":      { "type": "command.show.addbookmark", "alter": true },
+        "h":        { "type": "scroll.horizonally", "count": -1 },
+        "l":        { "type": "scroll.horizonally", "count": 1 },
+        "j":        { "type": "scroll.vertically", "count": 1 },
+        "k":        { "type": "scroll.vertically", "count": -1 },
+        "J":        { "type": "scroll.pages", "count": 0.5 },
+        "K":        { "type": "scroll.pages", "count": -0.5 },
+        "<C-B>":    { "type": "scroll.pages", "count": -1 },
+        "<C-F>":    { "type": "scroll.pages", "count": 1 },
+        "gg":       { "type": "scroll.top" },
+        "G":        { "type": "scroll.bottom" },
+        "$":        { "type": "scroll.end" },
+        "dd":       { "type": "tabs.close" },
+        "__DD":     { "type": "tabs.close", "select": "left" },
+        "x$":       { "type": "tabs.close.right" },
+        "!d":       { "type": "tabs.close.force" },
+        "u":        { "type": "tabs.reopen" },
+        "gT":       { "type": "tabs.prev" },
+        "gt":       { "type": "tabs.next" },
+        "g0":       { "type": "tabs.first" },
+        "g$":       { "type": "tabs.last" },
+        "__r":      { "type": "tabs.reload", "cache": false },
+        "__R":      { "type": "tabs.reload", "cache": true },
+        "zp":       { "type": "tabs.pin.toggle" },
+        "zd":       { "type": "tabs.duplicate" },
+        "zi":       { "type": "zoom.in" },
+        "zo":       { "type": "zoom.out" },
+        "zz":       { "type": "zoom.neutral" },
+        "f":        { "type": "follow.start", "newTab": false },
+        "F":        { "type": "follow.start", "newTab": true, "background": false },
+        "m":        { "type": "mark.set.prefix" },
+        "'":        { "type": "mark.jump.prefix" },
+        "H":        { "type": "navigate.history.prev" },
+        "L":        { "type": "navigate.history.next" },
+        "[[":       { "type": "navigate.link.prev" },
+        "]]":       { "type": "navigate.link.next" },
+        "gu":       { "type": "navigate.parent" },
+        "gU":       { "type": "navigate.root" },
+        "gi":       { "type": "focus.input" },
+        "gf":       { "type": "page.source" },
+        "gh":       { "type": "page.home" },
+        "gH":       { "type": "page.home", "newTab": true },
+        "y":        { "type": "urls.yank" },
+        "p":        { "type": "urls.paste", "newTab": false },
+        "P":        { "type": "urls.paste", "newTab": true },
+        "/":        { "type": "find.start" },
+        "n":        { "type": "find.next" },
+        "N":        { "type": "find.prev" },
+        ".":        { "type": "repeat.last" },
+        "<C-Esc>":  { "type": "addon.toggle.enabled" }
+    },
+
+    "search": {
+        "default": "duckduckgo",
+
+        "engines": {
+            "google":       "https://google.com/search?q={}",
+            "duckduckgo":   "https://duckduckgo.com/?q={}",
+            "twitter":      "https://twitter.com/search?q={}",
+            "wikipedia":    "https://it.wikipedia.org/w/index.php?search={}"
+        }
+    },
+
+    "properties": {
+        "hintchars": "abcdefghijklmnopqrstuvwxyz",
+        "smoothscroll": false,
+        "complete": "sbh",
+        "colorscheme": "dark"
+    },
+
+    "blacklist": [
+        { "url": "*.youtube.com",   "keys": ["h", "j", "k", "l", "f", "m"] },
+        { "url": "*.twitch.tv",     "keys": ["h", "j", "k", "l", "f", "m"] },
+        { "url": "lbry.tv",         "keys": ["f", "m"] },
+        { "url": "odysee.com",      "keys": ["f", "m"] }
+    ]
+}
