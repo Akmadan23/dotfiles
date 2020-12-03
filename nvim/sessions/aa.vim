@@ -8,9 +8,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +0 index.html
-badd +1 css/main.css
-badd +0 js/main.js
-badd +1 css
+badd +0 css/style.css
+badd +0 css/colors.css
+badd +0 script.js
+badd +0 README.md
 argglobal
 %argdel
 $argadd index.html
@@ -32,13 +33,13 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+let s:l = 1 - ((0 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
 normal! 0
-tabedit css/main.css
+tabedit css/style.css
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -61,8 +62,7 @@ exe s:l
 normal! zt
 1
 normal! 0
-lcd ~/Documenti/git-repos/azadahmadi.net
-tabedit ~/Documenti/git-repos/azadahmadi.net/js/main.js
+tabedit css/colors.css
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -85,8 +85,53 @@ exe s:l
 normal! zt
 1
 normal! 0
-lcd ~/Documenti/git-repos/azadahmadi.net
-tabnext 1
+tabedit script.js
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+tabedit README.md
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 27) / 55)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+tabnext 5
 set stal=1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
