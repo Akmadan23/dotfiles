@@ -39,7 +39,7 @@ let g:airline_theme = 'molokai'
 let g:airline_powerline_fonts = 0
 
 " IndentLine
-let g:indentLine_fileTypeExclude = ['vimwiki', 'coc-explorer', 'help']
+let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help']
 let g:indentLine_char = '|'
 
 " WimWiki

@@ -57,14 +57,16 @@ white =     "#FFFFFF"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "h", lazy.layout.down()),
-    Key([mod], "j", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
-    Key([mod], "k", lazy.layout.grow(), lazy.layout.increase_nmaster()),
-    Key([mod], "l", lazy.layout.up()),
+    Key([mod], "h", lazy.layout.left()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
+    Key([mod], "l", lazy.layout.right()),
 
-    # Move windows up or down in current stack
-    Key([mod, sft], "h", lazy.layout.shuffle_down()),
-    Key([mod, sft], "l", lazy.layout.shuffle_up()),
+    # Move windows in current stack
+    Key([mod, sft], "h", lazy.layout.shuffle_left()),
+    Key([mod, sft], "j", lazy.layout.shuffle_down()),
+    Key([mod, sft], "k", lazy.layout.shuffle_up()),
+    Key([mod, sft], "l", lazy.layout.shuffle_right()),
 
     # Windows and layout behaviour
     Key([mod, sft], "n", lazy.layout.normalize()),
@@ -73,6 +75,10 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod, sft], "Tab", lazy.prev_layout()),
+
+    # Other
+    Key([mod], "minus", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
+    Key([mod], "plus", lazy.layout.grow(), lazy.layout.increase_nmaster()),
     Key([mod, sft], "q", lazy.window.kill()),
     Key([mod, sft], "r", lazy.restart()),
     Key([mod, sft], "e", lazy.spawn("wlogout")),
