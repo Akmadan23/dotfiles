@@ -4,13 +4,18 @@
 # Default apps
 export TERMINAL="alacritty"
 export EDITOR="nvim"
+export VISUAL="$TERMINAL -e $EDITOR"
 export READER="zathura"
 export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
+export PAGER="nvim -R"
+
+# Setting starship's config file location
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # Setting zsh history file
-export HISTFILE="/home/azadahmadi/.config/zsh/.zsh_history"
+export HISTFILE=~/.config/zsh/.zsh_history
 
 # Setting qt theme with qt5ct
 export QT_QPA_PLATFORMTHEME="qt5ct"
