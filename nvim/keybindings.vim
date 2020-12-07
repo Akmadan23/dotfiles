@@ -16,8 +16,9 @@ nnoremap U <C-r>
 " Fixing Y behaviour
 nnoremap Y y$
 
-" Disabling Q
+" Disabling Q and q:
 nnoremap Q <nop>
+nnoremap q: <nop>
 
 " Join lines with dj
 nnoremap dj J

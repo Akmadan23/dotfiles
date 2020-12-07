@@ -98,13 +98,13 @@ keys = [
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
 
     # Volume and brightness controls key bindings
-    Key([mod, alt], "space", lazy.spawn("deadbeef --play-pause")),                      # deadbeef toggle play/pause
-    Key([mod, alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),      # +5% volume
-    Key([mod, alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
-    Key([mod, alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),      # mute
-    Key([mod, alt], "Right", lazy.spawn("brightlight -i 239")),                         # +5% backlight
-    Key([mod, alt], "Left", lazy.spawn("brightlight -d 239")),                          # -5% backlight
-    Key([mod, alt], "r", lazy.spawn("brightlight -w 2390")),                            # resets to 50%
+    Key([ctrl, alt], "space", lazy.spawn("deadbeef --play-pause")),                      # deadbeef toggle play/pause
+    Key([ctrl, alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),      # +5% volume
+    Key([ctrl, alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
+    Key([ctrl, alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),      # mute
+    Key([ctrl, alt], "Right", lazy.spawn("brightlight -i 239")),                         # +5% backlight
+    Key([ctrl, alt], "Left", lazy.spawn("brightlight -d 239")),                          # -5% backlight
+    Key([ctrl, alt], "r", lazy.spawn("brightlight -w 2390")),                            # resets to 50%
 ]
 
 groups = []
