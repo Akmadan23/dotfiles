@@ -1,0 +1,39 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+scan_timeout = 60
+
+# Use custom format
+format = """
+[┌───\\(](bold blue)$username@$hostname[\\)───────────────── ─ ─ ─ ](bold blue)$cmd_duration
+[│](bold blue)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
+[└───](bold blue)$character"""
+
+# Make prompt a single line instead of two lines
+[line_break]
+disabled = true
+
+[character]
+success_symbol = "[❯](bold blue)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❯](bold blue)[❯](bold yellow)"
+
+[directory]
+truncate_to_repo = false
+truncation_length = 5
+truncation_symbol = "../"
+style = "bold green"
+format = "[$path]($style) [$read_only]($read_only_style) "
+
+[cmd_duration]
+style = "bold yellow"
+format = "[\\[$duration\\]]($style)"
+
+[username]
+style = "bold blue"
+format = "[$user]($style)"
+show_always = true
+
+[hostname]
+style = "bold red"
+format = "[$hostname]($style)"
+ssh_only = false
