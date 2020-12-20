@@ -61,10 +61,17 @@ alias gs="git status"
 alias ga="git add"
 alias gaa="git add -A"
 alias gau="git add -u"
-alias gd="git diff | $PAGER"
 alias gc="git commit"
 alias gca="git commit -a"
 alias gpom="git push origin master"
+
+gd() {
+    if [ -z $1 ]; then
+        git diff | nvim -R
+    else
+        git diff "$1" | nvim -R
+    fi
+}
 
 # Systemctl shortcuts
 alias poweroff="systemctl poweroff"
@@ -87,3 +94,5 @@ alias tlauncher="java -jar ~/Scaricati/TLauncher-2.72/TLauncher-2.72.jar"
 alias ssh-pi="ssh pi@nextcloud-pi"
 alias swap="sudo swapon -v /dev/sda2"
 alias vtop="vtop -t brew --update-interval 500"
+alias startminer="sudo ~/Documenti/cpuminer-multi/minerd -a cryptonight -o stratum+tcp://pool.minexmr.com:4444 \
+    -u 49QpUDzDBp9PJrCSJrHaEw6sVge2ehEUob6P73ZE6hy678AqxdMjLu11WXgLLEMQAyizhmooYWvME8NDfkCUEWaiMd3nbuz -p x -t 4"
