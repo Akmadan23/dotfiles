@@ -39,6 +39,10 @@ from libqtile.lazy import lazy
 from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
 
+# Defining $HOME and $PATH
+home = os.environ['HOME']
+path = os.environ['PATH']
+
 # Keys and default apps
 mod = "mod4"
 alt = "mod1"
@@ -81,7 +85,7 @@ keys = [
     Key([mod], "plus", lazy.layout.grow(), lazy.layout.increase_nmaster()),
     Key([mod, sft], "q", lazy.window.kill()),
     Key([mod, sft], "r", lazy.restart()),
-    Key([mod, sft], "e", lazy.spawn("wlogout")),
+    Key([mod, sft], "e", lazy.spawn("rofi -show power-menu -modi power-menu:" + home + "/.local/bin/rofi-power-menu")),
     Key([mod], "r", lazy.spawncmd()),
 
     # Terminal and rofi
@@ -226,7 +230,6 @@ widget_defaults = dict(
 )
 
 extension_defaults = widget_defaults.copy()
-home = os.path.expanduser('~')
 
 # Mouse callbacks
 
@@ -249,10 +252,7 @@ def open_settings(qtile):
     qtile.cmd_spawn("gnome-control-center")
 
 def logout_menu(qtile):
-    qtile.cmd_spawn("wlogout")
-
-def suspend(qtile):
-    qtile.cmd_spawn("i3lock-fancy && systemctl suspend")
+    qtile.cmd_spawn("rofi -show power-menu -modi power-menu:" + home + "/.local/bin/rofi-power-menu")
 
 # Single/dual monitor check
 
@@ -707,13 +707,6 @@ else:
                     line_width = 2,
                     graph_color = red,
                     border_color = darkgrey,
-                ),
-
-                widget.Clipboard(
-                    timeout = 10,
-                    max_width = 40,
-                    padding = 5,
-                    foreground = teal,
                 ),
 
                 widget.Clock(
