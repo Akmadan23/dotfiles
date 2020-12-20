@@ -24,7 +24,7 @@ truncate_to_repo = false
 truncation_length = 5
 truncation_symbol = "../"
 style = "bold yellow"
-format = "[$path]($style) [$read_only]($read_only_style) "
+format = "[$path]($style) [$read_only]($read_only_style)"
 
 [cmd_duration]
 style = "bold yellow"
@@ -38,4 +38,10 @@ show_always = true
 [hostname]
 style = "bold purple"
 format = "[$hostname]($style)"
-ssh_only = false
+ssh_only = false 
+
+[git_status]
+style = "bold red"
+modified = "⏺"
+staged = "➕"
+deleted = "✘"
