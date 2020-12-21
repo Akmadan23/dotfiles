@@ -17,6 +17,9 @@ env:
   # available, otherwise `xterm-256color` is used.
   TERM: alacritty
 
+  # Fixing DPI scaling
+  WINIT_HIDPI_FACTOR: randr
+
 window:
   # Window dimensions (changes require restart)
   #
@@ -39,7 +42,7 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 0
+    x: 4
     y: 2
 
   # Spread additional padding evenly around the terminal content.
@@ -55,17 +58,6 @@ window:
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
   #decorations: full
-
-  # Startup Mode (changes require restart)
-  #
-  # Values for `startup_mode`:
-  #   - Windowed
-  #   - Maximized
-  #   - Fullscreen
-  #
-  # Values for `startup_mode` (macOS only):
-  #   - SimpleFullscreen
-  #startup_mode: Windowed
 
   # Window title
   title: Alacritty
@@ -86,7 +78,7 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 10000
+  history: 16000
 
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
@@ -104,7 +96,6 @@ font:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
     family: Hasklug Nerd Font Mono
     style: Regular
 
@@ -112,7 +103,6 @@ font:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
     family: Hasklug Nerd Font Mono
     style: Bold
 
@@ -120,7 +110,6 @@ font:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
     family: Hasklug Nerd Font Mono
     style: Italic
 
@@ -128,12 +117,11 @@ font:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-    # family: Source Code Pro
     family: Hasklug Nerd Font Mono
     style: Bold Italic
 
   # Point size
-  size: 10
+  size: 9.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -151,7 +139,7 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: true
 
-# Colors (Molokai/Teal)
+# Colors (Molokai Breath)
 colors:
   normal:
     black:      '#000000'
