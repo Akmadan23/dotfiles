@@ -6,24 +6,20 @@ scan_timeout = 60
 
 # Use custom format
 format = """
-[┌────\\(](bold blue)$username[@](white)$hostname[\\)──────── ─ ─ ─ ](bold blue)$cmd_duration
-[│](bold blue)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
-[└──](bold blue)$character"""
-
-# Make prompt a single line instead of two lines
-[line_break]
-disabled = true
+[┌────\\(](bold cyan)$username[@](white)$hostname[\\)──────── ─ ─ ─ ](bold cyan)$cmd_duration
+[│](bold cyan)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
+[└──](bold cyan)$character"""
 
 [character]
-success_symbol = "[❯](bold blue)"
+success_symbol = "[❯](bold cyan)"
 error_symbol = "[❯](bold red)"
-vicmd_symbol = "[❯](bold blue)[❯](bold yellow)"
+vicmd_symbol = "[❯](bold cyan)[❯](bold yellow)"
 
 [directory]
 truncate_to_repo = false
 truncation_length = 5
 truncation_symbol = "../"
-style = "bold yellow"
+style = "bold blue"
 format = "[$path]($style) [$read_only]($read_only_style)"
 
 [cmd_duration]
@@ -31,7 +27,7 @@ style = "bold yellow"
 format = "[\\[$duration\\]]($style)"
 
 [username]
-style_user = "bold cyan"
+style_user = "bold green"
 format = "[$user]($style)"
 show_always = true
 
@@ -41,7 +37,10 @@ format = "[$hostname]($style)"
 ssh_only = false 
 
 [git_status]
-style = "bold red"
+style = "bold purple"
+format = "[$all_status]($style)"
+conflicted = "!!"
+untracked = "?"
 modified = "⏺"
 staged = "➕"
 deleted = "✘"

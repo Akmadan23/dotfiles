@@ -146,24 +146,24 @@ colors:
     red:        '#E12824'
     green:      '#A6E22E'
     yellow:     '#FD971F'
-    blue:       '#1ABC9C'
+    blue:       '#AE81FF'
     magenta:    '#F92672'
-    cyan:       '#66D9EF'
+    cyan:       '#1ABC9C'
     white:      '#FFFFFF'
     
   bright:
     black:      '#666666'
-    red:        '#E1413F'
-    green:      '#B7E25F'
+    red:        '#E15451'
+    green:      '#BBE26C'
     yellow:     '#FDAA47'
-    blue:       '#5ABCA9'
-    magenta:    '#F95A92'
-    cyan:       '#8BDFEF'
-    white:      '#dddddd'
+    blue:       '#C4A3FF'
+    magenta:    '#F978A6'
+    cyan:       '#5ABCA9'
+    white:      '#DDDDDD'
     
   primary:
     background: '#242424'
-    foreground: '#dddddd'
+    foreground: '#DDDDDD'
 
 # Background opacity
 #
