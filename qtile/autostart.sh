@@ -9,7 +9,7 @@ parcellite &			# clipboard manager
 blueman-applet &		# bluetooth manager
 
 xss-lock -l -- i3lock-fancy &
-feh --bg-scale ~/.config/qtile/images/wallpaper.jpg
+xwallpaper --zoom ~/.config/qtile/images/wallpaper.jpg
 
 # handmade power management script
 kill -9 $(pidof -s /bin/bash /home/azadahmadi/.config/scripts/battery-check.sh)
