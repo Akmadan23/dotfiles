@@ -1,7 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="/home/azadahmadi/.local/bin":$PATH
-
 # Adding case insensitive tab-completion
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
@@ -20,6 +16,7 @@ alias vw="$EDITOR ~/Documenti/git-repos/vimwiki/index.wiki"
 alias zenv="$EDITOR ~/.config/zsh/.zshenv"
 alias zhist="$EDITOR ~/.config/zsh/.zsh_history"
 alias zconf="$EDITOR ~/.config/zsh/.zshrc"
+alias xconf="$EDITOR ~/.Xresources"
 alias rconf="$EDITOR ~/.config/ranger/rc.conf"
 alias qconf="$EDITOR ~/.config/qtile/config.py"
 alias qaconf="$EDITOR ~/.config/qtile/autostart.sh"

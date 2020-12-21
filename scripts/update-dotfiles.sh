@@ -1,7 +1,8 @@
 #!/bin/sh
 
-cp ~/.config/zsh/.zshrc ~/Documenti/git-repos/dotfiles/zsh
-cp ~/.config/zsh/.zshenv ~/Documenti/git-repos/dotfiles/zsh
+cp ~/.Xresources ~/Documenti/git-repos/dotfiles/
+cp ~/.config/zsh/.zshrc ~/Documenti/git-repos/dotfiles/zsh/
+cp ~/.config/zsh/.zshenv ~/Documenti/git-repos/dotfiles/zsh/
 cp ~/.config/i3/* ~/Documenti/git-repos/dotfiles/i3/
 cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/
 cp ~/.config/bspwm/* ~/Documenti/git-repos/dotfiles/bspwm/

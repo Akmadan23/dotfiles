@@ -1,0 +1,55 @@
+! setting DPI
+Xft.dpi: 105
+
+! SXIV color settings
+Sxiv*background: #242424
+Sxiv*foreground: #1ABC9C
+
+XTerm*renderFont: true
+XTerm*faceName: Hasklug Nerd Font
+XTerm*faceSize: 10
+XTerm*utf8: 2
+XTerm*locale: true
+XTerm*loginshell: true
+XTerm*savelines: 16000
+
+XTerm.vt100.translations: #override \n\
+  Ctrl <Key> -: smaller-vt-font() \n\
+  Ctrl <Key> +: larger-vt-font()
+
+! special
+XTerm*background:   #242424
+XTerm*foreground:   #DDDDDD
+XTerm*cursorColor:  #DDDDDD
+
+! black
+XTerm*color0:       #000000
+XTerm*color8:       #666666
+
+! red
+XTerm*color1:       #E12824
+XTerm*color9:       #E1413F
+
+! green
+XTerm*color2:       #A6E22E
+XTerm*color10:      #A6E22E
+
+! yellow
+XTerm*color3:       #FD971F
+XTerm*color11:      #FDAA47
+
+! blue
+XTerm*color4:       #1ABC9C
+XTerm*color12:      #5ABCA9
+
+! magenta
+XTerm*color5:       #F92672
+XTerm*color13:      #F95A92
+
+! cyan
+XTerm*color6:       #66D9EF
+XTerm*color14:      #8BDFEF
+
+! white
+XTerm*color7:       #FFFFFF
+XTerm*color15:      #DDDDDD

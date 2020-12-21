@@ -1,11 +1,11 @@
-# DT's colorscripts: https://gitlab.com/dwt1/shell-color-scripts
-# colorscripts -r
+# Setting path for binaries
+export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$HOME/.cargo/bin"
 
-# Default apps
+# Setting default apps
 export TERMINAL="/usr/bin/alacritty"
 export EDITOR="/usr/bin/nvim"
 export VISUAL="$TERMINAL -e $EDITOR"
-export READER="zathura"
+export READER="/usr/bin/zathura"
 export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
