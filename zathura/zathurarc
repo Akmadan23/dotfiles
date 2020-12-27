@@ -1,10 +1,10 @@
 # Theme
 
 set recolor true
-set recolor-darkcolor		"#FFFFFF"
+set recolor-darkcolor		"#DDDDDD"
 set recolor-lightcolor		"#242424"
 
-set inputbar-fg				"#FFFFFF"
+set inputbar-fg				"#DDDDDD"
 set inputbar-bg				"#242424"
 
 set statusbar-bg			"#1ABC9C"
@@ -13,10 +13,15 @@ set statusbar-fg			"#000000"
 set highlight-color			"#24574D"
 set highlight-active-color	"#1ABC9C"
 
+set index-bg                "#242424"
+set index-fg                "#DDDDDD"
+set index-active-bg         "#1ABC9C"
+set index-active-fg         "#242424"
+
 set completion-bg			"#242424"
-set completion-fg			"#FFFFFF"
+set completion-fg			"#DDDDDD"
 set completion-group-bg 	"#242424"
-set completion-group-fg 	"#FFFFFF"
+set completion-group-fg 	"#DDDDDD"
 set completion-highlight-bg	"#1ABC9C"
 set completion-highlight-fg	"#242424"
 

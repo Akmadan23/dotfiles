@@ -6,7 +6,7 @@ scan_timeout = 60
 
 # Use custom format
 format = """
-[┌────\\(](bold cyan)$username[@](white)$hostname[\\)──────── ─ ─ ─ ](bold cyan)$cmd_duration
+[┌────](bold cyan)[\ue0b6](fg:cyan)$username[@](bold fg:black bg:cyan)$hostname[\ue0b4──────── ─ ─ ─ ](bold cyan)$cmd_duration
 [│](bold cyan)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
 [└──](bold cyan)$character"""
 
@@ -19,7 +19,7 @@ vicmd_symbol = "[❯](bold cyan)[❯](bold yellow)"
 truncate_to_repo = false
 truncation_length = 5
 truncation_symbol = "../"
-style = "bold blue"
+style = "bold yellow"
 format = "[$path]($style) [$read_only]($read_only_style)"
 
 [cmd_duration]
@@ -27,12 +27,12 @@ style = "bold yellow"
 format = "[\\[$duration\\]]($style)"
 
 [username]
-style_user = "bold green"
+style_user = "bold fg:black bg:cyan"
 format = "[$user]($style)"
 show_always = true
 
 [hostname]
-style = "bold purple"
+style = "bold fg:black bg:cyan"
 format = "[$hostname]($style)"
 ssh_only = false 
 
