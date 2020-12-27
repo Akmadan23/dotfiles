@@ -26,11 +26,11 @@ texts[dual-monitor]="Dual monitor"
 texts[dual-tv]="Dual monitor (TV)"
 
 declare -A icons
-icons[integrated]="\uf023"
-icons[external-monitor]="\uf842"
-icons[external-tv]="\uf9b1"
-icons[dual-monitor]="\uf7c9"
-icons[dual-tv]="\ufc07"
+icons[integrated]="💻"
+icons[external-monitor]="🖥️"
+icons[external-tv]="📺"
+icons[dual-monitor]="💻🖥️"
+icons[dual-tv]="💻📺"
 icons[cancel]="\u00d7"
 
 declare -A actions
