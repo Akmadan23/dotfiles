@@ -32,13 +32,6 @@ alias bspconf="$EDITOR ~/.config/bspwm/bspwmrc"
 alias ffconf="$EDITOR ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
 alias ffcolors="$EDITOR ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
 
-# Xrandr settings
-alias displayonly="xrandr --output eDP-1 --mode 1600x900 --rotate normal --output HDMI-1 --off"
-alias hdmionly="xrandr --output eDP-1 --off --output HDMI-1 --mode 1920x1080 --rotate normal"
-alias dualscreen="xrandr --output eDP-1 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 1600x0 --rotate normal"
-alias dualscreen-tv="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1600x0 --rotate normal"
-alias singlescreen-tv="xrandr --output eDP-1 --off --output HDMI-1 --mode 1360x768  --rotate normal"
-
 # Directory shorctuts
 alias magnatut="cd ~/Documenti/git-repos/magnatut"
 alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
@@ -64,17 +57,11 @@ alias gpom="git push origin master"
 
 gd() {
     if [ -z $1 ]; then
-        git diff | nvim -R
+        git diff | nvim -RM
     else
-        git diff "$1" | nvim -R
+        git diff "$1" | nvim -RM
     fi
 }
-
-# Systemctl shortcuts
-alias poweroff="systemctl poweroff"
-alias suspend="systemctl suspend"
-alias suspend-lock="i3lock-fancy && systemctl suspend"
-alias reboot="systemctl reboot"
 
 # Replacing ls with lsd
 alias ls="lsd"
