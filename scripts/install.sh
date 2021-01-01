@@ -53,3 +53,6 @@ cp -r dunst/* ~/.config/dunst/
 cp zsh/.zshrc ~/
 cp zsh/.zshenv ~/
 
+# X
+cp .Xresources ~
+cp .Xinitrc ~
