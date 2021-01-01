@@ -39,11 +39,14 @@ black =     "#000000"
 white =     "#FFFFFF"
 
 keys = [
-    # Switch between windows in current stack pane
+    # Switch between windows
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "l", lazy.layout.right()),
+
+    # Switch between monitors
+    Key([mod], "comma", lazy.next_screen()),
 
     # Move windows in current stack
     Key([mod, sft], "h", lazy.layout.shuffle_left()),
@@ -70,23 +73,22 @@ keys = [
     Key([mod, sft], "x", lazy.spawn("rofi -show power-menu -modi power-menu:rofi-xrandr-menu")),
 
     # App spawning
-    Key([mod], "g", lazy.spawn("gimp")),
     Key([mod], "f", lazy.spawn("firefox")),
+    Key([mod], "g", lazy.spawn("galculator")),
     Key([mod], "p", lazy.spawn("pavucontrol")),
     Key([mod], "t", lazy.spawn("thunderbird")),
     Key([mod], "s", lazy.spawn("flameshot gui")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
-    Key([mod, sft], "g", lazy.spawn("galculator")),
     Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
 
     # Volume and brightness controls key bindings
-    Key([ctrl, alt], "space", lazy.spawn("deadbeef --play-pause")),                      # deadbeef toggle play/pause
-    Key([ctrl, alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),      # +5% volume
-    Key([ctrl, alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
-    Key([ctrl, alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),      # mute
-    Key([ctrl, alt], "Right", lazy.spawn("brightlight -i 239")),                         # +5% backlight
-    Key([ctrl, alt], "Left", lazy.spawn("brightlight -d 239")),                          # -5% backlight
-    Key([ctrl, alt], "r", lazy.spawn("brightlight -w 2390")),                            # resets to 50%
+    Key([ctrl, alt], "space", lazy.spawn("deadbeef --play-pause")),                     # deadbeef toggle play/pause
+    Key([ctrl, alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),     # +5% volume
+    Key([ctrl, alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),   # -5% volume
+    Key([ctrl, alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),     # mute
+    Key([ctrl, alt], "Right", lazy.spawn("brightlight -i 239")),                        # +5% backlight
+    Key([ctrl, alt], "Left", lazy.spawn("brightlight -d 239")),                         # -5% backlight
+    Key([ctrl, alt], "r", lazy.spawn("brightlight -w 2390")),                           # resets to 50%
 ]
 
 groups = []
@@ -166,6 +168,10 @@ layouts = [
 ]
 
 floating_layout = layout.Floating(
+    border_focus = teal,
+    border_normal = darkgrey,
+    border_width = 1,
+
     float_rules = [
         # Run the utility of `xprop` to see the wm class and name of an X client.
         {"wmclass": "confirm"},
@@ -184,7 +190,6 @@ floating_layout = layout.Floating(
         {"wmclass": "gcr-prompter"},        # password input prompts
         {"wmclass": "blueman-manager"},     # blueman windows
         {"wmclass": "pavucontrol"},         # pavucontrol windows
-        {"wmclass": "volumeicon"},          # volumeicon preferences window
         {"wmclass": "galculator"},          # galculator windows
         {"wmclass": "Msgcompose"},          # Thunderbird message window
         {"wmclass": "Calendar"},            # Thunderbird calendar window
@@ -217,10 +222,6 @@ screens = [
     Screen( # Main/only screen
         top = bar.Bar(
             [
-                widget.CurrentLayoutIcon(
-                    scale = 0.8,
-                ),
-
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
@@ -365,7 +366,11 @@ screens = [
 
                 widget.Systray(
                     background = darkgrey,
-                )
+                ),
+
+                widget.CurrentLayoutIcon(
+                    scale = 0.75,
+                ),
             ],
 
             22,
@@ -376,10 +381,6 @@ screens = [
     Screen( # Secondary display
         top = bar.Bar(
             [
-                widget.CurrentLayoutIcon(
-                    scale = 0.8,
-                ),
-
                 widget.GroupBox(
                     this_current_screen_border = teal,
                     this_screen_border = teal,
@@ -431,7 +432,11 @@ screens = [
                 widget.Clock(
                     format = "%A %d %B, %H:%M",
                     mouse_callbacks = {"Button1": calendar},
-                )
+                ),
+
+                widget.CurrentLayoutIcon(
+                    scale = 0.75,
+                ),
             ],
 
             24,

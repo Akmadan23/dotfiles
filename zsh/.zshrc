@@ -2,6 +2,42 @@
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 
+# Archive extraction function
+ext() {
+    if [ -z $1 ]; then
+        echo "Please select a file."
+    elif [ -f $1 ]; then
+        case $1 in
+            *.tar.bz2)   tar xjf $1   ;;
+            *.tar.gz)    tar xzf $1   ;;
+            *.bz2)       bunzip2 $1   ;;
+            *.rar)       unrar x $1   ;;
+            *.gz)        gunzip $1    ;;
+            *.tar)       tar xf $1    ;;
+            *.tbz2)      tar xjf $1   ;;
+            *.tgz)       tar xzf $1   ;;
+            *.zip)       unzip $1     ;;
+            *.Z)         uncompress $1;;
+            *.7z)        7z x $1      ;;
+            *.deb)       ar x $1      ;;
+            *.tar.xz)    tar xf $1    ;;
+            *.tar.zst)   unzstd $1    ;;      
+            *)           echo "'$1' cannot be extracted via ext" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+# Dinamic pipe of git diff in neovim
+# gd() {
+#     if [ -z $1 ]; then
+#         git diff | nvim -RM -c 'set ft=diff'
+#     else
+#         git diff "$1" | nvim -RM -c 'set ft=diff'
+#     fi
+# }
+
 # Plugins
 source $ZDOTDIR/plugins/history.zsh
 source $ZDOTDIR/plugins/key-bindings.zsh
@@ -52,16 +88,9 @@ alias ga="git add"
 alias gaa="git add -A"
 alias gau="git add -u"
 alias gc="git commit"
+alias gd="git diff"
 alias gca="git commit -a"
 alias gpom="git push origin master"
-
-gd() {
-    if [ -z $1 ]; then
-        git diff | nvim -RM
-    else
-        git diff "$1" | nvim -RM
-    fi
-}
 
 # Replacing ls with lsd
 alias ls="lsd"
