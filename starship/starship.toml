@@ -6,7 +6,7 @@ scan_timeout = 60
 
 # Use custom format
 format = """
-[┌────](bold cyan)[\ue0b6](fg:cyan)$username[@](bold fg:black bg:cyan)$hostname[\ue0b4──────── ─ ─ ─ ](bold cyan)$cmd_duration
+[┌────\ue0b6](bold cyan)$username[\ue0b0 ](fg:cyan bg:blue)$hostname[\ue0b4──────── ─ ─ ─ ](bold blue)$cmd_duration
 [│](bold cyan)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
 [└──](bold cyan)$character"""
 
@@ -28,11 +28,11 @@ format = "[\\[$duration\\]]($style)"
 
 [username]
 style_user = "bold fg:black bg:cyan"
-format = "[$user]($style)"
+format = "[$user ]($style)"
 show_always = true
 
 [hostname]
-style = "bold fg:black bg:cyan"
+style = "bold fg:black bg:blue"
 format = "[$hostname]($style)"
 ssh_only = false 
 

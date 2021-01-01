@@ -96,7 +96,7 @@ font:
     # family: Monospace
     # family: Consolas
     # family: Inconsolata
-  # family: mononoki Nerd Font
+    # family: mononoki Nerd Font
     family: Hasklug Nerd Font Mono
     style: Regular
 
@@ -162,7 +162,7 @@ colors:
     yellow:     '#FDAA47'
     blue:       '#C4A3FF'
     magenta:    '#F978A6'
-    cyan:       '#5ABCA9'
+    cyan:       '#7ABCAF'
     white:      '#DDDDDD'
     
   primary:
@@ -182,7 +182,8 @@ background_opacity: 0.75
   #save_to_clipboard: false
 
 # Allow terminal applications to change Alacritty's window title.
-window.dynamic_title: true
+window:
+  dynamic_title: true
 
 cursor:
   # Cursor style
@@ -200,36 +201,6 @@ cursor:
 
 # Live config reload (changes require restart)
 #live_config_reload: true
-
-# Shell
-#
-# You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
-# Entries in `shell.args` are passed unmodified as arguments to the shell.
-#
-# Default:
-#   - (macOS) /bin/bash --login
-#   - (Linux/BSD) user login shell
-#   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
-
-# Startup directory
-#
-# Directory the shell is started in. If this is unset, or `None`, the working
-# directory of the parent process will be used.
-#working_directory: None
-
-# WinPTY backend (Windows only)
-#
-# Alacritty defaults to using the newer ConPTY backend if it is available,
-# since it resolves a lot of bugs and is quite a bit faster. If it is not
-# available, the the WinPTY backend will be used instead.
-#
-# Setting this option to `true` makes Alacritty use the legacy WinPTY backend,
-# even if the ConPTY backend is available.
-#winpty_backend: false
 
 # Send ESC (\x1b) before characters when alt is pressed.
 #alt_send_esc: true
@@ -373,15 +344,6 @@ cursor:
 #   - ClearLogNotice
 #   - ReceiveChar
 #   - None
-#
-#   (macOS only):
-#   - ToggleSimpleFullscreen: Enters fullscreen without occupying another space
-#
-# - `command`: Fork and execute a specified command plus arguments
-#
-#    The `command` field must be a map containing a `program` string and an
-#    `args` array of command line parameter strings. For example:
-#       `{ program: "alacritty", args: ["-e", "vttest"] }`
 #
 # And optionally:
 #
