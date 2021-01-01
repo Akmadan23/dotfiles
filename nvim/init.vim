@@ -34,13 +34,16 @@ colorscheme molokai-teal
 lua require 'colorizer'.setup()
 hi Normal ctermbg=NONE guibg=NONE
 
-" Airline settings
+" Man.vim
+let g:no_man_maps = 1
+
+" Airline
 let g:airline_theme = 'molokai'
 let g:airline_powerline_fonts = 0
 
 " IndentLine
-let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help']
-let g:indentLine_char = '|'
+let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help', 'man']
+let g:indentLine_char = '│'
 
 " WimWiki
 let g:vimwiki_list = [{'path': '~/Documenti/git-repos/vimwiki/', 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]

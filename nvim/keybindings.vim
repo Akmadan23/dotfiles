@@ -78,9 +78,6 @@ cabbr Wqa wqa
 cabbr WQa wqa
 cabbr WQA wqa
 
-" Disabling the q: command
-nnoremap q: <nop>
-
 """""" Disabling arrow keys
 
 nnoremap <Up> <nop>
