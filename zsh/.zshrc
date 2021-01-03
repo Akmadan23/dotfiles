@@ -29,23 +29,11 @@ ext() {
     fi
 }
 
-# Dinamic pipe of git diff in neovim
-# gd() {
-#     if [ -z $1 ]; then
-#         git diff | nvim -RM -c 'set ft=diff'
-#     else
-#         git diff "$1" | nvim -RM -c 'set ft=diff'
-#     fi
-# }
-
 # Plugins
 source $ZDOTDIR/plugins/history.zsh
 source $ZDOTDIR/plugins/key-bindings.zsh
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Enabling starship prompt
-eval $(starship init zsh)
 
 # Config files
 alias vw="$EDITOR ~/Documenti/git-repos/vimwiki/index.wiki"
@@ -88,7 +76,7 @@ alias ga="git add"
 alias gaa="git add -A"
 alias gau="git add -u"
 alias gc="git commit"
-alias gd="git diff"
+alias gd="git diff --color"
 alias gca="git commit -a"
 alias gpom="git push origin master"
 
@@ -109,3 +97,30 @@ alias swap="sudo swapon -v /dev/sda2"
 alias vtop="vtop -t brew --update-interval 500"
 alias startminer="sudo ~/Documenti/cpuminer-multi/minerd -a cryptonight -o stratum+tcp://pool.minexmr.com:4444 \
     -u 49QpUDzDBp9PJrCSJrHaEw6sVge2ehEUob6P73ZE6hy678AqxdMjLu11WXgLLEMQAyizhmooYWvME8NDfkCUEWaiMd3nbuz -p x -t 4"
+
+# Activate vim mode.
+bindkey -v
+
+# Remove mode switching delay.
+KEYTIMEOUT=5
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+        echo -ne '\e[1 q'
+    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+        echo -ne '\e[5 q'
+    fi
+}
+zle -N zle-keymap-select
+
+# Use beam shape cursor on startup.
+echo -ne '\e[5 q'
+
+# Use beam shape cursor for each new prompt.
+precmd() {
+   echo -ne '\e[5 q'
+}
+
+# Enabling starship prompt
+eval $(starship init zsh)
