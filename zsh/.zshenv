@@ -20,6 +20,10 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 # Setting zsh history file
 export HISTFILE=~/.config/zsh/.zsh_history
 
+# Disabling GTK3 client side decorations
+export GTK_CSD=0
+export LD_PRELOAD=~/.config/gtk3-nocsd/libgtk3-nocsd.so.0
+
 # Qt settings
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_DEVICE_PIXEL_RATIO=0
