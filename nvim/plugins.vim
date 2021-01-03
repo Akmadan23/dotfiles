@@ -4,6 +4,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/goyo.vim'
     Plug 'ryanoasis/vim-devicons'
     Plug 'vimwiki/vimwiki'
+    " Plug 'vim-scripts/AnsiEsc.vim'
+    Plug 'powerman/vim-plugin-AnsiEsc'
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
     " dev tools
