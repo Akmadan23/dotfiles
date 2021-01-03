@@ -56,3 +56,6 @@ cp zsh/.zshenv ~/
 # X
 cp .Xresources ~
 cp .Xinitrc ~
+
+# Git
+cp .gitconfig ~
