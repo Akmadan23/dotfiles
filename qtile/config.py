@@ -218,6 +218,11 @@ def calendar(qtile):
 def autostart():
     subprocess.call([home + "/.config/qtile/autostart.sh"])
 
+# Monitor detection
+@hook.subscribe.startup_once
+def autostart_once():
+    subprocess.call([home + "/.config/qtile/monitordetection.sh"])
+
 screens = [
     Screen( # Main/only screen
         top = bar.Bar(
