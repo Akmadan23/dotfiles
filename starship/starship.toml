@@ -13,7 +13,7 @@ format = """
 [character]
 success_symbol = "[❯](bold cyan)"
 error_symbol = "[❯](bold red)"
-vicmd_symbol = "[❯](bold cyan)[❯](bold yellow)"
+vicmd_symbol = "[─](bold cyan)"
 
 [directory]
 truncate_to_repo = false
