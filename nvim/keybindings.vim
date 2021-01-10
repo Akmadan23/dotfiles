@@ -47,6 +47,11 @@ nnoremap <C-e> :CocCommand explorer<CR>
 inoremap <C-e> <Esc>:CocCommand explorer<CR>
 vnoremap <C-e> <Esc>:CocCommand explorer<CR>
 
+" coc-marketplace search
+nnoremap <C-m> :CocList marketplace<CR>
+inoremap <C-m> <Esc>:CocList marketplace<CR>
+vnoremap <C-m> <Esc>:CocList marketplace<CR>
+
 " Moving between splits
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
