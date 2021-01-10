@@ -1,7 +1,9 @@
-# Adding case insensitive tab-completion
-autoload -U compinit && compinit
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
-
+#     _    _                        _             ____  _____
+#    / \  | | ___ __ ___   __ _  __| | __ _ _ __ |___ \|___ /
+#   / _ \ | |/ / '_ ` _ \ / _` |/ _` |/ _` | '_ \  __) | |_ \
+#  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
+# /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/
+#
 # Archive extraction function
 ext() {
     if [ -z $1 ]; then
@@ -29,11 +31,22 @@ ext() {
     fi
 }
 
+# Adding case insensitive tab-completion
+autoload -U compinit && compinit
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+
 # Plugins
 source $ZDOTDIR/plugins/history.zsh
 source $ZDOTDIR/plugins/key-bindings.zsh
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+###############################################################
+#                          ALIASES                            #
+###############################################################
+
+# Using alias after "sudo"
+alias sudo="sudo "
 
 # Config files
 alias vw="$EDITOR ~/Documenti/git-repos/vimwiki/index.wiki"
@@ -98,6 +111,10 @@ alias vtop="vtop -t brew --update-interval 500"
 alias startminer="sudo ~/Documenti/cpuminer-multi/minerd -a cryptonight -o stratum+tcp://pool.minexmr.com:4444 \
     -u 49QpUDzDBp9PJrCSJrHaEw6sVge2ehEUob6P73ZE6hy678AqxdMjLu11WXgLLEMQAyizhmooYWvME8NDfkCUEWaiMd3nbuz -p x -t 4"
 
+###############################################################
+#                          VI MODE                            #
+###############################################################
+
 # Activate vim mode.
 bindkey -v
 
@@ -112,6 +129,7 @@ function zle-keymap-select {
         echo -ne '\e[5 q'
     fi
 }
+
 zle -N zle-keymap-select
 
 # Use beam shape cursor on startup.

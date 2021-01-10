@@ -22,7 +22,7 @@ export HISTFILE=~/.config/zsh/.zsh_history
 
 # Disabling GTK3 client side decorations
 export GTK_CSD=0
-export LD_PRELOAD=~/.config/gtk3-nocsd/libgtk3-nocsd.so.0
+# export LD_PRELOAD=~/.config/gtk3-nocsd/libgtk3-nocsd.so.0
 
 # Qt settings
 export QT_QPA_PLATFORMTHEME="qt5ct"
