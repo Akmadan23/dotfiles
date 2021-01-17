@@ -6,14 +6,16 @@ Sxiv*background: #242424
 Sxiv*foreground: #1ABC9C
 
 XTerm*renderFont: true
+XTerm*scrollBar: false
+XTerm*colorBDMode: false
 XTerm*faceName: Hasklug Nerd Font
-XTerm*faceSize: 10
+XTerm*faceSize: 9
 XTerm*utf8: 2
 XTerm*locale: true
-XTerm*loginshell: true
-XTerm*savelines: 16000
+XTerm*loginShell: true
+XTerm*saveLines: 16000
 
-XTerm.vt100.translations: #override \n\
+XTerm*translations: #override \n\
   Ctrl <Key> -: smaller-vt-font() \n\
   Ctrl <Key> +: larger-vt-font()
 
@@ -32,23 +34,23 @@ XTerm*color9:       #E1413F
 
 ! green
 XTerm*color2:       #A6E22E
-XTerm*color10:      #A6E22E
+XTerm*color10:      #BBE26C
 
 ! yellow
 XTerm*color3:       #FD971F
 XTerm*color11:      #FDAA47
 
 ! blue
-XTerm*color4:       #1ABC9C
-XTerm*color12:      #5ABCA9
+XTerm*color4:       #AE81FF
+XTerm*color12:      #C4A3FF
 
 ! magenta
 XTerm*color5:       #F92672
 XTerm*color13:      #F95A92
 
 ! cyan
-XTerm*color6:       #66D9EF
-XTerm*color14:      #8BDFEF
+XTerm*color6:       #1ABC9C
+XTerm*color14:      #7ABCA7
 
 ! white
 XTerm*color7:       #FFFFFF
