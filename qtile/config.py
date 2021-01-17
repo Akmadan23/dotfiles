@@ -1,4 +1,4 @@
-#     _    _                        _             ____  _____ 
+#     _    _                        _             ____  _____
 #    / \  | | ___ __ ___   __ _  __| | __ _ _ __ |___ \|___ /
 #   / _ \ | |/ / '_ ` _ \ / _` |/ _` |/ _` | '_ \  __) | |_ \
 #  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
@@ -46,7 +46,8 @@ keys = [
     Key([mod], "l", lazy.layout.right()),
 
     # Switch between monitors
-    Key([mod], "comma", lazy.next_screen()),
+    Key([mod], "comma", lazy.prev_screen()),
+    Key([mod], "period", lazy.next_screen()),
 
     # Move windows in current stack
     Key([mod, sft], "h", lazy.layout.shuffle_left()),
@@ -74,12 +75,9 @@ keys = [
 
     # App spawning
     Key([mod], "f", lazy.spawn("firefox")),
-    Key([mod], "g", lazy.spawn("galculator")),
-    Key([mod], "p", lazy.spawn("pavucontrol")),
     Key([mod], "t", lazy.spawn("thunderbird")),
     Key([mod], "s", lazy.spawn("flameshot gui")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
-    Key([mod, sft], "t", lazy.spawn("flatpak run org.telegram.desktop")),
 
     # Volume and brightness controls key bindings
     Key([ctrl, alt], "space", lazy.spawn("deadbeef --play-pause")),                     # deadbeef toggle play/pause
@@ -119,7 +117,7 @@ def assign_app_group(client):
     d["3"] = ["Mail", "Thunderbird"]
     d["4"] = ["ranger", "Ranger"]
     d["5"] = ["telegram-desktop", "TelegramDesktop"]
-    d["6"] = ["lmms", "deadbeef", "Deadbeef"]
+    d["6"] = ["lmms.real", "deadbeef", "Deadbeef"]
     d["7"] = []
     d["8"] = []
 
@@ -212,6 +210,10 @@ extension_defaults = widget_defaults.copy()
 # Calendar spawner
 def calendar(qtile):
     qtile.cmd_spawn("gsimplecal")
+
+# Calendar spawner
+def pavucontrol(qtile):
+    qtile.cmd_spawn("pavucontrol")
 
 # Autostart script
 @hook.subscribe.startup
@@ -331,10 +333,13 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "🕬",
+                    # text = "🕬",
+                    text = "🔊",
+                    font = "Hasklug",
                     fontsize = 22,
                     background = teal,
                     foreground = black,
+                    mouse_callbacks = {"Button1": pavucontrol},
                 ),
 
                 widget.Volume(
