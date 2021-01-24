@@ -78,6 +78,7 @@
         { "url": "*.twitch.tv",     "keys": ["h", "j", "k", "l", "f", "m"] },
         { "url": "lbry.tv",         "keys": ["f", "m"] },
         { "url": "odysee.com",      "keys": ["f", "m"] },
-        "*.mathway.com"
+        "*.mathway.com",
+        "krunker.io"
     ]
 }
