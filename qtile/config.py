@@ -63,15 +63,16 @@ keys = [
     Key([mod], "minus", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
     Key([mod], "plus", lazy.layout.grow(), lazy.layout.increase_nmaster()),
 
-    # Toggle between different layouts as defined below
+    # Toggle between different layouts
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod, sft], "Tab", lazy.prev_layout()),
 
     # Terminal and rofi
     Key([mod], "Return", lazy.spawn(term)),
     Key([mod], "space", lazy.spawn("rofi -modi 'drun,run' -show drun")),
-    Key([mod, sft], "e", lazy.spawn("rofi -show power-menu -modi power-menu:rofi-power-menu")),
-    Key([mod, sft], "x", lazy.spawn("rofi -show power-menu -modi power-menu:rofi-xrandr-menu")),
+    Key([mod, sft], "e", lazy.spawn("rofi -modi menu:rofi-power-menu -show menu")),
+    Key([mod, sft], "x", lazy.spawn("rofi -modi menu:rofi-xrandr-menu -show menu")),
+    Key([mod, sft], "d", lazy.spawn("rofi -modi menu:rofi-dotfiles-menu -show menu")),
 
     # App spawning
     Key([mod], "f", lazy.spawn("firefox")),
@@ -79,7 +80,7 @@ keys = [
     Key([mod], "s", lazy.spawn("flameshot gui")),
     Key([mod], "e", lazy.spawn(term + " -e ranger")),
 
-    # Volume and brightness controls key bindings
+    # Volume and brightness controls
     Key([ctrl, alt], "space", lazy.spawn("deadbeef --play-pause")),                     # deadbeef toggle play/pause
     Key([ctrl, alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),     # +5% volume
     Key([ctrl, alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),   # -5% volume
@@ -89,9 +90,22 @@ keys = [
     Key([ctrl, alt], "r", lazy.spawn("brightlight -w 2390")),                           # resets to 50%
 ]
 
+# Groups' names and icons
 groups = []
-group_names = ["1", "2", "3", "4", "5", "6", "7", "8"]
-group_labels = ["", "", "@", "", "", "🎜", "", ""]
+group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+
+group_labels = [
+    "\uf120", # Terminal
+    "\uf0ac", # Internet
+    "\uf0e0", # Email
+    "\uf07c", # File manager
+    "\uf086", # Chat
+    "\uf001", # Music
+    "\uf03e", # Picture
+    "\uf19c", # University
+    "\uf1b2", # Cube
+    "\uf005"  # Star
+]
 
 for i in range(len(group_names)):
     groups.append(
@@ -333,10 +347,9 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    # text = "🕬",
-                    text = "🔊",
-                    font = "Hasklug",
-                    fontsize = 22,
+                    text = "\uf028",
+                    font = "FontAwesome",
+                    fontsize = 18,
                     background = teal,
                     foreground = black,
                     mouse_callbacks = {"Button1": pavucontrol},
