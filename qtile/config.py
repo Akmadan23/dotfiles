@@ -239,18 +239,32 @@ def autostart():
 def autostart_once():
     subprocess.call([home + "/.config/qtile/monitordetection.sh"])
 
+# Separator defaults
+separator = {
+    "text": "",
+    "font": "FontAwesome",
+    "fontsize": 43,
+    "padding": 0,
+    "margin": 0
+}
+
+# Groupbox defaults
+groupbox = {
+    "this_current_screen_border": teal,
+    "this_screen_border": teal,
+    "highlight_color": darkteal,
+    "highlight_method": "line",
+    "font": "FontAwesome",
+    "fontsize": 16,
+    "rounded": False,
+}
+
 screens = [
     Screen( # Main/only screen
         top = bar.Bar(
             [
                 widget.GroupBox(
-                    this_current_screen_border = teal,
-                    this_screen_border = teal,
-                    font = "FontAwesome",
-                    fontsize = 16,
-                    rounded = False,
-                    highlight_color = darkteal,
-                    highlight_method = "line",
+                    **groupbox,
                 ),
 
                 widget.WindowName(
@@ -259,20 +273,15 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "",
-                    font = "FontAwesome",
-                    fontsize = 43,
-                    padding = 0,
-                    margin = 0,
-                    step = 5,
+                    **separator,
                     background = darkgrey,
                     foreground = darkteal,
                 ),
 
                 widget.TextBox(
-                    text = "🌡",
-                    padding = 2,
-                    fontsize = 20,
+                    text = "\uf2c8",
+                    font = "FontAwesome",
+                    fontsize = 16,
                     background = darkteal,
                     foreground = white,
                 ),
@@ -287,18 +296,15 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "",
-                    font = "FontAwesome",
-                    fontsize = 43,
-                    padding = 0,
-                    margin = 0,
+                    **separator,
                     background = darkteal,
                     foreground = teal,
                 ),
 
                 widget.TextBox(
-                    text = "☼",
-                    fontsize = 24,
+                    text = "\uf0eb",
+                    font = "FontAwesome",
+                    fontsize = 16,
                     background = teal,
                     foreground = black,
                 ),
@@ -311,37 +317,32 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "",
-                    font = "FontAwesome",
-                    fontsize = 43,
-                    padding = 0,
-                    margin = 0,
-                    step = 5,
+                    **separator,
                     background = teal,
                     foreground = darkteal,
                 ),
 
-                widget.BatteryIcon(
+                widget.TextBox(
+                    text = "\uf241",
+                    font = "FontAwesome",
+                    fontsize = 16,
                     background = darkteal,
-                    fontsize = 20,
+                    foreground = white,
+                    mouse_callbacks = {"Button1": pavucontrol},
                 ),
 
                 widget.Battery(
                     format = '{char} {percent:2.0%}',
                     background = darkteal,
-                    charge_char = "▲",
-                    discharge_char = "▼",
+                    charge_char = "\uf0e7",
+                    discharge_char = "",
                     low_foreground = red,
                     notify_below = 10,
                     update_interval = 10
                 ),
 
                 widget.TextBox(
-                    text = "",
-                    font = "FontAwesome",
-                    fontsize = 43,
-                    padding = 0,
-                    margin = 0,
+                    **separator,
                     background = darkteal,
                     foreground = teal,
                 ),
@@ -349,7 +350,7 @@ screens = [
                 widget.TextBox(
                     text = "\uf028",
                     font = "FontAwesome",
-                    fontsize = 18,
+                    fontsize = 16,
                     background = teal,
                     foreground = black,
                     mouse_callbacks = {"Button1": pavucontrol},
@@ -362,11 +363,7 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "",
-                    font = "FontAwesome",
-                    fontsize = 43,
-                    padding = 0,
-                    margin = 0,
+                    **separator,
                     background = teal,
                     foreground = darkteal,
                 ),
@@ -378,11 +375,7 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "",
-                    font = "FontAwesome",
-                    fontsize = 43,
-                    padding = 0,
-                    margin = 0,
+                    **separator,
                     background = darkteal,
                     foreground = darkgrey,
                 ),
@@ -405,13 +398,7 @@ screens = [
         top = bar.Bar(
             [
                 widget.GroupBox(
-                    this_current_screen_border = teal,
-                    this_screen_border = teal,
-                    font = "FontAwesome",
-                    fontsize = 16,
-                    rounded = False,
-                    highlight_color = darkteal,
-                    highlight_method = "line",
+                    **groupbox,
                 ),
 
                 widget.WindowName(
@@ -420,8 +407,9 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "CPU",
+                    text = "\uf2db",
                     font = "FontAwesome",
+                    fontsize = 16,
                 ),
 
                 widget.CPUGraph(
@@ -431,19 +419,9 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "RAM",
+                    text = "\uf176\uf175",
                     font = "FontAwesome",
-                ),
-
-                widget.MemoryGraph(
-                    line_width = 2,
-                    graph_color = yellow,
-                    border_color = darkgrey,
-                ),
-
-                widget.TextBox(
-                    text = "NET",
-                    font = "FontAwesome",
+                    fontsize = 16,
                 ),
 
                 widget.NetGraph(
