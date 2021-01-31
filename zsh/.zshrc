@@ -33,7 +33,9 @@ ext() {
 
 # Adding case insensitive tab-completion
 autoload -U compinit && compinit
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zmodload zsh/complist
 
 # Plugins
 source $ZDOTDIR/plugins/history.zsh
@@ -42,10 +44,10 @@ source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ###############################################################
-#                          ALIASES                            #
+##                         ALIASES                           ##
 ###############################################################
 
-# Using alias after "sudo"
+# Using aliases after "sudo"
 alias sudo="sudo "
 
 # Config files
@@ -68,60 +70,55 @@ alias kbconf="$EDITOR ~/.config/sxhkd/sxhkdrc"
 alias bspconf="$EDITOR ~/.config/bspwm/bspwmrc"
 alias ffconf="$EDITOR ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
 alias ffcolors="$EDITOR ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
-
-# Directory shorctuts
-alias magnatut="cd ~/Documenti/git-repos/magnatut"
-alias dotfiles="cd ~/Documenti/git-repos/dotfiles"
-alias startpage="cd ~/Documenti/git-repos/startpage"
-alias website="cd ~/Documenti/git-repos/azadahmadi.net"
-alias ff-teal="cd ~/Documenti/git-repos/firefox-teal"
-alias update-ff="cp ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/* ~/Documenti/git-repos/firefox-review/"
 alias update-dotfiles="~/.config/scripts/update-dotfiles.sh"
-
-# Appimages
-alias etcher="~/Appimage/BalenaEtcher.appimage"
-alias openra="~/Appimage/OpenRA.appimage"
-alias krita="~/Appimage/krita-4.2.6-x86_64.appimage"
 
 # Git
 alias gs="git status"
 alias ga="git add"
 alias gaa="git add -A"
 alias gau="git add -u"
-alias gc="git commit"
 alias gd="git diff --color"
+alias gc="git commit"
+alias gcm="git commit -m"
 alias gca="git commit -a"
 alias gpom="git push origin master"
 
 # Replacing ls with lsd
-alias ls="lsd"
-alias ll="lsd -l"
-alias la="lsd -lA"
+alias ls="lsd -l --group-dirs first"
+alias la="lsd -lA --group-dirs first"
 
 # Misc
+alias md="mkdir"
 alias pm="pacman"
 alias ps="ps axu | less"
-alias ytdl="youtube-dl"
 alias vim="nvim"
-alias svim="sudo nvim"
-alias tlauncher="java -jar ~/Scaricati/TLauncher-2.72/TLauncher-2.72.jar"
-alias ssh-pi="ssh pi@nextcloud-pi"
+alias ytdl="youtube-dl"
 alias swap="sudo swapon -v /dev/sda2"
 alias vtop="vtop -t brew --update-interval 500"
+alias tlauncher="java -jar ~/Scaricati/TLauncher-2.72/TLauncher-2.72.jar"
 alias startminer="sudo ~/Documenti/cpuminer-multi/minerd -a cryptonight -o stratum+tcp://pool.minexmr.com:4444 \
     -u 49QpUDzDBp9PJrCSJrHaEw6sVge2ehEUob6P73ZE6hy678AqxdMjLu11WXgLLEMQAyizhmooYWvME8NDfkCUEWaiMd3nbuz -p x -t 4"
 
 ###############################################################
-#                          VI MODE                            #
+##                         VI MODE                           ##
 ###############################################################
 
-# Activate vim mode.
+# Setting vi mode keybindings
 bindkey -v
+bindkey -M vicmd "H" beginning-of-line
+bindkey -M vicmd "L" end-of-line
+bindkey -M vicmd "U" redo
 
-# Remove mode switching delay.
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+# Removing mode switching delay.
 KEYTIMEOUT=5
 
-# Change cursor shape for different vi modes.
+# Changing cursor shape for different vi modes.
 function zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
         echo -ne '\e[1 q'

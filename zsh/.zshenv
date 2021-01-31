@@ -1,5 +1,6 @@
 # Setting path for binaries
-export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$HOME/.cargo/bin"
+PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$HOME/.cargo/bin":"$HOME/.config/scripts"
+export PATH
 
 # Setting default apps
 export TERMINAL="alacritty"
