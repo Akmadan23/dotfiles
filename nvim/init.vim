@@ -18,6 +18,7 @@ set mouse=a
 set splitbelow
 set splitright
 set expandtab
+set noshowmode
 set tabstop=4 
 set shiftwidth=4
 set smartindent
