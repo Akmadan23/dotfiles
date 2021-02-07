@@ -9,25 +9,26 @@
 # the current group name, comment out the "toggle_group" funcion in
 # /usr/local/lib/python3.x/site-packages/libqtile/config.py (if installed via pip)
 
-import os
-import re
-import socket
-import subprocess
 from typing import List
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
 from libqtile.config import Key, Screen, Group, Drag, Click
+import os, re, socket, subprocess
 
-# Defining $HOME and $PATH
+# Importing environment variables
 home = os.environ['HOME']
 path = os.environ['PATH']
+term = os.environ['TERMINAL']
 
-# Keys and default apps
+# Keys aliases
 mod = "mod4"
 alt = "mod1"
 sft = "shift"
 ctrl = "control"
-term = "alacritty"
+
+# FontAwesome
+FA4 = "FontAwesome"                 # V4.7
+FA5 = "Font Awesome 5 Free Solid"   # V5.15
 
 # Colors
 red =       "#CC0000"
@@ -38,56 +39,64 @@ darkgrey =  "#242424"
 black =     "#000000"
 white =     "#FFFFFF"
 
+# Keyboard bindings
 keys = [
     # Switch between windows
-    Key([mod], "h", lazy.layout.left()),
-    Key([mod], "j", lazy.layout.down()),
-    Key([mod], "k", lazy.layout.up()),
-    Key([mod], "l", lazy.layout.right()),
-
-    # Switch between monitors
-    Key([mod], "comma", lazy.prev_screen()),
-    Key([mod], "period", lazy.next_screen()),
+    Key([mod],          "h",        lazy.layout.left()),
+    Key([mod],          "j",        lazy.layout.down()),
+    Key([mod],          "k",        lazy.layout.up()),
+    Key([mod],          "l",        lazy.layout.right()),
 
     # Move windows in current stack
-    Key([mod, sft], "h", lazy.layout.shuffle_left()),
-    Key([mod, sft], "j", lazy.layout.shuffle_down()),
-    Key([mod, sft], "k", lazy.layout.shuffle_up()),
-    Key([mod, sft], "l", lazy.layout.shuffle_right()),
+    Key([mod, sft],     "h",        lazy.layout.shuffle_left()),
+    Key([mod, sft],     "j",        lazy.layout.shuffle_down()),
+    Key([mod, sft],     "k",        lazy.layout.shuffle_up()),
+    Key([mod, sft],     "l",        lazy.layout.shuffle_right()),
+
+    # Switch between monitors
+    Key([mod],          "comma",    lazy.prev_screen()),
+    Key([mod],          "period",   lazy.next_screen()),
 
     # Windows and layout behaviour
-    Key([mod, sft], "n", lazy.layout.normalize()),
-    Key([mod, sft], "f", lazy.window.toggle_floating()),
-    Key([mod, sft], "q", lazy.window.kill()),
-    Key([mod, sft], "r", lazy.restart()),
-    Key([mod], "minus", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
-    Key([mod], "plus", lazy.layout.grow(), lazy.layout.increase_nmaster()),
+    Key([mod, sft],     "r",        lazy.restart()),
+    Key([mod, sft],     "q",        lazy.window.kill()),
+    Key([mod, sft],     "n",        lazy.layout.normalize()),
+    Key([mod, sft],     "f",        lazy.window.toggle_floating()),
+    Key([mod],          "plus",     lazy.layout.grow(), lazy.layout.increase_nmaster()),
+    Key([mod],          "minus",    lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
 
     # Toggle between different layouts
-    Key([mod], "Tab", lazy.next_layout()),
-    Key([mod, sft], "Tab", lazy.prev_layout()),
+    Key([mod],          "Tab",      lazy.next_layout()),
+    Key([mod, sft],     "Tab",      lazy.prev_layout()),
 
     # Terminal and rofi
-    Key([mod], "Return", lazy.spawn(term)),
-    Key([mod], "space", lazy.spawn("rofi -modi 'drun,run' -show drun")),
-    Key([mod, sft], "e", lazy.spawn("rofi -modi menu:rofi-power-menu -show menu")),
-    Key([mod, sft], "x", lazy.spawn("rofi -modi menu:rofi-xrandr-menu -show menu")),
-    Key([mod, sft], "d", lazy.spawn("rofi -modi menu:rofi-dotfiles-menu -show menu")),
+    Key([mod],          "Return",   lazy.spawn(term)),
+    Key([mod],          "space",    lazy.spawn("rofi -modi drun,run -show drun")),
+    Key([mod, sft],     "e",        lazy.spawn("rofi -modi menu:rofi-power-menu -show menu")),
+    Key([mod, sft],     "x",        lazy.spawn("rofi -modi menu:rofi-xrandr-menu -show menu")),
+    Key([mod, sft],     "d",        lazy.spawn("rofi -modi menu:rofi-dotfiles-menu -show menu")),
 
     # App spawning
-    Key([mod], "f", lazy.spawn("firefox")),
-    Key([mod], "t", lazy.spawn("thunderbird")),
-    Key([mod], "s", lazy.spawn("flameshot gui")),
-    Key([mod], "e", lazy.spawn(term + " -e ranger")),
+    Key([mod],          "f",        lazy.spawn("firefox")),
+    Key([mod],          "t",        lazy.spawn("thunderbird")),
+    Key([mod],          "s",        lazy.spawn("flameshot gui")),
+    Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([ctrl, alt], "space", lazy.spawn("deadbeef --play-pause")),                     # deadbeef toggle play/pause
-    Key([ctrl, alt], "Up", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),     # +5% volume
-    Key([ctrl, alt], "Down", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),   # -5% volume
-    Key([ctrl, alt], "m", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),     # mute
-    Key([ctrl, alt], "Right", lazy.spawn("brightlight -i 239")),                        # +5% backlight
-    Key([ctrl, alt], "Left", lazy.spawn("brightlight -d 239")),                         # -5% backlight
-    Key([ctrl, alt], "r", lazy.spawn("brightlight -w 2390")),                           # resets to 50%
+    Key([ctrl, alt],    "space",    lazy.spawn("deadbeef --play-pause")),                       # deadbeef toggle play/pause
+    Key([ctrl, alt],    "Up",       lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
+    Key([ctrl, alt],    "Down",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
+    Key([ctrl, alt],    "m",        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),   # mute
+    Key([ctrl, alt],    "Right",    lazy.spawn("brightlight -i 239")),                          # +5% backlight
+    Key([ctrl, alt],    "Left",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
+    Key([ctrl, alt],    "r",        lazy.spawn("brightlight -w 2390")),                         # resets to 50%
+]
+
+# Mouse bindings
+mouse = [
+    Drag([mod],         "Button1",  lazy.window.set_position_floating(), start = lazy.window.get_position()),
+    Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size()),
+    Click([mod],        "Button2",  lazy.window.bring_to_front())
 ]
 
 # Groups' names and icons
@@ -95,16 +104,16 @@ groups = []
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 group_labels = [
-    "\uf120", # Terminal
-    "\uf0ac", # Internet
-    "\uf0e0", # Email
-    "\uf07c", # File manager
-    "\uf086", # Chat
-    "\uf001", # Music
-    "\uf03e", # Picture
-    "\uf19c", # University
-    "\uf1b2", # Cube
-    "\uf005"  # Star
+    "\uf120", #1 - Terminal
+    "\uf0ac", #2 - Internet
+    "\uf0e0", #3 - Email
+    "\uf07c", #4 - File manager
+    "\uf086", #5 - Chat
+    "\uf001", #6 - Music
+    "\uf03e", #7 - Picture
+    "\uf19c", #8 - University
+    "\uf1b2", #9 - Cube
+    "\uf005"  #0 - Star
 ]
 
 for i in range(len(group_names)):
@@ -142,6 +151,7 @@ def assign_app_group(client):
             client.togroup(group)
             client.group.cmd_toscreen()
 
+# Default layout theme
 layout_theme = {
     "margin": 10,
     "single_margin": 0,
@@ -153,30 +163,20 @@ layout_theme = {
 
 layouts = [
     # layout.Floating(),
-    # layout.Stack(num_stacks=2),
+    # layout.Stack(),
     # layout.Bsp(),
     # layout.Columns(),
     # layout.Matrix(),    
     # layout.RatioTile(),
-    # layout.Max(),
     # layout.Tile(),
     # layout.Slice(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
+    # layout.TreeTab(),
 
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
-
-    layout.TreeTab(
-        bg_color = darkgrey,
-        active_bg = teal,
-        active_fg = black,
-        inactive_bg = darkgrey,
-        inactive_fg = white,
-        panel_width = 128,
-        fontsize = 12,
-        section_fontsize = 10,
-    )
+    layout.Max(),
 ]
 
 floating_layout = layout.Floating(
@@ -185,7 +185,7 @@ floating_layout = layout.Floating(
     border_width = 1,
 
     float_rules = [
-        # Run the utility of `xprop` to see the wm class and name of an X client.
+        # Default
         {"wmclass": "confirm"},
         {"wmclass": "dialog"},
         {"wmclass": "download"},
@@ -194,22 +194,24 @@ floating_layout = layout.Floating(
         {"wmclass": "notification"},
         {"wmclass": "splash"},
         {"wmclass": "toolbar"},
-        {"wmclass": "confirmreset"},        # gitk
-        {"wmclass": "makebranch"},          # gitk
-        {"wmclass": "maketag"},             # gitk
-        {"wmclass": "ssh-askpass"},         # ssh-askpass
-        {"wmclass": "cpu-x"},               # cpu-x windows
-        {"wmclass": "gcr-prompter"},        # password input prompts
-        {"wmclass": "blueman-manager"},     # blueman windows
-        {"wmclass": "pavucontrol"},         # pavucontrol windows
-        {"wmclass": "galculator"},          # galculator windows
-        {"wmclass": "Msgcompose"},          # Thunderbird message window
-        {"wmclass": "Calendar"},            # Thunderbird calendar window
-        {"wmclass": "gsimplecal"},          # My minimal calendar of choice
-        {"wmclass": "gcolor2"},             # gcolor2 windows
-        {"wmclass": "balena-etcher-electron"}, # balena etcher
-        {"wmclass": "authentication"},      # polkit authentication
-        {"wmclass": "autenticazione"},      # italian version
+        {"wmclass": "confirmreset"},
+        {"wmclass": "makebranch"},
+        {"wmclass": "maketag"},
+        {"wmclass": "ssh-askpass"},
+
+        # Custom
+        {"wmclass": "cpu-x"},                   # cpu-x windows
+        {"wmclass": "gcr-prompter"},            # password input prompts
+        {"wmclass": "blueman-manager"},         # blueman windows
+        {"wmclass": "pavucontrol"},             # pavucontrol windows
+        {"wmclass": "galculator"},              # galculator windows
+        {"wmclass": "Msgcompose"},              # Thunderbird message window
+        {"wmclass": "Calendar"},                # Thunderbird calendar window
+        {"wmclass": "gsimplecal"},              # My minimal calendar of choice
+        {"wmclass": "gcolor2"},                 # gcolor2 windows
+        {"wmclass": "authentication"},          # polkit authentication
+        {"wmclass": "autenticazione"},          # italian version
+        {"wmclass": "balena-etcher-electron"},  # balena etcher
     ]
 )
 
@@ -242,7 +244,7 @@ def autostart_once():
 # Separator defaults
 separator = {
     "text": "",
-    "font": "FontAwesome",
+    "font": FA4,
     "fontsize": 43,
     "padding": 0,
     "margin": 0
@@ -254,13 +256,14 @@ groupbox = {
     "this_screen_border": teal,
     "highlight_color": darkteal,
     "highlight_method": "line",
-    "font": "FontAwesome",
+    "font": FA4,
     "fontsize": 16,
     "rounded": False,
 }
 
+# Screen settings
 screens = [
-    Screen( # Main/only screen
+    Screen(
         top = bar.Bar(
             [
                 widget.GroupBox(
@@ -268,7 +271,6 @@ screens = [
                 ),
 
                 widget.WindowName(
-                    fontshadow = black,
                     show_state = False,
                 ),
 
@@ -280,7 +282,7 @@ screens = [
 
                 widget.TextBox(
                     text = "\uf2c8",
-                    font = "FontAwesome",
+                    font = FA4,
                     fontsize = 16,
                     background = darkteal,
                     foreground = white,
@@ -303,7 +305,7 @@ screens = [
 
                 widget.TextBox(
                     text = "\uf0eb",
-                    font = "FontAwesome",
+                    font = FA4,
                     fontsize = 16,
                     background = teal,
                     foreground = black,
@@ -322,23 +324,28 @@ screens = [
                     foreground = darkteal,
                 ),
 
-                widget.TextBox(
-                    text = "\uf241",
-                    font = "FontAwesome",
+                widget.Battery(
+                    format = '{char}',
+                    font = FA4,
                     fontsize = 16,
                     background = darkteal,
-                    foreground = white,
-                    mouse_callbacks = {"Button1": pavucontrol},
+                    empty_char = "\uf244",
+                    full_char = "\uf240",
+                    charge_char = "\uf0e7",
+                    discharge_char = "\uf242",
+                    unknown_char = "\uf240",
+                    low_foreground = red,
+                    show_short_text = False,
+                    update_interval = 30
                 ),
 
                 widget.Battery(
-                    format = '{char} {percent:2.0%}',
+                    format = '{percent:1.0%}',
                     background = darkteal,
-                    charge_char = "\uf0e7",
-                    discharge_char = "",
                     low_foreground = red,
+                    show_short_text = False,
                     notify_below = 10,
-                    update_interval = 10
+                    update_interval = 30
                 ),
 
                 widget.TextBox(
@@ -349,7 +356,7 @@ screens = [
 
                 widget.TextBox(
                     text = "\uf028",
-                    font = "FontAwesome",
+                    font = FA4,
                     fontsize = 16,
                     background = teal,
                     foreground = black,
@@ -389,12 +396,12 @@ screens = [
                 ),
             ],
 
-            22,
+            size = 22,
             background = darkgrey,
         )
     ),
 
-    Screen( # Secondary display
+    Screen(
         top = bar.Bar(
             [
                 widget.GroupBox(
@@ -402,13 +409,12 @@ screens = [
                 ),
 
                 widget.WindowName(
-                    fontshadow = black,
                     show_state = False,
                 ),
 
                 widget.TextBox(
                     text = "\uf2db",
-                    font = "FontAwesome",
+                    font = FA4,
                     fontsize = 16,
                 ),
 
@@ -420,7 +426,7 @@ screens = [
 
                 widget.TextBox(
                     text = "\uf176\uf175",
-                    font = "FontAwesome",
+                    font = FA4,
                     fontsize = 16,
                 ),
 
@@ -440,28 +446,13 @@ screens = [
                 ),
             ],
 
-            24,
+            size = 24,
             background = darkgrey,
         )
     )
 ]
 
-mouse = [
-    Drag(
-        [mod], "Button1", lazy.window.set_position_floating(),
-        start = lazy.window.get_position()
-    ),
-
-    Drag(
-        [mod], "Button3", lazy.window.set_size_floating(),
-        start = lazy.window.get_size()
-    ),
-
-    Click(
-        [mod], "Button2", lazy.window.bring_to_front()
-    )
-]
-
+# Other settings
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None
