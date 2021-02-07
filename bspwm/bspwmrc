@@ -6,22 +6,23 @@
 #  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
 # /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/
 #
-#
-###---Autostart---###
+###--- AUTOSTART ---###
 killall sxhkd
 sxhkd &
 dunst &
+picom -f &
 nm-applet &
 flameshot &
 parcellite &
 blueman-applet &
-picom --corner-radius 12 -f &
 xss-lock -l -- i3lock-fancy &
+xwallpaper --zoom ~/.config/qtile/images/wallpaper.jpg
+
+###--- SCRIPTS ---###
 ~/.config/polybar/launch.sh &
 ~/.config/scripts/battery-check.sh &
-feh --bg-scale ~/.config/qtile/images/wallpaper.jpg
 
-###---MONITORS---###
+###--- MONITORS ---###
 if [ $(xrandr | grep "HDMI-1 disconnected") ]; then
 	bspc monitor eDP-1  -d 1 2 3 4 5 6 7 8
 else

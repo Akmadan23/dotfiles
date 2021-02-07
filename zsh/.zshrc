@@ -65,11 +65,9 @@ alias vkconf="$EDITOR ~/.config/nvim/keybindings.vim"
 alias alconf="$EDITOR ~/.config/alacritty/alacritty.yml"
 alias awconf="$EDITOR ~/.config/awesome/rc.lua"
 alias i3conf="$EDITOR ~/.config/i3/config"
-alias pbconf="$EDITOR ~/.config/polybar/config"
 alias kbconf="$EDITOR ~/.config/sxhkd/sxhkdrc"
 alias bspconf="$EDITOR ~/.config/bspwm/bspwmrc"
-alias ffconf="$EDITOR ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userChrome.css"
-alias ffcolors="$EDITOR ~/.mozilla/firefox/1g4xbltp.default-release-1581780025274/chrome/userColors.css"
+alias pbconf="$EDITOR ~/.config/polybar/config -c 'set ft=toml'"
 alias update-dotfiles="~/.config/scripts/update-dotfiles.sh"
 
 # Git
