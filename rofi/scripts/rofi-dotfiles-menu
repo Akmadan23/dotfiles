@@ -13,7 +13,7 @@ set -e
 set -u
 
 # All supported choices
-all=(qtile awesome bspwm sxhkd polybar alacritty ranger zshrc zshenv rofi vim-base vim-keybindings vim-plugins)
+all=(qtile awesome bspwm sxhkd polybar alacritty ranger zshrc zshenv rofi dunst vim-base vim-keybindings vim-plugins)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -29,6 +29,7 @@ texts[ranger]="Ranger"
 texts[zshrc]=".zshrc"
 texts[zshenv]=".zshenv"
 texts[rofi]="Rofi"
+texts[dunst]="Dunst"
 texts[vim-base]="Vim"
 texts[vim-plugins]="Vim plugins"
 texts[vim-keybindings]="Vim keybindings"
@@ -44,6 +45,7 @@ icons[ranger]=""
 icons[zshrc]=""
 icons[zshenv]=""
 icons[rofi]=""
+icons[dunst]=""
 icons[vim-base]=""
 icons[vim-plugins]=""
 icons[vim-keybindings]=""
@@ -55,11 +57,12 @@ actions[awesome]="$HOME/.config/awesome/rc.lua"
 actions[alacritty]="$HOME/.config/alacritty/alacritty.yml"
 actions[bspwm]="$HOME/.config/bspwm/bspwmrc"
 actions[sxhkd]="$HOME/.config/sxhkd/sxhkdrc"
-actions[polybar]="$HOME/.config/polybar/config"
+actions[polybar]="$HOME/.config/polybar/config -c 'set ft=toml'"
 actions[zshrc]="$HOME/.config/zsh/.zshrc"
 actions[zshenv]="$HOME/.config/zsh/.zshenv"
 actions[ranger]="$HOME/.config/ranger/rc.conf"
-actions[rofi]="$HOME/.config/rofi/config.rasi"
+actions[rofi]="$HOME/.config/rofi/config.rasi -c 'set ft=css'"
+actions[dunst]="$HOME/.config/dunst/dunst -c 'set ft=toml'"
 actions[vim-base]="$HOME/.config/nvim/init.vim"
 actions[vim-plugins]="$HOME/.config/nvim/plugins.vim"
 actions[vim-keybindings]="$HOME/.config/nvim/keybindings.vim"
@@ -247,9 +250,9 @@ else
                 # Tell what would have been done
                 echo "Selected: $entry" >&2
             else
-                # Perform the action
-                # exec $TERMINAL -e "$EDITOR ${actions[$entry]}"
-                gtk-launch editor ${actions[$entry]}
+                # gtk-launch nvim ${actions[$entry]}
+                # alacritty -e nvim ${actions[$entry]} & disown
+                alacritty -e sh -c "sleep 0.02 && nvim ${actions[$entry]}" & disown
                 killall rofi
             fi
             exit 0
