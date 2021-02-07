@@ -36,12 +36,12 @@ icons[lockscreen]="\uf023"
 icons[cancel]="\u00d7"
 
 declare -A actions
-actions[lockscreen]="i3lock-fancy"
-actions[logout]="loginctl terminate-user $USER"
+actions[shutdown]="systemctl poweroff"
+actions[reboot]="systemctl reboot"
 actions[suspend]="systemctl suspend"
 actions[hibernate]="systemctl hibernate"
-actions[reboot]="systemctl reboot"
-actions[shutdown]="systemctl poweroff"
+actions[logout]="loginctl terminate-user $USER"
+actions[lockscreen]="i3lock-fancy"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=(reboot shutdown logout)

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # This script defines just a mode for rofi instead of being a self-contained
 # executable that launches rofi by itself. This makes it more flexible than
@@ -26,19 +26,19 @@ texts[dual-monitor]="Dual monitor"
 texts[dual-tv]="Dual monitor (TV)"
 
 declare -A icons
-icons[integrated]="   \uf109 "
-icons[external-monitor]="   \uf108 "
-icons[external-tv]="   \uf26c "
-icons[dual-monitor]="\uf109 +\uf108 "
-icons[dual-tv]="\uf109 +\uf26c "
+icons[integrated]="\uf109"
+icons[external-monitor]="\uf108"
+icons[external-tv]="\uf26c"
+icons[dual-monitor]="\uf109 +\uf108"
+icons[dual-tv]="\uf109 +\uf26c"
 icons[cancel]="\u00d7"
 
 declare -A actions
-actions[integrated]="xrandr --output eDP-1 --mode 1600x900 --rotate normal --output HDMI-1 --off"
-actions[external-monitor]="xrandr --output eDP-1 --off --output HDMI-1 --mode 1920x1080 --rotate normal"
-actions[external-tv]="xrandr --output eDP-1 --off --output HDMI-1 --mode 1360x768  --rotate normal"
-actions[dual-monitor]="xrandr --output eDP-1 --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --primary --mode 1920x1080 --pos 1600x0 --rotate normal"
-actions[dual-tv]="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1600x0 --rotate normal"
+actions[integrated]="xrandr --output eDP-1 --mode 1600x900 --output HDMI-1 --off"
+actions[external-monitor]="xrandr --output HDMI-1 --mode 1920x1080 --output eDP-1 --off"
+actions[external-tv]="xrandr --output eDP-1 --off --output HDMI-1 --mode 1360x768"
+actions[dual-monitor]="xrandr --output eDP-1 --mode 1600x900 --pos 0x0 --output HDMI-1 --primary --mode 1920x1080 --pos 1600x0"
+actions[dual-tv]="xrandr --output eDP-1 --primary --mode 1600x900 --pos 0x0 --output HDMI-1 --mode 1360x768 --pos 1600x0"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=()
