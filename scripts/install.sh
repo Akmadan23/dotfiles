@@ -8,6 +8,10 @@ cp -r alacritty/* ~/.config/alacritty/
 mkdir -p ~/.config/awesome/
 cp -r awesome/* ~/.config/awesome/
 
+# Openbox
+mkdir -p ~/.config/openbox/
+cp -r openbox/* ~/.config/openbox/
+
 # bspwm
 mkdir -p ~/.config/bspwm/
 cp -r bspwm/* ~/.config/bspwm/
@@ -49,9 +53,13 @@ cp -r zathura/* ~/.config/zathura/
 mkdir -p ~/.config/dunst/
 cp -r dunst/* ~/.config/dunst/
 
+# starship
+mkdir -p ~/.config/starship/
+cp -r starship/* ~/.config/starship/
+
 # zsh 
-cp zsh/.zshrc ~/
-cp zsh/.zshenv ~/
+cp zsh/.zshrc ~/.config/zsh/
+cp zsh/.zshenv ~/.config/zsh/
 
 # X
 cp .Xresources ~
