@@ -9,7 +9,6 @@
 # the current group name, comment out the "toggle_group" funcion in
 # /usr/local/lib/python3.x/site-packages/libqtile/config.py (if installed via pip)
 
-from typing import List
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
 from libqtile.config import Key, Screen, Group, Drag, Click
@@ -34,7 +33,6 @@ FA5 = "Font Awesome 5 Free Solid"   # V5.15
 red =       "#CC0000"
 teal =      "#1ABC9C"
 darkteal =  "#24574D"
-yellow =    "#C4A000"
 darkgrey =  "#242424"
 black =     "#000000"
 white =     "#FFFFFF"
@@ -95,8 +93,7 @@ keys = [
 # Mouse bindings
 mouse = [
     Drag([mod],         "Button1",  lazy.window.set_position_floating(), start = lazy.window.get_position()),
-    Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size()),
-    Click([mod],        "Button2",  lazy.window.bring_to_front())
+    Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size())
 ]
 
 # Groups' names and icons
@@ -209,9 +206,8 @@ floating_layout = layout.Floating(
         {"wmclass": "Calendar"},                # Thunderbird calendar window
         {"wmclass": "gsimplecal"},              # My minimal calendar of choice
         {"wmclass": "gcolor2"},                 # gcolor2 windows
-        {"wmclass": "authentication"},          # polkit authentication
-        {"wmclass": "autenticazione"},          # italian version
-        {"wmclass": "balena-etcher-electron"},  # balena etcher
+        {"wmclass": "lxpolkit"},                # lxpolkit
+        {"wmclass": "timeshift-gtk"},           # timeshift
     ]
 )
 
@@ -454,7 +450,7 @@ screens = [
 
 # Other settings
 dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = []
 main = None
 follow_mouse_focus = True
 bring_front_click = False

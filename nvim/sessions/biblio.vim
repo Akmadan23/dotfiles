@@ -2,7 +2,7 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Documenti/SCUOLA/INFO/PHP/GestBiblio/codice
+cd ~/Documenti/SCUOLA/INFO/PHP/GestBiblio
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -12,15 +12,25 @@ badd +121 confermaLogin.php
 badd +112 confermaRegistrazione.php
 badd +1 datiAccesso.php
 badd +1 formLibro.php
-badd +1 GestBiblio.php
-badd +49 home.php
-badd +1 login.php
+badd +539 GestBiblio.php
+badd +1 home.php
+badd +143 login.php
 badd +1 script.js
-badd +220 style.css
+badd +1 style.css
 badd +1 template.html
 badd +9 index.php
-badd +0 killSession.php
-badd +0 registrazione.php
+badd +1 killSession.php
+badd +1 registrazione.php
+badd +1 memorizzazione.php
+badd +1 css/style.css
+badd +1 registra.php
+badd +1 prenotazione.php
+badd +1 prenota.php
+badd +1 memorizza.php
+badd +1 css/darkTheme.css
+badd +0 css/layout.css
+badd +0 nuovaPrenotazione.php
+badd +0 nuovoMateriale.php
 argglobal
 %argdel
 $argadd ClasseGen.php
@@ -90,7 +100,56 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-7argu
+8argu
+if bufexists("home.php") | buffer home.php | else | edit home.php | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 27) / 54)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+tabedit nuovaPrenotazione.php
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+if bufexists("nuovaPrenotazione.php") | buffer nuovaPrenotazione.php | else | edit nuovaPrenotazione.php | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 27) / 54)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+tabedit nuovoMateriale.php
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+if bufexists("nuovoMateriale.php") | buffer nuovoMateriale.php | else | edit nuovoMateriale.php | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -114,7 +173,6 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-8argu
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -130,7 +188,7 @@ exe s:l
 normal! zt
 1
 normal! 0
-tabedit registrazione.php
+tabedit registra.php
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -138,7 +196,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-if bufexists("registrazione.php") | buffer registrazione.php | else | edit registrazione.php | endif
+if bufexists("registra.php") | buffer registra.php | else | edit registra.php | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -154,7 +212,7 @@ exe s:l
 normal! zt
 1
 normal! 0
-tabedit style.css
+tabedit css/style.css
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -162,7 +220,32 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-10argu
+9argu
+if bufexists("css/style.css") | buffer css/style.css | else | edit css/style.css | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 27) / 54)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+tabedit css/layout.css
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+if bufexists("css/layout.css") | buffer css/layout.css | else | edit css/layout.css | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -186,7 +269,6 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-9argu
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}

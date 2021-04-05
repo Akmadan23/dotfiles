@@ -4,10 +4,6 @@
 mkdir -p ~/.config/alacritty/
 cp -r alacritty/* ~/.config/alacritty/
 
-# Awesome
-mkdir -p ~/.config/awesome/
-cp -r awesome/* ~/.config/awesome/
-
 # Openbox
 mkdir -p ~/.config/openbox/
 cp -r openbox/* ~/.config/openbox/

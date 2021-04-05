@@ -24,7 +24,7 @@ set shiftwidth=4
 set smartindent
 set autoindent
 set ignorecase
-set number relativenumber 
+set number 
 set cursorline
 set nobackup
 set background=dark
@@ -47,4 +47,6 @@ let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help
 let g:indentLine_char = '│'
 
 " WimWiki
-let g:vimwiki_list = [{'path': '~/Documenti/git-repos/vimwiki/', 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]
+let g:vimwiki_list = [{
+    \ 'path': '~/Documenti/git-repos/vimwiki/',
+    \ 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]

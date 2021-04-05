@@ -93,8 +93,6 @@ alias ytdl="youtube-dl"
 alias swap="sudo swapon -v /dev/sda2"
 alias vtop="vtop -t brew --update-interval 500"
 alias tlauncher="java -jar ~/Scaricati/TLauncher-2.72/TLauncher-2.72.jar"
-alias startminer="sudo ~/Documenti/cpuminer-multi/minerd -a cryptonight -o stratum+tcp://pool.minexmr.com:4444 \
-    -u 49QpUDzDBp9PJrCSJrHaEw6sVge2ehEUob6P73ZE6hy678AqxdMjLu11WXgLLEMQAyizhmooYWvME8NDfkCUEWaiMd3nbuz -p x -t 4"
 
 ###############################################################
 ##                         VI MODE                           ##

@@ -5,14 +5,14 @@ export PATH
 # Setting default apps
 export TERMINAL="alacritty"
 export TERMCMD="alacritty"
-export EDITOR="nvim"
 export VISUAL="nvim"
+export EDITOR="nvim"
 export READER="zathura"
 export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
 export PAGER="less"
-export MANPAGER="nvim -RM -c 'set ft=man'"
+export MANPAGER="nvim -c 'set ft=man'"
 export OPENER="xdg-open"
 
 # Setting starship's config file location
