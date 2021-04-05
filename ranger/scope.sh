@@ -43,8 +43,9 @@ PYGMENTIZE_STYLE='autumn'
 handle_extension() {
     case "${FILE_EXTENSION_LOWER}" in
         # Archive
-        a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
-        rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)
+        a | ace | alz | arc | arj | bz | bz2 | cab | cpio | deb | gz | \
+        jar | lha | lz | lzh | lzma | lzo | rpm | rz | t7z | tar | tbz | \
+        tbz2 | tgz | tlz | txz | tZ | tzo | war | xpi | xz | Z | zip)
             atool --list -- "${FILE_PATH}" && exit 5
             bsdtar --list --file "${FILE_PATH}" && exit 5
             exit 1;;
@@ -71,13 +72,13 @@ handle_extension() {
             exit 1;;
 
         # OpenDocument
-        odt|ods|odp|sxw)
+        odt | ods | odp | sxw)
             # Preview as text conversion
             odt2txt "${FILE_PATH}" && exit 5
             exit 1;;
 
         # HTML
-        htm|html|xhtml)
+        htm | html | xhtml)
             # Preview as text conversion
             w3m -dump "${FILE_PATH}" && exit 5
             lynx -dump -- "${FILE_PATH}" && exit 5
@@ -110,19 +111,20 @@ handle_image() {
             exit 7;;
 
         # Video
-        # video/*)
-        #     # Thumbnail
-        #     ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
-        #     exit 1;;
+        video/*)
+            # Thumbnail
+            ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
+            exit 1;;
+
         # PDF
-        # application/pdf)
-        #     pdftoppm -f 1 -l 1 \
-        #              -scale-to-x 1920 \
-        #              -scale-to-y -1 \
-        #              -singlefile \
-        #              -jpeg -tiffcompression jpeg \
-        #              -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
-        #         && exit 6 || exit 1;;
+        application/pdf)
+            pdftoppm -f 1 -l 1 \
+                -scale-to-x 1920 \
+                -scale-to-y -1 \
+                -singlefile \
+                -jpeg -tiffcompression jpeg \
+                -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
+                && exit 6 || exit 1;;
 
         # Preview archives using the first image inside.
         # (Very useful for comic book collections for example.)
@@ -209,6 +211,7 @@ MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
 if [[ "${PV_IMAGE_ENABLED}" == 'True' ]]; then
     handle_image "${MIMETYPE}"
 fi
+
 handle_extension
 handle_mime "${MIMETYPE}"
 handle_fallback
