@@ -51,7 +51,7 @@ source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 alias sudo="sudo "
 
 # Config files
-alias vw="$EDITOR ~/Documenti/git-repos/vimwiki/index.wiki"
+alias vw="$EDITOR ~/Documenti/git-repos/vimwiki/notes/index.wiki"
 alias zenv="$EDITOR ~/.config/zsh/.zshenv"
 alias zhist="$EDITOR ~/.config/zsh/.zsh_history"
 alias zconf="$EDITOR ~/.config/zsh/.zshrc"
