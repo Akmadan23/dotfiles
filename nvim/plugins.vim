@@ -4,7 +4,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/goyo.vim'
     Plug 'ryanoasis/vim-devicons'
     Plug 'vimwiki/vimwiki'
-    " Plug 'vifm/vifm.vim'
+    Plug 'mattn/calendar-vim'
     Plug 'powerman/vim-plugin-AnsiEsc'
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
@@ -23,6 +23,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " appearance plugins
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'flazz/vim-colorschemes'
+    Plug 'sersorrel/vim-lilypond'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 call plug#end()

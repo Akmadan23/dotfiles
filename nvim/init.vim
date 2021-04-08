@@ -4,7 +4,6 @@
 "  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
 " /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 
-source ~/.config/nvim/escape.vim
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/keybindings.vim
 source ~/.config/nvim/coc.vim
@@ -48,5 +47,5 @@ let g:indentLine_char = '│'
 
 " WimWiki
 let g:vimwiki_list = [{
-    \ 'path': '~/Documenti/git-repos/vimwiki/',
+    \ 'path': '~/Documenti/git-repos/vimwiki/notes/',
     \ 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]
