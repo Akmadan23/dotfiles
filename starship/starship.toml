@@ -6,7 +6,7 @@ scan_timeout = 60
 
 # Use custom format
 format = """
-[┌────\ue0b6](bold cyan)$username[\ue0b0](fg:cyan bg:white)[\ue0b0 ](fg:white bg:blue)$hostname[\ue0b4────── ─ ─ ](bold blue)$cmd_duration
+[┌────\ue0b6](bold cyan)$username[\ue0b0](fg:cyan bg:white)[\ue0b0 ](fg:white bg:blue)$hostname[\ue0b4──── ─ ─ ](bold blue)$cmd_duration
 [│](bold cyan)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
 [└──](bold cyan)$character"""
 
@@ -39,8 +39,8 @@ ssh_only = false
 [git_status]
 style = "bold purple"
 format = "[$all_status]($style)"
-conflicted = "!!"
+conflicted = "!"
 untracked = "?"
-modified = "⏺"
+modified = "⏺ "
 staged = "➕"
 deleted = "✘"

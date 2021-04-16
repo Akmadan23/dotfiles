@@ -252,7 +252,7 @@ else
             else
                 # gtk-launch nvim ${actions[$entry]}
                 # alacritty -e nvim ${actions[$entry]} & disown
-                alacritty -e sh -c "sleep 0.02 && nvim ${actions[$entry]}" & disown
+                alacritty -e sh -c "sleep 0.05 && nvim ${actions[$entry]}" & disown
                 killall rofi
             fi
             exit 0

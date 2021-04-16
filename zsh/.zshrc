@@ -92,7 +92,7 @@ alias vim="nvim"
 alias ytdl="youtube-dl"
 alias swap="sudo swapon -v /dev/sda2"
 alias vtop="vtop -t brew --update-interval 500"
-alias tlauncher="java -jar ~/Scaricati/TLauncher-2.72/TLauncher-2.72.jar"
+alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher-2.75.jar"
 
 ###############################################################
 ##                         VI MODE                           ##

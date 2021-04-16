@@ -16,9 +16,8 @@ nnoremap U <C-r>
 " Fixing Y behaviour
 nnoremap Y y$
 
-" Disabling Q and q:
+" Disabling Q
 nnoremap Q <nop>
-nnoremap q: <nop>
 
 " Join lines with dj
 nnoremap dj J
@@ -48,7 +47,7 @@ inoremap <C-e> <Esc>:CocCommand explorer<CR>
 vnoremap <C-e> <Esc>:CocCommand explorer<CR>
 
 " coc-marketplace search
-nnoremap <C-m> :CocList marketplace<CR>
+nnoremap <C-x> :CocList marketplace<CR>
 inoremap <C-m> <Esc>:CocList marketplace<CR>
 vnoremap <C-m> <Esc>:CocList marketplace<CR>
 
@@ -83,25 +82,19 @@ cabbr Wqa wqa
 cabbr WQa wqa
 cabbr WQA wqa
 
-"""""" Disabling arrow keys
-
+" Disabling arrow keys
 nnoremap <Up> <nop>
 vnoremap <Up> <nop>
-
 nnoremap <Down> <nop>
 vnoremap <Down> <nop>
-
 nnoremap <Left> <nop>
 vnoremap <Left> <nop>
-
 nnoremap <Right> <nop>
 vnoremap <Right> <nop>
 
-inoremap <PageUp> <nop>
-nnoremap <PageUp> <nop>
-vnoremap <PageUp> <nop>
-
-inoremap <PageDown> <nop>
-nnoremap <PageDown> <nop>
-vnoremap <PageDown> <nop>
+" Disabling enter and backspace
+nnoremap <Return> <nop>
+vnoremap <Return> <nop>
+nnoremap <BackSpace> <nop>
+vnoremap <BackSpace> <nop>
 
