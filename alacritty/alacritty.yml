@@ -98,31 +98,6 @@ font:
     # family: Inconsolata
     # family: mononoki Nerd Font
     family: Hasklug Nerd Font Mono
-    style: Regular
-
-  bold:
-    # family: Monospace
-    # family: Consolas
-    # family: Inconsolata
-    # family: mononoki Nerd Font
-    family: Hasklug Nerd Font Mono
-    style: Bold
-
-  italic:
-    # family: Monospace
-    # family: Consolas
-    # family: Inconsolata
-    # family: mononoki Nerd Font
-    family: Hasklug Nerd Font Mono
-    style: Italic
-
-  bold_italic:
-    # family: Monospace
-    # family: Consolas
-    # family: Inconsolata
-    # family: mononoki Nerd Font
-    family: Hasklug Nerd Font Mono
-    style: Bold Italic
 
   # Point size
   size: 9.5
@@ -162,7 +137,7 @@ colors:
     yellow:     '#FDAA47'
     blue:       '#C4A3FF'
     magenta:    '#F978A6'
-    cyan:       '#7ABCAF'
+    cyan:       '#42DBBD'
     white:      '#DDDDDD'
     
   primary:
@@ -384,10 +359,6 @@ key_bindings:
   - {key: Key0, mods: Control, action: ResetFontSize}
   - {key: Plus, mods: Control, action: IncreaseFontSize}
   - {key: Minus, mods: Control, action: DecreaseFontSize}
-  # - {key: H, mods: Alt, action: GoLeft}
-  # - {key: J, mods: Alt, action: ScrollDown}
-  # - {key: K, mods: Alt, action: ScrollUp}
-  # - {key: L, mods: Alt, action: GoRight}
 
   - {key: Paste, action: Paste}
   - {key: Copy, action: Copy}
