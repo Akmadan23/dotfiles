@@ -76,18 +76,17 @@ keys = [
 
     # App spawning
     Key([mod],          "f",        lazy.spawn("firefox")),
-    Key([mod],          "t",        lazy.spawn("thunderbird")),
     Key([mod],          "s",        lazy.spawn("flameshot gui")),
     Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([ctrl, alt],    "space",    lazy.spawn("deadbeef --play-pause")),                       # deadbeef toggle play/pause
-    Key([ctrl, alt],    "Up",       lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
-    Key([ctrl, alt],    "Down",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
-    Key([ctrl, alt],    "m",        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),   # mute
-    Key([ctrl, alt],    "Right",    lazy.spawn("brightlight -i 239")),                          # +5% backlight
-    Key([ctrl, alt],    "Left",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
-    Key([ctrl, alt],    "r",        lazy.spawn("brightlight -w 2390")),                         # resets to 50%
+    Key([mod],          "Up",       lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
+    Key([mod],          "Down",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
+    Key([mod],          "m",        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),   # mute
+    Key([mod],          "p",        lazy.spawn("deadbeef --play-pause")),                       # deadbeef toggle play/pause
+    Key([mod, alt],     "Up",       lazy.spawn("brightlight -i 239")),                          # +5% backlight
+    Key([mod, alt],     "Down",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
+    Key([mod, alt],     "r",        lazy.spawn("brightlight -w 2390")),                         # resets to 50%
 ]
 
 # Mouse bindings
@@ -208,6 +207,7 @@ floating_layout = layout.Floating(
         {"wmclass": "gcolor2"},                 # gcolor2 windows
         {"wmclass": "lxpolkit"},                # lxpolkit
         {"wmclass": "timeshift-gtk"},           # timeshift
+        {"wmclass": "dragon"},                  # dragon
     ]
 )
 
@@ -272,15 +272,15 @@ screens = [
 
                 widget.TextBox(
                     **separator,
-                    background = darkgrey,
-                    foreground = darkteal,
+                    background = black,
+                    foreground = darkgrey,
                 ),
 
                 widget.TextBox(
                     text = "\uf2c8",
                     font = FA4,
                     fontsize = 16,
-                    background = darkteal,
+                    background = darkgrey,
                     foreground = white,
                 ),
 
@@ -289,59 +289,29 @@ screens = [
                     foreground_alert = red,
                     threshold = 90,
                     padding = 5,
-                    background = darkteal,
+                    background = darkgrey,
                     foreground = white,
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = darkteal,
-                    foreground = teal,
+                    background = darkgrey,
+                    foreground = darkteal,
                 ),
 
                 widget.TextBox(
                     text = "\uf0eb",
                     font = FA4,
                     fontsize = 16,
-                    background = teal,
-                    foreground = black,
+                    background = darkteal,
+                    foreground = white,
                 ),
 
                 widget.Backlight(
                     backlight_name = "intel_backlight",
                     brightness_file = "brightness",
-                    background = teal,
-                    foreground = black,
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = teal,
-                    foreground = darkteal,
-                ),
-
-                widget.Battery(
-                    format = '{char}',
-                    font = FA4,
-                    fontsize = 16,
                     background = darkteal,
-                    empty_char = "\uf244",
-                    full_char = "\uf240",
-                    charge_char = "\uf0e7",
-                    discharge_char = "\uf242",
-                    unknown_char = "\uf240",
-                    low_foreground = red,
-                    show_short_text = False,
-                    update_interval = 30
-                ),
-
-                widget.Battery(
-                    format = '{percent:1.0%}',
-                    background = darkteal,
-                    low_foreground = red,
-                    show_short_text = False,
-                    notify_below = 10,
-                    update_interval = 30
+                    foreground = white,
                 ),
 
                 widget.TextBox(
@@ -371,10 +341,30 @@ screens = [
                     foreground = darkteal,
                 ),
 
-                widget.Clock(
+                widget.Battery(
+                    format = '{char}',
+                    font = FA4,
+                    fontsize = 16,
                     background = darkteal,
-                    format = "%A %d %B, %H:%M",
-                    mouse_callbacks = {"Button1": calendar},
+                    foreground = white,
+                    empty_char = "\uf244",
+                    full_char = "\uf240",
+                    charge_char = "\uf0e7",
+                    discharge_char = "\uf242",
+                    unknown_char = "\uf240",
+                    low_foreground = red,
+                    show_short_text = False,
+                    update_interval = 30
+                ),
+
+                widget.Battery(
+                    format = '{percent:1.0%}',
+                    background = darkteal,
+                    foreground = white,
+                    low_foreground = red,
+                    show_short_text = False,
+                    notify_below = 10,
+                    update_interval = 30
                 ),
 
                 widget.TextBox(
@@ -383,9 +373,19 @@ screens = [
                     foreground = darkgrey,
                 ),
 
-                widget.Systray(
+                widget.Clock(
                     background = darkgrey,
+                    format = "%A %d %B, %H:%M",
+                    mouse_callbacks = {"Button1": calendar},
                 ),
+
+                widget.TextBox(
+                    **separator,
+                    background = darkgrey,
+                    foreground = black,
+                ),
+
+                widget.Systray(),
 
                 widget.CurrentLayoutIcon(
                     scale = 0.75,
@@ -393,7 +393,7 @@ screens = [
             ],
 
             size = 22,
-            background = darkgrey,
+            background = black,
         )
     ),
 
@@ -417,7 +417,7 @@ screens = [
                 widget.CPUGraph(
                     line_width = 2,
                     graph_color = teal,
-                    border_color = darkgrey,
+                    border_color = black,
                 ),
 
                 widget.TextBox(
@@ -429,7 +429,7 @@ screens = [
                 widget.NetGraph(
                     line_width = 2,
                     graph_color = red,
-                    border_color = darkgrey,
+                    border_color = black,
                 ),
 
                 widget.Clock(
@@ -443,7 +443,7 @@ screens = [
             ],
 
             size = 24,
-            background = darkgrey,
+            background = black,
         )
     )
 ]
