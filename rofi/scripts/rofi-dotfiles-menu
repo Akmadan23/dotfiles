@@ -13,7 +13,7 @@ set -e
 set -u
 
 # All supported choices
-all=(qtile awesome bspwm sxhkd polybar alacritty ranger zshrc zshenv rofi dunst vim-base vim-keybindings vim-plugins)
+all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger zshrc zshenv rofi dunst vim-base vim-keybindings vim-plugins)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -21,6 +21,7 @@ show=("${all[@]}")
 declare -A texts
 texts[qtile]="Qtile"
 texts[awesome]="Awesome"
+texts[leftwm]="LeftWM"
 texts[bspwm]="bspwm"
 texts[sxhkd]="sxhkd"
 texts[polybar]="polybar"
@@ -37,6 +38,7 @@ texts[vim-keybindings]="Vim keybindings"
 declare -A icons
 icons[qtile]=""
 icons[awesome]=""
+icons[leftwm]="🦀"
 icons[bspwm]="\uf0db"
 icons[sxhkd]="\uf11c"
 icons[polybar]="\uf2d1"
@@ -52,20 +54,21 @@ icons[vim-keybindings]=""
 icons[cancel]="\u01d7"
 
 declare -A actions
-actions[qtile]="$HOME/.config/qtile/config.py"
-actions[awesome]="$HOME/.config/awesome/rc.lua"
-actions[alacritty]="$HOME/.config/alacritty/alacritty.yml"
-actions[bspwm]="$HOME/.config/bspwm/bspwmrc"
-actions[sxhkd]="$HOME/.config/sxhkd/sxhkdrc"
-actions[polybar]="$HOME/.config/polybar/config -c 'set ft=toml'"
-actions[zshrc]="$HOME/.config/zsh/.zshrc"
-actions[zshenv]="$HOME/.config/zsh/.zshenv"
-actions[ranger]="$HOME/.config/ranger/rc.conf"
-actions[rofi]="$HOME/.config/rofi/config.rasi -c 'set ft=css'"
-actions[dunst]="$HOME/.config/dunst/dunst -c 'set ft=toml'"
-actions[vim-base]="$HOME/.config/nvim/init.vim"
-actions[vim-plugins]="$HOME/.config/nvim/plugins.vim"
-actions[vim-keybindings]="$HOME/.config/nvim/keybindings.vim"
+actions[qtile]="~/.config/qtile/config.py"
+actions[awesome]="~/.config/awesome/rc.lua"
+actions[leftwm]="~/.config/leftwm/config.toml"
+actions[bspwm]="~/.config/bspwm/bspwmrc"
+actions[sxhkd]="~/.config/sxhkd/sxhkdrc"
+actions[polybar]="~/.config/polybar/config -c 'set ft=toml'"
+actions[alacritty]="~/.config/alacritty/alacritty.yml"
+actions[ranger]="~/.config/ranger/rc.conf"
+actions[zshrc]="~/.config/zsh/.zshrc"
+actions[zshenv]="~/.config/zsh/.zshenv"
+actions[rofi]="~/.config/rofi/config.rasi -c 'set ft=css'"
+actions[dunst]="~/.config/dunst/dunst -c 'set ft=toml'"
+actions[vim-base]="~/.config/nvim/init.vim"
+actions[vim-plugins]="~/.config/nvim/plugins.vim"
+actions[vim-keybindings]="~/.config/nvim/keybindings.vim"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=()
@@ -77,10 +80,8 @@ showsymbols=true
 function check_valid {
     option="$1"
     shift 1
-    for entry in "${@}"
-    do
-        if [ -z "${actions[$entry]+x}" ]
-        then
+    for entry in "${@}"; do
+        if [ -z "${actions[$entry]+x}" ]; then
             echo "Invalid choice in $1: $entry" >&2
             exit 1
         fi
@@ -189,24 +190,23 @@ function print_selection {
 
 declare -A messages
 declare -A confirmationMessages
-for entry in "${all[@]}"
-do
+
+for entry in "${all[@]}"; do
     messages[$entry]=$(write_message "${icons[$entry]}" "${texts[$entry]^}")
 done
-for entry in "${all[@]}"
-do
+
+for entry in "${all[@]}"; do
     confirmationMessages[$entry]=$(write_message "${icons[$entry]}" "Yes, ${texts[$entry]}")
 done
+
 confirmationMessages[cancel]=$(write_message "${icons[cancel]}" "No, cancel")
 
-if [ $# -gt 0 ]
-then
+if [ $# -gt 0 ]; then
     # If arguments given, use those as the selection
     selection="${@}"
 else
     # Otherwise, use the CLI passed choice if given
-    if [ -n "${selectionID+x}" ]
-    then
+    if [ -n "${selectionID+x}" ]; then
         selection="${messages[$selectionID]}"
     fi
 fi
@@ -216,23 +216,17 @@ echo -e "\0no-custom\x1ftrue"
 # Use markup
 echo -e "\0markup-rows\x1ftrue"
 
-if [ -z "${selection+x}" ]
-then
+if [ -z "${selection+x}" ]; then
     echo -e "\0prompt\x1fDotfiles menu"
-    for entry in "${show[@]}"
-    do
+    for entry in "${show[@]}"; do
         echo -e "${messages[$entry]}\0icon\x1f${icons[$entry]}"
     done
 else
-    for entry in "${show[@]}"
-    do
-        if [ "$selection" = "$(print_selection "${messages[$entry]}")" ]
-        then
+    for entry in "${show[@]}"; do
+        if [ "$selection" = "$(print_selection "${messages[$entry]}")" ]; then
             # Check if the selected entry is listed in confirmation requirements
-            for confirmation in "${confirmations[@]}"
-            do
-                if [ "$entry" = "$confirmation" ]
-                then
+            for confirmation in "${confirmations[@]}"; do
+                if [ "$entry" = "$confirmation" ]; then
                     # Ask for confirmation
                     echo -e "\0prompt\x1fAre you sure"
                     echo -e "${confirmationMessages[$entry]}\0icon\x1f${icons[$entry]}"
@@ -243,10 +237,8 @@ else
             # If not, then no confirmation is required, so mark confirmed
             selection=$(print_selection "${confirmationMessages[$entry]}")
         fi
-        if [ "$selection" = "$(print_selection "${confirmationMessages[$entry]}")" ]
-        then
-            if [ $dryrun = true ]
-            then
+        if [ "$selection" = "$(print_selection "${confirmationMessages[$entry]}")" ]; then
+            if [ $dryrun = true ]; then
                 # Tell what would have been done
                 echo "Selected: $entry" >&2
             else
@@ -257,12 +249,12 @@ else
             fi
             exit 0
         fi
-        if [ "$selection" = "$(print_selection "${confirmationMessages[cancel]}")" ]
-        then
+        if [ "$selection" = "$(print_selection "${confirmationMessages[cancel]}")" ]; then
             # Do nothing
             exit 0
         fi
     done
+
     # The selection didn't match anything, so raise an error
     echo "Invalid selection: $selection" >&2
     exit 1

@@ -9,6 +9,7 @@ cp ~/.config/zsh/.zshenv ~/Documenti/git-repos/dotfiles/zsh/
 cp ~/.config/i3/* ~/Documenti/git-repos/dotfiles/i3/
 cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/
 cp ~/.config/bspwm/* ~/Documenti/git-repos/dotfiles/bspwm/
+cp ~/.config/leftwm/* ~/Documenti/git-repos/dotfiles/leftwm/
 cp ~/.config/sxhkd/* ~/Documenti/git-repos/dotfiles/sxhkd/
 cp ~/.config/polybar/* ~/Documenti/git-repos/dotfiles/polybar/
 cp ~/.config/openbox/* ~/Documenti/git-repos/dotfiles/openbox/
