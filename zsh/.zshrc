@@ -57,6 +57,7 @@ alias zhist="$EDITOR ~/.config/zsh/.zsh_history"
 alias zconf="$EDITOR ~/.config/zsh/.zshrc"
 alias xconf="$EDITOR ~/.Xresources"
 alias rconf="$EDITOR ~/.config/ranger/rc.conf"
+alias lconf="$EDITOR ~/.config/leftwm/config.toml"
 alias qconf="$EDITOR ~/.config/qtile/config.py"
 alias qaconf="$EDITOR ~/.config/qtile/autostart.sh"
 alias vconf="$EDITOR ~/.config/nvim/init.vim"
@@ -116,16 +117,13 @@ KEYTIMEOUT=5
 # Changing cursor shape for different vi modes.
 function zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
-        echo -ne '\e[1 q'
+        echo -ne '\e[2 q'
     elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
         echo -ne '\e[5 q'
     fi
 }
 
 zle -N zle-keymap-select
-
-# Use beam shape cursor on startup.
-echo -ne '\e[5 q'
 
 # Use beam shape cursor for each new prompt.
 precmd() {
