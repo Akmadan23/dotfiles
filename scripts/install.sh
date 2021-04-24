@@ -35,7 +35,7 @@ cp -r ranger/* ~/.config/ranger/
 # rofi
 mkdir -p ~/.config/rofi/
 cp -r rofi/* ~/.config/rofi/
-cp rofi/scripts/* ~/.local/bin/
+ln -s rofi/scripts/* ~/.local/bin/
 
 # wlogout
 mkdir -p ~/.config/wlogout/
