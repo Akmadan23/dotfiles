@@ -6,6 +6,7 @@ cp ~/.gitconfig ~/Documenti/git-repos/dotfiles/
 cp ~/.config/xob/* ~/Documenti/git-repos/dotfiles/xob/
 cp ~/.config/zsh/.zshrc ~/Documenti/git-repos/dotfiles/zsh/
 cp ~/.config/zsh/.zshenv ~/Documenti/git-repos/dotfiles/zsh/
+cp ~/.config/zsh/plugins/* ~/Documenti/git-repos/dotfiles/zsh/plugins/
 cp ~/.config/i3/* ~/Documenti/git-repos/dotfiles/i3/
 cp ~/.config/qtile/* ~/Documenti/git-repos/dotfiles/qtile/
 cp ~/.config/bspwm/* ~/Documenti/git-repos/dotfiles/bspwm/
