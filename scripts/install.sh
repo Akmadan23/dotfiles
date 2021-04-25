@@ -4,10 +4,6 @@
 mkdir -p ~/.config/alacritty/
 cp -r alacritty/* ~/.config/alacritty/
 
-# Openbox
-mkdir -p ~/.config/openbox/
-cp -r openbox/* ~/.config/openbox/
-
 # bspwm
 mkdir -p ~/.config/bspwm/
 cp -r bspwm/* ~/.config/bspwm/

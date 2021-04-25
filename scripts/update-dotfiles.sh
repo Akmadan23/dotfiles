@@ -12,7 +12,6 @@ cp ~/.config/bspwm/* ~/Documenti/git-repos/dotfiles/bspwm/
 cp ~/.config/leftwm/* ~/Documenti/git-repos/dotfiles/leftwm/
 cp ~/.config/sxhkd/* ~/Documenti/git-repos/dotfiles/sxhkd/
 cp ~/.config/polybar/* ~/Documenti/git-repos/dotfiles/polybar/
-cp ~/.config/openbox/* ~/Documenti/git-repos/dotfiles/openbox/
 cp ~/.config/alacritty/* ~/Documenti/git-repos/dotfiles/alacritty/
 cp ~/.config/nvim/* ~/Documenti/git-repos/dotfiles/nvim/
 cp ~/.config/nvim/colors/* ~/Documenti/git-repos/dotfiles/nvim/colors/
