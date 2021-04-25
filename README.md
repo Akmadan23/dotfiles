@@ -2,6 +2,6 @@
 ___
 
 ## Qtile
-![screenshot1](https://imgur.com/gallery/Xot1j6q)
-![screenshot1](https://imgur.com/gallery/bghCqyo)
+![screenshot1](https://i.imgur.com/hf6F4Qm.png)
+![screenshot2](https://i.imgur.com/UeAF7Qn.png)
 
