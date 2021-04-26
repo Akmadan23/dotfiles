@@ -17,7 +17,6 @@ cp ~/.config/alacritty/* ~/Documenti/git-repos/dotfiles/alacritty/
 cp ~/.config/nvim/* ~/Documenti/git-repos/dotfiles/nvim/
 cp ~/.config/nvim/colors/* ~/Documenti/git-repos/dotfiles/nvim/colors/
 cp ~/.config/nvim/sessions/* ~/Documenti/git-repos/dotfiles/nvim/sessions/
-cp ~/.config/nvim/autoload/plug.vim ~/Documenti/git-repos/dotfiles/nvim/autoload/
 cp ~/.config/wlogout/* ~/Documenti/git-repos/dotfiles/wlogout/
 cp ~/.config/zathura/* ~/Documenti/git-repos/dotfiles/zathura/
 cp ~/.config/mpv/* ~/Documenti/git-repos/dotfiles/mpv/

@@ -19,6 +19,7 @@ cp -r i3/* ~/.config/i3/
 # nvim
 mkdir -p ~/.config/nvim/
 cp -r nvim/* ~/.config/nvim/
+curl -fLo ~/prova/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # qtile
 mkdir -p ~/.config/qtile/
