@@ -1,15 +1,31 @@
 modkey = "Mod4"
+mousekey = "Mod4"
 workspaces = []
+disable_current_tag_swap = true
 tags = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+# tags = [
+#     "\uf120", #1 - Terminal
+#     "\uf0ac", #2 - Internet
+#     "\uf0e0", #3 - Email
+#     "\uf07c", #4 - File manager
+#     "\uf086", #5 - Chat
+#     "\uf001", #6 - Music
+#     "\uf03e", #7 - Picture
+#     "\uf19c", #8 - University
+#     "\uf1b2", #9 - Cube
+# ]
+
 layouts = [
-    "MainAndVertStack", 
-    "MainAndHorizontalStack", 
-    "EvenVertical", 
-    "EvenHorizontal", 
-    "Fibonacci", 
+    "MainAndVertStack",
+    "MainAndHorizontalStack",
+    "EvenVertical",
+    "EvenHorizontal",
+    "Fibonacci",
     "Monocle"
 ]
+
+###------------ TERMINAL ------------###
 
 [[keybind]]
 command = "Execute"
@@ -22,6 +38,8 @@ command = "Execute"
 value = "alacritty -t Ranger -e ranger"
 modifier = ["modkey"]
 key = "e"
+
+###------------ ROFI ------------###
 
 [[keybind]]
 command = "Execute"
@@ -49,6 +67,14 @@ key = "d"
 
 [[keybind]]
 command = "Execute"
+value = "rofi -modi menu:rofi-power-menu -show menu"
+modifier = ["modkey", "Shift"]
+key = "x"
+
+###------------ PROGRAMS ------------###
+
+[[keybind]]
+command = "Execute"
 value = "firefox"
 modifier = ["modkey"]
 key = "f"
@@ -59,17 +85,19 @@ value = "flameshot gui"
 modifier = ["modkey"]
 key = "s"
 
+###------------ VOLUME ------------###
+
 [[keybind]]
 command = "Execute"
 value = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
 modifier = ["modkey"]
-key = "up"
+key = "Up"
 
 [[keybind]]
 command = "Execute"
 value = "pactl set-sink-volume @DEFAULT_SINK@ -5%"
 modifier = ["modkey"]
-key = "down"
+key = "Down"
 
 [[keybind]]
 command = "Execute"
@@ -82,6 +110,8 @@ command = "Execute"
 value = "deadbeef --play-pause"
 modifier = ["modkey"]
 key = "p"
+
+###------------ WINDOW MANAGEMENT ------------###
 
 [[keybind]]
 command = "CloseWindow"
@@ -122,11 +152,6 @@ key = "k"
 command = "MoveWindowDown"
 modifier = ["modkey", "Shift"]
 key = "j"
-
-[[keybind]]
-command = "MoveWindowTop"
-modifier = ["modkey"]
-key = "o"
 
 [[keybind]]
 command = "NextLayout"
