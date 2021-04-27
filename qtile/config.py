@@ -76,8 +76,11 @@ keys = [
 
     # App spawning
     Key([mod],          "f",        lazy.spawn("firefox")),
+    Key([mod],          "c",        lazy.spawn("chromium")),
+    Key([mod],          "t",        lazy.spawn("thunderbird")),
     Key([mod],          "s",        lazy.spawn("flameshot gui")),
     Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
+    Key([mod],          "d",        lazy.spawn("flatpak run com.discordapp.Discord")),
 
     # Volume and brightness controls
     Key([mod],          "Up",       lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
@@ -149,7 +152,7 @@ def assign_app_group(client):
 
 # Default layout theme
 layout_theme = {
-    "margin": 10,
+    "margin": 8,
     "single_margin": 0,
     "single_border_width": 0,
     "border_normal": darkgrey,
