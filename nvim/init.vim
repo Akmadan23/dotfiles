@@ -4,8 +4,43 @@
 "  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
 " /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 
-source ~/.config/nvim/plugins.vim
-source ~/.config/nvim/keybindings.vim
+call plug#begin('~/.config/nvim/autoload/plugged')
+    Plug 'sheerun/vim-polyglot'
+    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/goyo.vim'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'vimwiki/vimwiki'
+    Plug 'mattn/calendar-vim'
+    Plug 'powerman/vim-plugin-AnsiEsc'
+    Plug 'glacambre/firenvim', {'do': {_ -> firenvim#install(0)}}
+
+    " dev tools
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'alvan/vim-closetag'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-repeat'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'mattn/emmet-vim'
+    Plug 'Yggdroot/indentLine'
+
+    " deoplete
+    Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+    Plug 'Shougo/deoplete-clangx'
+    Plug 'Shougo/neco-syntax'
+    Plug 'Shougo/neco-vim'
+    Plug 'deoplete-plugins/deoplete-jedi'
+    Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+    Plug 'kristijanhusak/deoplete-phpactor'
+
+    " appearance plugins
+    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'flazz/vim-colorschemes'
+    Plug 'sersorrel/vim-lilypond'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+call plug#end()
 
 syntax enable
 set hidden
@@ -35,6 +70,7 @@ hi Normal ctermbg=NONE guibg=NONE
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('sources', {'php' : ['omni', 'phpactor', 'ultisnips', 'buffer']})
 
 " Man.vim
 let g:no_man_maps = 1
@@ -51,4 +87,7 @@ let g:indentLine_char = '│'
 let g:vimwiki_list = [{
     \ 'path': '~/Documenti/git-repos/vimwiki/notes/',
     \ 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]
+
+" Sourcing keybindings
+source ~/.config/nvim/keybindings.vim
 

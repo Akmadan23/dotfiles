@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger zshrc zshenv rofi dunst vim-base vim-keybindings vim-plugins)
+all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger zshrc zshenv rofi dunst vim-base vim-keybindings)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -26,7 +26,6 @@ texts[rofi]="Rofi"
 texts[dunst]="Dunst"
 texts[vim-base]="Vim"
 texts[vim-plugins]="Vim plugins"
-texts[vim-keybindings]="Vim keybindings"
 
 declare -A icons
 icons[qtile]=""
@@ -43,7 +42,6 @@ icons[rofi]=""
 icons[dunst]=""
 icons[vim-base]=""
 icons[vim-plugins]=""
-icons[vim-keybindings]=""
 icons[cancel]="\u01d7"
 
 declare -A actions
@@ -61,7 +59,6 @@ actions[rofi]="~/.config/rofi/config.rasi -c 'set ft=css'"
 actions[dunst]="~/.config/dunst/dunst -c 'set ft=toml'"
 actions[vim-base]="~/.config/nvim/init.vim"
 actions[vim-plugins]="~/.config/nvim/plugins.vim"
-actions[vim-keybindings]="~/.config/nvim/keybindings.vim"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=()
