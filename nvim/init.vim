@@ -6,7 +6,6 @@
 
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/keybindings.vim
-source ~/.config/nvim/coc.vim
 
 syntax enable
 set hidden
@@ -34,6 +33,9 @@ colorscheme molokai-teal
 lua require 'colorizer'.setup()
 hi Normal ctermbg=NONE guibg=NONE
 
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+
 " Man.vim
 let g:no_man_maps = 1
 
@@ -49,3 +51,4 @@ let g:indentLine_char = '│'
 let g:vimwiki_list = [{
     \ 'path': '~/Documenti/git-repos/vimwiki/notes/',
     \ 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]
+

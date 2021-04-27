@@ -41,15 +41,9 @@ inoremap <A-k> <Up>
 inoremap <A-l> <Right>
 inoremap <A-i> <Esc>
 
-" coc-explorer toggle
-nnoremap <C-e> :CocCommand explorer<CR>
-inoremap <C-e> <Esc>:CocCommand explorer<CR>
-vnoremap <C-e> <Esc>:CocCommand explorer<CR>
-
-" coc-marketplace search
-nnoremap <C-x> :CocList marketplace<CR>
-inoremap <C-m> <Esc>:CocList marketplace<CR>
-vnoremap <C-m> <Esc>:CocList marketplace<CR>
+" Using Tab to navigate completion menus
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 " Moving between splits
 noremap <C-h> <C-w>h
