@@ -1,6 +1,5 @@
 # Setting path for binaries
-PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$HOME/.cargo/bin":"$HOME/.config/scripts"
-export PATH
+export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$HOME/.cargo/bin":"$HOME/git-repos/scripts"
 
 # Setting default apps
 export TERMINAL="alacritty"
@@ -27,9 +26,6 @@ export LD_PRELOAD=~/.config/gtk3-nocsd/libgtk3-nocsd.so.0
 
 # Setting trash directory
 export TRASH=~/.local/share/Trash/files/
-
-# Disabling default ranger config
-export RANGER_LOAD_DEFAULT_RC=false
 
 # Qt settings
 export QT_QPA_PLATFORMTHEME="qt5ct"

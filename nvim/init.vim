@@ -70,7 +70,7 @@ hi Normal ctermbg=NONE guibg=NONE
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('sources', {'php' : ['omni', 'phpactor', 'ultisnips', 'buffer']})
+" call deoplete#custom#option('sources', {'php' : ['omni', 'phpactor', 'ultisnips', 'buffer']})
 
 " Man.vim
 let g:no_man_maps = 1
