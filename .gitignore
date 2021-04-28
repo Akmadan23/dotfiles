@@ -1,6 +1,3 @@
-scripts/caffeine.sh
-scripts/i3lock.sh
-scripts/lock-suspend.sh
 ranger/plugins/__pycache__
 ranger/plugins/ranger_devicons/*
 !ranger/plugins/ranger_devicons/__init__.py
