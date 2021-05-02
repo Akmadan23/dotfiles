@@ -12,8 +12,8 @@ xss-lock -l -- i3lock-fancy &
 xwallpaper --zoom ~/.config/qtile/background.jpg
 
 # handmade power management script
-kill -9 $(pidof -s /bin/bash /home/azadahmadi/.config/scripts/battery-check)
-~/.config/scripts/battery-check &
+kill -9 $(pidof -s /bin/bash /home/azadahmadi/git-repos/scripts/battery-check)
+~/git-repos/scripts/battery-check &
 
 # xob volume bar
 # killall xob
