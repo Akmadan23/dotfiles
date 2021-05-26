@@ -1,0 +1,25 @@
+# currently does not work
+scroll_offset = 6
+
+xdg_open = false
+use_trash = true
+
+# currently does not work
+max_preview_size = 2097152 # 2MB
+
+[display]
+# ratios for parent view, current view and preview
+collapse_preview = true
+column_ratio = [1, 4, 3]
+show_borders = true
+show_hidden = false
+show_icons = true
+show_preview = true
+tilde_in_titlebar = true
+
+[display.sort]
+# lexical, mtime, natural
+method = "natural"
+case_sensitive = false
+directories_first = true
+reverse = false
