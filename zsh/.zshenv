@@ -1,5 +1,14 @@
-# Setting path for binaries
-export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$HOME/.cargo/bin":"$HOME/git-repos/scripts"
+# Setting zsh home folder
+export ZDOTDIR="$HOME/.config/zsh/"
+
+# Setting cargo home folder
+export CARGO_HOME="$HOME/.local/share/cargo"
+
+# Setting scripts directory
+export SCRIPTS="$HOME/git-repos/scripts"
+
+# Setting trash directory
+export TRASH="$HOME/.local/share/Trash/files/"
 
 # Setting default apps
 export TERMINAL="alacritty"
@@ -15,17 +24,14 @@ export MANPAGER="nvim -c 'set ft=man'"
 export OPENER="xdg-open"
 
 # Setting starship's config file location
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 # Setting zsh history file
-export HISTFILE=~/.config/zsh/.zsh_history
+export HISTFILE="$ZDOTDIR/.zsh_history"
 
 # Disabling GTK3 client side decorations
 export GTK_CSD=0
-export LD_PRELOAD=~/.config/gtk3-nocsd/libgtk3-nocsd.so.0
-
-# Setting trash directory
-export TRASH=~/.local/share/Trash/files/
+export LD_PRELOAD="$HOME/.config/gtk3-nocsd/libgtk3-nocsd.so.0"
 
 # Qt settings
 export QT_QPA_PLATFORMTHEME="qt5ct"
@@ -36,3 +42,6 @@ export QT_SCALE_FACTOR=1
 
 # Java fix for Qtile
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Setting path for binaries
+export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$CARGO_HOME/bin":"$SCRIPTS"

@@ -77,6 +77,7 @@ keys = [
     # App spawning
     Key([mod],          "f",        lazy.spawn("firefox")),
     Key([mod],          "c",        lazy.spawn("chromium")),
+    Key([mod],          "g",        lazy.spawn("galculator")),
     Key([mod],          "t",        lazy.spawn("thunderbird")),
     Key([mod],          "s",        lazy.spawn("flameshot gui")),
     Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
@@ -87,9 +88,12 @@ keys = [
     Key([mod],          "Down",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
     Key([mod],          "m",        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),   # mute
     Key([mod],          "p",        lazy.spawn("deadbeef --play-pause")),                       # deadbeef toggle play/pause
-    Key([mod, alt],     "Up",       lazy.spawn("brightlight -i 239")),                          # +5% backlight
-    Key([mod, alt],     "Down",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
-    Key([mod, alt],     "r",        lazy.spawn("brightlight -w 2390")),                         # resets to 50%
+    Key([mod],          "Right",    lazy.spawn("brightlight -i 239")),                          # +5% backlight
+    Key([mod],          "Left",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
+    Key([mod],          "r",        lazy.spawn("brightlight -w 2390")),                         # resets to 50%
+    # Key([mod],          "Right",    lazy.spawn("xbacklight -inc 5")),                           # +5% backlight
+    # Key([mod],          "Left",     lazy.spawn("xbacklight -dec 5")),                           # -5% backlight
+    # Key([mod],          "r",        lazy.spawn("xbacklight -set 50")),                          # resets to 50%
 ]
 
 # Mouse bindings
@@ -315,6 +319,8 @@ screens = [
                     brightness_file = "brightness",
                     background = darkteal,
                     foreground = white,
+                    change_command = "xbacklight -inc {0}",
+                    step = 5,
                 ),
 
                 widget.TextBox(
