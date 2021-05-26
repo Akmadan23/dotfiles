@@ -19,7 +19,7 @@ cp -r i3/* ~/.config/i3/
 # nvim
 mkdir -p ~/.config/nvim/
 cp -r nvim/* ~/.config/nvim/
-curl -fLo ~/prova/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # qtile
 mkdir -p ~/.config/qtile/
@@ -28,6 +28,10 @@ cp -r qtile/* ~/.config/qtile/
 # ranger
 mkdir -p ~/.config/ranger/
 cp -r ranger/* ~/.config/ranger/
+
+# joshuto
+mkdir -p ~/.config/joshuto/
+cp -r joshuto/* ~/.config/joshuto/
 
 # rofi
 mkdir -p ~/.config/rofi/
@@ -50,7 +54,12 @@ cp -r dunst/* ~/.config/dunst/
 mkdir -p ~/.config/starship/
 cp -r starship/* ~/.config/starship/
 
+# flameshot 
+mkdir -p ~/.config/Dharkael/
+cp misc/* ~/.config/Dharkael/
+
 # zsh 
+mkdir -p ~/.config/zsh/
 cp zsh/.zshrc ~/.config/zsh/
 cp zsh/.zshenv ~/.config/zsh/
 
