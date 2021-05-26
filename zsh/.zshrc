@@ -3,35 +3,8 @@
 #   / _ \ | |/ / '_ ` _ \ / _` |/ _` |/ _` | '_ \  __) | |_ \
 #  / ___ \|   <| | | | | | (_| | (_| | (_| | | | |/ __/ ___) |
 # /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/
-#
-# Archive extraction function
-ext() {
-    if [ -z $1 ]; then
-        echo "Please select a file."
-    elif [ -f $1 ]; then
-        case $1 in
-            *.tar.bz2)   tar xjf $1   ;;
-            *.tar.gz)    tar xzf $1   ;;
-            *.bz2)       bunzip2 $1   ;;
-            *.rar)       unrar x $1   ;;
-            *.gz)        gunzip $1    ;;
-            *.tar)       tar xf $1    ;;
-            *.tbz2)      tar xjf $1   ;;
-            *.tgz)       tar xzf $1   ;;
-            *.zip)       unzip $1     ;;
-            *.Z)         uncompress $1;;
-            *.7z)        7z x $1      ;;
-            *.deb)       ar x $1      ;;
-            *.tar.xz)    tar xf $1    ;;
-            *.tar.zst)   unzstd $1    ;;      
-            *)           echo "'$1' cannot be extracted via ext" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
-}
 
-# Adding case insensitive tab-completion
+# Case insensitive tab-completion
 autoload -U compinit && compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -92,7 +65,7 @@ alias vfz="cd /tmp/fz3temp-2/ && vim -p *.* && cd -"
 alias ytdl="youtube-dl"
 alias swap="sudo swapon -v /dev/sda2"
 alias vtop="vtop -t brew --update-interval 500"
-alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher-2.75.jar"
+alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"
 
 ###############################################################
 ##                         VI MODE                           ##
