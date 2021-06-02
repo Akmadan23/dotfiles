@@ -4,6 +4,10 @@
 mkdir -p ~/.config/alacritty/
 cp -r alacritty/* ~/.config/alacritty/
 
+# htop
+mkdir -p ~/.config/htop/
+cp -r htop/* ~/.config/htop/
+
 # bspwm
 mkdir -p ~/.config/bspwm/
 cp -r bspwm/* ~/.config/bspwm/
@@ -53,6 +57,7 @@ cp -r dunst/* ~/.config/dunst/
 # starship
 mkdir -p ~/.config/starship/
 cp -r starship/* ~/.config/starship/
+curl -fsSL https://starship.rs/install.sh | bash
 
 # flameshot 
 mkdir -p ~/.config/Dharkael/
