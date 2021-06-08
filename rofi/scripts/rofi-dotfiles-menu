@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger zshrc zshenv rofi dunst vim-base vim-keybindings)
+all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger zsh rofi dunst vim)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -20,12 +20,10 @@ texts[sxhkd]="sxhkd"
 texts[polybar]="polybar"
 texts[alacritty]="Alacritty"
 texts[ranger]="Ranger"
-texts[zshrc]=".zshrc"
-texts[zshenv]=".zshenv"
+texts[zsh]="zsh"
 texts[rofi]="Rofi"
 texts[dunst]="Dunst"
-texts[vim-base]="Vim"
-texts[vim-keybindings]="Vim keybindings"
+texts[vim]="Vim"
 
 declare -A icons
 icons[qtile]=""
@@ -36,29 +34,25 @@ icons[sxhkd]="\uf11c"
 icons[polybar]="\uf2d1"
 icons[alacritty]=""
 icons[ranger]=""
-icons[zshrc]=""
-icons[zshenv]=""
+icons[zsh]=""
 icons[rofi]=""
 icons[dunst]=""
-icons[vim-base]=""
-icons[vim-keybindings]=""
+icons[vim]=""
 icons[cancel]="\u01d7"
 
 declare -A actions
-actions[qtile]="~/.config/qtile/config.py"
+actions[qtile]="-p ~/.config/qtile/config.py ~/.config/qtile/autostart.sh"
 actions[awesome]="~/.config/awesome/rc.lua"
 actions[leftwm]="~/.config/leftwm/config.toml"
 actions[bspwm]="~/.config/bspwm/bspwmrc"
 actions[sxhkd]="~/.config/sxhkd/sxhkdrc"
 actions[polybar]="~/.config/polybar/config -c 'set ft=toml'"
 actions[alacritty]="~/.config/alacritty/alacritty.yml"
-actions[ranger]="~/.config/ranger/rc.conf"
-actions[zshrc]="~/.config/zsh/.zshrc"
-actions[zshenv]="~/.config/zsh/.zshenv"
-actions[rofi]="~/.config/rofi/config.rasi -c 'set ft=css'"
+actions[ranger]="-p ~/.config/ranger/rc.conf ~/.config/ranger/scope.sh"
+actions[zsh]="-p ~/.config/zsh/.zshrc ~/.config/zsh/.zshenv"
+actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/* -c 'set ft=css'"
 actions[dunst]="~/.config/dunst/dunst -c 'set ft=toml'"
-actions[vim-base]="~/.config/nvim/init.vim"
-actions[vim-keybindings]="~/.config/nvim/keybindings.vim"
+actions[vim]="-p ~/.config/nvim/init.vim ~/.config/nvim/keybindings.vim"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=()
