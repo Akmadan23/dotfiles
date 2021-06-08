@@ -35,7 +35,7 @@ keys = ["backtab"]
 
 [[mapcommand]]
 command = "cursor_move_up"
-keys = ["up"]
+keys = ["arrow_up"]
 
 [[mapcommand]]
 command = "cursor_move_up"
@@ -43,7 +43,7 @@ keys = ["k"]
 
 [[mapcommand]]
 command = "cursor_move_down"
-keys = ["down"]
+keys = ["arrow_down"]
 
 [[mapcommand]]
 command = "cursor_move_down"
@@ -82,19 +82,19 @@ command = "parent_cursor_move_down"
 keys = ["]"]
 
 [[mapcommand]]
-command = "open_file"
-keys = ["right"]
+command = "open"
+keys = ["arrow_right"]
 
 [[mapcommand]]
-command = "open_file"
+command = "open"
 keys = ["l"]
 
 [[mapcommand]]
-command = "open_file"
+command = "open"
 keys = ["\n"]
 
 [[mapcommand]]
-command = "open_file_with"
+command = "open_with"
 keys = ["r"]
 
 [[mapcommand]]
@@ -103,7 +103,7 @@ keys = ["c", "d"]
 
 [[mapcommand]]
 command = "cd .."
-keys = ["left"]
+keys = ["arrow_left"]
 
 [[mapcommand]]
 command = "cd .."
@@ -206,13 +206,17 @@ command = "cd /"
 keys = ["g", "/"]
 
 [[mapcommand]]
+command = "cd /run/media/azadahmadi"
+keys = ["g", "m"]
+
+[[mapcommand]]
+command = "cd /etc"
+keys = ["g", "e"]
+
+[[mapcommand]]
 command = "cd ~"
 keys = ["g", "h"]
 
 [[mapcommand]]
 command = "cd ~/.mf"
-keys = ["g", "m", "f"]
-
-[[mapcommand]]
-command = "cd /etc"
-keys = ["g", "e"]
+keys = ["g", "f"]
