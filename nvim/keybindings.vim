@@ -63,6 +63,9 @@ inoremap <C-a> <Esc>ggVG
 nnoremap <A-z> <C-y>,
 inoremap <A-z> <C-y>,
 
+nnoremap <silent><Space> za
+nnoremap <C-Space> zR
+
 " Abbreviations in command mode
 cabbr W w
 cabbr Q q

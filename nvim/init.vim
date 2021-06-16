@@ -59,6 +59,10 @@ set autoindent
 set ignorecase
 set number 
 set cursorline
+set foldmethod=indent
+set foldnestmax=6
+set foldlevel=100
+set nofoldenable
 set nobackup
 set background=dark
 set clipboard+=unnamedplus
@@ -66,7 +70,7 @@ set termguicolors
 
 colorscheme molokai-teal
 lua require 'colorizer'.setup()
-hi Normal ctermbg=NONE guibg=NONE
+hi Normal ctermbg=none guibg=none
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -90,4 +94,3 @@ let g:vimwiki_list = [{
 
 " Sourcing keybindings
 source ~/.config/nvim/keybindings.vim
-
