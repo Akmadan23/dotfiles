@@ -1,6 +1,5 @@
 # Theme
 
-set recolor true
 set recolor-darkcolor       "#DDDDDD"
 set recolor-lightcolor      "#242424"
 

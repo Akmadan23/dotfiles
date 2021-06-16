@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger zsh rofi dunst vim)
+all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim zsh rofi dunst zathura)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -20,10 +20,12 @@ texts[sxhkd]="sxhkd"
 texts[polybar]="polybar"
 texts[alacritty]="Alacritty"
 texts[ranger]="Ranger"
+texts[joshuto]="Joshuto"
+texts[vim]="Vim"
 texts[zsh]="zsh"
 texts[rofi]="Rofi"
 texts[dunst]="Dunst"
-texts[vim]="Vim"
+texts[zathura]="Zathura"
 
 declare -A icons
 icons[qtile]=""
@@ -34,10 +36,12 @@ icons[sxhkd]="\uf11c"
 icons[polybar]="\uf2d1"
 icons[alacritty]=""
 icons[ranger]=""
+icons[joshuto]=""
+icons[vim]=""
 icons[zsh]=""
 icons[rofi]=""
 icons[dunst]=""
-icons[vim]=""
+icons[zathura]=""
 icons[cancel]="\u01d7"
 
 declare -A actions
@@ -49,10 +53,12 @@ actions[sxhkd]="~/.config/sxhkd/sxhkdrc"
 actions[polybar]="~/.config/polybar/config -c 'set ft=toml'"
 actions[alacritty]="~/.config/alacritty/alacritty.yml"
 actions[ranger]="-p ~/.config/ranger/rc.conf ~/.config/ranger/scope.sh"
+actions[joshuto]="-p ~/.config/joshuto/joshuto.toml ~/.config/joshuto/keymap.toml ~/.config/joshuto/mimetype.toml"
+actions[vim]="-p ~/.config/nvim/init.vim ~/.config/nvim/keybindings.vim"
 actions[zsh]="-p ~/.config/zsh/.zshrc ~/.config/zsh/.zshenv"
 actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/* -c 'set ft=css'"
 actions[dunst]="~/.config/dunst/dunst -c 'set ft=toml'"
-actions[vim]="-p ~/.config/nvim/init.vim ~/.config/nvim/keybindings.vim"
+actions[zathura]="~/.config/zathura/zathurarc"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=()
