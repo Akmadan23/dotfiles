@@ -1,6 +1,15 @@
 # Setting zsh home folder
 export ZDOTDIR="$HOME/.config/zsh/"
 
+# Setting zsh history file
+export HISTFILE="$ZDOTDIR/.zsh_history"
+
+# Setting starship config file
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+
+# Setting Xmonad config directory
+export XMONAD_CONFIG_DIR="$HOME/.config/xmonad"
+
 # Setting cargo home folder
 export CARGO_HOME="$HOME/.local/share/cargo"
 
@@ -22,12 +31,6 @@ export IMAGE="sxiv"
 export PAGER="less"
 export MANPAGER="nvim -c 'set ft=man'"
 export OPENER="xdg-open"
-
-# Setting starship's config file location
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-
-# Setting zsh history file
-export HISTFILE="$ZDOTDIR/.zsh_history"
 
 # Disabling GTK3 client side decorations
 export GTK_CSD=0

@@ -30,6 +30,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'Shougo/deoplete-clangx'
     Plug 'Shougo/neco-syntax'
     Plug 'Shougo/neco-vim'
+    Plug 'lervag/vimtex'
     Plug 'deoplete-plugins/deoplete-jedi'
     Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
     Plug 'kristijanhusak/deoplete-phpactor'
@@ -60,7 +61,7 @@ set ignorecase
 set number 
 set cursorline
 set foldmethod=indent
-set foldnestmax=6
+set foldnestmax=10
 set foldlevel=100
 set nofoldenable
 set nobackup
