@@ -10,9 +10,94 @@ zstyle ":completion:*" menu select
 zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=*" "l:|=* r:|=*"
 zmodload zsh/complist
 
+###############################################################
+##                         KEY BINDINGS                      ##
+###############################################################
+
+# Make sure that the terminal is in application mode when zle is active, since
+# only then values from $terminfo are valid
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+    function zle-line-init() {
+        echoti smkx
+    }
+
+    function zle-line-finish() {
+        echoti rmkx
+    }
+
+    zle -N zle-line-init
+    zle -N zle-line-finish
+fi
+
+# [PageUp] - Up a line of history
+if [[ -n "${terminfo[kpp]}" ]]; then
+    bindkey -M viins "${terminfo[kpp]}" up-line-or-history
+    bindkey -M vicmd "${terminfo[kpp]}" up-line-or-history
+fi
+
+# [PageDown] - Down a line of history
+if [[ -n "${terminfo[knp]}" ]]; then
+    bindkey -M viins "${terminfo[knp]}" down-line-or-history
+    bindkey -M vicmd "${terminfo[knp]}" down-line-or-history
+fi
+
+# Start typing + [Up-Arrow] - fuzzy find history forward
+if [[ -n "${terminfo[kcuu1]}" ]]; then
+    autoload -U up-line-or-beginning-search
+    zle -N up-line-or-beginning-search
+
+    bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+    bindkey -M vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search
+fi
+
+# Start typing + [Down-Arrow] - fuzzy find history backward
+if [[ -n "${terminfo[kcud1]}" ]]; then
+    autoload -U down-line-or-beginning-search
+    zle -N down-line-or-beginning-search
+
+    bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
+    bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+fi
+
+# [Home] - Go to beginning of line
+if [[ -n "${terminfo[khome]}" ]]; then
+    bindkey -M viins "${terminfo[khome]}" beginning-of-line
+    bindkey -M vicmd "${terminfo[khome]}" beginning-of-line
+fi
+
+# [End] - Go to end of line
+if [[ -n "${terminfo[kend]}" ]]; then
+    bindkey -M viins "${terminfo[kend]}"  end-of-line
+    bindkey -M vicmd "${terminfo[kend]}"  end-of-line
+fi
+
+# [Shift-Tab] - move through the completion menu backwards
+if [[ -n "${terminfo[kcbt]}" ]]; then
+    bindkey -M viins "${terminfo[kcbt]}" reverse-menu-complete
+    bindkey -M vicmd "${terminfo[kcbt]}" reverse-menu-complete
+fi
+
+# [Backspace] - delete backward
+bindkey -M viins "^?" backward-delete-char
+
+# [Ctrl-Backspace] - delete whole backward-word
+bindkey -M viins "^H" backward-kill-word
+
+# [Delete] - delete forward
+# bindkey -M viins "^[3;5~" delete-char
+bindkey -M viins "^[[3~" delete-char
+
+# [Ctrl-Delete] - delete whole forward-word
+bindkey -M viins "^[[3;5~" kill-word
+
+# [Ctrl-RightArrow] - move forward one word
+bindkey -M viins "^[[1;5C" forward-word
+
+# [Ctrl-LeftArrow] - move backward one word
+bindkey -M viins "^[[1;5D" backward-word
+
 # Plugins
 source $ZDOTDIR/plugins/history.zsh
-source $ZDOTDIR/plugins/key-bindings.zsh
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -50,6 +135,9 @@ alias jconf="nvim -p \
     ~/.config/joshuto/joshuto.toml \
     ~/.config/joshuto/keymap.toml \
     ~/.config/joshuto/mimetype.toml"
+alias xmconf="nvim -p \
+    ~/.config/xmonad/xmonad.hs \
+    ~/.config/xmobar/xmobar.hs"
 alias alconf="nvim ~/.config/alacritty/alacritty.yml"
 alias i3conf="nvim ~/.config/i3/config"
 alias kbconf="nvim ~/.config/sxhkd/sxhkdrc"
@@ -79,7 +167,7 @@ alias pm="pacman"
 alias ps="ps axu | less"
 alias ytdl="youtube-dl"
 alias vim="nvim"
-alias vw="nvim ~/Documenti/git-repos/vimwiki/notes/index.wiki"
+alias vw="nvim ~/git-repos/vimwiki/notes/index.wiki"
 alias vfz="cd /tmp/fz3temp-2/ && vim -p *.* && cd -"
 alias vtop="vtop -t brew --update-interval 500"
 alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"
