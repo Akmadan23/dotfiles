@@ -29,6 +29,14 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubuserc
 mkdir -p ~/.config/qtile/
 cp -r qtile/* ~/.config/qtile/
 
+# xmonad
+mkdir -p ~/.config/xmonad/
+cp -r xmonad/* ~/.config/xmonad/
+
+# xmobar
+mkdir -p ~/.config/xmobar/
+cp -r xmobar/* ~/.config/xmobar/
+
 # ranger
 mkdir -p ~/.config/ranger/
 cp -r ranger/* ~/.config/ranger/
