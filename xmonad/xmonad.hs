@@ -3,46 +3,37 @@ import XMonad
 import System.Directory
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
-import qualified XMonad.StackSet as W
+import Graphics.X11.ExtraTypes.XF86
 
 -- Actions
 import XMonad.Actions.CopyWindow (kill1)
+import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
-import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
-import XMonad.Actions.WindowGo (runOrRaise)
-import XMonad.Actions.WithAll (sinkAll, killAll)
-import qualified XMonad.Actions.Search as S
 
 -- Data
-import Data.Char (isSpace, toUpper)
-import Data.Maybe (fromJust)
 import Data.Monoid
-import Data.Maybe (isJust)
 import Data.Tree
+import Data.Maybe (isJust, fromJust)
 import qualified Data.Map as M
 
 -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, xmobarColor, shorten, wrap, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.WorkspaceHistory
 
 -- Layouts
 import XMonad.Layout.SimplestFloat
-import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 
 -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
-import XMonad.Layout.Magnifier
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.NoBorders
@@ -54,10 +45,9 @@ import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.WindowNavigation
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import qualified XMonad.StackSet as W
 
 -- Utilities
-import XMonad.Util.Dmenu
-import XMonad.Util.EZConfig (mkKeymap, additionalKeysP)
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
@@ -76,8 +66,10 @@ myStartupHook = do
     spawnOnce "nm-applet &"
     spawnOnce "flameshot &"
     spawnOnce "parcellite &"
+    spawnOnce "stalonetray &"
     spawnOnce "blueman-applet &"
-    spawnOncw "xss-lock -l -- i3lock-fancy &"
+    spawnOnce "xss-lock -l -- i3lock-fancy &"
+    spawnOnce "xsetroot -cursor_name left_ptr"
     spawnOnce "xwallpaper --zoom ~/.config/qtile/background.jpg"
     setWMName "Xmonad"
 
@@ -97,19 +89,12 @@ tall = renamed [Replace "tall"]
     $ mySpacing 8
     $ ResizableTall 1 (5/100) (1/2) []
 
-spirals = renamed [Replace "spirals"]
-    $ smartBorders
-    $ windowNavigation
-    $ addTabs shrinkText myTabTheme
-    $ subLayout [] (smartBorders Simplest)
-    $ mySpacing 8
-    $ spiral (6/7)
-
 floats = renamed [Replace "floats"]
     $ smartBorders
     $ limitWindows 20 simplestFloat
 
 tabs = renamed [Replace "tabs"]
+    $ noBorders
     $ tabbed shrinkText myTabTheme
 
 -- setting colors for tabs layout and tabs sublayout.
@@ -124,11 +109,26 @@ myTabTheme = def {
 }
 
 -- The layout hook
-myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
+myLayoutHook = avoidStruts
+    $ mouseResize
+    $ windowArrange
+    $ T.toggleLayouts floats
+    -- $ T.toggleLayouts (noBorders Full)
     $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout where
-        myDefaultLayout = withBorder 2 tall ||| spirals ||| noBorders tabs
+        myDefaultLayout = withBorder 2 tall ||| tabs
 
-myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
+myWorkspaces = [
+    "  \xf120  ", -- 1: Terminal
+    "  \xf0ac  ", -- 2: Internet
+    "  \xf0e0  ", -- 3: Email
+    "  \xf07c  ", -- 4: File manager
+    "  \xf086  ", -- 5: Chat
+    "  \xf001  ", -- 6: Music
+    "  \xf03e  ", -- 7: Picture
+    "  \xf19c  ", -- 8: University
+    "  \xf1b2  "] -- 9: Cube
+
+-- myWorkspaces = ["  1  ", "  2  ", "  3  ", "  4  ", "  5  ", "  6  ", "  7  ", "  8  ", "  9  "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>"
@@ -140,8 +140,7 @@ myManageHook = composeAll [
     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8
     -- I'm doing it this way because otherwise I would have to write out the full
     -- name of my workspaces and the names would be very long if using clickable workspaces.
-    isFullscreen --> doFullFloat,
-    resource =? "desktop-window"    --> doIgnore,
+    isFullscreen                    --> doFullFloat,
     className =? "confirm"          --> doFloat,
     className =? "confirmreset"     --> doFloat,
     className =? "dialog"           --> doFloat,
@@ -153,95 +152,86 @@ myManageHook = composeAll [
     className =? "pinentry-gtk-2"   --> doFloat,
     className =? "splash"           --> doFloat,
     className =? "toolbar"          --> doFloat,
-    className =? "Toolkit"          --> doFloat]
+    className =? "Toolkit"          --> doFloat,
+    className =? "stalonetray"      --> doIgnore]
 
--- keybindings :: [(String, X ())]
--- keybindings = [
-myKeys = \c -> mkKeymap c $ [
+myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     -- Xmonad basics
-    ("M-S-r",       spawn "xmonad --restart"),          -- Restarts xmonad
-    ("M-C-r",       spawn "xmonad --recompile"),        -- Recompiles xmonad
-    ("M-S-q",       kill),                             -- Kill the currently focused client
-    ("M-C-q",       killAll),                           -- Kill all windows on current workspace
-    ("M-S-f",       withFocused $ windows . W.sink),    -- Push floating window back to tile
-    ("M-C-f",       sinkAll),                           -- Push all floating windows to tile
-    ("M-.",         nextScreen),                        -- Switch focus to next monitor
-    ("M-,",         prevScreen),                        -- Switch focus to prev monitor
-    ("M-<Tab>",     sendMessage NextLayout),            -- Switch to next layout
-    -- ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts), -- Toggles noborder/full
+    ((modMask .|. shiftMask,    xK_r),      spawn "xmonad --restart"),          -- Restarts xmonad
+    ((modMask .|. controlMask,  xK_r),      spawn "xmonad --recompile"),        -- Recompiles xmonad
+    ((modMask .|. shiftMask,    xK_q),      kill),                              -- Kill the currently focused client
+    ((modMask .|. controlMask,  xK_q),      killAll),                           -- Kill all windows on current workspace
+    ((modMask .|. shiftMask,    xK_f),      withFocused $ windows . W.sink),    -- Push floating window back to tile
+    ((modMask .|. controlMask,  xK_f),      sinkAll),                           -- Push all floating windows to tile
+    ((modMask,                  xK_period), nextScreen),                        -- Switch focus to next monitor
+    ((modMask,                  xK_comma),  prevScreen),                        -- Switch focus to prev monitor
+    ((modMask,                  xK_Tab),    sendMessage NextLayout),            -- Switch to next layout
+    ((modMask .|. shiftMask,    xK_space),                                      -- Toggles noborder/full
+        sendMessage (MT.Toggle NBFULL) >>
+        sendMessage ToggleStruts),
 
     -- Terminal and rofi
-    ("M-<Return>",  spawn myTerminal),                                      -- Spawns a terminal
-    ("M-<Space>",   spawn "rofi -modi drun,run -show drun"),                -- Rofi apps menu
-    ("M-S-e",       spawn "rofi -modi menu:rofi-power-menu -show menu"),    -- Rofi power menu
-    ("M-S-x",       spawn "rofi -modi menu:rofi-xrandr-menu -show menu"),   -- Rofi xrandr menu
-    ("M-S-d",       spawn "rofi -modi menu:rofi-dotfiles-menu -show menu"), -- Rofi dotfiles menu
+    ((modMask,                  xK_Return), spawn myTerminal),                                  -- Spawns a terminal
+    ((modMask,                  xK_space),  spawn "rofi -modi drun,run -show drun"),                -- Rofi apps menu
+    ((modMask .|. shiftMask,    xK_e),      spawn "rofi -modi menu:rofi-power-menu -show menu"),    -- Rofi power menu
+    ((modMask .|. shiftMask,    xK_x),      spawn "rofi -modi menu:rofi-xrandr-menu -show menu"),   -- Rofi xrandr menu
+    ((modMask .|. shiftMask,    xK_d),      spawn "rofi -modi menu:rofi-dotfiles-menu -show menu"), -- Rofi dotfiles menu
 
     -- Useful programs to have a keybinding for launch
-    ("M-f",         spawn "firefox"),
-    ("M-g",         spawn "galculator"),
-    ("M-t",         spawn "thunderbird"),
-    ("M-s",         spawn "flameshot-gui"),
-    ("M-e",         spawn $ myTerminal ++ " -t Ranger -e ranger"),
+    ((modMask,                  xK_f),      spawn "firefox"),
+    ((modMask,                  xK_g),      spawn "galculator"),
+    ((modMask,                  xK_t),      spawn "thunderbird"),
+    ((modMask,                  xK_s),      spawn "flameshot-gui"),
+    ((modMask,                  xK_e),      spawn $ myTerminal ++ " -t Ranger -e ranger"),
 
     -- Increase/decrease gaps
-    ("M--",         decWindowSpacing 4),            -- Decrease window spacing
-    ("M-+",         incWindowSpacing 4),            -- Increase window spacing
+    ((modMask,                  xK_minus),  decWindowSpacing 4),           -- Decrease window spacing
+    ((modMask,                  xK_plus),   incWindowSpacing 4),           -- Increase window spacing
 
     -- Windows navigation
-    ("M-m",         windows W.focusMaster),         -- Move focus to the master window
-    ("M-j",         windows W.focusDown),           -- Move focus to the next window
-    ("M-k",         windows W.focusUp),             -- Move focus to the prev window
-    ("M-S-m",       windows W.swapMaster),          -- Swap the focused window and the master window
-    ("M-S-j",       windows W.swapDown),            -- Swap focused window with next window
-    ("M-S-k",       windows W.swapUp),              -- Swap focused window with prev window
-    ("M-S-<Return>", promote),                      -- Moves focused window to master, others maintain order
+    ((modMask,                  xK_m),      windows W.focusMaster),        -- Move focus to the master window
+    ((modMask,                  xK_j),      windows W.focusDown),          -- Move focus to the next window
+    ((modMask,                  xK_k),      windows W.focusUp),            -- Move focus to the prev window
+    ((modMask .|. shiftMask,    xK_m),      windows W.swapMaster),         -- Swap the focused window and the master window
+    ((modMask .|. shiftMask,    xK_j),      windows W.swapDown),           -- Swap focused window with next window
+    ((modMask .|. shiftMask,    xK_k),      windows W.swapUp),             -- Swap focused window with prev window
+    ((modMask .|. shiftMask,    xK_Return), promote),                      -- Moves focused window to master, others maintain order
 
     -- Increase/decrease windows in the master pane or the stack
-    ("M-S-<Up>",    sendMessage (IncMasterN 1)),    -- Increase # of clients master pane
-    ("M-S-<Down>",  sendMessage (IncMasterN (-1))), -- Decrease # of clients master pane
-    ("M-C-<Up>",    increaseLimit),                 -- Increase # of windows
-    ("M-C-<Down>",  decreaseLimit),                 -- Decrease # of windows
+    ((modMask .|. shiftMask,    xK_Up),    sendMessage (IncMasterN 1)),    -- Increase # of clients master pane
+    ((modMask .|. shiftMask,    xK_Down),  sendMessage (IncMasterN (-1))), -- Decrease # of clients master pane
+    ((modMask .|. controlMask,  xK_Up),    increaseLimit),                 -- Increase # of windows
+    ((modMask .|. controlMask,  xK_Down),  decreaseLimit),                 -- Decrease # of windows
 
     -- Window resizing
-    ("M-h",         sendMessage Shrink),            -- Shrink horiz window width
-    ("M-l",         sendMessage Expand),            -- Expand horiz window width
-    ("M-M1-j",      sendMessage MirrorShrink),      -- Shrink vert window width
-    ("M-M1-k",      sendMessage MirrorExpand),      -- Expand vert window width
+    ((modMask,                  xK_h),      sendMessage Shrink),            -- Shrink horiz window width
+    ((modMask,                  xK_l),      sendMessage Expand),            -- Expand horiz window width
+    ((modMask .|. controlMask,  xK_j),      sendMessage MirrorShrink),      -- Shrink vert window width
+    ((modMask .|. controlMask,  xK_k),      sendMessage MirrorExpand),      -- Expand vert window width
 
     -- Multimedia Keys
-    ("<XF86AudioMute>",         spawn "amixer set Master toggle"),
-    ("<XF86AudioLowerVolume>",  spawn "amixer set Master 5%- unmute"),
-    ("<XF86AudioRaiseVolume>",  spawn "amixer set Master 5%+ unmute"),
-    ("<XF86Search>",            spawn "rofi -modi drun,run -show drun"),
-    ("<XF86Mail>",              runOrRaise "thunderbird" (resource =? "thunderbird")),
-    ("<XF86Calculator>",        runOrRaise "galculator" (resource =? "galculator")),
-    ("<Print>",                 spawn "flameshot full -p ~/Immagini/Screenshots/")] ++
+    ((0, xF86XK_AudioLowerVolume),          spawn "amixer set Master 5%- unmute"),
+    ((0, xF86XK_AudioRaiseVolume),          spawn "amixer set Master 5%+ unmute"),
+    ((0, xF86XK_AudioMute),                 spawn "amixer set Master toggle"),
+    ((0, xF86XK_Search),                    spawn "rofi -modi drun,run -show drun")] ++
 
-      -- mod-[1..9], Switch to workspace N
-      -- mod-shift-[1..9], Move client to workspace N
-      -- [((m .|. modMask, k), windows $ f i)
-      --     | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-      --     , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-      [(m .|. modMask, k), windows $ f i)
-          | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-          , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    -- mod+[1..9]: Switch to workspace X
+    -- mod+ctrl+[1..9]: Move client to workspace X
+    -- mod+shift+[1..9]: Move client to workspace X and focus workspace X
+    [((modMask .|. m, k), windows $ f i) |
+        (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9],
+        (f, m) <- [(W.greedyView, 0), (W.shift, controlMask),
+        (\i -> W.greedyView i . W.shift i, shiftMask)]]
 
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobar.hs"
-    xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobar.hs"
+    xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobar.hs"
+    xmproc1 <- spawnPipe "xmobar -x 1 ~/.config/xmobar/xmobar.hs"
 
-    -- the xmonad, ya know... what the WM is named after!
     xmonad $ ewmh def {
-        manageHook = myManageHook <+> manageDocks,
-        handleEventHook = docksEventHook <+> fullscreenEventHook,
-        -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
-        -- This works perfect on SINGLE monitor systems. On multi-monitor systems,
-        -- it adds a border around the window if screen does not have focus. So, my solution
-        -- is to use a keybinding to toggle fullscreen noborders instead.  (M-<Space>)
-        -- <+> fullscreenEventHook
+        manageHook = myManageHook <+> manageDocks <+> doF W.swapDown,
+        handleEventHook = docksEventHook {- <+> fullscreenEventHook -},
         modMask = mod4Mask,
         keys = myKeys,
         terminal = myTerminal,
@@ -251,17 +241,16 @@ main = do
         borderWidth = 2,
         normalBorderColor = "#242424",
         focusedBorderColor = "#1ABC9C",
-
         logHook = dynamicLogWithPP $ xmobarPP {                             -- XMOBAR SETTINGS --
-            ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,    -- xmobar on both monitors
-            ppCurrent = xmobarColor "#000000" "#1ABC9C",                    -- Current workspace
-            ppVisible = xmobarColor "#FFFFFF" "#24574D" . clickable,        -- Visible but not current workspace
-            ppHidden = xmobarColor "#1ABC9C" "" . clickable,                -- Hidden workspaces
-            -- ppVisibleNoWindows = xmobarColor "#242424" "" . clickable,      -- Visible workspaces (no windows)
-            ppHiddenNoWindows = xmobarColor "#242424" "" . clickable,       -- Hidden workspaces (no windows)
-            ppTitle = xmobarColor "#FFFFFF" "" . shorten 60,                -- Title of active window
-            ppSep =  "<fc=#666666><fn=1> | </fn></fc>",                      -- Separator character
-            ppUrgent = xmobarColor "#C40000" "",                            -- Urgent workspace
-            ppOrder  = \(ws:l:t) -> [ws, l] ++ t                            -- order of things in xmobar
+            ppOutput =          \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,    -- xmobar on both monitors
+            ppCurrent =         xmobarColor "#000000" "#1ABC9C" . wrap "<fn=1>" "</fn>",                -- Current workspace
+            ppVisible =         xmobarColor "#FFFFFF" "#24574D" . wrap "<fn=1>" "</fn>" . clickable,    -- Visible but not current workspace
+            ppHidden =          xmobarColor "#1ABC9C" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Hidden workspaces
+            ppHiddenNoWindows = xmobarColor "#242424" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Hidden workspaces (no windows)
+            ppUrgent =          xmobarColor "#C40000" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Urgent workspace
+            ppTitle =           xmobarColor "#FFFFFF" ""                                . shorten 60,   -- Title of active window
+            ppSep =             "<fc=#666666> | </fc>",                                                 -- Separator between modules
+            ppWsSep =           "",                                                                     -- Separator between WS tags
+            ppOrder =           \(ws:l:t) -> [ws, l] ++ t                                               -- order of things in xmobar
         }
-    } -- `additionalKeysP` keybindings
+    }
