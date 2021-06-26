@@ -108,7 +108,10 @@ source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Using aliases after "sudo"
 alias sudo="sudo "
 
-# Jumping back
+# Quit zsh with :q
+alias :q="exit"
+
+# Jumping back directories
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
