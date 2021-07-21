@@ -6,13 +6,14 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim zsh rofi dunst zathura)
+all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim zsh rofi dunst zathura)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
 
 declare -A texts
 texts[qtile]="Qtile"
+texts[xmonad]="Xmonad"
 texts[awesome]="Awesome"
 texts[leftwm]="LeftWM"
 texts[bspwm]="bspwm"
@@ -29,6 +30,7 @@ texts[zathura]="Zathura"
 
 declare -A icons
 icons[qtile]=""
+icons[xmonad]=""
 icons[awesome]=""
 icons[leftwm]=""
 icons[bspwm]="\uf0db"
@@ -46,6 +48,7 @@ icons[cancel]="\u01d7"
 
 declare -A actions
 actions[qtile]="-p ~/.config/qtile/config.py ~/.config/qtile/autostart.sh"
+actions[xmonad]="-p ~/.config/xmonad/xmonad.hs ~/.config/xmobar/xmobar.hs"
 actions[awesome]="~/.config/awesome/rc.lua"
 actions[leftwm]="~/.config/leftwm/config.toml"
 actions[bspwm]="~/.config/bspwm/bspwmrc"
