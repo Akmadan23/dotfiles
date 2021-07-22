@@ -94,6 +94,15 @@ keys = [
     # Key([mod],          "Right",    lazy.spawn("xbacklight -inc 5")),                           # +5% backlight
     # Key([mod],          "Left",     lazy.spawn("xbacklight -dec 5")),                           # -5% backlight
     # Key([mod],          "r",        lazy.spawn("xbacklight -set 50")),                          # resets to 50%
+
+    # Special keys
+    Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),                          # +5% backlight
+    Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),                          # -5% backlight
+    Key([], "XF86AudioRaiseVolume",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
+    Key([], "XF86AudioLowerVolume",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
+    Key([], "XF86AudioMute",            lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),   # mute
+    Key([], "XF86Search",               lazy.spawn("rofi -modi drun,run -show drun")),              # rofi
+    # Key([], "XF86Option",               lazy.spawn("notify-send 'prova'")),   # mute
 ]
 
 # Mouse bindings
@@ -129,9 +138,9 @@ for i in range(len(group_names)):
 
 for i in groups:
     keys.extend([
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
-        Key([mod, sft], i.name, lazy.window.togroup(i.name, switch_group = True)),
-        Key([mod, ctrl], i.name, lazy.window.togroup(i.name, switch_group = False)),
+        Key([mod],          i.name, lazy.group[i.name].toscreen()),
+        Key([mod, sft],     i.name, lazy.window.togroup(i.name, switch_group = True)),
+        Key([mod, ctrl],    i.name, lazy.window.togroup(i.name, switch_group = False)),
     ])
 
 # Assign applications to a specific groupname
@@ -219,8 +228,8 @@ floating_layout = layout.Floating(
 )
 
 widget_defaults = dict(
-    font = "sans",
-    fontsize = 12,
+    font = "Cantarell",
+    fontsize = 14,
     padding = 3,
 )
 
@@ -274,6 +283,7 @@ screens = [
                 ),
 
                 widget.WindowName(
+                    font = "Cantarell Bold",
                     show_state = False,
                 ),
 
@@ -363,7 +373,7 @@ screens = [
                     unknown_char = "\uf240",
                     low_foreground = red,
                     show_short_text = False,
-                    update_interval = 30
+                    update_interval = 30,
                 ),
 
                 widget.Battery(
@@ -373,7 +383,7 @@ screens = [
                     low_foreground = red,
                     show_short_text = False,
                     notify_below = 10,
-                    update_interval = 30
+                    update_interval = 30,
                 ),
 
                 widget.TextBox(
@@ -414,6 +424,7 @@ screens = [
                 ),
 
                 widget.WindowName(
+                    font = "Cantarell Bold",
                     show_state = False,
                 ),
 
