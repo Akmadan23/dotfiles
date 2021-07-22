@@ -11,10 +11,13 @@ Config {
     overrideRedirect = True,
     sepChar = "%",
     alignSep = "}{",
-    template = "%UnsafeStdinReader% } %date% { %cpu%",
+    template = "%UnsafeStdinReader% } <action='gsimplecal'>%date%</action> { %default:Master% <fc=#666666>|</fc> %battery% <fc=#666666>|</fc> %cpu%",
     commands = [
-        Run Cpu ["-L","3","-H","50", "--normal","white","--high","red"] 20,
+        Run Volume "default" "Master" [] 10,
         Run Date "%A %d %B, %H:%M" "date" 20,
+        Run Cpu ["-L","3","-H","50", "--normal","white","--high","red"] 20,
+        -- Run Com "/home/azadahmadi/.config/xmobar/scripts/update" [] "updates" 36000,
+        Run Com "/home/azadahmadi/.config/xmobar/scripts/battery" [] "battery" 600,
         Run UnsafeStdinReader
     ]
 }

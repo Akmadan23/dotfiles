@@ -1,0 +1,2 @@
+#!/bin/sh
+dnf check-update | grep -E "\.(x86_64|noarch)" | wc -l
