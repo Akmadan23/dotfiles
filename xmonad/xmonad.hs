@@ -23,7 +23,6 @@ import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, xmobarColor, shorten
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
-import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 
 -- Layouts
@@ -32,19 +31,15 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 
 -- Layouts modifiers
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
-import XMonad.Layout.Simplest
 import XMonad.Layout.Spacing
-import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
-import XMonad.Layout.WindowNavigation
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
-import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
+import qualified XMonad.Layout.LayoutModifier as LM
+import qualified XMonad.Layout.ToggleLayouts as T
+import qualified XMonad.Layout.MultiToggle as MT
 import qualified XMonad.StackSet as W
 
 -- Utilities
@@ -55,18 +50,18 @@ myFont :: String
 myFont = "xft:Cantarell:size=12:antialias=true:hinting=true"
 
 myTerminal :: String
-myTerminal = "alacritty"    -- Sets default terminal
+myTerminal = "alacritty"
 
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "killall xmobar"
+    spawn "killall stalonetray; stalonetray &"
+    spawn "killall xmobar"
     spawnOnce "dunst &"
     spawnOnce "picom -f &"
     spawnOnce "lxpolkit &"
     spawnOnce "nm-applet &"
     spawnOnce "flameshot &"
     spawnOnce "parcellite &"
-    spawnOnce "stalonetray &"
     spawnOnce "blueman-applet &"
     spawnOnce "xss-lock -l -- i3lock-fancy &"
     spawnOnce "xsetroot -cursor_name left_ptr"
@@ -74,30 +69,27 @@ myStartupHook = do
     setWMName "Xmonad"
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
-mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing :: Integer -> l a -> LM.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 -- Defining a bunch of layouts, many that I don't use.
 -- limitWindows n sets maximum number of windows displayed for layout.
 -- mySpacing n sets the gap size around the windows.
 tall = renamed [Replace "tall"]
-    $ smartBorders
-    $ windowNavigation
-    $ addTabs shrinkText myTabTheme
-    $ subLayout [] (smartBorders Simplest)
+    $ lessBorders Screen
     $ limitWindows 12
     $ mySpacing 8
     $ ResizableTall 1 (5/100) (1/2) []
-
-floats = renamed [Replace "floats"]
-    $ smartBorders
-    $ limitWindows 20 simplestFloat
 
 tabs = renamed [Replace "tabs"]
     $ noBorders
     $ tabbed shrinkText myTabTheme
 
+floats = renamed [Replace "floats"]
+    $ limitWindows 20 simplestFloat
+
 -- setting colors for tabs layout and tabs sublayout.
+myTabTheme :: Theme
 myTabTheme = def {
     fontName =              myFont,
     activeColor =           "#1ABC9C",
@@ -112,11 +104,9 @@ myTabTheme = def {
 myLayoutHook = avoidStruts
     $ mouseResize
     $ windowArrange
-    $ T.toggleLayouts floats
-    -- $ T.toggleLayouts (noBorders Full)
-    $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout where
-        myDefaultLayout = withBorder 2 tall ||| tabs
+    $ T.toggleLayouts floats tall ||| tabs
 
+myWorkspaces :: [String]
 myWorkspaces = [
     "  \xf120  ", -- 1: Terminal
     "  \xf0ac  ", -- 2: Internet
@@ -128,9 +118,10 @@ myWorkspaces = [
     "  \xf19c  ", -- 8: University
     "  \xf1b2  "] -- 9: Cube
 
--- myWorkspaces = ["  1  ", "  2  ", "  3  ", "  4  ", "  5  ", "  6  ", "  7  ", "  8  ", "  9  "]
+myWorkspaceIndices :: M.Map [Char] Integer
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
+clickable :: String -> String
 clickable ws = "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 
@@ -155,6 +146,7 @@ myManageHook = composeAll [
     className =? "Toolkit"          --> doFloat,
     className =? "stalonetray"      --> doIgnore]
 
+myKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     -- Xmonad basics
     ((modMask .|. shiftMask,    xK_r),      spawn "xmonad --restart"),          -- Restarts xmonad
@@ -210,6 +202,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     ((modMask .|. controlMask,  xK_k),      sendMessage MirrorExpand),      -- Expand vert window width
 
     -- Multimedia Keys
+    ((0, xF86XK_MonBrightnessUp),           spawn "brightlight -i 239"),
+    ((0, xF86XK_MonBrightnessDown),         spawn "brightlight -d 239"),
     ((0, xF86XK_AudioLowerVolume),          spawn "amixer set Master 5%- unmute"),
     ((0, xF86XK_AudioRaiseVolume),          spawn "amixer set Master 5%+ unmute"),
     ((0, xF86XK_AudioMute),                 spawn "amixer set Master toggle"),
@@ -241,15 +235,15 @@ main = do
         borderWidth = 2,
         normalBorderColor = "#242424",
         focusedBorderColor = "#1ABC9C",
-        logHook = dynamicLogWithPP $ xmobarPP {                             -- XMOBAR SETTINGS --
-            ppOutput =          \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,    -- xmobar on both monitors
-            ppCurrent =         xmobarColor "#000000" "#1ABC9C" . wrap "<fn=1>" "</fn>",                -- Current workspace
-            ppVisible =         xmobarColor "#FFFFFF" "#24574D" . wrap "<fn=1>" "</fn>" . clickable,    -- Visible but not current workspace
-            ppHidden =          xmobarColor "#1ABC9C" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Hidden workspaces
+        logHook = dynamicLogWithPP $ xmobarPP {                                                         -- XMOBAR SETTINGS --
+            ppOutput =          \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x,                       -- xmobar on both monitors
+            ppCurrent =         xmobarColor "#FFFFFF" "#24574D" . wrap "<fn=1>" "</fn>",                -- Current workspace
+            ppVisible =         xmobarColor "#1ABC9C" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Visible but not current workspace
+            ppHidden =          xmobarColor "#FFFFFF" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Hidden workspaces
             ppHiddenNoWindows = xmobarColor "#242424" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Hidden workspaces (no windows)
             ppUrgent =          xmobarColor "#C40000" ""        . wrap "<fn=1>" "</fn>" . clickable,    -- Urgent workspace
-            ppTitle =           xmobarColor "#FFFFFF" ""                                . shorten 60,   -- Title of active window
-            ppSep =             "<fc=#666666> | </fc>",                                                 -- Separator between modules
+            ppTitle =           shorten 40,                                                             -- Title of active window
+            ppSep =             "<fc=#666666>  |  </fc>",                                               -- Separator between modules
             ppWsSep =           "",                                                                     -- Separator between WS tags
             ppOrder =           \(ws:l:t) -> [ws, l] ++ t                                               -- order of things in xmobar
         }

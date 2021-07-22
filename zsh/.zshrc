@@ -141,10 +141,12 @@ alias jconf="nvim -p \
 alias xmconf="nvim -p \
     ~/.config/xmonad/xmonad.hs \
     ~/.config/xmobar/xmobar.hs"
+alias bspconf="nvim -p \
+    ~/.config/bspwm/bspwmrc \
+    ~/.config/sxhkd/sxhkdrc"
+alias kconf="sudo nvim /usr/share/X11/xkb/symbols/pc"
 alias alconf="nvim ~/.config/alacritty/alacritty.yml"
 alias i3conf="nvim ~/.config/i3/config"
-alias kbconf="nvim ~/.config/sxhkd/sxhkdrc"
-alias bspconf="nvim ~/.config/bspwm/bspwmrc"
 alias pbconf="nvim ~/.config/polybar/config -c 'set ft=toml'"
 
 # Git
@@ -164,15 +166,18 @@ alias gpom="git push origin master"
 alias ls="lsd -l --group-dirs first"
 alias la="lsd -lA --group-dirs first"
 
+# Vim
+alias vim="nvim"
+alias vfz="cd /tmp/fz3temp-2/ && vim -p *.* && cd -"
+alias vwiki="nvim ~/git-repos/vimwiki/notes/index.wiki"
+
 # Misc
 alias md="mkdir"
 alias pm="pacman"
 alias ps="ps axu | less"
 alias ytdl="youtube-dl"
-alias vim="nvim"
-alias vw="nvim ~/git-repos/vimwiki/notes/index.wiki"
-alias vfz="cd /tmp/fz3temp-2/ && vim -p *.* && cd -"
 alias vtop="vtop -t brew --update-interval 500"
+alias pping="prettyping"
 alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"
 
 ###############################################################
