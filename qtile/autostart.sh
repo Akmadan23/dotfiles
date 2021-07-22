@@ -16,6 +16,6 @@ kill -9 "$(pidof -s /bin/bash /home/azadahmadi/git-repos/scripts/battery-check)"
 ~/git-repos/scripts/battery-check &
 
 # xob volume bar
-# killall xob
-# kill -9 $(pidof -s python3 /home/azadahmadi/.config/xob/pulse-volume-watcher.py)
-# ~/.config/xob/pulse-volume-watcher.py | xob -s default -t 2000 &
+killall xob
+# kill -9 "$(pidof -s python3 /home/azadahmadi/.config/xob/pulse-volume-watcher.py)"
+~/.config/xob/pulse-volume-watcher.py | xob -s default -t 2000 &
