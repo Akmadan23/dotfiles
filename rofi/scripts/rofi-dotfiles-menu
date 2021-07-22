@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim zsh rofi dunst zathura)
+all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi dunst zathura)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -23,6 +23,7 @@ texts[alacritty]="Alacritty"
 texts[ranger]="Ranger"
 texts[joshuto]="Joshuto"
 texts[vim]="Vim"
+texts[mpv]="mpv"
 texts[zsh]="zsh"
 texts[rofi]="Rofi"
 texts[dunst]="Dunst"
@@ -40,6 +41,7 @@ icons[alacritty]=""
 icons[ranger]=""
 icons[joshuto]=""
 icons[vim]=""
+icons[mpv]=""
 icons[zsh]=""
 icons[rofi]=""
 icons[dunst]=""
@@ -58,6 +60,7 @@ actions[alacritty]="~/.config/alacritty/alacritty.yml"
 actions[ranger]="-p ~/.config/ranger/rc.conf ~/.config/ranger/scope.sh"
 actions[joshuto]="-p ~/.config/joshuto/joshuto.toml ~/.config/joshuto/keymap.toml ~/.config/joshuto/mimetype.toml"
 actions[vim]="-p ~/.config/nvim/init.vim ~/.config/nvim/keybindings.vim"
+actions[mpv]="-p ~/.config/mpv/mpv.conf ~/.config/mpv/input.conf"
 actions[zsh]="-p ~/.config/zsh/.zshrc ~/.config/zsh/.zshenv"
 actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/* -c 'set ft=css'"
 actions[dunst]="~/.config/dunst/dunst -c 'set ft=toml'"
