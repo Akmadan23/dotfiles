@@ -1,5 +1,4 @@
 #!/bin/sh
-
 # Alacritty
 mkdir -p ~/.config/alacritty/
 cp -r alacritty/* ~/.config/alacritty/
@@ -61,6 +60,10 @@ cp -r zathura/* ~/.config/zathura/
 # dunst
 mkdir -p ~/.config/dunst/
 cp -r dunst/* ~/.config/dunst/
+
+mkdir -p ~/.config/mpv
+cp -r mpv/scripts/ ~/.config/mpv
+cp mpv/scripts/mpv_thumbnail_script_server.lua ~/.config/scripts/mpv_thumbnail_script_server_bis.lua
 
 # starship
 mkdir -p ~/.config/starship/

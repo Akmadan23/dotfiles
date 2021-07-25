@@ -1,7 +1,12 @@
+# Xmonad
 xmonad/xmonad.o
 xmonad/xmonad.hi
+
+# Ranger
 ranger/plugins/__pycache__
 ranger/plugins/ranger_devicons/*
 !ranger/plugins/ranger_devicons/__init__.py
 !ranger/plugins/ranger_devicons/devicons.py
 
+# Mpv
+mpv/scripts/mpv_thumbnail_script_server_bis.lua
