@@ -95,6 +95,18 @@ keys = [
     # Key([mod],          "Left",     lazy.spawn("xbacklight -dec 5")),                           # -5% backlight
     # Key([mod],          "r",        lazy.spawn("xbacklight -set 50")),                          # resets to 50%
 
+    # Moving cursor with keyboard
+    Key([mod, ctrl],    "h",        lazy.spawn("xdotool mousemove_relative -- -46 0")),
+    Key([mod, ctrl],    "j",        lazy.spawn("xdotool mousemove_relative -- 0 46")),
+    Key([mod, ctrl],    "k",        lazy.spawn("xdotool mousemove_relative -- 0 -46")),
+    Key([mod, ctrl],    "l",        lazy.spawn("xdotool mousemove_relative -- 46 0")),
+    Key([mod, alt],     "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),
+    Key([mod, alt],     "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),
+    Key([mod, alt],     "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),
+    Key([mod, alt],     "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),
+    Key([mod, alt],     "b",        lazy.spawn("xdotool click 1")),
+    Key([mod, alt],     "n",        lazy.spawn("xdotool click 3")),
+
     # Special keys
     Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),                          # +5% backlight
     Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),                          # -5% backlight
