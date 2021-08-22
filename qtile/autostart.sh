@@ -1,5 +1,6 @@
 #!/bin/sh
 
+conky &                 # conky widgets
 dunst &					# notification manager
 lxpolkit & 				# simple policykit authentication agent
 picom -f & 				# compositor

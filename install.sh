@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # Alacritty
 mkdir -p ~/.config/alacritty/
 cp -r alacritty/* ~/.config/alacritty/
@@ -47,7 +48,7 @@ cp -r joshuto/* ~/.config/joshuto/
 # rofi
 mkdir -p ~/.config/rofi/
 cp -r rofi/* ~/.config/rofi/
-ln -s rofi/scripts/* ~/.local/bin/
+ln -s ~/.config/rofi/scripts/* ~/.local/bin/
 
 # wlogout
 mkdir -p ~/.config/wlogout/
@@ -61,9 +62,14 @@ cp -r zathura/* ~/.config/zathura/
 mkdir -p ~/.config/dunst/
 cp -r dunst/* ~/.config/dunst/
 
+# conky
+mkdir -p ~/.config/conky/
+cp -r conky/* ~/.config/conky/
+
+#mpv
 mkdir -p ~/.config/mpv
 cp -r mpv/scripts/ ~/.config/mpv
-cp mpv/scripts/mpv_thumbnail_script_server.lua ~/.config/scripts/mpv_thumbnail_script_server_bis.lua
+cp mpv/scripts/mpv_thumbnail_script_server.lua ~/.config/mpv/scripts/mpv_thumbnail_script_server_bis.lua
 
 # starship
 mkdir -p ~/.config/starship/
