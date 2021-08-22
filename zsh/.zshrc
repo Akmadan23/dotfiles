@@ -217,3 +217,6 @@ precmd() {
 
 # Enabling starship prompt
 eval $(starship init zsh)
+
+# Autostart
+pfetch
