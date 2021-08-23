@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi dunst zathura)
+all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi conky dunst zathura)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -26,6 +26,7 @@ texts[vim]="Vim"
 texts[mpv]="mpv"
 texts[zsh]="zsh"
 texts[rofi]="Rofi"
+texts[conky]="Conky"
 texts[dunst]="Dunst"
 texts[zathura]="Zathura"
 
@@ -44,6 +45,7 @@ icons[vim]=""
 icons[mpv]=""
 icons[zsh]=""
 icons[rofi]=""
+icons[conky]=""
 icons[dunst]=""
 icons[zathura]=""
 icons[cancel]="\u01d7"
@@ -63,7 +65,8 @@ actions[vim]="-p ~/.config/nvim/init.vim ~/.config/nvim/keybindings.vim"
 actions[mpv]="-p ~/.config/mpv/mpv.conf ~/.config/mpv/input.conf"
 actions[zsh]="-p ~/.config/zsh/.zshrc ~/.config/zsh/.zshenv"
 actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/* -c 'set ft=css'"
-actions[dunst]="~/.config/dunst/dunst -c 'set ft=toml'"
+actions[conky]="~/.config/conky/conky.conf ~/.config/conky/* -c 'set ft=lua'"
+actions[dunst]="~/.config/dunst/dunstrc -c 'set ft=toml'"
 actions[zathura]="~/.config/zathura/zathurarc"
 
 # By default, ask for confirmation for actions that are irreversible
