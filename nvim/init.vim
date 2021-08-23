@@ -89,9 +89,10 @@ let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help
 let g:indentLine_char = '│'
 
 " WimWiki
+let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{
-    \ 'path': '~/Documenti/git-repos/vimwiki/notes/',
-    \ 'path_html': '~/Documenti/git-repos/vimwiki/html/'}]
+    \ 'path': '~/git-repos/vimwiki/notes/',
+    \ 'path_html': '~/git-repos/vimwiki/html/'}]
 
 " Sourcing keybindings
 source ~/.config/nvim/keybindings.vim

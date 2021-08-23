@@ -2,8 +2,8 @@
 
 conky &                 # conky widgets
 dunst &					# notification manager
-lxpolkit & 				# simple policykit authentication agent
 picom -f & 				# compositor
+lxpolkit & 				# simple policykit authentication agent
 nm-applet &				# network manager
 flameshot &				# screenshot tool
 parcellite &			# clipboard manager
@@ -13,10 +13,9 @@ xss-lock -l -- i3lock-fancy &
 xwallpaper --zoom ~/.config/qtile/background.jpg
 
 # handmade power management script
-kill -9 "$(pidof -s /bin/bash /home/azadahmadi/git-repos/scripts/battery-check)"
-~/git-repos/scripts/battery-check &
+kill -9 "$(pidof -s /bin/sh \"$HOME\"/git-repos/scripts/battery-check)"
+"$SCRIPTS"/battery-check &
 
 # xob volume bar
 killall xob
-# kill -9 "$(pidof -s python3 /home/azadahmadi/.config/xob/pulse-volume-watcher.py)"
-~/.config/xob/pulse-volume-watcher.py | xob -s default -t 2000 &
+"$HOME"/.config/xob/pulse-volume-watcher.py | xob -s default -t 2000 &
