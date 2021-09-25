@@ -81,7 +81,6 @@ keys = [
     Key([mod],          "t",        lazy.spawn("thunderbird")),
     Key([mod],          "s",        lazy.spawn("flameshot gui")),
     Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
-    Key([mod],          "d",        lazy.spawn("flatpak run com.discordapp.Discord")),
 
     # Volume and brightness controls
     Key([mod],          "Up",       lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
@@ -163,7 +162,7 @@ def assign_app_group(client):
     d["2"] = ["firefox", "Firefox"]
     d["3"] = ["Mail", "Thunderbird"]
     d["4"] = ["ranger", "Ranger"]
-    d["5"] = ["telegram-desktop", "TelegramDesktop"]
+    d["5"] = ["telegram-desktop", "TelegramDesktop", "discord"]
     d["6"] = ["lmms.real", "deadbeef", "Deadbeef"]
     d["7"] = []
     d["8"] = []

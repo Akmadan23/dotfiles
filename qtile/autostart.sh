@@ -9,7 +9,8 @@ flameshot &				# screenshot tool
 parcellite &			# clipboard manager
 blueman-applet &		# bluetooth manager
 
-xss-lock -l -- i3lock-fancy &
+xss-lock &
+# xss-lock -l -- i3lock-fancy &
 xwallpaper --zoom ~/.config/qtile/background.jpg
 
 # handmade power management script
