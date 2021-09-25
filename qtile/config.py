@@ -31,11 +31,11 @@ FA5 = "Font Awesome 5 Free Solid"   # V5.15
 
 # Colors
 red =       "#CC0000"
-teal =      "#1ABC9C"
-darkteal =  "#24574D"
-darkgrey =  "#242424"
 black =     "#000000"
 white =     "#FFFFFF"
+accent1 =   "#1ABC9C"
+accent2 =   "#24574D"
+accent3 =   "#242424"
 
 # Keyboard bindings
 keys = [
@@ -180,8 +180,8 @@ layout_theme = {
     "margin": 8,
     "single_margin": 0,
     "single_border_width": 0,
-    "border_normal": darkgrey,
-    "border_focus": teal,
+    "border_normal": accent3,
+    "border_focus": accent1,
     "border_width": 1,
 }
 
@@ -204,8 +204,8 @@ layouts = [
 ]
 
 floating_layout = layout.Floating(
-    border_focus = teal,
-    border_normal = darkgrey,
+    border_focus = accent1,
+    border_normal = accent3,
     border_width = 1,
 
     float_rules = [
@@ -276,9 +276,9 @@ separator = {
 
 # Groupbox defaults
 groupbox = {
-    "this_current_screen_border": teal,
-    "this_screen_border": teal,
-    "highlight_color": darkteal,
+    "this_current_screen_border": accent1,
+    "this_screen_border": accent1,
+    "highlight_color": accent2,
     "highlight_method": "line",
     "font": FA4,
     "fontsize": 16,
@@ -302,14 +302,14 @@ screens = [
                 widget.TextBox(
                     **separator,
                     background = black,
-                    foreground = darkgrey,
+                    foreground = accent3,
                 ),
 
                 widget.TextBox(
                     text = "\uf2c8",
                     font = FA4,
                     fontsize = 16,
-                    background = darkgrey,
+                    background = accent3,
                     foreground = white,
                 ),
 
@@ -318,28 +318,28 @@ screens = [
                     foreground_alert = red,
                     threshold = 90,
                     padding = 5,
-                    background = darkgrey,
+                    background = accent3,
                     foreground = white,
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = darkgrey,
-                    foreground = darkteal,
+                    background = accent3,
+                    foreground = accent2,
                 ),
 
                 widget.TextBox(
                     text = "\uf0eb",
                     font = FA4,
                     fontsize = 16,
-                    background = darkteal,
+                    background = accent2,
                     foreground = white,
                 ),
 
                 widget.Backlight(
                     backlight_name = "intel_backlight",
                     brightness_file = "brightness",
-                    background = darkteal,
+                    background = accent2,
                     foreground = white,
                     change_command = "xbacklight -inc {0}",
                     step = 5,
@@ -347,36 +347,36 @@ screens = [
 
                 widget.TextBox(
                     **separator,
-                    background = darkteal,
-                    foreground = teal,
+                    background = accent2,
+                    foreground = accent1,
                 ),
 
                 widget.TextBox(
                     text = "\uf028",
                     font = FA4,
                     fontsize = 16,
-                    background = teal,
+                    background = accent1,
                     foreground = black,
                     mouse_callbacks = {"Button1": pavucontrol},
                 ),
 
                 widget.Volume(
                     step = 5,
-                    background = teal,
+                    background = accent1,
                     foreground = black,
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = teal,
-                    foreground = darkteal,
+                    background = accent1,
+                    foreground = accent2,
                 ),
 
                 widget.Battery(
                     format = '{char}',
                     font = FA4,
                     fontsize = 16,
-                    background = darkteal,
+                    background = accent2,
                     foreground = white,
                     empty_char = "\uf244",
                     full_char = "\uf240",
@@ -390,7 +390,7 @@ screens = [
 
                 widget.Battery(
                     format = '{percent:1.0%}',
-                    background = darkteal,
+                    background = accent2,
                     foreground = white,
                     low_foreground = red,
                     show_short_text = False,
@@ -400,19 +400,19 @@ screens = [
 
                 widget.TextBox(
                     **separator,
-                    background = darkteal,
-                    foreground = darkgrey,
+                    background = accent2,
+                    foreground = accent3,
                 ),
 
                 widget.Clock(
-                    background = darkgrey,
+                    background = accent3,
                     format = "%A %d %B, %H:%M",
                     mouse_callbacks = {"Button1": calendar},
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = darkgrey,
+                    background = accent3,
                     foreground = black,
                 ),
 
@@ -448,7 +448,7 @@ screens = [
 
                 widget.CPUGraph(
                     line_width = 2,
-                    graph_color = teal,
+                    graph_color = accent1,
                     border_color = black,
                 ),
 
