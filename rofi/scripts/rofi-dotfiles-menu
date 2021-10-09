@@ -64,7 +64,7 @@ actions[joshuto]="-p ~/.config/joshuto/joshuto.toml ~/.config/joshuto/keymap.tom
 actions[vim]="-p ~/.config/nvim/init.vim ~/.config/nvim/keybindings.vim"
 actions[mpv]="-p ~/.config/mpv/mpv.conf ~/.config/mpv/input.conf"
 actions[zsh]="-p ~/.config/zsh/.zshrc ~/.config/zsh/.zshenv"
-actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/* -c 'set ft=css'"
+actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/*"
 actions[conky]="~/.config/conky/conky.conf ~/.config/conky/* -c 'set ft=lua'"
 actions[dunst]="~/.config/dunst/dunstrc -c 'set ft=toml'"
 actions[zathura]="~/.config/zathura/zathurarc"

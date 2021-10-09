@@ -1,0 +1,56 @@
+* {
+    background-color: #00000000;
+    background: #000000AA;
+    text-color: #EEEEEE;
+    accent-light: #1ABC9C;
+    accent-dark: #000000;
+}
+
+window {
+    height: 500px;
+    width: 800px;
+    border-radius: 12px;
+    background-color: @background;
+    spacing: 0;
+    children: [mode-switcher, entry, listview];
+}
+
+error-message {
+    height: 500px;
+    width: 800px;
+}
+
+button {
+    padding: 8px;
+}
+
+button selected {
+    text-color: @accent-dark;
+    background-color: @accent-light;
+}
+
+entry {
+    expand: false;
+    padding: 16px;
+    text-color: @text-color;
+}
+
+listview {
+    dynamic: false;
+    cycle: true;
+}
+
+element { 
+    padding: 16px;
+}
+
+element-icon {
+    size: 20px;
+    border: 0px;
+}
+
+element selected {
+    border: 0 0 0 5px solid;
+    border-color: @accent-light;
+    background-color: @accent-dark;
+}

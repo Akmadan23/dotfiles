@@ -1,4 +1,5 @@
 configuration {
-    theme: "themes/side-flat.rasi";
+    theme: "themes/center.rasi";
     font: "Hasklug Nerd Font 12";
+    show-icons: true;
 }
