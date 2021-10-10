@@ -113,3 +113,8 @@ let g:startify_lists = [
 
 " Sourcing keybindings
 source ~/.config/nvim/keybindings.vim
+
+" Setting filetype to css in rofi stylesheets
+if (expand("%:e") == 'rasi')
+    set ft=css
+endif

@@ -165,6 +165,8 @@ alias gpom="git push origin master"
 # Replacing ls with lsd
 alias ls="lsd -l --group-dirs first"
 alias la="lsd -lA --group-dirs first"
+alias lst="ls --tree"
+alias lat="la --tree"
 
 # Vim
 alias vim="nvim"
@@ -173,6 +175,7 @@ alias vwiki="nvim ~/git-repos/vimwiki/notes/index.wiki"
 
 # Misc
 alias md="mkdir"
+alias rm="trash"
 alias pm="pacman"
 alias ps="ps axu | less"
 alias ytdl="youtube-dl"
