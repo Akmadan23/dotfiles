@@ -13,12 +13,12 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-]]--
---[[
+
     mpv_thumbnail_script.lua 0.4.2 - commit a2de250 (branch master)
     https://github.com/TheAMM/mpv_thumbnail_script
     Built on 2018-02-07 20:36:55
 ]]--
+
 local assdraw = require 'mp.assdraw'
 local msg = require 'mp.msg'
 local opt = require 'mp.options'
@@ -28,57 +28,59 @@ local utils = require 'mp.utils'
 ON_WINDOWS = (package.config:sub(1,1) ~= '/')
 
 -- Some helper functions needed to parse the options --
-function isempty(v) return (v == false) or (v == nil) or (v == "") or (v == 0) or (type(v) == "table" and next(v) == nil) end
+function isempty(v)
+    return (v == false) or (v == nil) or (v == "") or (v == 0) or (type(v) == "table" and next(v) == nil)
+end
 
-function divmod (a, b)
-  return math.floor(a / b), a % b
+function divmod(a, b)
+    return math.floor(a / b), a % b
 end
 
 -- Better modulo
-function bmod( i, N )
-  return (i % N + N) % N
+function bmod(i, N)
+    return (i % N + N) % N
 end
 
 function join_paths(...)
-  local sep = ON_WINDOWS and "\\" or "/"
-  local result = "";
-  for i, p in pairs({...}) do
-    if p ~= "" then
-      if is_absolute_path(p) then
-        result = p
-      else
-        result = (result ~= "") and (result:gsub("[\\"..sep.."]*$", "") .. sep .. p) or p
-      end
+    local sep = ON_WINDOWS and "\\" or "/"
+    local result = "";
+
+    for i, p in pairs({...}) do
+        if p ~= "" then
+            if is_absolute_path(p) then
+                result = p
+            else
+                result = (result ~= "") and (result:gsub("[\\"..sep.."]*$", "") .. sep .. p) or p
+            end
+        end
     end
-  end
-  return result:gsub("[\\"..sep.."]*$", "")
+    return result:gsub("[\\"..sep.."]*$", "")
 end
 
 -- /some/path/file.ext -> /some/path, file.ext
-function split_path( path )
-  local sep = ON_WINDOWS and "\\" or "/"
-  local first_index, last_index = path:find('^.*' .. sep)
+function split_path(path)
+    local sep = ON_WINDOWS and "\\" or "/"
+    local first_index, last_index = path:find('^.*' .. sep)
 
-  if last_index == nil then
-    return "", path
-  else
-    local dir = path:sub(0, last_index-1)
-    local file = path:sub(last_index+1, -1)
-
-    return dir, file
-  end
+    if last_index == nil then
+        return "", path
+    else
+        local dir = path:sub(0, last_index - 1)
+        local file = path:sub(last_index+1, -1)
+        return dir, file
+    end
 end
 
-function is_absolute_path( path )
-  local tmp, is_win  = path:gsub("^[A-Z]:\\", "")
-  local tmp, is_unix = path:gsub("^/", "")
-  return (is_win > 0) or (is_unix > 0)
+function is_absolute_path(path)
+    local tmp, is_win  = path:gsub("^[A-Z]:\\", "")
+    local tmp, is_unix = path:gsub("^/", "")
+    return (is_win > 0) or (is_unix > 0)
 end
 
 function Set(source)
-  local set = {}
-  for _, l in ipairs(source) do set[l] = true end
-  return set
+    local set = {}
+    for _, l in ipairs(source) do set[l] = true end
+    return set
 end
 
 ---------------------------
@@ -87,157 +89,156 @@ end
 
 -- Removes all keys from a table, without destroying the reference to it
 function clear_table(target)
-  for key, value in pairs(target) do
-    target[key] = nil
-  end
+    for key, value in pairs(target) do
+        target[key] = nil
+    end
 end
+
 function shallow_copy(target)
-  local copy = {}
-  for k, v in pairs(target) do
-    copy[k] = v
-  end
-  return copy
+    local copy = {}
+    for k, v in pairs(target) do
+        copy[k] = v
+    end
+    return copy
 end
 
 -- Rounds to given decimals. eg. round_dec(3.145, 0) => 3
 function round_dec(num, idp)
-  local mult = 10^(idp or 0)
-  return math.floor(num * mult + 0.5) / mult
+    local mult = 10^(idp or 0)
+    return math.floor(num * mult + 0.5) / mult
 end
 
 function file_exists(name)
-  local f = io.open(name, "rb")
-  if f ~= nil then
-    local ok, err, code = f:read(1)
-    io.close(f)
-    return code == nil
-  else
-    return false
-  end
+    local f = io.open(name, "rb")
+    if f ~= nil then
+        local ok, err, code = f:read(1)
+        io.close(f)
+        return code == nil
+    else
+        return false
+    end
 end
 
 function path_exists(name)
-  local f = io.open(name, "rb")
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
-  end
+    local f = io.open(name, "rb")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else
+        return false
+    end
 end
 
 function create_directories(path)
-  local cmd
-  if ON_WINDOWS then
-    cmd = { args = {"cmd", "/c", "mkdir", path} }
-  else
-    cmd = { args = {"mkdir", "-p", path} }
-  end
-  utils.subprocess(cmd)
+    local cmd
+    if ON_WINDOWS then
+        cmd = {args = {"cmd", "/c", "mkdir", path}}
+    else
+        cmd = {args = {"mkdir", "-p", path}}
+    end
+    utils.subprocess(cmd)
 end
 
 -- Find an executable in PATH or CWD with the given name
 function find_executable(name)
-  local delim = ON_WINDOWS and ";" or ":"
+    local delim = ON_WINDOWS and ";" or ":"
+    local pwd = os.getenv("PWD") or utils.getcwd()
+    local path = os.getenv("PATH")
+    local env_path = pwd .. delim .. path -- Check CWD first
+    local result, filename
 
-  local pwd = os.getenv("PWD") or utils.getcwd()
-  local path = os.getenv("PATH")
-
-  local env_path = pwd .. delim .. path -- Check CWD first
-
-  local result, filename
-  for path_dir in env_path:gmatch("[^"..delim.."]+") do
-    filename = join_paths(path_dir, name)
-    if file_exists(filename) then
-      result = filename
-      break
+    for path_dir in env_path:gmatch("[^"..delim.."]+") do
+        filename = join_paths(path_dir, name)
+        if file_exists(filename) then
+            result = filename
+            break
+        end
     end
-  end
 
-  return result
+    return result
 end
 
 local ExecutableFinder = { path_cache = {} }
 -- Searches for an executable and caches the result if any
-function ExecutableFinder:get_executable_path( name, raw_name )
-  name = ON_WINDOWS and not raw_name and (name .. ".exe") or name
+function ExecutableFinder:get_executable_path(name, raw_name)
+    name = ON_WINDOWS and not raw_name and (name .. ".exe") or name
 
-  if self.path_cache[name] == nil then
-    self.path_cache[name] = find_executable(name) or false
-  end
-  return self.path_cache[name]
+    if self.path_cache[name] == nil then
+        self.path_cache[name] = find_executable(name) or false
+    end
+    return self.path_cache[name]
 end
 
 -- Format seconds to HH.MM.SS.sss
 function format_time(seconds, sep, decimals)
-  decimals = decimals == nil and 3 or decimals
-  sep = sep and sep or "."
-  local s = seconds
-  local h, s = divmod(s, 60*60)
-  local m, s = divmod(s, 60)
-
-  local second_format = string.format("%%0%d.%df", 2+(decimals > 0 and decimals+1 or 0), decimals)
-
-  return string.format("%02d"..sep.."%02d"..sep..second_format, h, m, s)
+    decimals = decimals == nil and 3 or decimals
+    sep = sep and sep or "."
+    local s = seconds
+    local h, s = divmod(s, 60 * 60)
+    local m, s = divmod(s, 60)
+    local second_format = string.format("%%0%d.%df", 2 + (decimals > 0 and decimals + 1 or 0), decimals)
+    return string.format("%02d"..sep.."%02d"..sep..second_format, h, m, s)
 end
 
 -- Format seconds to 1h 2m 3.4s
 function format_time_hms(seconds, sep, decimals, force_full)
-  decimals = decimals == nil and 1 or decimals
-  sep = sep ~= nil and sep or " "
+    decimals = decimals == nil and 1 or decimals
+    sep = sep ~= nil and sep or " "
+    local s = seconds
+    local h, s = divmod(s, 60*60)
+    local m, s = divmod(s, 60)
 
-  local s = seconds
-  local h, s = divmod(s, 60*60)
-  local m, s = divmod(s, 60)
-
-  if force_full or h > 0 then
-    return string.format("%dh"..sep.."%dm"..sep.."%." .. tostring(decimals) .. "fs", h, m, s)
-  elseif m > 0 then
-    return string.format("%dm"..sep.."%." .. tostring(decimals) .. "fs", m, s)
-  else
-    return string.format("%." .. tostring(decimals) .. "fs", s)
-  end
+    if force_full or h > 0 then
+        return string.format("%dh"..sep.."%dm"..sep.."%." .. tostring(decimals) .. "fs", h, m, s)
+    elseif m > 0 then
+        return string.format("%dm"..sep.."%." .. tostring(decimals) .. "fs", m, s)
+    else
+        return string.format("%." .. tostring(decimals) .. "fs", s)
+    end
 end
 
 -- Writes text on OSD and console
 function log_info(txt, timeout)
-  timeout = timeout or 1.5
-  msg.info(txt)
-  mp.osd_message(txt, timeout)
+    timeout = timeout or 1.5
+    msg.info(txt)
+    mp.osd_message(txt, timeout)
 end
 
 -- Join table items, ala ({"a", "b", "c"}, "=", "-", ", ") => "=a-, =b-, =c-"
 function join_table(source, before, after, sep)
-  before = before or ""
-  after = after or ""
-  sep = sep or ", "
-  local result = ""
-  for i, v in pairs(source) do
-    if not isempty(v) then
-      local part = before .. v .. after
-      if i == 1 then
-        result = part
-      else
-        result = result .. sep .. part
-      end
+    before = before or ""
+    after = after or ""
+    sep = sep or ", "
+    local result = ""
+
+    for i, v in pairs(source) do
+        if not isempty(v) then
+            local part = before .. v .. after
+            if i == 1 then
+                result = part
+            else
+                result = result .. sep .. part
+            end
+        end
     end
-  end
-  return result
+    return result
 end
 
 function wrap(s, char)
-  char = char or "'"
-  return char .. s .. char
+    char = char or "'"
+    return char .. s .. char
 end
+
 -- Wraps given string into 'string' and escapes any 's in it
 function escape_and_wrap(s, char, replacement)
-  char = char or "'"
-  replacement = replacement or "\\" .. char
-  return wrap(string.gsub(s, char, replacement), char)
+    char = char or "'"
+    replacement = replacement or "\\" .. char
+    return wrap(string.gsub(s, char, replacement), char)
 end
+
 -- Escapes single quotes in a string and wraps the input in single quotes
 function escape_single_bash(s)
-  return escape_and_wrap(s, "'", "'\\''")
+    return escape_and_wrap(s, "'", "'\\''")
 end
 
 -- Returns (a .. b) if b is not empty or nil
@@ -247,77 +248,77 @@ end
 
 -- Put items from one table into another
 function extend_table(target, source)
-  for i, v in pairs(source) do
-    table.insert(target, v)
-  end
+    for i, v in pairs(source) do
+        table.insert(target, v)
+    end
 end
 
 -- Creates a handle and filename for a temporary random file (in current directory)
 function create_temporary_file(base, mode, suffix)
-  local handle, filename
-  suffix = suffix or ""
-  while true do
-    filename = base .. tostring(math.random(1, 5000)) .. suffix
-    handle = io.open(filename, "r")
-    if not handle then
-      handle = io.open(filename, mode)
-      break
+    local handle, filename
+    suffix = suffix or ""
+    while true do
+        filename = base .. tostring(math.random(1, 5000)) .. suffix
+        handle = io.open(filename, "r")
+        if not handle then
+            handle = io.open(filename, mode)
+            break
+        end
+        io.close(handle)
     end
-    io.close(handle)
-  end
-  return handle, filename
+    return handle, filename
 end
 
 
 function get_processor_count()
-  local proc_count
+    local proc_count
 
-  if ON_WINDOWS then
-    proc_count = tonumber(os.getenv("NUMBER_OF_PROCESSORS"))
-  else
-    local cpuinfo_handle = io.open("/proc/cpuinfo")
-    if cpuinfo_handle ~= nil then
-      local cpuinfo_contents = cpuinfo_handle:read("*a")
-      local _, replace_count = cpuinfo_contents:gsub('processor', '')
-      proc_count = replace_count
+    if ON_WINDOWS then
+        proc_count = tonumber(os.getenv("NUMBER_OF_PROCESSORS"))
+    else
+        local cpuinfo_handle = io.open("/proc/cpuinfo")
+        if cpuinfo_handle ~= nil then
+            local cpuinfo_contents = cpuinfo_handle:read("*a")
+            local _, replace_count = cpuinfo_contents:gsub('processor', '')
+            proc_count = replace_count
+        end
     end
-  end
 
-  if proc_count and proc_count > 0 then
-      return proc_count
-  else
-    return nil
-  end
+    if proc_count and proc_count > 0 then
+        return proc_count
+    else
+        return nil
+    end
 end
 
 function substitute_values(string, values)
-  local substitutor = function(match)
-    if match == "%" then
-       return "%"
-    else
-      -- nil is discarded by gsub
-      return values[match]
+    local substitutor = function(match)
+        if match == "%" then
+            return "%"
+        else
+            -- nil is discarded by gsub
+            return values[match]
+        end
     end
-  end
 
-  local substituted = string:gsub('%%(.)', substitutor)
-  return substituted
+    local substituted = string:gsub('%%(.)', substitutor)
+    return substituted
 end
 
 -- ASS HELPERS --
-function round_rect_top( ass, x0, y0, x1, y1, r )
-  local c = 0.551915024494 * r -- circle approximation
-  ass:move_to(x0 + r, y0)
-  ass:line_to(x1 - r, y0) -- top line
-  if r > 0 then
-      ass:bezier_curve(x1 - r + c, y0, x1, y0 + r - c, x1, y0 + r) -- top right corner
-  end
-  ass:line_to(x1, y1) -- right line
-  ass:line_to(x0, y1) -- bottom line
-  ass:line_to(x0, y0 + r) -- left line
-  if r > 0 then
-      ass:bezier_curve(x0, y0 + r - c, x0 + r - c, y0, x0 + r, y0) -- top left corner
-  end
+function round_rect_top(ass, x0, y0, x1, y1, r)
+    local c = 0.551915024494 * r -- circle approximation
+    ass:move_to(x0 + r, y0)
+    ass:line_to(x1 - r, y0) -- top line
+    if r > 0 then
+        ass:bezier_curve(x1 - r + c, y0, x1, y0 + r - c, x1, y0 + r) -- top right corner
+    end
+    ass:line_to(x1, y1) -- right line
+    ass:line_to(x0, y1) -- bottom line
+    ass:line_to(x0, y0 + r) -- left line
+    if r > 0 then
+        ass:bezier_curve(x0, y0 + r - c, x0 + r - c, y0, x0 + r, y0) -- top left corner
+    end
 end
 
 function round_rect(ass, x0, y0, x1, y1, rtl, rtr, rbr, rbl)
@@ -340,6 +341,7 @@ function round_rect(ass, x0, y0, x1, y1, rtl, rtr, rbr, rbl)
         ass:bezier_curve(x0, y0 + rtl - rtl*c, x0 + rtl - rtl*c, y0, x0 + rtl, y0) -- top left corner
     end
 end
+
 -- $Revision: 1.5 $
 -- $Date: 2014-09-10 16:54:25 $
 
@@ -399,111 +401,118 @@ local sha1 = {}
 -- loading this file (takes a while but grants a boost of factor 13)
 local cfg_caching = false
 -- local storing of global functions (minor speedup)
-local floor,modf = math.floor,math.modf
-local char,format,rep = string.char,string.format,string.rep
+local floor, modf = math.floor, math.modf
+local char, format, rep = string.char, string.format, string.rep
 
 -- merge 4 bytes to an 32 bit word
-local function bytes_to_w32 (a,b,c,d) return a*0x1000000+b*0x10000+c*0x100+d end
+local function bytes_to_w32(a, b, c, d)
+    return a * 0x1000000 + b * 0x10000 + c * 0x100 + d
+end
+
 -- split a 32 bit word into four 8 bit numbers
-local function w32_to_bytes (i)
-   return floor(i/0x1000000)%0x100,floor(i/0x10000)%0x100,floor(i/0x100)%0x100,i%0x100
+local function w32_to_bytes(i)
+    return floor(i / 0x1000000) % 0x100, floor(i / 0x10000) % 0x100, floor(i / 0x100) % 0x100, i % 0x100
 end
 
 -- shift the bits of a 32 bit word. Don't use negative values for "bits"
-local function w32_rot (bits,a)
-   local b2 = 2^(32-bits)
-   local a,b = modf(a/b2)
-   return a+b*b2*(2^(bits))
+local function w32_rot(bits, a)
+    local b2 = 2^(32 - bits)
+    local a, b = modf(a / b2)
+    return a + b * b2 * (2^(bits))
 end
 
 -- caching function for functions that accept 2 arguments, both of values between
 -- 0 and 255. The function to be cached is passed, all values are calculated
 -- during loading and a function is returned that returns the cached values (only)
-local function cache2arg (fn)
-   if not cfg_caching then return fn end
-   local lut = {}
-   for i=0,0xffff do
-      local a,b = floor(i/0x100),i%0x100
-      lut[i] = fn(a,b)
-   end
-   return function (a,b)
-      return lut[a*0x100+b]
-   end
+local function cache2arg(fn)
+    if not cfg_caching then
+        return fn
+    end
+
+    local lut = {}
+    for i = 0, 0xffff do
+        local a, b = floor(i / 0x100), i % 0x100
+        lut[i] = fn(a, b)
+    end
+
+    return function(a, b)
+        return lut[a * 0x100 + b]
+    end
 end
 
 -- splits an 8-bit number into 8 bits, returning all 8 bits as booleans
-local function byte_to_bits (b)
-   local b = function (n)
-      local b = floor(b/n)
-      return b%2==1
-   end
-   return b(1),b(2),b(4),b(8),b(16),b(32),b(64),b(128)
+local function byte_to_bits(b)
+    local b = function(n)
+        local b = floor(b / n)
+        return b % 2 == 1
+    end
+    return b(1), b(2), b(4), b(8), b(16), b(32), b(64), b(128)
 end
 
 -- builds an 8bit number from 8 booleans
-local function bits_to_byte (a,b,c,d,e,f,g,h)
-   local function n(b,x) return b and x or 0 end
-   return n(a,1)+n(b,2)+n(c,4)+n(d,8)+n(e,16)+n(f,32)+n(g,64)+n(h,128)
+local function bits_to_byte(a,b,c,d,e,f,g,h)
+    local function n(b, x) return b and x or 0 end
+    return n(a, 1) + n(b, 2) + n(c, 4) + n(d, 8) + n(e, 16) + n(f, 32) + n(g, 64) + n(h, 128)
 end
 
 -- debug function for visualizing bits in a string
-local function bits_to_string (a,b,c,d,e,f,g,h)
-   local function x(b) return b and "1" or "0" end
-   return ("%s%s%s%s %s%s%s%s"):format(x(a),x(b),x(c),x(d),x(e),x(f),x(g),x(h))
+local function bits_to_string(a,b,c,d,e,f,g,h)
+    local function x(b) return b and "1" or "0" end
+    return ("%s%s%s%s %s%s%s%s"):format(x(a), x(b), x(c), x(d), x(e), x(f), x(g), x(h))
 end
 
 -- debug function for converting a 8-bit number as bit string
-local function byte_to_bit_string (b)
-   return bits_to_string(byte_to_bits(b))
+local function byte_to_bit_string(b)
+    return bits_to_string(byte_to_bits(b))
 end
 
 -- debug function for converting a 32 bit number as bit string
 local function w32_to_bit_string(a)
-   if type(a) == "string" then return a end
-   local aa,ab,ac,ad = w32_to_bytes(a)
-   local s = byte_to_bit_string
-   return ("%s %s %s %s"):format(s(aa):reverse(),s(ab):reverse(),s(ac):reverse(),s(ad):reverse()):reverse()
+    if type(a) == "string" then return a end
+    local aa, ab, ac, ad = w32_to_bytes(a)
+    local s = byte_to_bit_string
+    return ("%s %s %s %s"):format(s(aa):reverse(), s(ab):reverse(), s(ac):reverse(), s(ad):reverse()):reverse()
 end
 
 -- bitwise "and" function for 2 8bit number
-local band = cache2arg (function(a,b)
-      local A,B,C,D,E,F,G,H = byte_to_bits(b)
-      local a,b,c,d,e,f,g,h = byte_to_bits(a)
-      return bits_to_byte(
-         A and a, B and b, C and c, D and d,
-         E and e, F and f, G and g, H and h)
-   end)
+local band = cache2arg(
+    function(a, b)
+        local A, B, C, D, E, F, G, H = byte_to_bits(b)
+        local a, b, c, d, e, f, g, h = byte_to_bits(a)
+        return bits_to_byte(A and a, B and b, C and c, D and d, E and e, F and f, G and g, H and h)
+    end
+)
 
 -- bitwise "or" function for 2 8bit numbers
-local bor = cache2arg(function(a,b)
-      local A,B,C,D,E,F,G,H = byte_to_bits(b)
-      local a,b,c,d,e,f,g,h = byte_to_bits(a)
-      return bits_to_byte(
-         A or a, B or b, C or c, D or d,
-         E or e, F or f, G or g, H or h)
-   end)
+local bor = cache2arg(
+    function(a, b)
+        local A, B, C, D, E, F, G, H = byte_to_bits(b)
+        local a, b, c, d, e, f, g, h = byte_to_bits(a)
+        return bits_to_byte(A or a, B or b, C or c, D or d, E or e, F or f, G or g, H or h)
+    end
+)
 
 -- bitwise "xor" function for 2 8bit numbers
-local bxor = cache2arg(function(a,b)
-      local A,B,C,D,E,F,G,H = byte_to_bits(b)
-      local a,b,c,d,e,f,g,h = byte_to_bits(a)
-      return bits_to_byte(
-         A ~= a, B ~= b, C ~= c, D ~= d,
-         E ~= e, F ~= f, G ~= g, H ~= h)
-   end)
+local bxor = cache2arg(
+    function(a, b)
+        local A, B, C, D, E, F, G, H = byte_to_bits(b)
+        local a, b, c, d, e, f, g, h = byte_to_bits(a)
+        return bits_to_byte(A ~= a, B ~= b, C ~= c, D ~= d, E ~= e, F ~= f, G ~= g, H ~= h)
+    end
+)
 
 -- bitwise complement for one 8bit number
-local function bnot (x)
-   return 255-(x % 256)
+local function bnot(x)
+    return 255 - (x % 256)
 end
 
 -- creates a function to combine to 32bit numbers using an 8bit combination function
 local function w32_comb(fn)
-   return function (a,b)
-      local aa,ab,ac,ad = w32_to_bytes(a)
-      local ba,bb,bc,bd = w32_to_bytes(b)
-      return bytes_to_w32(fn(aa,ba),fn(ab,bb),fn(ac,bc),fn(ad,bd))
-   end
+    return function(a, b)
+        local aa, ab, ac, ad = w32_to_bytes(a)
+        local ba, bb, bc, bd = w32_to_bytes(b)
+        return bytes_to_w32(fn(aa, ba), fn(ab, bb), fn(ac, bc), fn(ad, bd))
+    end
 end
 
 -- create functions for and, xor and or, all for 2 32bit numbers
@@ -512,170 +521,163 @@ local w32_xor = w32_comb(bxor)
 local w32_or = w32_comb(bor)
 
 -- xor function that may receive a variable number of arguments
-local function w32_xor_n (a,...)
-   local aa,ab,ac,ad = w32_to_bytes(a)
-   for i=1,select('#',...) do
-      local ba,bb,bc,bd = w32_to_bytes(select(i,...))
-      aa,ab,ac,ad = bxor(aa,ba),bxor(ab,bb),bxor(ac,bc),bxor(ad,bd)
-   end
-   return bytes_to_w32(aa,ab,ac,ad)
+local function w32_xor_n (a, ...)
+    local aa, ab, ac, ad = w32_to_bytes(a)
+    for i = 1, select('#', ...) do
+        local ba, bb, bc, bd = w32_to_bytes(select(i, ...))
+        aa, ab, ac, ad = bxor(aa, ba), bxor(ab, bb), bxor(ac, bc), bxor(ad, bd)
+    end
+    return bytes_to_w32(aa, ab, ac, ad)
 end
 
 -- combining 3 32bit numbers through binary "or" operation
-local function w32_or3 (a,b,c)
-   local aa,ab,ac,ad = w32_to_bytes(a)
-   local ba,bb,bc,bd = w32_to_bytes(b)
-   local ca,cb,cc,cd = w32_to_bytes(c)
-   return bytes_to_w32(
-      bor(aa,bor(ba,ca)), bor(ab,bor(bb,cb)), bor(ac,bor(bc,cc)), bor(ad,bor(bd,cd))
-   )
+local function w32_or3(a, b, c)
+    local aa, ab, ac, ad = w32_to_bytes(a)
+    local ba, bb, bc, bd = w32_to_bytes(b)
+    local ca, cb, cc, cd = w32_to_bytes(c)
+    return bytes_to_w32(bor(aa, bor(ba, ca)), bor(ab, bor(bb, cb)), bor(ac, bor(bc, cc)), bor(ad, bor(bd, cd)))
 end
 
 -- binary complement for 32bit numbers
-local function w32_not (a)
-   return 4294967295-(a % 4294967296)
+local function w32_not(a)
+    return 4294967295 - (a % 4294967296)
 end
 
 -- adding 2 32bit numbers, cutting off the remainder on 33th bit
-local function w32_add (a,b) return (a+b) % 4294967296 end
+local function w32_add (a, b)
+    return (a + b) % 4294967296
+end
 
 -- adding n 32bit numbers, cutting off the remainder (again)
-local function w32_add_n (a,...)
-   for i=1,select('#',...) do
-      a = (a+select(i,...)) % 4294967296
-   end
-   return a
+local function w32_add_n (a, ...)
+    for i = 1, select('#', ...) do
+        a = (a + select(i, ...)) % 4294967296
+    end
+    return a
 end
+
 -- converting the number to a hexadecimal string
-local function w32_to_hexstring (w) return format("%08x",w) end
+local function w32_to_hexstring(w)
+    return format("%08x", w)
+end
 
 -- calculating the SHA1 for some text
 function sha1.hex(msg)
-   local H0,H1,H2,H3,H4 = 0x67452301,0xEFCDAB89,0x98BADCFE,0x10325476,0xC3D2E1F0
-   local msg_len_in_bits = #msg * 8
+    local H0, H1, H2, H3, H4 = 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0
+    local msg_len_in_bits = #msg * 8
+    local first_append = char(0x80) -- append a '1' bit plus seven '0' bits
+    local non_zero_message_bytes = #msg +1 +8 -- the +1 is the appended bit 1, the +8 are for the final appended length
+    local current_mod = non_zero_message_bytes % 64
+    local second_append = current_mod>0 and rep(char(0), 64 - current_mod) or ""
 
-   local first_append = char(0x80) -- append a '1' bit plus seven '0' bits
+    -- now to append the length as a 64-bit number.
+    local B1, R1 = modf(msg_len_in_bits / 0x01000000)
+    local B2, R2 = modf(0x01000000 * R1 / 0x00010000)
+    local B3, R3 = modf(0x00010000 * R2 / 0x00000100)
+    local B4 = 0x00000100 * R3
 
-   local non_zero_message_bytes = #msg +1 +8 -- the +1 is the appended bit 1, the +8 are for the final appended length
-   local current_mod = non_zero_message_bytes % 64
-   local second_append = current_mod>0 and rep(char(0), 64 - current_mod) or ""
+    local L64 = char(0) .. char(0) .. char(0) .. char(0) -- high 32 bits
+    .. char(B1) .. char(B2) .. char(B3) .. char(B4) -- low 32 bits
 
-   -- now to append the length as a 64-bit number.
-   local B1, R1 = modf(msg_len_in_bits / 0x01000000)
-   local B2, R2 = modf( 0x01000000 * R1 / 0x00010000)
-   local B3, R3 = modf( 0x00010000 * R2 / 0x00000100)
-   local B4 = 0x00000100 * R3
+    msg = msg .. first_append .. second_append .. L64
+    assert(#msg % 64 == 0)
 
-   local L64 = char( 0) .. char( 0) .. char( 0) .. char( 0) -- high 32 bits
-   .. char(B1) .. char(B2) .. char(B3) .. char(B4) -- low 32 bits
+    local chunks = #msg / 64
+    local W = {}
+    local start, A, B, C, D, E, f, K, TEMP
+    local chunk = 0
 
-   msg = msg .. first_append .. second_append .. L64
+    while chunk < chunks do
+        -- break chunk up into W[0] through W[15]
+        start, chunk = chunk * 64 + 1, chunk + 1
 
-   assert(#msg % 64 == 0)
+        for t = 0, 15 do
+            W[t] = bytes_to_w32(msg:byte(start, start + 3))
+            start = start + 4
+        end
 
-   local chunks = #msg / 64
+        -- build W[16] through W[79]
+        for t = 16, 79 do
+            -- For t = 16 to 79 let Wt = S1(Wt-3 XOR Wt-8 XOR Wt-14 XOR Wt-16).
+            W[t] = w32_rot(1, w32_xor_n(W[t-3], W[t-8], W[t-14], W[t-16]))
+        end
 
-   local W = { }
-   local start, A, B, C, D, E, f, K, TEMP
-   local chunk = 0
+        A, B, C, D, E = H0, H1, H2, H3, H4
 
-   while chunk < chunks do
-      --
-      -- break chunk up into W[0] through W[15]
-      --
-      start,chunk = chunk * 64 + 1,chunk + 1
+        for t = 0, 79 do
+            if t <= 19 then
+                -- (B AND C) OR ((NOT B) AND D)
+                f = w32_or(w32_and(B, C), w32_and(w32_not(B), D))
+                K = 0x5A827999
+            elseif t <= 39 then
+                -- B XOR C XOR D
+                f = w32_xor_n(B, C, D)
+                K = 0x6ED9EBA1
+            elseif t <= 59 then
+                -- (B AND C) OR (B AND D) OR (C AND D
+                f = w32_or3(w32_and(B, C), w32_and(B, D), w32_and(C, D))
+                K = 0x8F1BBCDC
+            else
+                -- B XOR C XOR D
+                f = w32_xor_n(B, C, D)
+                K = 0xCA62C1D6
+            end
 
-      for t = 0, 15 do
-         W[t] = bytes_to_w32(msg:byte(start, start + 3))
-         start = start + 4
-      end
+            -- TEMP = S5(A) + ft(B,C,D) + E + Wt + Kt;
+            A, B, C, D, E = w32_add_n(w32_rot(5, A), f, E, W[t], K), A, w32_rot(30, B), C, D
+        end
 
-      --
-      -- build W[16] through W[79]
-      --
-      for t = 16, 79 do
-         -- For t = 16 to 79 let Wt = S1(Wt-3 XOR Wt-8 XOR Wt-14 XOR Wt-16).
-         W[t] = w32_rot(1, w32_xor_n(W[t-3], W[t-8], W[t-14], W[t-16]))
-      end
+        -- Let H0 = H0 + A, H1 = H1 + B, H2 = H2 + C, H3 = H3 + D, H4 = H4 + E.
+        H0, H1, H2, H3, H4 = w32_add(H0, A), w32_add(H1, B), w32_add(H2, C), w32_add(H3, D), w32_add(H4, E)
+    end
 
-      A,B,C,D,E = H0,H1,H2,H3,H4
-
-      for t = 0, 79 do
-         if t <= 19 then
-            -- (B AND C) OR ((NOT B) AND D)
-            f = w32_or(w32_and(B, C), w32_and(w32_not(B), D))
-            K = 0x5A827999
-         elseif t <= 39 then
-            -- B XOR C XOR D
-            f = w32_xor_n(B, C, D)
-            K = 0x6ED9EBA1
-         elseif t <= 59 then
-            -- (B AND C) OR (B AND D) OR (C AND D
-            f = w32_or3(w32_and(B, C), w32_and(B, D), w32_and(C, D))
-            K = 0x8F1BBCDC
-         else
-            -- B XOR C XOR D
-            f = w32_xor_n(B, C, D)
-            K = 0xCA62C1D6
-         end
-
-         -- TEMP = S5(A) + ft(B,C,D) + E + Wt + Kt;
-         A,B,C,D,E = w32_add_n(w32_rot(5, A), f, E, W[t], K),
-         A, w32_rot(30, B), C, D
-      end
-      -- Let H0 = H0 + A, H1 = H1 + B, H2 = H2 + C, H3 = H3 + D, H4 = H4 + E.
-      H0,H1,H2,H3,H4 = w32_add(H0, A),w32_add(H1, B),w32_add(H2, C),w32_add(H3, D),w32_add(H4, E)
-   end
-   local f = w32_to_hexstring
-   return f(H0) .. f(H1) .. f(H2) .. f(H3) .. f(H4)
+    local f = w32_to_hexstring
+    return f(H0) .. f(H1) .. f(H2) .. f(H3) .. f(H4)
 end
 
 local function hex_to_binary(hex)
-   return hex:gsub('..', function(hexval)
-         return string.char(tonumber(hexval, 16))
-      end)
+    return hex:gsub('..', function(hexval)
+        return string.char(tonumber(hexval, 16))
+    end)
 end
 
 function sha1.bin(msg)
-   return hex_to_binary(sha1.hex(msg))
+    return hex_to_binary(sha1.hex(msg))
 end
 
 local xor_with_0x5c = {}
 local xor_with_0x36 = {}
 -- building the lookuptables ahead of time (instead of littering the source code
 -- with precalculated values)
-for i=0,0xff do
-   xor_with_0x5c[char(i)] = char(bxor(i,0x5c))
-   xor_with_0x36[char(i)] = char(bxor(i,0x36))
+for i = 0, 0xff do
+    xor_with_0x5c[char(i)] = char(bxor(i,0x5c))
+    xor_with_0x36[char(i)] = char(bxor(i,0x36))
 end
 
 local blocksize = 64 -- 512 bits
 
 function sha1.hmacHex(key, text)
-   assert(type(key) == 'string', "key passed to hmacHex should be a string")
-   assert(type(text) == 'string', "text passed to hmacHex should be a string")
+    assert(type(key) == 'string', "key passed to hmacHex should be a string")
+    assert(type(text) == 'string', "text passed to hmacHex should be a string")
 
-   if #key > blocksize then
-      key = sha1.bin(key)
-   end
+    if #key > blocksize then
+        key = sha1.bin(key)
+    end
 
-   local key_xord_with_0x36 = key:gsub('.', xor_with_0x36) .. string.rep(string.char(0x36), blocksize - #key)
-   local key_xord_with_0x5c = key:gsub('.', xor_with_0x5c) .. string.rep(string.char(0x5c), blocksize - #key)
-
-   return sha1.hex(key_xord_with_0x5c .. sha1.bin(key_xord_with_0x36 .. text))
+    local key_xord_with_0x36 = key:gsub('.', xor_with_0x36) .. string.rep(string.char(0x36), blocksize - #key)
+    local key_xord_with_0x5c = key:gsub('.', xor_with_0x5c) .. string.rep(string.char(0x5c), blocksize - #key)
+    return sha1.hex(key_xord_with_0x5c .. sha1.bin(key_xord_with_0x36 .. text))
 end
 
 function sha1.hmacBin(key, text)
-   return hex_to_binary(sha1.hmacHex(key, text))
+    return hex_to_binary(sha1.hmacHex(key, text))
 end
 
 return sha1
 end)()
 
 local SCRIPT_NAME = "mpv_thumbnail_script"
-
 local default_cache_base = ON_WINDOWS and os.getenv("TEMP") or "/tmp/"
-
 local thumbnailer_options = {
     -- The thumbnail directory
     cache_directory = join_paths(default_cache_base, "mpv_thumbs_cache"),
@@ -800,14 +802,10 @@ local Thumbnailer = {
         ready = false,
         available = false,
         enabled = false,
-
         thumbnail_template = nil,
-
         thumbnail_delta = nil,
         thumbnail_count = 0,
-
         thumbnail_size = nil,
-
         finished_thumbnails = 0,
 
         -- List of thumbnail states (from 1 to thumbnail_count)
@@ -815,7 +813,6 @@ local Thumbnailer = {
         -- in progress: 0
         -- not ready: -1
         thumbnails = {},
-
         worker_input_path = nil,
         -- Extra options for the workers
         worker_extra = {},
@@ -953,7 +950,7 @@ function Thumbnailer:get_thumbnail_size()
         h = thumbnailer_options.thumbnail_height
         w = math.floor(video_width * (h / video_height))
     end
-    return { w=w, h=h }
+    return {w = w, h = h}
 end
 
 
@@ -1198,7 +1195,7 @@ function Thumbnailer:start_worker_jobs()
         -- their time to register; we've done our best waiting for them.
         self.state.enabled = true
 
-        msg.debug( ("Splitting %d thumbnails amongst %d worker(s)"):format(self.state.thumbnail_count, worker_count) )
+        msg.debug(("Splitting %d thumbnails amongst %d worker(s)"):format(self.state.thumbnail_count, worker_count))
 
         local frame_job_order = self:_create_thumbnail_job_order()
         local worker_jobs = {}
@@ -1342,7 +1339,7 @@ local osc_thumb_state = {
 function hide_thumbnail()
     osc_thumb_state.visible = false
     osc_thumb_state.last_path = nil
-    mp.command_native({ "overlay-remove", osc_thumb_state.overlay_id })
+    mp.command_native({"overlay-remove", osc_thumb_state.overlay_id})
 end
 
 function display_thumbnail(pos, value, ass)
@@ -1411,7 +1408,7 @@ function display_thumbnail(pos, value, ass)
         local framegraph_top = nil
 
         if user_opts.layout == "topbar" then
-            bg_top = pos.y - ( y_offset + thumb_size.h ) + vertical_offset
+            bg_top = pos.y - (y_offset + thumb_size.h) + vertical_offset
             text_top = bg_top + ass_h + framegraph_h
             framegraph_top = bg_top + ass_h
             vertical_offset = -vertical_offset
@@ -1608,17 +1605,17 @@ end
 function get_hitbox_coords(x, y, an, w, h)
 
     local alignments = {
-      [1] = function () return x, y-h, x+w, y end,
-      [2] = function () return x-(w/2), y-h, x+(w/2), y end,
-      [3] = function () return x-w, y-h, x, y end,
+      [1] = function() return x, y-h, x+w, y end,
+      [2] = function() return x-(w/2), y-h, x+(w/2), y end,
+      [3] = function() return x-w, y-h, x, y end,
 
-      [4] = function () return x, y-(h/2), x+w, y+(h/2) end,
-      [5] = function () return x-(w/2), y-(h/2), x+(w/2), y+(h/2) end,
-      [6] = function () return x-w, y-(h/2), x, y+(h/2) end,
+      [4] = function() return x, y-(h/2), x+w, y+(h/2) end,
+      [5] = function() return x-(w/2), y-(h/2), x+(w/2), y+(h/2) end,
+      [6] = function() return x-w, y-(h/2), x, y+(h/2) end,
 
-      [7] = function () return x, y, x+w, y+h end,
-      [8] = function () return x-(w/2), y, x+(w/2), y+h end,
-      [9] = function () return x-w, y, x, y+h end,
+      [7] = function() return x, y, x+w, y+h end,
+      [8] = function() return x-(w/2), y, x+(w/2), y+h end,
+      [9] = function() return x-w, y, x, y+h end,
     }
 
     return alignments[an]()
@@ -1752,8 +1749,8 @@ function get_tracklist(type)
         for n = 1, #tracks_osc[type] do
             local track = tracks_osc[type][n]
             local lang, title, selected = "unknown", "", "○"
-            if not(track.lang == nil) then lang = track.lang end
-            if not(track.title == nil) then title = track.title end
+            if not (track.lang == nil) then lang = track.lang end
+            if not (track.title == nil) then title = track.title end
             if (track.id == tonumber(mp.get_property(type))) then
                 selected = "●"
             end
@@ -2252,7 +2249,7 @@ function show_message(text, duration)
 end
 
 function render_message(ass)
-    if not(state.message_timeout == nil) and not(state.message_text == nil)
+    if not (state.message_timeout == nil) and not (state.message_text == nil)
         and state.message_timeout > mp.get_time() then
         local _, lines = string.gsub(state.message_text, "\\N", "")
 
@@ -2342,7 +2339,7 @@ end
 local layouts = {}
 
 -- Classic box layout
-layouts["box"] = function ()
+layouts["box"] = function()
 
     local osc_geo = {
         w = 550,    -- width
@@ -2520,7 +2517,7 @@ layouts["box"] = function ()
 end
 
 -- slim box layout
-layouts["slimbox"] = function ()
+layouts["slimbox"] = function()
 
     local osc_geo = {
         w = 660,    -- width
@@ -2676,13 +2673,12 @@ layouts["bottombar"] = function()
 
 
     -- Playlist prev/next
-    geo = { x = osc_geo.x + padX, y = line1,
-            an = 4, w = 18, h = 18 - padY }
+    geo = {x = osc_geo.x + padX, y = line1, an = 4, w = 18, h = 18 - padY}
     lo = add_layout("pl_prev")
     lo.geometry = geo
     lo.style = osc_styles.topButtonsBar
 
-    geo = { x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("pl_next")
     lo.geometry = geo
     lo.style = osc_styles.topButtonsBar
@@ -2690,8 +2686,7 @@ layouts["bottombar"] = function()
     local t_l = geo.x + geo.w + padX
 
     -- Cache
-    geo = { x = osc_geo.x + osc_geo.w - padX, y = geo.y,
-            an = 6, w = 150, h = geo.h }
+    geo = {x = osc_geo.x + osc_geo.w - padX, y = geo.y, an = 6, w = 150, h = geo.h}
     lo = add_layout("cache")
     lo.geometry = geo
     lo.style = osc_styles.vidtitleBar
@@ -2699,8 +2694,7 @@ layouts["bottombar"] = function()
     local t_r = geo.x - geo.w - padX*2
 
     -- Title
-    geo = { x = t_l, y = geo.y, an = 4,
-            w = t_r - t_l, h = geo.h }
+    geo = {x = t_l, y = geo.y, an = 4, w = t_r - t_l, h = geo.h}
     lo = add_layout("title")
     lo.geometry = geo
     lo.style = string.format("%s{\\clip(%f,%f,%f,%f)}",
@@ -2709,25 +2703,23 @@ layouts["bottombar"] = function()
 
 
     -- Playback control buttons
-    geo = { x = osc_geo.x + padX, y = line2, an = 4,
-            w = buttonW, h = 36 - padY*2}
+    geo = {x = osc_geo.x + padX, y = line2, an = 4, w = buttonW, h = 36 - padY*2}
     lo = add_layout("playpause")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
-    geo = { x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("ch_prev")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
-    geo = { x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("ch_next")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
     -- Left timecode
-    geo = { x = geo.x + geo.w + padX + tcW, y = geo.y, an = 6,
-            w = tcW, h = geo.h }
+    geo = {x = geo.x + geo.w + padX + tcW, y = geo.y, an = 6, w = tcW, h = geo.h}
     lo = add_layout("tc_left")
     lo.geometry = geo
     lo.style = osc_styles.timecodesBar
@@ -2735,33 +2727,31 @@ layouts["bottombar"] = function()
     local sb_l = geo.x + padX
 
     -- Fullscreen button
-    geo = { x = osc_geo.x + osc_geo.w - buttonW - padX, y = geo.y, an = 4,
-            w = buttonW, h = geo.h }
+    geo = {x = osc_geo.x + osc_geo.w - buttonW - padX, y = geo.y, an = 4, w = buttonW, h = geo.h}
     lo = add_layout("tog_fs")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
     -- Volume
-    geo = { x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("volume")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
     -- Track selection buttons
-    geo = { x = geo.x - tsW - padX, y = geo.y, an = geo.an, w = tsW, h = geo.h }
+    geo = {x = geo.x - tsW - padX, y = geo.y, an = geo.an, w = tsW, h = geo.h}
     lo = add_layout("cy_sub")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
-    geo = { x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("cy_audio")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
 
     -- Right timecode
-    geo = { x = geo.x - padX - tcW - 10, y = geo.y, an = geo.an,
-            w = tcW, h = geo.h }
+    geo = {x = geo.x - padX - tcW - 10, y = geo.y, an = geo.an, w = tcW, h = geo.h}
     lo = add_layout("tc_right")
     lo.geometry = geo
     lo.style = osc_styles.timecodesBar
@@ -2770,8 +2760,7 @@ layouts["bottombar"] = function()
 
 
     -- Seekbar
-    geo = { x = sb_l, y = geo.y, an = geo.an,
-            w = math.max(0, sb_r - sb_l), h = geo.h }
+    geo = {x = sb_l, y = geo.y, an = geo.an, w = math.max(0, sb_r - sb_l), h = geo.h}
     new_element("bgbar1", "box")
     lo = add_layout("bgbar1")
 
@@ -2842,26 +2831,24 @@ layouts["topbar"] = function()
 
 
     -- Playback control buttons
-    geo = { x = osc_geo.x + padX, y = line1, an = 4,
-            w = buttonW, h = 36 - padY*2 }
+    geo = {x = osc_geo.x + padX, y = line1, an = 4, w = buttonW, h = 36 - padY*2}
     lo = add_layout("playpause")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
-    geo = { x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("ch_prev")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
-    geo = { x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("ch_next")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
 
     -- Left timecode
-    geo = { x = geo.x + geo.w + padX + tcW, y = geo.y, an = 6,
-            w = tcW, h = geo.h }
+    geo = {x = geo.x + geo.w + padX + tcW, y = geo.y, an = 6, w = tcW, h = geo.h}
     lo = add_layout("tc_left")
     lo.geometry = geo
     lo.style = osc_styles.timecodesBar
@@ -2869,33 +2856,31 @@ layouts["topbar"] = function()
     local sb_l = geo.x + padX
 
     -- Fullscreen button
-    geo = { x = osc_geo.x + osc_geo.w - buttonW - padX, y = geo.y, an = 4,
-            w = buttonW, h = geo.h }
+    geo = {x = osc_geo.x + osc_geo.w - buttonW - padX, y = geo.y, an = 4, w = buttonW, h = geo.h}
     lo = add_layout("tog_fs")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
     -- Volume
-    geo = { x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("volume")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
     -- Track selection buttons
-    geo = { x = geo.x - tsW - padX, y = geo.y, an = geo.an, w = tsW, h = geo.h }
+    geo = {x = geo.x - tsW - padX, y = geo.y, an = geo.an, w = tsW, h = geo.h}
     lo = add_layout("cy_sub")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
-    geo = { x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x - geo.w - padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("cy_audio")
     lo.geometry = geo
     lo.style = osc_styles.smallButtonsBar
 
 
     -- Right timecode
-    geo = { x = geo.x - geo.w - padX - tcW - 10, y = geo.y, an = 4,
-            w = tcW, h = geo.h }
+    geo = {x = geo.x - geo.w - padX - tcW - 10, y = geo.y, an = 4, w = tcW, h = geo.h}
     lo = add_layout("tc_right")
     lo.geometry = geo
     lo.style = osc_styles.timecodesBar
@@ -2904,16 +2889,14 @@ layouts["topbar"] = function()
 
 
     -- Seekbar
-    geo = { x = sb_l, y = user_opts.barmargin, an = 7,
-        w = math.max(0, sb_r - sb_l), h = geo.h }
+    geo = {x = sb_l, y = user_opts.barmargin, an = 7, w = math.max(0, sb_r - sb_l), h = geo.h}
     new_element("bgbar1", "box")
     lo = add_layout("bgbar1")
 
     lo.geometry = geo
     lo.layer = 15
     lo.style = osc_styles.timecodesBar
-    lo.alpha[1] =
-        math.min(255, user_opts.boxalpha + (255 - user_opts.boxalpha)*0.8)
+    lo.alpha[1] = math.min(255, user_opts.boxalpha + (255 - user_opts.boxalpha) * 0.8)
 
     lo = add_layout("seekbar")
     lo.geometry = geo
@@ -2926,12 +2909,12 @@ layouts["topbar"] = function()
 
 
     -- Playlist prev/next
-    geo = { x = osc_geo.x + padX, y = line2, an = 4, w = 18, h = 18 - padY }
+    geo = {x = osc_geo.x + padX, y = line2, an = 4, w = 18, h = 18 - padY}
     lo = add_layout("pl_prev")
     lo.geometry = geo
     lo.style = osc_styles.topButtonsBar
 
-    geo = { x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h }
+    geo = {x = geo.x + geo.w + padX, y = geo.y, an = geo.an, w = geo.w, h = geo.h}
     lo = add_layout("pl_next")
     lo.geometry = geo
     lo.style = osc_styles.topButtonsBar
@@ -2939,8 +2922,7 @@ layouts["topbar"] = function()
     local t_l = geo.x + geo.w + padX
 
     -- Cache
-    geo = { x = osc_geo.x + osc_geo.w - padX, y = geo.y,
-            an = 6, w = 150, h = geo.h }
+    geo = {x = osc_geo.x + osc_geo.w - padX, y = geo.y, an = 6, w = 150, h = geo.h}
     lo = add_layout("cache")
     lo.geometry = geo
     lo.style = osc_styles.vidtitleBar
@@ -2948,13 +2930,10 @@ layouts["topbar"] = function()
     local t_r = geo.x - geo.w - padX*2
 
     -- Title
-    geo = { x = t_l, y = geo.y, an = 4,
-            w = t_r - t_l, h = geo.h }
+    geo = {x = t_l, y = geo.y, an = 4, w = t_r - t_l, h = geo.h}
     lo = add_layout("title")
     lo.geometry = geo
-    lo.style = string.format("%s{\\clip(%f,%f,%f,%f)}",
-        osc_styles.vidtitleBar,
-        geo.x, geo.y-geo.h, geo.w, geo.y+geo.h)
+    lo.style = string.format("%s{\\clip(%f,%f,%f,%f)}", osc_styles.vidtitleBar, geo.x, geo.y-geo.h, geo.w, geo.y+geo.h)
 end
 
 -- Validate string type user options
@@ -2972,7 +2951,6 @@ function validate_user_opts()
         user_opts.seekbarstyle = "slider"
     end
 end
-
 
 -- OSC INIT
 function osc_init()
@@ -3000,12 +2978,8 @@ function osc_init()
     if (display_aspect > 0) then
         osc_param.display_aspect = display_aspect
     end
+
     osc_param.playresx = osc_param.playresy * osc_param.display_aspect
-
-
-
-
-
     elements = {}
 
     -- some often needed stuff
@@ -3014,20 +2988,19 @@ function osc_init()
     local pl_pos = mp.get_property_number("playlist-pos", 0) + 1
     local have_ch = (mp.get_property_number("chapters", 0) > 0)
     local loop = mp.get_property("loop-playlist", "no")
-
     local ne
 
     -- title
     ne = new_element("title", "button")
 
-    ne.content = function ()
+    ne.content = function()
         local title = mp.command_native({"expand-text", user_opts.title})
         -- escape ASS, and strip newlines and trailing slashes
         title = title:gsub("\\n", " "):gsub("\\$", ""):gsub("{","\\{")
         return not (title == "") and title or "mpv"
     end
 
-    ne.eventresponder["mbtn_left_up"] = function ()
+    ne.eventresponder["mbtn_left_up"] = function()
         local title = mp.get_property_osd("media-title")
         if (have_pl) then
             title = string.format("[%d/%d] %s", countone(pl_pos - 1),
@@ -3037,118 +3010,79 @@ function osc_init()
     end
 
     ne.eventresponder["mbtn_right_up"] =
-        function () show_message(mp.get_property_osd("filename")) end
+        function() show_message(mp.get_property_osd("filename")) end
 
     -- playlist buttons
 
     -- prev
     ne = new_element("pl_prev", "button")
-
     ne.content = "\238\132\144"
     ne.enabled = (pl_pos > 1) or (loop ~= "no")
-    ne.eventresponder["mbtn_left_up"] =
-        function ()
-            mp.commandv("playlist-prev", "weak")
-            show_message(get_playlist(), 3)
-        end
-    ne.eventresponder["shift+mbtn_left_up"] =
-        function () show_message(get_playlist(), 3) end
-    ne.eventresponder["mbtn_right_up"] =
-        function () show_message(get_playlist(), 3) end
+    ne.eventresponder["mbtn_left_up"] = function() mp.commandv("playlist-prev", "weak") show_message(get_playlist(), 3) end
+    ne.eventresponder["shift+mbtn_left_up"] = function() show_message(get_playlist(), 3) end
+    ne.eventresponder["mbtn_right_up"] = function() show_message(get_playlist(), 3) end
 
     --next
     ne = new_element("pl_next", "button")
-
     ne.content = "\238\132\129"
     ne.enabled = (have_pl and (pl_pos < pl_count)) or (loop ~= "no")
-    ne.eventresponder["mbtn_left_up"] =
-        function ()
-            mp.commandv("playlist-next", "weak")
-            show_message(get_playlist(), 3)
-        end
-    ne.eventresponder["shift+mbtn_left_up"] =
-        function () show_message(get_playlist(), 3) end
-    ne.eventresponder["mbtn_right_up"] =
-        function () show_message(get_playlist(), 3) end
-
+    ne.eventresponder["mbtn_left_up"] = function() mp.commandv("playlist-next", "weak") show_message(get_playlist(), 3) end
+    ne.eventresponder["shift+mbtn_left_up"] = function() show_message(get_playlist(), 3) end
+    ne.eventresponder["mbtn_right_up"] = function() show_message(get_playlist(), 3) end
 
     -- big buttons
 
     --playpause
     ne = new_element("playpause", "button")
 
-    ne.content = function ()
+    ne.content = function()
         if mp.get_property("pause") == "yes" then
             return ("\238\132\129")
         else
             return ("\238\128\130")
         end
     end
-    ne.eventresponder["mbtn_left_up"] =
-        function () mp.commandv("cycle", "pause") end
+    ne.eventresponder["mbtn_left_up"] = function() mp.commandv("cycle", "pause") end
 
     --skipback
     ne = new_element("skipback", "button")
-
     ne.softrepeat = true
     ne.content = "\238\128\132"
-    ne.eventresponder["mbtn_left_down"] =
-        function () mp.commandv("seek", -5, "relative", "keyframes") end
-    ne.eventresponder["shift+mbtn_left_down"] =
-        function () mp.commandv("frame-back-step") end
-    ne.eventresponder["mbtn_right_down"] =
-        function () mp.commandv("seek", -30, "relative", "keyframes") end
+    ne.eventresponder["mbtn_left_down"] = function() mp.commandv("seek", -5, "relative", "keyframes") end
+    ne.eventresponder["shift+mbtn_left_down"] = function() mp.commandv("frame-back-step") end
+    ne.eventresponder["mbtn_right_down"] = function() mp.commandv("seek", -30, "relative", "keyframes") end
 
     --skipfrwd
     ne = new_element("skipfrwd", "button")
-
     ne.softrepeat = true
     ne.content = "\238\128\133"
-    ne.eventresponder["mbtn_left_down"] =
-        function () mp.commandv("seek", 10, "relative", "keyframes") end
-    ne.eventresponder["shift+mbtn_left_down"] =
-        function () mp.commandv("frame-step") end
-    ne.eventresponder["mbtn_right_down"] =
-        function () mp.commandv("seek", 60, "relative", "keyframes") end
+    ne.eventresponder["mbtn_left_down"] = function() mp.commandv("seek", 10, "relative", "keyframes") end
+    ne.eventresponder["shift+mbtn_left_down"] = function() mp.commandv("frame-step") end
+    ne.eventresponder["mbtn_right_down"] = function() mp.commandv("seek", 60, "relative", "keyframes") end
 
     --ch_prev
     ne = new_element("ch_prev", "button")
-
     ne.enabled = have_ch
     ne.content = "\238\132\132"
-    ne.eventresponder["mbtn_left_up"] =
-        function ()
-            mp.commandv("add", "chapter", -1)
-            show_message(get_chapterlist(), 3)
-        end
-    ne.eventresponder["shift+mbtn_left_up"] =
-        function () show_message(get_chapterlist(), 3) end
-    ne.eventresponder["mbtn_right_up"] =
-        function () show_message(get_chapterlist(), 3) end
+    ne.eventresponder["mbtn_left_up"] = function() mp.commandv("add", "chapter", -1) show_message(get_chapterlist(), 3) end
+    ne.eventresponder["shift+mbtn_left_up"] = function() show_message(get_chapterlist(), 3) end
+    ne.eventresponder["mbtn_right_up"] = function() show_message(get_chapterlist(), 3) end
 
     --ch_next
     ne = new_element("ch_next", "button")
-
     ne.enabled = have_ch
     ne.content = "\238\132\133"
-    ne.eventresponder["mbtn_left_up"] =
-        function ()
-            mp.commandv("add", "chapter", 1)
-            show_message(get_chapterlist(), 3)
-        end
-    ne.eventresponder["shift+mbtn_left_up"] =
-        function () show_message(get_chapterlist(), 3) end
-    ne.eventresponder["mbtn_right_up"] =
-        function () show_message(get_chapterlist(), 3) end
+    ne.eventresponder["mbtn_left_up"] = function() mp.commandv("add", "chapter", 1) show_message(get_chapterlist(), 3) end
+    ne.eventresponder["shift+mbtn_left_up"] = function() show_message(get_chapterlist(), 3) end
+    ne.eventresponder["mbtn_right_up"] = function() show_message(get_chapterlist(), 3) end
 
     --
     update_tracklist()
 
     --cy_audio
     ne = new_element("cy_audio", "button")
-
     ne.enabled = (#tracks_osc.audio > 0)
-    ne.content = function ()
+    ne.content = function()
         local aid = "–"
         if not (get_track("audio") == 0) then
             aid = get_track("audio")
@@ -3156,18 +3090,15 @@ function osc_init()
         return ("\238\132\134" .. osc_styles.smallButtonsLlabel
             .. " " .. aid .. "/" .. #tracks_osc.audio)
     end
-    ne.eventresponder["mbtn_left_up"] =
-        function () set_track("audio", 1) end
-    ne.eventresponder["mbtn_right_up"] =
-        function () set_track("audio", -1) end
-    ne.eventresponder["shift+mbtn_left_down"] =
-        function () show_message(get_tracklist("audio"), 2) end
+    ne.eventresponder["mbtn_left_up"] = function() set_track("audio", 1) end
+    ne.eventresponder["mbtn_right_up"] = function() set_track("audio", -1) end
+    ne.eventresponder["shift+mbtn_left_down"] = function() show_message(get_tracklist("audio"), 2) end
 
     --cy_sub
     ne = new_element("cy_sub", "button")
 
     ne.enabled = (#tracks_osc.sub > 0)
-    ne.content = function ()
+    ne.content = function()
         local sid = "–"
         if not (get_track("sub") == 0) then
             sid = get_track("sub")
@@ -3175,31 +3106,25 @@ function osc_init()
         return ("\238\132\135" .. osc_styles.smallButtonsLlabel
             .. " " .. sid .. "/" .. #tracks_osc.sub)
     end
-    ne.eventresponder["mbtn_left_up"] =
-        function () set_track("sub", 1) end
-    ne.eventresponder["mbtn_right_up"] =
-        function () set_track("sub", -1) end
-    ne.eventresponder["shift+mbtn_left_down"] =
-        function () show_message(get_tracklist("sub"), 2) end
+    ne.eventresponder["mbtn_left_up"] = function() set_track("sub", 1) end
+    ne.eventresponder["mbtn_right_up"] = function() set_track("sub", -1) end
+    ne.eventresponder["shift+mbtn_left_down"] = function() show_message(get_tracklist("sub"), 2) end
 
     --tog_fs
     ne = new_element("tog_fs", "button")
-    ne.content = function ()
+    ne.content = function()
         if (state.fullscreen) then
             return ("\238\132\137")
         else
             return ("\238\132\136")
         end
     end
-    ne.eventresponder["mbtn_left_up"] =
-        function () mp.commandv("cycle", "fullscreen") end
-
+    ne.eventresponder["mbtn_left_up"] = function() mp.commandv("cycle", "fullscreen") end
 
     --seekbar
     ne = new_element("seekbar", "slider")
-
     ne.enabled = not (mp.get_property("percent-pos") == nil)
-    ne.slider.markerF = function ()
+    ne.slider.markerF = function()
         local duration = mp.get_property_number("duration", nil)
         if not (duration == nil) then
             local chapters = mp.get_property_native("chapter-list", {})
@@ -3212,9 +3137,8 @@ function osc_init()
             return {}
         end
     end
-    ne.slider.posF =
-        function () return mp.get_property_number("percent-pos", nil) end
-    ne.slider.tooltipF = function (pos)
+    ne.slider.posF = function() return mp.get_property_number("percent-pos", nil) end
+    ne.slider.tooltipF = function(pos)
         local duration = mp.get_property_number("duration", nil)
         if not ((duration == nil) or (pos == nil)) then
             possec = duration * (pos / 100)
@@ -3242,38 +3166,32 @@ function osc_init()
         end
         return ranges
     end
-    ne.eventresponder["mouse_move"] = --keyframe seeking when mouse is dragged
-        function (element)
-            -- mouse move events may pile up during seeking and may still get
-            -- sent when the user is done seeking, so we need to throw away
-            -- identical seeks
-            local seekto = get_slider_value(element)
-            if (element.state.lastseek == nil) or
-                (not (element.state.lastseek == seekto)) then
-                    mp.commandv("seek", seekto,
-                        "absolute-percent", "keyframes")
-                    element.state.lastseek = seekto
-            end
-
+    ne.eventresponder["mouse_move"] = function(element) --keyframe seeking when mouse is dragged
+        -- mouse move events may pile up during seeking and may still get
+        -- sent when the user is done seeking, so we need to throw away
+        -- identical seeks
+        local seekto = get_slider_value(element)
+        if (element.state.lastseek == nil) or
+            (not (element.state.lastseek == seekto)) then
+                mp.commandv("seek", seekto,
+                    "absolute-percent", "keyframes")
+                element.state.lastseek = seekto
         end
-    ne.eventresponder["mbtn_left_down"] = --exact seeks on single clicks
-        function (element) mp.commandv("seek", get_slider_value(element),
-            "absolute-percent", "exact") end
-    ne.eventresponder["reset"] =
-        function (element) element.state.lastseek = nil end
+    end
+    ne.eventresponder["mbtn_left_down"] = function(element) mp.commandv("seek", get_slider_value(element), "absolute-percent", "exact") end --exact seeks on single clicks
+    ne.eventresponder["reset"] = function(element) element.state.lastseek = nil end
 
 
     -- tc_left (current pos)
     ne = new_element("tc_left", "button")
-
-    ne.content = function ()
+    ne.content = function()
         if (state.tc_ms) then
             return (mp.get_property_osd("playback-time/full"))
         else
             return (mp.get_property_osd("playback-time"))
         end
     end
-    ne.eventresponder["mbtn_left_up"] = function ()
+    ne.eventresponder["mbtn_left_up"] = function()
         state.tc_ms = not state.tc_ms
         request_init()
     end
@@ -3282,7 +3200,7 @@ function osc_init()
     ne = new_element("tc_right", "button")
 
     ne.visible = (mp.get_property_number("duration", 0) > 0)
-    ne.content = function ()
+    ne.content = function()
         if (state.rightTC_trem) then
             if state.tc_ms then
                 return ("-"..mp.get_property_osd("playtime-remaining/full"))
@@ -3298,12 +3216,12 @@ function osc_init()
         end
     end
     ne.eventresponder["mbtn_left_up"] =
-        function () state.rightTC_trem = not state.rightTC_trem end
+        function() state.rightTC_trem = not state.rightTC_trem end
 
     -- cache
     ne = new_element("cache", "button")
 
-    ne.content = function ()
+    ne.content = function()
         local dmx_cache = mp.get_property_number("demuxer-cache-duration")
         local cache_used = mp.get_property_number("cache-used")
         local dmx_cache_state = mp.get_property_native("demuxer-cache-state", {})
@@ -3342,13 +3260,9 @@ function osc_init()
             return volicon[math.min(4,math.ceil(volume / (100/3)))]
         end
     end
-    ne.eventresponder["mbtn_left_up"] =
-        function () mp.commandv("cycle", "mute") end
-
-    ne.eventresponder["wheel_up_press"] =
-        function () mp.commandv("osd-auto", "add", "volume", 5) end
-    ne.eventresponder["wheel_down_press"] =
-        function () mp.commandv("osd-auto", "add", "volume", -5) end
+    ne.eventresponder["mbtn_left_up"] = function() mp.commandv("cycle", "mute") end
+    ne.eventresponder["wheel_up_press"] = function() mp.commandv("osd-auto", "add", "volume", 5) end
+    ne.eventresponder["wheel_down_press"] = function() mp.commandv("osd-auto", "add", "volume", -5) end
 
 
     -- load layout
@@ -3359,12 +3273,9 @@ function osc_init()
 
 end
 
-
-
 --
 -- Other important stuff
 --
-
 
 function show_osc()
     -- show when disabled can happen (e.g. mouse_move) due to async/delayed unbinding
@@ -3390,7 +3301,7 @@ function hide_osc()
         timer_stop()
         render_wipe()
     elseif (user_opts.fadeduration > 0) then
-        if not(state.osc_visible == false) then
+        if not (state.osc_visible == false) then
             state.anitype = "out"
             control_timer()
         end
@@ -3415,8 +3326,7 @@ function cache_state(name, idle)
 end
 
 function control_timer()
-    if (state.paused) and (state.osc_visible) and
-        ( not(state.cache_idle) or not (state.anitype == nil) ) then
+    if (state.paused) and (state.osc_visible) and (not (state.cache_idle) or not (state.anitype == nil)) then
 
         timer_start()
     else
@@ -3453,8 +3363,6 @@ function timer_stop()
     end
 end
 
-
-
 function mouse_leave()
     if user_opts.hidetimeout >= 0 then
         hide_osc()
@@ -3479,11 +3387,8 @@ function render()
     local now = mp.get_time()
 
     -- check if display changed, if so request reinit
-    if not (state.mp_screen_sizeX == current_screen_sizeX
-        and state.mp_screen_sizeY == current_screen_sizeY) then
-
+    if not (state.mp_screen_sizeX == current_screen_sizeX and state.mp_screen_sizeY == current_screen_sizeY) then
         request_init()
-
         state.mp_screen_sizeX = current_screen_sizeX
         state.mp_screen_sizeY = current_screen_sizeY
     end
@@ -3494,38 +3399,30 @@ function render()
         state.initREQ = false
 
         -- store initial mouse position
-        if (state.last_mouseX == nil or state.last_mouseY == nil)
-            and not (mouseX == nil or mouseY == nil) then
-
+        if (state.last_mouseX == nil or state.last_mouseY == nil) and not (mouseX == nil or mouseY == nil) then
             state.last_mouseX, state.last_mouseY = mouseX, mouseY
         end
     end
 
-
     -- fade animation
-    if not(state.anitype == nil) then
-
+    if not (state.anitype == nil) then
         if (state.anistart == nil) then
             state.anistart = now
         end
 
         if (now < state.anistart + (user_opts.fadeduration/1000)) then
-
             if (state.anitype == "in") then --fade in
                 osc_visible(true)
-                state.animation = scale_value(state.anistart,
-                    (state.anistart + (user_opts.fadeduration/1000)),
-                    255, 0, now)
+                state.animation = scale_value(state.anistart, (state.anistart + (user_opts.fadeduration/1000)), 255, 0, now)
             elseif (state.anitype == "out") then --fade out
-                state.animation = scale_value(state.anistart,
-                    (state.anistart + (user_opts.fadeduration/1000)),
-                    0, 255, now)
+                state.animation = scale_value(state.anistart, (state.anistart + (user_opts.fadeduration/1000)), 0, 255, now)
             end
 
         else
             if (state.anitype == "out") then
                 osc_visible(false)
             end
+
             state.anistart = nil
             state.animation = nil
             state.anitype =  nil
@@ -3537,7 +3434,7 @@ function render()
     end
 
     --mouse show/hide area
-    for k,cords in pairs(osc_param.areas["showhide"]) do
+    for k, cords in pairs(osc_param.areas["showhide"]) do
         set_virt_mouse_area(cords.x1, cords.y1, cords.x2, cords.y2, "showhide")
     end
     do_enable_keybindings()
@@ -3545,7 +3442,7 @@ function render()
     --mouse input area
     local mouse_over_osc = false
 
-    for _,cords in ipairs(osc_param.areas["input"]) do
+    for _, cords in ipairs(osc_param.areas["input"]) do
         if state.osc_visible then -- activate only when OSC is actually visible
             set_virt_mouse_area(cords.x1, cords.y1, cords.x2, cords.y2, "input")
         end
@@ -3564,13 +3461,9 @@ function render()
     end
 
     -- autohide
-    if not (state.showtime == nil) and (user_opts.hidetimeout >= 0)
-        and (state.showtime + (user_opts.hidetimeout/1000) < now)
-        and (state.active_element == nil) and not (mouse_over_osc) then
-
+    if not (state.showtime == nil) and (user_opts.hidetimeout >= 0) and (state.showtime + (user_opts.hidetimeout/1000) < now) and (state.active_element == nil) and not (mouse_over_osc) then
         hide_osc()
     end
-
 
     -- actual rendering
     local ass = assdraw.ass_new()
@@ -3595,12 +3488,7 @@ function render()
     -- // mpv_thumbnail_script.lua // --
 
     -- submit
-    mp.set_osd_ass(osc_param.playresy * osc_param.display_aspect,
-                   osc_param.playresy, ass.text)
-
-
-
-
+    mp.set_osd_ass(osc_param.playresy * osc_param.display_aspect, osc_param.playresy, ass.text)
 end
 
 --
@@ -3608,35 +3496,26 @@ end
 --
 
 local function element_has_action(element, action)
-    return element and element.eventresponder and
-        element.eventresponder[action]
+    return element and element.eventresponder and element.eventresponder[action]
 end
 
 function process_event(source, what)
-    local action = string.format("%s%s", source,
-        what and ("_" .. what) or "")
+    local action = string.format("%s%s", source, what and ("_" .. what) or "")
 
     if what == "down" or what == "press" then
-
         for n = 1, #elements do
-
-            if mouse_hit(elements[n]) and
-                elements[n].eventresponder and
-                (elements[n].eventresponder[source .. "_up"] or
-                    elements[n].eventresponder[action]) then
-
+            if mouse_hit(elements[n]) and elements[n].eventresponder and (elements[n].eventresponder[source .. "_up"] or elements[n].eventresponder[action]) then
                 if what == "down" then
                     state.active_element = n
                     state.active_event_source = source
                 end
+
                 -- fire the down or press event if the element has one
                 if element_has_action(elements[n], action) then
                     elements[n].eventresponder[action](elements[n])
                 end
-
             end
         end
-
     elseif what == "up" then
 
         if elements[state.active_element] then
@@ -3646,7 +3525,6 @@ function process_event(source, what)
                 --click on background (does not work)
             elseif element_has_action(elements[n], action) and
                 mouse_hit(elements[n]) then
-
                 elements[n].eventresponder[action](elements[n])
             end
 
@@ -3662,9 +3540,9 @@ function process_event(source, what)
     elseif source == "mouse_move" then
 
         local mouseX, mouseY = get_virt_mouse_pos()
-        if (user_opts.minmousemove == 0) or
-            (not ((state.last_mouseX == nil) or (state.last_mouseY == nil)) and
-                ((math.abs(mouseX - state.last_mouseX) >= user_opts.minmousemove)
+        if (user_opts.minmousemove == 0) or (
+                not ((state.last_mouseX == nil) or (state.last_mouseY == nil)) and (
+                    (math.abs(mouseX - state.last_mouseX) >= user_opts.minmousemove)
                     or (math.abs(mouseY - state.last_mouseY) >= user_opts.minmousemove)
                 )
             ) then
