@@ -83,9 +83,9 @@ keys = [
     Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([mod],          "Up",       lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
-    Key([mod],          "Down",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
-    Key([mod],          "m",        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),   # mute
+    Key([mod],          "Up",       lazy.spawn("amixer set Master 5%+")),                       # +5% volume
+    Key([mod],          "Down",     lazy.spawn("amixer set Master 5%-")),                       # -5% volume
+    Key([mod],          "m",        lazy.spawn("amixer set Master toggle")),   # mute
     Key([mod],          "p",        lazy.spawn("deadbeef --play-pause")),                       # deadbeef toggle play/pause
     Key([mod],          "Right",    lazy.spawn("brightlight -i 239")),                          # +5% backlight
     Key([mod],          "Left",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
@@ -163,7 +163,7 @@ def assign_app_group(client):
     d["3"] = ["Mail", "Thunderbird"]
     d["4"] = ["ranger", "Ranger"]
     d["5"] = ["telegram-desktop", "TelegramDesktop", "discord"]
-    d["6"] = ["lmms.real", "deadbeef", "Deadbeef"]
+    d["6"] = ["lmms.real"]
     d["7"] = []
     d["8"] = []
 
@@ -249,10 +249,6 @@ extension_defaults = widget_defaults.copy()
 # Calendar spawner
 def calendar(qtile):
     qtile.cmd_spawn("gsimplecal")
-
-# Calendar spawner
-def pavucontrol(qtile):
-    qtile.cmd_spawn("pavucontrol")
 
 # Autostart script
 @hook.subscribe.startup
@@ -356,7 +352,6 @@ screens = [
                     fontsize = 16,
                     background = accent1,
                     foreground = black,
-                    mouse_callbacks = {"Button1": pavucontrol},
                 ),
 
                 widget.Volume(
