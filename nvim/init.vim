@@ -5,6 +5,7 @@
 " /_/   \_\_|\_\_| |_| |_|\__,_|\__,_|\__,_|_| |_|_____|____/ 
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+    Plug 'mhinz/vim-startify'
     Plug 'sheerun/vim-polyglot'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
@@ -43,31 +44,39 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
+" Basig settings
 syntax enable
 set hidden
-set nowrap
-set encoding=UTF-8
-set iskeyword+=-
+set number 
+set ignorecase
+set cursorline
+set nobackup
+set background=dark
+set termguicolors
 set mouse=a
+set encoding=UTF-8
+set clipboard+=unnamedplus
+
+" Splits
 set splitbelow
 set splitright
-set expandtab
+set incsearch
 set noshowmode
+
+" Tabs
+set expandtab
 set tabstop=4 
 set shiftwidth=4
+
+" Indent
 set smartindent
 set autoindent
-set ignorecase
-set number 
-set cursorline
+
+" Folding
 set foldmethod=indent
 set foldnestmax=10
 set foldlevel=100
 set nofoldenable
-set nobackup
-set background=dark
-set clipboard+=unnamedplus
-set termguicolors
 
 colorscheme molokai-teal
 lua require 'colorizer'.setup()
@@ -75,7 +84,6 @@ hi Normal ctermbg=none guibg=none
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option('sources', {'php' : ['omni', 'phpactor', 'ultisnips', 'buffer']})
 
 " Man.vim
 let g:no_man_maps = 1
@@ -85,14 +93,23 @@ let g:airline_theme = 'molokai'
 let g:airline_powerline_fonts = 0
 
 " IndentLine
-let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help', 'man', 'tex']
+let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help', 'man', 'tex', 'startify']
 let g:indentLine_char = '│'
 
 " WimWiki
 let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{
     \ 'path': '~/git-repos/vimwiki/notes/',
-    \ 'path_html': '~/git-repos/vimwiki/html/'}]
+    \ 'path_html': '~/git-repos/vimwiki/html/'
+    \ }]
+
+" Startify
+let g:startify_custom_header = startify#pad(split(system('figlet -f poison "Neovim"'), '\n'))
+let g:startify_session_dir = '~/.config/nvim/sessions'
+let g:startify_lists = [
+    \ {'type': 'files', 'header': ['   Recent files']},
+    \ {'type': 'sessions', 'header': ['   Sessions']}
+    \ ]
 
 " Sourcing keybindings
 source ~/.config/nvim/keybindings.vim
