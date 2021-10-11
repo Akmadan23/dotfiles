@@ -1,23 +1,24 @@
 * {
     background-color: #00000000;
-    background: #000000AA;
+    background-solid: #000000;
     text-color: #EEEEEE;
     accent-light: #1ABC9C;
-    accent-dark: #000000;
+    accent-dark: #24574D;
 }
 
 window {
     height: 500px;
     width: 800px;
+    border: 2px solid;
+    border-color: @accent-light;
     border-radius: 12px;
-    background-color: @background;
+    background-color: #000000AA;
     spacing: 0;
     children: [mode-switcher, entry, listview];
 }
 
 error-message {
-    height: 500px;
-    width: 800px;
+    padding: 32px;
 }
 
 button {
@@ -25,7 +26,7 @@ button {
 }
 
 button selected {
-    text-color: @accent-dark;
+    text-color: @background-solid;
     background-color: @accent-light;
 }
 
@@ -42,6 +43,7 @@ listview {
 
 element { 
     padding: 16px;
+    margin: 0 16px;
 }
 
 element-icon {
@@ -50,7 +52,8 @@ element-icon {
 }
 
 element selected {
-    border: 0 0 0 5px solid;
-    border-color: @accent-light;
+    border: 1px solid;
+    border-radius: 12px;
+    border-color: @background-solid;
     background-color: @accent-dark;
 }

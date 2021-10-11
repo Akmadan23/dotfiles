@@ -85,7 +85,7 @@ keys = [
     # Volume and brightness controls
     Key([mod],          "Up",       lazy.spawn("amixer set Master 5%+")),                       # +5% volume
     Key([mod],          "Down",     lazy.spawn("amixer set Master 5%-")),                       # -5% volume
-    Key([mod],          "m",        lazy.spawn("amixer set Master toggle")),   # mute
+    Key([mod],          "m",        lazy.spawn("amixer set Master toggle")),                    # mute
     Key([mod],          "p",        lazy.spawn("deadbeef --play-pause")),                       # deadbeef toggle play/pause
     Key([mod],          "Right",    lazy.spawn("brightlight -i 239")),                          # +5% backlight
     Key([mod],          "Left",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
@@ -109,11 +109,9 @@ keys = [
     # Special keys
     Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),                          # +5% backlight
     Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),                          # -5% backlight
-    Key([], "XF86AudioRaiseVolume",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),    # +5% volume
-    Key([], "XF86AudioLowerVolume",     lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),    # -5% volume
-    Key([], "XF86AudioMute",            lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),   # mute
-    Key([], "XF86Search",               lazy.spawn("rofi -modi drun,run -show drun")),              # rofi
-    # Key([], "XF86Option",               lazy.spawn("notify-send 'prova'")),   # mute
+    Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master 5%+")),                       # +5% volume
+    Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),                       # -5% volume
+    Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),                    # mute
 ]
 
 # Mouse bindings

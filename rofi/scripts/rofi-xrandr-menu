@@ -6,32 +6,32 @@ set -u
 title="xrandr menu"
 
 # All supported choices
-all=(integrated external-monitor external-tv dual-monitor dual-tv)
+all=(integrated dual-monitor external-monitor external-tv dual-tv)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
 
 declare -A texts
 texts[integrated]="Integrated display"
+texts[dual-monitor]="Dual monitor (default)"
 texts[external-monitor]="External monitor"
 texts[external-tv]="External monitor (TV)"
-texts[dual-monitor]="Dual monitor"
 texts[dual-tv]="Dual monitor (TV)"
 
 declare -A icons
 icons[integrated]="\uf109"
+icons[dual-monitor]="\uf109 +\uf108"
 icons[external-monitor]="\uf108"
 icons[external-tv]="\uf26c"
-icons[dual-monitor]="\uf109 +\uf108"
 icons[dual-tv]="\uf109 +\uf26c"
 icons[cancel]="\u00d7"
 
 declare -A actions
 actions[integrated]="xrandr --output eDP1 --mode 1600x900 --output HDMI1 --off --output DP2-1 --off"
-actions[external-monitor]="xrandr --output DP2-1 --mode 1920x1080 --output eDP1 --off"
-actions[external-tv]="xrandr --output eDP1 --off --output HDMI1 --mode 1360x768"
 actions[dual-monitor]="xrandr --output eDP1 --mode 1600x900 --pos 0x180 --output DP2-1 --primary --mode 1920x1080 --pos 1600x0"
 # actions[dual-monitor]="xrandr --output eDP1 --mode 1600x900 --pos 0x0 --output HDMI1 --primary --mode 1920x1080 --pos 1600x0"
+actions[external-monitor]="xrandr --output DP2-1 --mode 1920x1080 --output eDP1 --off"
+actions[external-tv]="xrandr --output eDP1 --off --output HDMI1 --mode 1360x768"
 actions[dual-tv]="xrandr --output eDP1 --primary --mode 1600x900 --pos 0x0 --output HDMI1 --mode 1360x768 --pos 1600x0"
 
 # By default, ask for confirmation for actions that are irreversible
