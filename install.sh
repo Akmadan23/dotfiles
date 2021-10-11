@@ -16,10 +16,6 @@ cp -r bspwm/* ~/.config/bspwm/
 mkdir -p ~/.config/sxhkd/
 cp -r sxhkd/* ~/.config/sxhkd/
 
-# i3
-mkdir -p ~/.config/i3/
-cp -r i3/* ~/.config/i3/
-
 # nvim
 mkdir -p ~/.config/nvim/
 cp -r nvim/* ~/.config/nvim/

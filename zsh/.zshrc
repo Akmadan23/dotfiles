@@ -140,7 +140,6 @@ alias bspconf="nvim -p \
     ~/.config/sxhkd/sxhkdrc"
 alias kconf="sudo nvim /usr/share/X11/xkb/symbols/pc"
 alias alconf="nvim ~/.config/alacritty/alacritty.yml"
-alias i3conf="nvim ~/.config/i3/config"
 alias pbconf="nvim ~/.config/polybar/config -c 'set ft=toml'"
 
 # Git
