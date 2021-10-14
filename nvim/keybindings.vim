@@ -1,70 +1,70 @@
 " Start/end of line with H/Left
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L $
+nno H ^
+nno L $
+vno H ^
+vno L $
 
 " PageUp and PageDown with J/K
-nnoremap J <C-d>zz
-nnoremap K <C-u>zz
-vnoremap J <C-d>zz
-vnoremap K <C-u>zz
+nno J <C-d>zz
+nno K <C-u>zz
+vno J <C-d>zz
+vno K <C-u>zz
 
 " Undo with U
-nnoremap U <C-r>
+nno U <C-r>
 
 " Fixing Y behaviour
-nnoremap Y y$
+nno Y y$
 
 " Disabling Q
-nnoremap Q <nop>
+nno Q <nop>
 
 " Join lines with dj
-nnoremap dj J
+nno dj J
 
 " Disabling Ctrl+q for visual block
-nnoremap <C-q> <nop>
-vnoremap <C-q> <nop>
+nno <C-q> <nop>
+vno <C-q> <nop>
 
 " Moving between tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
+nno <Tab> gt
+nno <S-Tab> gT
 
 " Adding visual tabbing
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+vno <Tab> >gv
+vno <S-Tab> <gv
 
 " Moving with vim keys in insert mode
-inoremap <A-h> <Left>
-inoremap <A-j> <Down>
-inoremap <A-k> <Up>
-inoremap <A-l> <Right>
-inoremap <A-i> <Esc>
-
-" Using Tab to navigate completion menus
-inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+ino <A-h> <Left>
+ino <A-j> <Down>
+ino <A-k> <Up>
+ino <A-l> <Right>
+ino <A-i> <Esc>
 
 " Moving between splits
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+nno <C-h> <C-w>h
+nno <C-j> <C-w>j
+nno <C-k> <C-w>k
+nno <C-l> <C-w>l
+
+" Using Tab to navigate completion menus
+ino <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+ino <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 " Automatic centering when cycling between search highlights
-nnoremap n nzz
-nnoremap N Nzz
+nno n nzz
+nno N Nzz
 
 " Select all command
-nnoremap <C-a> ggVG
-inoremap <C-a> <Esc>ggVG
+nno <C-a> ggVG
+ino <C-a> <Esc>ggVG
 
 " Emmet key
-nnoremap <A-z> <C-y>,
-inoremap <A-z> <C-y>,
+nno <A-z> <C-y>,
+ino <A-z> <C-y>,
 
-nnoremap <silent><Space> za
-nnoremap <C-Space> zR
+nno <silent><Space> za
+nno <C-Space> zR
 
 " Abbreviations in command mode
 cabbr W w
@@ -80,18 +80,20 @@ cabbr WQa wqa
 cabbr WQA wqa
 
 " Disabling arrow keys
-nnoremap <Up> <nop>
-vnoremap <Up> <nop>
-nnoremap <Down> <nop>
-vnoremap <Down> <nop>
-nnoremap <Left> <nop>
-vnoremap <Left> <nop>
-nnoremap <Right> <nop>
-vnoremap <Right> <nop>
+nno <Up> <nop>
+vno <Up> <nop>
+nno <Down> <nop>
+vno <Down> <nop>
+nno <Left> <nop>
+vno <Left> <nop>
+nno <Right> <nop>
+vno <Right> <nop>
 
 " Disabling enter and backspace
-nnoremap <Return> <nop>
-vnoremap <Return> <nop>
-nnoremap <BackSpace> <nop>
-vnoremap <BackSpace> <nop>
+nno <Return> <nop>
+vno <Return> <nop>
+nno <BackSpace> <nop>
+vno <BackSpace> <nop>
 
+" Terminal bindings 
+tno <Esc> <C-\><C-n>

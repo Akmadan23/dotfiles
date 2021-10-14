@@ -40,6 +40,9 @@ colorscheme molokai-teal
 lua require 'colorizer'.setup()
 hi Normal ctermbg=none guibg=none
 
+" Automatic insert mode in terminal buffers
+autocmd BufEnter term://* startinsert
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
