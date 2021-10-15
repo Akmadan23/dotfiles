@@ -1,11 +1,12 @@
 " Sourcing plugins and keybindings
 source ~/.config/nvim/plugins.vim
+source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim
 
 " Basig settings
 syntax enable
 set hidden
-set number 
+set number
 set ignorecase
 set cursorline
 set nobackup
@@ -23,7 +24,7 @@ set noshowmode
 
 " Tabs
 set expandtab
-set tabstop=4 
+set tabstop=4
 set shiftwidth=4
 
 " Indent
@@ -41,7 +42,7 @@ lua require 'colorizer'.setup()
 hi Normal ctermbg=none guibg=none
 
 " Automatic insert mode in terminal buffers
-autocmd BufEnter term://* startinsert
+autocmd BufEnter term://* startinsert | set nonumber
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1

@@ -1,6 +1,7 @@
 * {
     background-color: #00000000;
     background-solid: #000000;
+    background-transparent: #000000AA;
     text-color: #EEEEEE;
     accent-light: #1ABC9C;
     accent-dark: #24574D;
@@ -12,7 +13,7 @@ window {
     border: 2px solid;
     border-color: @accent-light;
     border-radius: 12px;
-    background-color: #000000AA;
+    background-color: @background-transparent;
     spacing: 0;
     children: [mode-switcher, entry, listview];
 }

@@ -59,10 +59,11 @@ nno N Nzz
 nno <C-a> ggVG
 ino <C-a> <Esc>ggVG
 
-" Emmet key
-nno <A-z> <C-y>,
-ino <A-z> <C-y>,
+" Increasing and decreasing values
+nno <A-+> <C-a>
+nno <A--> <C-x>
 
+" Folding
 nno <silent><Space> za
 nno <C-Space> zR
 
