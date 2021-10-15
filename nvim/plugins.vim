@@ -27,8 +27,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'Shougo/neco-vim'
     Plug 'lervag/vimtex'
     Plug 'deoplete-plugins/deoplete-jedi'
-    Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
-    Plug 'kristijanhusak/deoplete-phpactor'
 
     " appearance plugins
     Plug 'norcalli/nvim-colorizer.lua'
