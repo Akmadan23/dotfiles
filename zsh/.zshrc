@@ -127,6 +127,8 @@ alias qconf="nvim -p \
     ~/.config/qtile/autostart.sh"
 alias vconf="nvim -p \
     ~/.config/nvim/init.vim \
+    ~/.config/nvim/plugins.vim \
+    ~/.config/nvim/functions.vim \
     ~/.config/nvim/keybindings.vim"
 alias jconf="nvim -p \
     ~/.config/joshuto/joshuto.toml \
