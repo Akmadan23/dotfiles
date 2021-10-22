@@ -1,5 +1,6 @@
 #!/bin/sh
 
+killall conky
 dunst &                 # notification daemon
 conky &                 # desktop widgets
 picom -f &              # compositor
@@ -12,6 +13,9 @@ blueman-applet &        # bluetooth manager
 # pulseaudio tray icon
 killall pasystray
 pasystray --include-monitors &
+
+# setting primary monitor
+xrandr --output DP2-1 --primary
 
 # lock screen and wallpaper
 xss-lock -l -- i3lock-fancy &

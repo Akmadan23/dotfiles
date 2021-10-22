@@ -3,9 +3,9 @@
 # the current group name, comment out the "toggle_group" funcion in
 # /usr/local/lib/python3.x/site-packages/libqtile/config.py (if installed via pip)
 
-from libqtile import layout, bar, widget, hook
+from libqtile import qtile, layout, bar, widget, hook
 from libqtile.lazy import lazy
-from libqtile.config import Key, Screen, Group, Drag, Click
+from libqtile.config import Key, KeyChord, Screen, Group, Drag, Match
 import os, re, socket, subprocess
 
 # Importing environment variables
@@ -74,7 +74,8 @@ keys = [
     Key([mod],          "g",        lazy.spawn("galculator")),
     Key([mod],          "t",        lazy.spawn("thunderbird")),
     Key([mod],          "s",        lazy.spawn("flameshot gui")),
-    Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
+    Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e sh -c 'sleep 0.1 && ranger'")),
+    # Key([mod],          "w",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls
     Key([mod],          "Up",       lazy.spawn("amixer set Master 5%+")),                       # +5% volume
@@ -106,6 +107,10 @@ keys = [
     Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master 5%+")),                       # +5% volume
     Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),                       # -5% volume
     Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),                    # mute
+
+    KeyChord([mod], "v", [
+        Key([], str(i), lazy.spawn("amixer set Master " + str(i) + "0%")) for i in range(1, 10)
+    ])
 ]
 
 # Mouse bindings
@@ -114,30 +119,19 @@ mouse = [
     Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size())
 ]
 
-# Groups' names and icons
-groups = []
-group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-
-group_labels = [
+labels = [
     "\uf120", #1 - Terminal
     "\uf0ac", #2 - Internet
     "\uf0e0", #3 - Email
-    "\uf07c", #4 - File manager
+    "\uf07c", #4 - Files
     "\uf086", #5 - Chat
     "\uf001", #6 - Music
-    "\uf03e", #7 - Picture
-    "\uf19c", #8 - University
-    "\uf1b2", #9 - Cube
-    "\uf005"  #0 - Star
+    "\uf19c", #7 - University
+    "\uf1b2", #8 - Cube
+    "\uf005"  #9 - Star
 ]
 
-for i in range(len(group_names)):
-    groups.append(
-        Group(
-            name = group_names[i],
-            label = group_labels[i],
-        )
-    )
+groups = [Group(name = str(i), label = labels[i - 1]) for i in range(1, 10)]
 
 for i in groups:
     keys.extend([
@@ -145,26 +139,6 @@ for i in groups:
         Key([mod, sft],     i.name, lazy.window.togroup(i.name, switch_group = True)),
         Key([mod, ctrl],    i.name, lazy.window.togroup(i.name, switch_group = False)),
     ])
-
-# Assign applications to a specific groupname
-@hook.subscribe.client_new
-def assign_app_group(client):
-    d = {}
-    d["1"] = []
-    d["2"] = ["firefox", "Firefox"]
-    d["3"] = ["Mail", "Thunderbird"]
-    d["4"] = ["ranger", "Ranger"]
-    d["5"] = ["telegram-desktop", "TelegramDesktop", "discord"]
-    d["6"] = ["lmms.real"]
-    d["7"] = []
-    d["8"] = []
-
-    wm_class = client.window.get_wm_class()[0]
-    for i in range(len(d)):
-        if wm_class in list(d.values())[i]:
-            group = list(d.keys())[i]
-            client.togroup(group)
-            client.group.cmd_toscreen()
 
 # Default layout theme
 layout_theme = {
@@ -200,33 +174,11 @@ floating_layout = layout.Floating(
     border_width = 1,
 
     float_rules = [
-        # Default
-        {"wmclass": "confirm"},
-        {"wmclass": "dialog"},
-        {"wmclass": "download"},
-        {"wmclass": "error"},
-        {"wmclass": "file_progress"},
-        {"wmclass": "notification"},
-        {"wmclass": "splash"},
-        {"wmclass": "toolbar"},
-        {"wmclass": "confirmreset"},
-        {"wmclass": "makebranch"},
-        {"wmclass": "maketag"},
-        {"wmclass": "ssh-askpass"},
-
-        # Custom
-        {"wmclass": "cpu-x"},                   # cpu-x windows
-        {"wmclass": "gcr-prompter"},            # password input prompts
-        {"wmclass": "blueman-manager"},         # blueman windows
-        {"wmclass": "pavucontrol"},             # pavucontrol windows
-        {"wmclass": "galculator"},              # galculator windows
-        {"wmclass": "Msgcompose"},              # Thunderbird message window
-        {"wmclass": "Calendar"},                # Thunderbird calendar window
-        {"wmclass": "gsimplecal"},              # My minimal calendar of choice
-        {"wmclass": "gcolor2"},                 # gcolor2 windows
-        {"wmclass": "lxpolkit"},                # lxpolkit
-        {"wmclass": "timeshift-gtk"},           # timeshift
-        {"wmclass": "dragon"},                  # dragon
+        *layout.Floating.default_float_rules,   # Defaults
+        Match(wm_class = "lxpolkit"),           # Authentication windows
+        Match(wm_class = "galculator"),         # Galculator
+        Match(wm_class = "Calendar"),           # Thunderbird calendar window
+        Match(wm_class = "Msgcompose"),         # Thunderbird message window
     ]
 )
 
@@ -238,19 +190,10 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 
-# Calendar spawner
-def calendar(qtile):
-    qtile.cmd_spawn("gsimplecal")
-
 # Autostart script
 @hook.subscribe.startup
 def autostart():
     subprocess.call([home + "/.config/qtile/autostart.sh"])
-
-# Monitor detection
-@hook.subscribe.startup_once
-def autostart_once():
-    subprocess.call([home + "/.config/qtile/monitordetection.sh"])
 
 # Separator defaults
 separator = {
@@ -393,7 +336,7 @@ screens = [
                 widget.Clock(
                     background = accent3,
                     format = "%A %d %B, %H:%M",
-                    mouse_callbacks = {"Button1": calendar},
+                    mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("gsimplecal")},
                 ),
 
                 widget.TextBox(
@@ -452,7 +395,7 @@ screens = [
 
                 widget.Clock(
                     format = "%A %d %B, %H:%M",
-                    mouse_callbacks = {"Button1": calendar},
+                    mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("gsimplecal")},
                 ),
 
                 widget.CurrentLayoutIcon(
@@ -467,13 +410,11 @@ screens = [
 ]
 
 # Other settings
-dgroups_key_binder = None
-dgroups_app_rules = []
-main = None
-follow_mouse_focus = True
-bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
+bring_front_click = False
+follow_mouse_focus = True
+reconfigure_screens = True
 focus_on_window_activation = "auto"
 
 # neofetch fixes
