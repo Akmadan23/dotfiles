@@ -29,7 +29,8 @@ export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
 export PAGER="less"
-export MANPAGER="nvim -c 'set ft=man'"
+# export MANPAGER="nvim -c 'set ft=man'"
+export MANPAGER="less"
 export OPENER="xdg-open"
 
 # Pfetch

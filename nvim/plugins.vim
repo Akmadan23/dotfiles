@@ -7,15 +7,13 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'vimwiki/vimwiki'
     Plug 'mattn/calendar-vim'
     Plug 'powerman/vim-plugin-AnsiEsc'
-    Plug 'glacambre/firenvim', {'do': {_ -> firenvim#install(0)}}
 
     " dev tools
     Plug 'jiangmiao/auto-pairs'
     Plug 'alvan/vim-closetag'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
     Plug 'mattn/emmet-vim'
     Plug 'Yggdroot/indentLine'

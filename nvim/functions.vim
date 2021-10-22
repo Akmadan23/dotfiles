@@ -23,14 +23,14 @@ function! Run()
         if v:shell_error == 1
             silent exec '!chmod +x %'
         endif
-        tabnew term://%:p
+        split term://%:p
     else
         let l:ext = expand('%:e')
         if l:ext == 'c' || l:ext == 'cpp' || l:ext == 'go' || l:ext == 'rs'
-            tabnew term://%:p:r
+            split term://%:p:r
         elseif l:ext == 'java'
             cd %:h
-            tabnew term://java %:r
+            split term://java %:r
         else
             echo 'Nothing to execute.'
         endif
@@ -38,5 +38,5 @@ function! Run()
 endfunction
 
 " Calling functions
-nno <F5> :call Compile()<CR>
-nno <F6> :call Run()<CR>
+nmap <silent><F5> :call Compile()<CR>
+nmap <silent><F6> :call Run()<CR>

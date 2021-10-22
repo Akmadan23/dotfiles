@@ -3,7 +3,7 @@ source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim
 
-" Basig settings
+" Basic settings
 syntax enable
 set hidden
 set number
@@ -46,6 +46,9 @@ autocmd BufEnter term://* startinsert | set nonumber
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+
+" Closetag
+let g:closetag_filetypes = 'html, xml, php'
 
 " Man.vim
 let g:no_man_maps = 1
