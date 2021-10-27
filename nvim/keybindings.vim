@@ -56,7 +56,9 @@ ino <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 " Increasing and decreasing values
 nno <A-+> <C-a>
+vno <A-+> <C-a>
 nno <A--> <C-x>
+vno <A--> <C-x>
 
 " Moving between splits
 nno <C-h> <C-w>h

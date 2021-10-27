@@ -1,4 +1,4 @@
-" Sourcing plugins and keybindings
+" Sourcing plugins, functions and keybindings
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim
@@ -8,6 +8,8 @@ syntax enable
 set hidden
 set number
 set ignorecase
+set incsearch
+set noshowmode
 set cursorline
 set nobackup
 set background=dark
@@ -19,8 +21,6 @@ set clipboard+=unnamedplus
 " Splits
 set splitbelow
 set splitright
-set incsearch
-set noshowmode
 
 " Tabs
 set expandtab
@@ -37,9 +37,9 @@ set foldnestmax=10
 set foldlevel=100
 set nofoldenable
 
-colorscheme molokai-teal
+colorscheme my_molokai
 lua require 'colorizer'.setup()
-hi Normal ctermbg=none guibg=none
+" hi Normal ctermbg=none guibg=none
 
 " Automatic insert mode in terminal buffers
 autocmd BufEnter term://* startinsert | set nonumber
@@ -77,6 +77,6 @@ let g:startify_lists = [
     \ ]
 
 " Setting filetype to css in rofi stylesheets
-if (expand("%:e") == 'rasi')
+if (expand('%:e') == 'rasi')
     set ft=css
 endif
