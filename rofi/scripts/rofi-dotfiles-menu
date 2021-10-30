@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi conky dunst zathura)
+all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi conky dunst zathura starship)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -29,6 +29,7 @@ texts[rofi]="Rofi"
 texts[conky]="Conky"
 texts[dunst]="Dunst"
 texts[zathura]="Zathura"
+texts[starship]="Starship"
 
 declare -A icons
 icons[qtile]=""
@@ -48,6 +49,7 @@ icons[rofi]=""
 icons[conky]=""
 icons[dunst]=""
 icons[zathura]=""
+icons[starship]="\uf005"
 icons[cancel]="\u01d7"
 
 declare -A actions
@@ -68,6 +70,7 @@ actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/*"
 actions[conky]="~/.config/conky/conky.conf ~/.config/conky/* -c 'set ft=lua'"
 actions[dunst]="~/.config/dunst/dunstrc -c 'set ft=toml'"
 actions[zathura]="~/.config/zathura/zathurarc"
+actions[starship]="~/.config/starship/starship.toml"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=()
