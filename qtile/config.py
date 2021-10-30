@@ -74,8 +74,7 @@ keys = [
     Key([mod],          "g",        lazy.spawn("galculator")),
     Key([mod],          "t",        lazy.spawn("thunderbird")),
     Key([mod],          "s",        lazy.spawn("flameshot gui")),
-    Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e sh -c 'sleep 0.1 && ranger'")),
-    # Key([mod],          "w",        lazy.spawn(term + " -t Ranger -e ranger")),
+    Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls
     Key([mod],          "Up",       lazy.spawn("amixer set Master 5%+")),                       # +5% volume
@@ -142,30 +141,52 @@ for i in groups:
 
 # Default layout theme
 layout_theme = {
-    "margin": 8,
-    "single_margin": 0,
-    "single_border_width": 0,
     "border_normal": accent3,
     "border_focus": accent1,
     "border_width": 1,
+    "single_border_width": 0,
+    "margin": 8,
+    "single_margin": 0,
 }
 
 layouts = [
-    # layout.Floating(),
-    # layout.Stack(),
     # layout.Bsp(),
     # layout.Columns(),
+    # layout.Floating(),
     # layout.Matrix(),    
+    # layout.Max(),
     # layout.RatioTile(),
-    # layout.Tile(),
     # layout.Slice(),
+    # layout.Stack(),
+    # layout.Tile(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
-    # layout.TreeTab(),
 
-    layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
-    layout.Max(),
+    layout.MonadTall(
+        **layout_theme
+    ),
+
+    layout.MonadWide(
+        **layout_theme,
+        ratio = 0.6,
+    ),
+
+    layout.TreeTab(
+        font = "Cantarell bold",
+        font_size = 12,
+        bg_color = black,
+        border_width = 0,
+        panel_width = 128,
+        margin_left = 0,
+        padding_left = 0,
+        section_padding = 0,
+        active_bg = accent2,
+        active_fg = white,
+        inactive_bg = accent3,
+        inactive_fg = white,
+        urgent_bg = red,
+        urgent_fg = white,
+    ),
 ]
 
 floating_layout = layout.Floating(
@@ -189,6 +210,11 @@ widget_defaults = dict(
 )
 
 extension_defaults = widget_defaults.copy()
+
+# Monitor detection script
+@hook.subscribe.startup_once
+def autostart():
+    subprocess.call([home + "/.config/qtile/monitordetection.sh"])
 
 # Autostart script
 @hook.subscribe.startup
