@@ -37,15 +37,18 @@ set foldnestmax=10
 set foldlevel=100
 set nofoldenable
 
+" Setting colorscheme
 colorscheme my_molokai
-lua require 'colorizer'.setup()
-" hi Normal ctermbg=none guibg=none
 
 " Automatic insert mode in terminal buffers
 autocmd BufEnter term://* startinsert | set nonumber
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+
+" Hexokinase
+let g:Hexokinase_highlighters = ['backgroundfull']
+let g:Hexokinase_optOutPatterns = 'colour_names'
 
 " Closetag
 let g:closetag_filetypes = 'html, xml, php'

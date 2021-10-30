@@ -27,7 +27,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'deoplete-plugins/deoplete-jedi'
 
     " appearance plugins
-    Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'rrethy/vim-hexokinase', {'do': 'make hexokinase'}
     Plug 'flazz/vim-colorschemes'
     Plug 'sersorrel/vim-lilypond'
     Plug 'vim-airline/vim-airline'
