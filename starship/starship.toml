@@ -6,20 +6,20 @@ scan_timeout = 60
 
 # Use custom format
 format = """
-[┌────\ue0b6](bold cyan)$username[\ue0b0](fg:cyan bg:white)[\ue0b0 ](fg:white bg:blue)$hostname[\ue0b4──── ─ ─](bold blue)$cmd_duration
-[│](bold cyan)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
-[└──](bold cyan)$character"""
+[┌────\ue0b6](bold blue)$username[\ue0b0](fg:blue bg:white)[\ue0b0 ](fg:white bg:cyan)$hostname[\ue0b4──── ─ ─](bold cyan)$cmd_duration
+[│](bold blue)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
+[└──](bold blue)$character"""
 
 [character]
-success_symbol = "[❯](bold cyan)"
+success_symbol = "[❯](bold blue)"
 error_symbol = "[❯](bold red)"
-vicmd_symbol = "[─](bold cyan)"
+vicmd_symbol = "[─](bold blue)"
 
 [directory]
 truncate_to_repo = false
 truncation_length = 5
 truncation_symbol = "../"
-style = "bold yellow"
+style = "bold purple"
 format = "[$path]($style) [$read_only]($read_only_style)"
 
 [cmd_duration]
@@ -27,17 +27,21 @@ style = "bold yellow"
 format = "[ \\[$duration\\]]($style)"
 
 [username]
-style_user = "bold fg:black bg:cyan"
+style_user = "bold fg:black bg:blue"
 format = "[$user ]($style)"
 show_always = true
 
 [hostname]
-style = "bold fg:black bg:blue"
+style = "bold fg:black bg:cyan"
 format = "[$hostname]($style)"
 ssh_only = false 
 
+[git_branch]
+style = "bold red"
+format = "on [$symbol$branch]($style) "
+
 [git_status]
-style = "bold purple"
+style = "bold red"
 format = "[$all_status]($style)"
 conflicted = "!"
 untracked = "?"

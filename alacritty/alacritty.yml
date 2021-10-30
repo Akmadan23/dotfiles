@@ -112,27 +112,27 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
 
-# Colors (Molokai Breath)
+# Colors (Monokai)
 colors:
   normal:
     black:      "#000000"
-    red:        "#E12824"
+    red:        "#F92672"
     green:      "#A6E22E"
-    yellow:     "#FD971F"
-    blue:       "#AE81FF"
-    magenta:    "#F92672"
-    cyan:       "#1ABC9C"
-    white:      "#FFFFFF"
+    yellow:     "#E6DB74"
+    blue:       "#66D8EF"
+    magenta:    "#FD971F"
+    cyan:       "#AE81FF"
+    white:      "#F8F8F0"
     
   bright:
     black:      "#666666"
-    red:        "#E15451"
-    green:      "#BBE26C"
-    yellow:     "#FDAA47"
-    blue:       "#C4A3FF"
-    magenta:    "#F978A6"
-    cyan:       "#42DBBD"
-    white:      "#DDDDDD"
+    red:        "#F92672"
+    green:      "#A6E22E"
+    yellow:     "#E6DB74"
+    blue:       "#66D8EF"
+    magenta:    "#FD971F"
+    cyan:       "#AE81FF"
+    white:      "#F8F8F0"
     
   primary:
     background: "#242424"

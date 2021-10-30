@@ -29,15 +29,14 @@ export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
 export PAGER="less"
-# export MANPAGER="nvim -c 'set ft=man'"
-export MANPAGER="less"
+export MANPAGER="nvim +Man!"
 export OPENER="xdg-open"
 
 # Pfetch
 export PF_INFO="ascii title os host kernel uptime wm shell memory palette"
-export PF_COL1="6"
-export PF_COL2="7"
-export PF_COL3="5"
+export PF_COL1="6"  # Fields
+export PF_COL2="7"  # Details
+export PF_COL3="1"  # Title
 
 # Disabling GTK3 client side decorations
 export GTK_CSD=0
