@@ -19,39 +19,25 @@ XTerm*translations: #override \n\
   Ctrl <Key> -: smaller-vt-font() \n\
   Ctrl <Key> +: larger-vt-font()
 
-! special
+! colors
+XTerm*color0:   #000000
+XTerm*color8:   #666666
+XTerm*color1:   #F92672
+XTerm*color9:   #F92672
+XTerm*color2:   #A6E22E
+XTerm*color10:  #A6E22E
+XTerm*color3:   #E6DB74
+XTerm*color11:  #E6DB74
+XTerm*color4:   #66D8EF
+XTerm*color12:  #66D8EF
+XTerm*color5:   #FD971F
+XTerm*color13:  #FD971F
+XTerm*color6:   #AE81FF
+XTerm*color14:  #AE81FF
+XTerm*color7:   #F8F8F0
+XTerm*color15:  #F8F8F0
+
+! special colors
 XTerm*background:   #242424
 XTerm*foreground:   #DDDDDD
 XTerm*cursorColor:  #DDDDDD
-
-! black
-XTerm*color0:       #000000
-XTerm*color8:       #666666
-
-! red
-XTerm*color1:       #E12824
-XTerm*color9:       #E1413F
-
-! green
-XTerm*color2:       #A6E22E
-XTerm*color10:      #BBE26C
-
-! yellow
-XTerm*color3:       #FD971F
-XTerm*color11:      #FDAA47
-
-! blue
-XTerm*color4:       #AE81FF
-XTerm*color12:      #C4A3FF
-
-! magenta
-XTerm*color5:       #F92672
-XTerm*color13:      #F95A92
-
-! cyan
-XTerm*color6:       #1ABC9C
-XTerm*color14:      #7ABCA7
-
-! white
-XTerm*color7:       #FFFFFF
-XTerm*color15:      #DDDDDD
