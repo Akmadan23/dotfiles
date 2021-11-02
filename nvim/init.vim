@@ -1,19 +1,14 @@
-" Sourcing plugins, functions and keybindings
-source ~/.config/nvim/plugins.vim
-source ~/.config/nvim/functions.vim
-source ~/.config/nvim/keybindings.vim
-
 " Basic settings
-syntax enable
 set hidden
 set number
-set ignorecase
 set incsearch
-set noshowmode
+set ignorecase
 set cursorline
+set nocursorcolumn
+set termguicolors
+set noshowmode
 set nobackup
 set background=dark
-set termguicolors
 set mouse=a
 set encoding=UTF-8
 set clipboard+=unnamedplus
@@ -37,8 +32,11 @@ set foldnestmax=10
 set foldlevel=100
 set nofoldenable
 
-" Setting colorscheme
-colorscheme my_molokai
+" Sourcing theme, plugins, functions and keybindings
+source ~/.config/nvim/theme.vim
+source ~/.config/nvim/plugins.vim
+source ~/.config/nvim/functions.vim
+source ~/.config/nvim/keybindings.vim
 
 " Automatic insert mode in terminal buffers
 autocmd BufEnter term://* startinsert | set nonumber
