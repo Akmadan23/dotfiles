@@ -9,9 +9,9 @@ from libqtile.config import Key, KeyChord, Screen, Group, Drag, Match
 import os, re, socket, subprocess
 
 # Importing environment variables
-home = os.environ['HOME']
-path = os.environ['PATH']
-term = os.environ['TERMINAL']
+home = os.environ["HOME"]
+path = os.environ["PATH"]
+term = os.environ["TERMINAL"]
 
 # Keys aliases
 mod = "mod4"
@@ -24,12 +24,12 @@ FA4 = "FontAwesome"                 # V4.7
 FA5 = "Font Awesome 5 Free Solid"   # V5.15
 
 # Colors
-red =       "#CC0000"
-black =     "#000000"
-white =     "#FFFFFF"
-accent1 =   "#1ABC9C"
-accent2 =   "#24574D"
-accent3 =   "#242424"
+red     = "#CC0000"
+black   = "#000000"
+white   = "#FFFFFF"
+accent1 = "#1ABC9C"
+accent2 = "#24574D"
+accent3 = "#242424"
 
 # Keyboard bindings
 keys = [
@@ -77,36 +77,34 @@ keys = [
     Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([mod],          "Up",       lazy.spawn("amixer set Master 5%+")),                       # +5% volume
-    Key([mod],          "Down",     lazy.spawn("amixer set Master 5%-")),                       # -5% volume
-    Key([mod],          "m",        lazy.spawn("amixer set Master toggle")),                    # mute
-    Key([mod],          "p",        lazy.spawn("deadbeef --play-pause")),                       # deadbeef toggle play/pause
-    Key([mod],          "Right",    lazy.spawn("brightlight -i 239")),                          # +5% backlight
-    Key([mod],          "Left",     lazy.spawn("brightlight -d 239")),                          # -5% backlight
-    Key([mod],          "r",        lazy.spawn("brightlight -w 2390")),                         # resets to 50%
-    # Key([mod],          "Right",    lazy.spawn("xbacklight -inc 5")),                           # +5% backlight
-    # Key([mod],          "Left",     lazy.spawn("xbacklight -dec 5")),                           # -5% backlight
-    # Key([mod],          "r",        lazy.spawn("xbacklight -set 50")),                          # resets to 50%
+    Key([mod],          "Up",       lazy.spawn("amixer set Master 5%+")),               # +5% volume
+    Key([mod],          "Down",     lazy.spawn("amixer set Master 5%-")),               # -5% volume
+    Key([mod],          "m",        lazy.spawn("amixer set Master toggle")),            # mute
+    Key([mod],          "p",        lazy.spawn("deadbeef --play-pause")),               # deadbeef toggle play/pause
+    Key([mod],          "Right",    lazy.spawn("brightlight -i 239")),                  # +5% backlight
+    Key([mod],          "Left",     lazy.spawn("brightlight -d 239")),                  # -5% backlight
+    Key([mod],          "r",        lazy.spawn("brightlight -w 2390")),                 # resets to 50%
 
     # Moving cursor with keyboard
-    Key([mod, ctrl],    "h",        lazy.spawn("xdotool mousemove_relative -- -46 0")),
-    Key([mod, ctrl],    "j",        lazy.spawn("xdotool mousemove_relative -- 0 46")),
-    Key([mod, ctrl],    "k",        lazy.spawn("xdotool mousemove_relative -- 0 -46")),
-    Key([mod, ctrl],    "l",        lazy.spawn("xdotool mousemove_relative -- 46 0")),
-    Key([mod, alt],     "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),
-    Key([mod, alt],     "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),
-    Key([mod, alt],     "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),
-    Key([mod, alt],     "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),
-    Key([mod, alt],     "b",        lazy.spawn("xdotool click 1")),
-    Key([mod, alt],     "n",        lazy.spawn("xdotool click 3")),
+    Key([mod, ctrl],    "h",        lazy.spawn("xdotool mousemove_relative -- -46 0")), # move left pointer 46px
+    Key([mod, ctrl],    "j",        lazy.spawn("xdotool mousemove_relative -- 0 46")),  # move down pointer 46px
+    Key([mod, ctrl],    "k",        lazy.spawn("xdotool mousemove_relative -- 0 -46")), # move up pointer 46px
+    Key([mod, ctrl],    "l",        lazy.spawn("xdotool mousemove_relative -- 46 0")),  # move right pointer 46px
+    Key([mod, alt],     "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move left pointer 4px
+    Key([mod, alt],     "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move down pointer 4px
+    Key([mod, alt],     "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move up pointer 4px
+    Key([mod, alt],     "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move right pointer 4px
+    Key([mod, alt],     "b",        lazy.spawn("xdotool click 1")),                     # left click
+    Key([mod, alt],     "n",        lazy.spawn("xdotool click 3")),                     # right click
 
     # Special keys
-    Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),                          # +5% backlight
-    Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),                          # -5% backlight
-    Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master 5%+")),                       # +5% volume
-    Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),                       # -5% volume
-    Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),                    # mute
+    Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),              # +5% backlight
+    Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),              # -5% backlight
+    Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master 5%+")),           # +5% volume
+    Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),           # -5% volume
+    Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),        # mute
 
+    # Set volume
     KeyChord([mod], "v", [
         Key([], str(i), lazy.spawn("amixer set Master " + str(i) + "0%")) for i in range(1, 10)
     ])
@@ -118,18 +116,8 @@ mouse = [
     Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size())
 ]
 
-labels = [
-    "\uf120", #1 - Terminal
-    "\uf0ac", #2 - Internet
-    "\uf0e0", #3 - Email
-    "\uf07c", #4 - Files
-    "\uf086", #5 - Chat
-    "\uf001", #6 - Music
-    "\uf19c", #7 - University
-    "\uf1b2", #8 - Cube
-    "\uf005"  #9 - Star
-]
-
+#          1    2    3    4    5    6    7    8    9
+labels = ["", "", "", "", "", "", "", "", ""]
 groups = [Group(name = str(i), label = labels[i - 1]) for i in range(1, 10)]
 
 for i in groups:
@@ -211,16 +199,6 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 
-# Monitor detection script
-@hook.subscribe.startup_once
-def autostart():
-    subprocess.call([home + "/.config/qtile/monitordetection.sh"])
-
-# Autostart script
-@hook.subscribe.startup
-def autostart():
-    subprocess.call([home + "/.config/qtile/autostart.sh"])
-
 # Separator defaults
 separator = {
     "text": "",
@@ -262,7 +240,7 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "\uf2c8",
+                    text = "",
                     font = FA4,
                     fontsize = 16,
                     background = accent3,
@@ -285,7 +263,7 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "\uf0eb",
+                    text = "",
                     font = FA4,
                     fontsize = 16,
                     background = accent2,
@@ -308,7 +286,7 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "\uf028",
+                    text = "",
                     font = FA4,
                     fontsize = 16,
                     background = accent1,
@@ -328,23 +306,23 @@ screens = [
                 ),
 
                 widget.Battery(
-                    format = '{char}',
+                    format = "{char}",
                     font = FA4,
                     fontsize = 16,
                     background = accent2,
                     foreground = white,
-                    empty_char = "\uf244",
-                    full_char = "\uf240",
-                    charge_char = "\uf0e7",
-                    discharge_char = "\uf242",
-                    unknown_char = "\uf240",
+                    empty_char = "",
+                    discharge_char = "",
+                    full_char = "",
+                    unknown_char = "",
+                    charge_char = "",
                     low_foreground = red,
                     show_short_text = False,
                     update_interval = 30,
                 ),
 
                 widget.Battery(
-                    format = '{percent:1.0%}',
+                    format = "{percent:1.0%}",
                     background = accent2,
                     foreground = white,
                     low_foreground = red,
@@ -396,7 +374,7 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "\uf2db",
+                    text = "",
                     font = FA4,
                     fontsize = 16,
                 ),
@@ -408,7 +386,7 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text = "\uf176\uf175",
+                    text = "",
                     font = FA4,
                     fontsize = 16,
                 ),
@@ -446,3 +424,13 @@ focus_on_window_activation = "auto"
 # neofetch fixes
 wmname = "Qtile"
 dename = ""
+
+# Monitor detection script
+@hook.subscribe.startup_once
+def autostart():
+    subprocess.call([home + "/.config/qtile/monitordetection.sh"])
+
+# Autostart script
+@hook.subscribe.startup
+def autostart():
+    subprocess.call([home + "/.config/qtile/autostart.sh"])

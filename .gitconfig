@@ -2,8 +2,7 @@
     name = Akmadan23
     email = azadahmadi@mailo.com
 [core]
-    ; pager = diff-so-fancy | bat
-    pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = diff-so-fancy | less --mouse -x4
     ; pager = diff-so-fancy | nvim -RMn -c 'set ft=diff | AnsiEsc'
 
 [color]

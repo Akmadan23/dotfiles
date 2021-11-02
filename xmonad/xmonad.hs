@@ -159,11 +159,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
     ((modMask,                  xK_comma),  prevScreen),                        -- Switch focus to prev monitor
     ((modMask,                  xK_Tab),    sendMessage NextLayout),            -- Switch to next layout
     ((modMask .|. shiftMask,    xK_space),                                      -- Toggles noborder/full
-        sendMessage (MT.Toggle NBFULL) >>
-        sendMessage ToggleStruts),
+        sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts),
 
     -- Terminal and rofi
-    ((modMask,                  xK_Return), spawn myTerminal),                                  -- Spawns a terminal
+    ((modMask,                  xK_Return), spawn myTerminal),                                      -- Spawns a terminal
     ((modMask,                  xK_space),  spawn "rofi -modi drun,run -show drun"),                -- Rofi apps menu
     ((modMask .|. shiftMask,    xK_e),      spawn "rofi -modi menu:rofi-power-menu -show menu"),    -- Rofi power menu
     ((modMask .|. shiftMask,    xK_x),      spawn "rofi -modi menu:rofi-xrandr-menu -show menu"),   -- Rofi xrandr menu

@@ -123,7 +123,7 @@ colors:
     magenta:    "#FD971F"
     cyan:       "#AE81FF"
     white:      "#F8F8F0"
-    
+
   bright:
     black:      "#666666"
     red:        "#F92672"
@@ -144,11 +144,11 @@ colors:
 # The value `0.0` is completely transparent and `1.0` is opaque.
 background_opacity: 0.75
 
-#selection:
+selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
   # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
+  save_to_clipboard: false
 
 # Allow terminal applications to change Alacritty's window title.
 window:
