@@ -19,22 +19,24 @@ XTerm*translations: #override \n\
   Ctrl <Key> -: smaller-vt-font() \n\
   Ctrl <Key> +: larger-vt-font()
 
-! colors
+! normal colors
 XTerm*color0:   #000000
-XTerm*color8:   #666666
 XTerm*color1:   #F92672
-XTerm*color9:   #F92672
 XTerm*color2:   #A6E22E
-XTerm*color10:  #A6E22E
 XTerm*color3:   #E6DB74
-XTerm*color11:  #E6DB74
 XTerm*color4:   #66D8EF
-XTerm*color12:  #66D8EF
 XTerm*color5:   #FD971F
-XTerm*color13:  #FD971F
 XTerm*color6:   #AE81FF
-XTerm*color14:  #AE81FF
 XTerm*color7:   #F8F8F0
+
+! bright colors
+XTerm*color8:   #666666
+XTerm*color9:   #FF6188
+XTerm*color10:  #A9DC76
+XTerm*color11:  #FFD866
+XTerm*color12:  #78DCE8
+XTerm*color13:  #FC9867
+XTerm*color14:  #AB9DF2
 XTerm*color15:  #F8F8F0
 
 ! special colors

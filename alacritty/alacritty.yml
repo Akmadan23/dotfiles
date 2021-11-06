@@ -94,7 +94,7 @@ font:
     family: Hasklug Nerd Font Mono
 
   # Point size
-  size: 9.5
+  size: 9
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -112,7 +112,7 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
 
-# Colors (Monokai)
+# Monokai Color Scheme (https://kolormark.com/brands/monokai)
 colors:
   normal:
     black:      "#000000"
@@ -126,14 +126,14 @@ colors:
 
   bright:
     black:      "#666666"
-    red:        "#F92672"
-    green:      "#A6E22E"
-    yellow:     "#E6DB74"
-    blue:       "#66D8EF"
-    magenta:    "#FD971F"
-    cyan:       "#AE81FF"
+    red:        "#FF6188"
+    green:      "#A9DC76"
+    yellow:     "#FFD866"
+    blue:       "#78DCE8"
+    magenta:    "#FC9867"
+    cyan:       "#AB9DF2"
     white:      "#F8F8F0"
-    
+
   primary:
     background: "#242424"
     foreground: "#DDDDDD"
