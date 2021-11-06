@@ -2,7 +2,7 @@
 set -e
 set -u
 
-# Menu title displayed on the bottom
+# Menu title
 title="Power menu"
 
 # All supported choices
@@ -20,13 +20,13 @@ texts[logout]="Log out"
 texts[lockscreen]="Lock screen"
 
 declare -A icons
-icons[shutdown]="\uf011"
-icons[reboot]="\uf01e"
-icons[suspend]="\uf186"
-icons[hibernate]="\uf7c9"
-icons[logout]="\uf08b"
-icons[lockscreen]="\uf023"
-icons[cancel]="\u00d7"
+icons[shutdown]=""
+icons[reboot]=""
+icons[suspend]=""
+icons[hibernate]=""
+icons[logout]=""
+icons[lockscreen]=""
+icons[cancel]="×"
 
 declare -A actions
 actions[shutdown]="systemctl poweroff"

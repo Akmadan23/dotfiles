@@ -2,7 +2,7 @@
 set -e
 set -u
 
-# Menu title displayed on the bottom
+# Menu title
 title="xrandr menu"
 
 # All supported choices
@@ -19,12 +19,12 @@ texts[external-tv]="External monitor (TV)"
 texts[dual-tv]="Dual monitor (TV)"
 
 declare -A icons
-icons[integrated]="\uf109"
-icons[dual-monitor]="\uf109 +\uf108"
-icons[external-monitor]="\uf108"
-icons[external-tv]="\uf26c"
-icons[dual-tv]="\uf109 +\uf26c"
-icons[cancel]="\u00d7"
+icons[integrated]=""
+icons[dual-monitor]=" +"
+icons[external-monitor]=""
+icons[external-tv]=""
+icons[dual-tv]=" +"
+icons[cancel]="×"
 
 declare -A actions
 actions[integrated]="xrandr --output eDP1 --mode 1600x900 --output HDMI1 --off --output DP2-1 --off"
