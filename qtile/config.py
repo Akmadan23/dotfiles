@@ -23,13 +23,19 @@ ctrl = "control"
 FA4 = "FontAwesome"                 # V4.7
 FA5 = "Font Awesome 5 Free Solid"   # V5.15
 
-# Colors
-red     = "#CC0000"
-black   = "#000000"
-white   = "#FFFFFF"
-accent1 = "#1ABC9C"
-accent2 = "#24574D"
-accent3 = "#242424"
+# Monokai Color Scheme (https://kolormark.com/brands/monokai)
+colors = [
+    "#000000", #0 - Black
+    "#F92672", #1 - Magenta
+    "#A6E22E", #2 - Green
+    "#E6DB74", #3 - Yellow
+    "#66D8EF", #4 - Blue
+    "#FD971F", #5 - Orange
+    "#AE81FF", #6 - Purple
+    "#F8F8F0", #7 - White
+    "#465457", #8 - Light Grey
+    "#242424", #9 - Dark Grey
+]
 
 # Keyboard bindings
 keys = [
@@ -128,14 +134,14 @@ for i in groups:
     ])
 
 # Default layout theme
-layout_theme = {
-    "border_normal": accent3,
-    "border_focus": accent1,
-    "border_width": 1,
-    "single_border_width": 0,
-    "margin": 8,
-    "single_margin": 0,
-}
+layout_theme = dict(
+    border_normal = colors[0],
+    border_focus = colors[3],
+    border_width = 2,
+    single_border_width = 0,
+    margin = 8,
+    single_margin = 0,
+)
 
 layouts = [
     # layout.Bsp(),
@@ -162,25 +168,25 @@ layouts = [
     layout.TreeTab(
         font = "Cantarell bold",
         font_size = 12,
-        bg_color = black,
         border_width = 0,
         panel_width = 128,
         margin_left = 0,
         padding_left = 0,
         section_padding = 0,
-        active_bg = accent2,
-        active_fg = white,
-        inactive_bg = accent3,
-        inactive_fg = white,
-        urgent_bg = red,
-        urgent_fg = white,
+        bg_color = colors[0],
+        active_fg = colors[0],
+        active_bg = colors[3],
+        inactive_fg = colors[7],
+        inactive_bg = colors[8],
+        urgent_fg = colors[7],
+        urgent_bg = colors[1],
     ),
 ]
 
 floating_layout = layout.Floating(
-    border_focus = accent1,
-    border_normal = accent3,
-    border_width = 1,
+    border_focus = colors[4],
+    border_normal = colors[0],
+    border_width = 2,
 
     float_rules = [
         *layout.Floating.default_float_rules,   # Defaults
@@ -192,7 +198,7 @@ floating_layout = layout.Floating(
 )
 
 widget_defaults = dict(
-    font = "Cantarell",
+    font = "Cantarell Bold",
     fontsize = 14,
     padding = 3,
 )
@@ -200,24 +206,27 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 # Separator defaults
-separator = {
-    "text": "",
-    "font": FA4,
-    "fontsize": 43,
-    "padding": 0,
-    "margin": 0
-}
+separator = dict(
+    text = "",
+    font = "Hasklug Nerd Font Mono",
+    fontsize = 32,
+    padding = 0,
+    margin = 0
+)
 
 # Groupbox defaults
-groupbox = {
-    "this_current_screen_border": accent1,
-    "this_screen_border": accent1,
-    "highlight_color": accent2,
-    "highlight_method": "line",
-    "font": FA4,
-    "fontsize": 16,
-    "rounded": False,
-}
+groupbox = dict(
+    font = FA4,
+    fontsize = 16,
+    active = colors[7],
+    inactive = colors[8],
+    this_screen_border = colors[4],
+    this_current_screen_border = colors[4],
+    other_screen_border = colors[8],
+    other_current_screen_border = colors[8],
+    highlight_color = [colors[0], colors[4]],
+    highlight_method = "line",
+)
 
 # Screen settings
 screens = [
@@ -235,118 +244,155 @@ screens = [
 
                 widget.TextBox(
                     **separator,
-                    background = black,
-                    foreground = accent3,
+                    background = colors[0],
+                    foreground = colors[1],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[1],
+                    foreground = colors[2],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[2],
+                    foreground = colors[3],
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    font = FA4,
+                    background = colors[3],
+                    foreground = colors[0],
+                ),
+
+                widget.CheckUpdates(
+                    distro = "Fedora",
+                    update_interval = 600,
+                    no_update_string = "✔",
+                    display_format = "{updates}",
+                    execute = term + " --hold -e sudo dnf up",
+                    colour_have_updates = colors[0],
+                    colour_no_updates = colors[0],
+                    background = colors[3],
+                    foreground = colors[0],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[3],
+                    foreground = colors[4],
                 ),
 
                 widget.TextBox(
                     text = "",
                     font = FA4,
                     fontsize = 16,
-                    background = accent3,
-                    foreground = white,
+                    background = colors[4],
+                    foreground = colors[0],
                 ),
 
                 widget.ThermalSensor(
                     update_interval = 1,
-                    foreground_alert = red,
+                    foreground_alert = colors[1],
                     threshold = 90,
                     padding = 5,
-                    background = accent3,
-                    foreground = white,
+                    background = colors[4],
+                    foreground = colors[0],
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = accent3,
-                    foreground = accent2,
+                    background = colors[4],
+                    foreground = colors[5],
                 ),
 
                 widget.TextBox(
                     text = "",
                     font = FA4,
                     fontsize = 16,
-                    background = accent2,
-                    foreground = white,
+                    background = colors[5],
+                    foreground = colors[0],
                 ),
 
                 widget.Backlight(
                     backlight_name = "intel_backlight",
                     brightness_file = "brightness",
-                    background = accent2,
-                    foreground = white,
-                    change_command = "xbacklight -inc {0}",
-                    step = 5,
+                    change_command = None,
+                    background = colors[5],
+                    foreground = colors[0],
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = accent2,
-                    foreground = accent1,
+                    background = colors[5],
+                    foreground = colors[6],
                 ),
 
                 widget.TextBox(
                     text = "",
                     font = FA4,
                     fontsize = 16,
-                    background = accent1,
-                    foreground = black,
+                    background = colors[6],
+                    foreground = colors[0],
                 ),
 
                 widget.Volume(
                     step = 5,
-                    background = accent1,
-                    foreground = black,
+                    background = colors[6],
+                    foreground = colors[0],
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = accent1,
-                    foreground = accent2,
+                    background = colors[6],
+                    foreground = colors[8],
                 ),
 
                 widget.Battery(
                     format = "{char}",
                     font = FA4,
                     fontsize = 16,
-                    background = accent2,
-                    foreground = white,
                     empty_char = "",
                     discharge_char = "",
                     full_char = "",
                     unknown_char = "",
                     charge_char = "",
-                    low_foreground = red,
                     show_short_text = False,
                     update_interval = 30,
+                    low_foreground = colors[1],
+                    background = colors[8],
+                    foreground = colors[7],
                 ),
 
                 widget.Battery(
                     format = "{percent:1.0%}",
-                    background = accent2,
-                    foreground = white,
-                    low_foreground = red,
                     show_short_text = False,
                     notify_below = 10,
                     update_interval = 30,
+                    low_foreground = colors[1],
+                    background = colors[8],
+                    foreground = colors[7],
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = accent2,
-                    foreground = accent3,
+                    background = colors[8],
+                    foreground = colors[9],
                 ),
 
                 widget.Clock(
-                    background = accent3,
                     format = "%A %d %B, %H:%M",
                     mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("gsimplecal")},
+                    background = colors[9],
+                    foreground = colors[7],
                 ),
 
                 widget.TextBox(
                     **separator,
-                    background = accent3,
-                    foreground = black,
+                    background = colors[9],
+                    foreground = colors[0],
                 ),
 
                 widget.Systray(),
@@ -357,7 +403,7 @@ screens = [
             ],
 
             size = 22,
-            background = black,
+            background = colors[0],
         )
     ),
 
@@ -380,9 +426,10 @@ screens = [
                 ),
 
                 widget.CPUGraph(
-                    line_width = 2,
-                    graph_color = accent1,
-                    border_color = black,
+                    line_width = 4,
+                    fill_color = colors[3],
+                    graph_color = colors[1],
+                    border_color = colors[0],
                 ),
 
                 widget.TextBox(
@@ -392,14 +439,71 @@ screens = [
                 ),
 
                 widget.NetGraph(
-                    line_width = 2,
-                    graph_color = red,
-                    border_color = black,
+                    line_width = 4,
+                    fill_color = colors[3],
+                    graph_color = colors[6],
+                    border_color = colors[0],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[0],
+                    foreground = colors[1],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[1],
+                    foreground = colors[2],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[2],
+                    foreground = colors[3],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[3],
+                    foreground = colors[4],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[4],
+                    foreground = colors[5],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[5],
+                    foreground = colors[6],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[6],
+                    foreground = colors[8],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[8],
+                    foreground = colors[9],
                 ),
 
                 widget.Clock(
                     format = "%A %d %B, %H:%M",
                     mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("gsimplecal")},
+                    background = colors[9],
+                    foreground = colors[7],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[9],
+                    foreground = colors[0],
                 ),
 
                 widget.CurrentLayoutIcon(
@@ -408,7 +512,7 @@ screens = [
             ],
 
             size = 24,
-            background = black,
+            background = colors[0],
         )
     )
 ]
@@ -427,7 +531,7 @@ dename = ""
 
 # Monitor detection script
 @hook.subscribe.startup_once
-def autostart():
+def autostart_once():
     subprocess.call([home + "/.config/qtile/monitordetection.sh"])
 
 # Autostart script
