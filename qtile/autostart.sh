@@ -1,21 +1,18 @@
 #!/bin/sh
 
-killall conky picom pasystray
+# launching apps only if there are no istances already running
+! pidof -q conky            && conky &                          # desktop widgets
+! pidof -q dunst            && dunst &                          # notification daemon
+! pidof -q dunst            && picom -f &                       # compositor
+! pidof -q lxpolkit         && lxpolkit &                       # authentication agent
+! pidof -q flameshot        && flameshot &                      # screenshot tool
+! pidof -q parcellite       && parcellite &                     # clipboard manager
+! pidof -q nm-applet        && nm-applet &                      # network manager
+! pidof -q blueman-applet   && blueman-applet &                 # bluetooth manager
+! pidof -q pasystray        && pasystray --include-monitors &   # pulseaudio tray icon
+! pidof -q xss-lock         && xss-lock -l -- i3lock-fancy &    # lock screen manager
 
-dunst &                 # notification daemon
-conky &                 # desktop widgets
-picom -f &              # compositor
-lxpolkit &              # simple policykit authentication agent
-nm-applet &             # network manager
-flameshot &             # screenshot tool
-parcellite &            # clipboard manager
-blueman-applet &        # bluetooth manager
-
-# pulseaudio tray icon
-pasystray --include-monitors &
-
-# lock screen and wallpaper
-xss-lock -l -- i3lock-fancy &
+# setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg
 
 # handmade power management script
