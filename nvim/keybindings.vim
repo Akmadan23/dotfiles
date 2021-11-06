@@ -5,13 +5,13 @@ nno L $
 vno L $
 
 " PageUp and PageDown with J/K
-nno J <C-d>zz
-vno J <C-d>zz
-nno K <C-u>zz
-vno K <C-u>zz
+nno J <c-d>zz
+vno J <c-d>zz
+nno K <c-u>zz
+vno K <c-u>zz
 
 " Undo with U
-nno U <C-r>
+nno U <c-r>
 
 " Fixing Y behaviour
 nno Y y$
@@ -27,24 +27,24 @@ nno n nzz
 nno N Nzz
 
 " Folding
-nno <silent><Space> za
+nno <silent><space> za
 
 " Quit insert mode
-ino <A-i> <Esc>
+ino <a-i> <esc>
 
 " Select all command
-nno <C-a> ggVG
+nno <c-a> ggVG
 
 " Reload config
-nno <C-r> :source ~/.config/nvim/init.vim<CR>
+nno <c-r> :source ~/.config/nvim/init.vim<cr>
 
 " Disabling Ctrl+q for visual block
-nno <C-q> <nop>
-vno <C-q> <nop>
+nno <c-q> <nop>
+vno <c-q> <nop>
 
 " Moving between tabs
-nno <Tab> gt
-nno <S-Tab> gT
+nno <tab> gt
+nno <s-tab> gT
 
 " Adding visual tabbing
 vno <Tab> >gv
@@ -55,35 +55,35 @@ ino <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 ino <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 " Increasing and decreasing values
-nno <A-+> <C-a>
-vno <A-+> <C-a>
-nno <A--> <C-x>
-vno <A--> <C-x>
+nno <a-+> <c-a>
+vno <a-+> <c-a>
+nno <a--> <c-x>
+vno <a--> <c-x>
 
 " Moving between splits
-nno <C-h> <C-w>h
-nno <C-j> <C-w>j
-nno <C-k> <C-w>k
-nno <C-l> <C-w>l
+nno <c-h> <c-w>h
+nno <c-j> <c-w>j
+nno <c-k> <c-w>k
+nno <c-l> <c-w>l
 
 " Disabling arrow keys
-nno <Up> <nop>
-vno <Up> <nop>
-nno <Down> <nop>
-vno <Down> <nop>
-nno <Left> <nop>
-vno <Left> <nop>
-nno <Right> <nop>
-vno <Right> <nop>
+nno <up> <nop>
+vno <up> <nop>
+nno <down> <nop>
+vno <down> <nop>
+nno <left> <nop>
+vno <left> <nop>
+nno <right> <nop>
+vno <right> <nop>
 
 " Disabling enter and backspace
-nno <Return> <nop>
-vno <Return> <nop>
-nno <BackSpace> <nop>
-vno <BackSpace> <nop>
+nno <return> <nop>
+vno <return> <nop>
+nno <backspace> <nop>
+vno <backspace> <nop>
 
 " Terminal bindings 
-tno <Esc> <C-\><C-n>
+tno <esc> <c-\><c-n>
 
 " Command mode abbreviations
 cabbr W w
