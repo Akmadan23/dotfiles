@@ -10,3 +10,6 @@ ranger/plugins/ranger_devicons/*
 
 # Mpv
 mpv/scripts/mpv_thumbnail_script_server_bis.lua
+
+# Zsh history
+zsh/.zsh_history

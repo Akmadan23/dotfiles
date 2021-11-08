@@ -139,7 +139,7 @@ layout_theme = dict(
     border_focus = colors[3],
     border_width = 2,
     single_border_width = 0,
-    margin = 8,
+    margin = 12,
     single_margin = 0,
 )
 
@@ -200,7 +200,7 @@ floating_layout = layout.Floating(
 widget_defaults = dict(
     font = "Cantarell Bold",
     fontsize = 14,
-    padding = 3,
+    padding = 4,
 )
 
 extension_defaults = widget_defaults.copy()
@@ -294,10 +294,9 @@ screens = [
                 ),
 
                 widget.ThermalSensor(
-                    update_interval = 1,
+                    update_interval = 2,
                     foreground_alert = colors[1],
                     threshold = 90,
-                    padding = 5,
                     background = colors[4],
                     foreground = colors[0],
                 ),

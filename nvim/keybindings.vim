@@ -29,6 +29,10 @@ nno N Nzz
 " Folding
 nno <silent><space> za
 
+" Wrap/nowrap
+nno <silent><leader>wy :set wrap<cr>
+nno <silent><leader>wn :set nowrap<cr>
+
 " Quit insert mode
 ino <a-i> <esc>
 

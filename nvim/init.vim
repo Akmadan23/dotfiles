@@ -57,6 +57,8 @@ let g:no_man_maps = 1
 " Airline
 let g:airline_theme = 'molokai'
 let g:airline_powerline_fonts = 0
+" let g:airline_left_sep = ''
+" let g:airline_right_sep = ''
 
 " IndentLine
 let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help', 'man', 'tex', 'startify']

@@ -3,7 +3,7 @@
 # launching apps only if there are no istances already running
 ! pidof -q conky            && conky &                          # desktop widgets
 ! pidof -q dunst            && dunst &                          # notification daemon
-! pidof -q dunst            && picom -f &                       # compositor
+! pidof -q picom            && picom -f &                       # compositor
 ! pidof -q lxpolkit         && lxpolkit &                       # authentication agent
 ! pidof -q flameshot        && flameshot &                      # screenshot tool
 ! pidof -q parcellite       && parcellite &                     # clipboard manager
