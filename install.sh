@@ -47,10 +47,6 @@ mkdir -p ~/.config/rofi/
 cp -r rofi/* ~/.config/rofi/
 ln -s ~/.config/rofi/scripts/* ~/.local/bin/
 
-# wlogout
-mkdir -p ~/.config/wlogout/
-cp -r wlogout/* ~/.config/wlogout/
-
 # zathura
 mkdir -p ~/.config/zathura/
 cp -r zathura/* ~/.config/zathura/
