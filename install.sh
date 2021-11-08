@@ -19,7 +19,8 @@ cp -r sxhkd/* ~/.config/sxhkd/
 # nvim
 mkdir -p ~/.config/nvim/
 cp -r nvim/* ~/.config/nvim/
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.config/nvim/autoload/plug.vim \
+    --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # qtile
 mkdir -p ~/.config/qtile/
@@ -78,8 +79,9 @@ cp misc/* ~/.config/Dharkael/
 
 # zsh 
 mkdir -p ~/.config/zsh/
-cp zsh/.zshrc ~/.config/zsh/
-cp zsh/.zshenv ~/.config/zsh/
+cp zsh/.zsh* ~/.config/zsh/
+git clone https://github.com/zsh-users/zsh-autosuggestions.git zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh/plugins/zsh-syntax-highlighting
 
 # X
 cp .Xresources ~

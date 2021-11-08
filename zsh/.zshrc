@@ -78,7 +78,6 @@ bindkey -M viins "^?" backward-delete-char
 bindkey -M viins "^H" backward-kill-word
 
 # [Delete] - delete forward
-# bindkey -M viins "^[3;5~" delete-char
 bindkey -M viins "^[[3~" delete-char
 
 # [Ctrl-Delete] - delete whole forward-word
@@ -91,7 +90,6 @@ bindkey -M viins "^[[1;5C" forward-word
 bindkey -M viins "^[[1;5D" backward-word
 
 # Plugins
-source $ZDOTDIR/plugins/history.zsh
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
