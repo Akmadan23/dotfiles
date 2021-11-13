@@ -40,75 +40,75 @@ colors = [
 # Keyboard bindings
 keys = [
     # Switch between windows
-    Key([mod],          "h",        lazy.layout.left()),
-    Key([mod],          "j",        lazy.layout.down()),
-    Key([mod],          "k",        lazy.layout.up()),
-    Key([mod],          "l",        lazy.layout.right()),
+    Key([mod],              "h",        lazy.layout.left()),
+    Key([mod],              "j",        lazy.layout.down()),
+    Key([mod],              "k",        lazy.layout.up()),
+    Key([mod],              "l",        lazy.layout.right()),
 
     # Move windows in current stack
-    Key([mod, sft],     "h",        lazy.layout.shuffle_left()),
-    Key([mod, sft],     "j",        lazy.layout.shuffle_down()),
-    Key([mod, sft],     "k",        lazy.layout.shuffle_up()),
-    Key([mod, sft],     "l",        lazy.layout.shuffle_right()),
+    Key([mod, sft],         "h",        lazy.layout.shuffle_left()),
+    Key([mod, sft],         "j",        lazy.layout.shuffle_down()),
+    Key([mod, sft],         "k",        lazy.layout.shuffle_up()),
+    Key([mod, sft],         "l",        lazy.layout.shuffle_right()),
 
     # Switch between monitors
-    Key([mod],          "comma",    lazy.prev_screen()),
-    Key([mod],          "period",   lazy.next_screen()),
+    Key([mod],              "comma",    lazy.prev_screen()),
+    Key([mod],              "period",   lazy.next_screen()),
 
     # Windows and layout behaviour
-    Key([mod, sft],     "r",        lazy.restart()),
-    Key([mod, sft],     "q",        lazy.window.kill()),
-    Key([mod, sft],     "n",        lazy.layout.normalize()),
-    Key([mod, sft],     "f",        lazy.window.toggle_floating()),
-    Key([mod],          "plus",     lazy.layout.grow(), lazy.layout.increase_nmaster()),
-    Key([mod],          "minus",    lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
+    Key([mod, sft],         "r",        lazy.restart()),
+    Key([mod, sft],         "q",        lazy.window.kill()),
+    Key([mod, sft],         "n",        lazy.layout.normalize()),
+    Key([mod, sft],         "f",        lazy.window.toggle_floating()),
+    Key([mod],              "plus",     lazy.layout.grow()),
+    Key([mod],              "minus",    lazy.layout.shrink()),
 
     # Toggle between different layouts
-    Key([mod],          "Tab",      lazy.next_layout()),
-    Key([mod, sft],     "Tab",      lazy.prev_layout()),
+    Key([mod],              "Tab",      lazy.next_layout()),
+    Key([mod, sft],         "Tab",      lazy.prev_layout()),
 
     # Terminal and rofi
-    Key([mod],          "Return",   lazy.spawn(term)),
-    Key([mod],          "space",    lazy.spawn("rofi -modi drun,run -show drun")),
-    Key([mod, sft],     "e",        lazy.spawn("rofi -modi menu:rofi-power-menu -show menu")),
-    Key([mod, sft],     "x",        lazy.spawn("rofi -modi menu:rofi-xrandr-menu -show menu")),
-    Key([mod, sft],     "d",        lazy.spawn("rofi -modi menu:rofi-dotfiles-menu -show menu")),
+    Key([mod],              "Return",   lazy.spawn(term)),
+    Key([mod],              "space",    lazy.spawn("rofi -modi drun,run -show drun")),
+    Key([mod, sft],         "e",        lazy.spawn("rofi -modi menu:rofi-power-menu -show menu")),
+    Key([mod, sft],         "x",        lazy.spawn("rofi -modi menu:rofi-xrandr-menu -show menu")),
+    Key([mod, sft],         "d",        lazy.spawn("rofi -modi menu:rofi-dotfiles-menu -show menu")),
 
     # App spawning
-    Key([mod],          "f",        lazy.spawn("firefox")),
-    Key([mod],          "c",        lazy.spawn("chromium")),
-    Key([mod],          "g",        lazy.spawn("galculator")),
-    Key([mod],          "t",        lazy.spawn("thunderbird")),
-    Key([mod],          "s",        lazy.spawn("flameshot gui")),
-    Key([mod],          "e",        lazy.spawn(term + " -t Ranger -e ranger")),
+    Key([mod],              "f",        lazy.spawn("firefox")),
+    Key([mod],              "c",        lazy.spawn("chromium")),
+    Key([mod],              "g",        lazy.spawn("galculator")),
+    Key([mod],              "t",        lazy.spawn("thunderbird")),
+    Key([mod],              "s",        lazy.spawn("flameshot gui")),
+    Key([mod],              "e",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([mod],          "Up",       lazy.spawn("amixer set Master 5%+")),               # +5% volume
-    Key([mod],          "Down",     lazy.spawn("amixer set Master 5%-")),               # -5% volume
-    Key([mod],          "m",        lazy.spawn("amixer set Master toggle")),            # mute
-    Key([mod],          "p",        lazy.spawn("deadbeef --play-pause")),               # deadbeef toggle play/pause
-    Key([mod],          "Right",    lazy.spawn("brightlight -i 239")),                  # +5% backlight
-    Key([mod],          "Left",     lazy.spawn("brightlight -d 239")),                  # -5% backlight
-    Key([mod],          "r",        lazy.spawn("brightlight -w 2390")),                 # resets to 50%
+    Key([mod],              "Up",       lazy.spawn("amixer set Master 5%+")),               # +5% volume
+    Key([mod],              "Down",     lazy.spawn("amixer set Master 5%-")),               # -5% volume
+    Key([mod],              "m",        lazy.spawn("amixer set Master toggle")),            # mute
+    Key([mod],              "p",        lazy.spawn("deadbeef --play-pause")),               # deadbeef toggle play/pause
+    Key([mod],              "Right",    lazy.spawn("brightlight -i 239")),                  # +5% backlight
+    Key([mod],              "Left",     lazy.spawn("brightlight -d 239")),                  # -5% backlight
+    Key([mod],              "r",        lazy.spawn("brightlight -w 2390")),                 # resets to 50%
 
     # Moving cursor with keyboard
-    Key([mod, ctrl],    "h",        lazy.spawn("xdotool mousemove_relative -- -46 0")), # move left pointer 46px
-    Key([mod, ctrl],    "j",        lazy.spawn("xdotool mousemove_relative -- 0 46")),  # move down pointer 46px
-    Key([mod, ctrl],    "k",        lazy.spawn("xdotool mousemove_relative -- 0 -46")), # move up pointer 46px
-    Key([mod, ctrl],    "l",        lazy.spawn("xdotool mousemove_relative -- 46 0")),  # move right pointer 46px
-    Key([mod, alt],     "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move left pointer 4px
-    Key([mod, alt],     "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move down pointer 4px
-    Key([mod, alt],     "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move up pointer 4px
-    Key([mod, alt],     "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move right pointer 4px
-    Key([mod, alt],     "b",        lazy.spawn("xdotool click 1")),                     # left click
-    Key([mod, alt],     "n",        lazy.spawn("xdotool click 3")),                     # right click
+    Key([mod, ctrl],        "b",        lazy.spawn("xdotool click 1")),                     # left click
+    Key([mod, ctrl],        "n",        lazy.spawn("xdotool click 3")),                     # right click
+    Key([mod, ctrl],        "h",        lazy.spawn("xdotool mousemove_relative -- -46 0")), # move left pointer 46px
+    Key([mod, ctrl],        "j",        lazy.spawn("xdotool mousemove_relative -- 0 46")),  # move down pointer 46px
+    Key([mod, ctrl],        "k",        lazy.spawn("xdotool mousemove_relative -- 0 -46")), # move up pointer 46px
+    Key([mod, ctrl],        "l",        lazy.spawn("xdotool mousemove_relative -- 46 0")),  # move right pointer 46px
+    Key([mod, ctrl, alt],   "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move left pointer 4px
+    Key([mod, ctrl, alt],   "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move down pointer 4px
+    Key([mod, ctrl, alt],   "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move up pointer 4px
+    Key([mod, ctrl, alt],   "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move right pointer 4px
 
     # Special keys
-    Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),              # +5% backlight
-    Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),              # -5% backlight
-    Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master 5%+")),           # +5% volume
-    Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),           # -5% volume
-    Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),        # mute
+    Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),                  # +5% backlight
+    Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),                  # -5% backlight
+    Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master 5%+")),               # +5% volume
+    Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),               # -5% volume
+    Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),            # mute
 
     # Set volume
     KeyChord([mod], "v", [
@@ -119,7 +119,7 @@ keys = [
 # Mouse bindings
 mouse = [
     Drag([mod],         "Button1",  lazy.window.set_position_floating(), start = lazy.window.get_position()),
-    Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size())
+    Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size()),
 ]
 
 #          1    2    3    4    5    6    7    8    9
@@ -139,7 +139,7 @@ layout_theme = dict(
     border_focus = colors[3],
     border_width = 2,
     single_border_width = 0,
-    margin = 12,
+    margin = 8,
     single_margin = 0,
 )
 
@@ -156,14 +156,8 @@ layouts = [
     # layout.VerticalTile(),
     # layout.Zoomy(),
 
-    layout.MonadTall(
-        **layout_theme
-    ),
-
-    layout.MonadWide(
-        **layout_theme,
-        ratio = 0.6,
-    ),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme, ratio = 0.6),
 
     layout.TreeTab(
         font = "Cantarell bold",
@@ -228,37 +222,22 @@ groupbox = dict(
     highlight_method = "line",
 )
 
+# Windowname defaults
+windowname = dict(
+    format = "{name}",
+    font = "Cantarell Bold",
+)
+
 # Screen settings
 screens = [
     Screen(
         top = bar.Bar(
-            [
-                widget.GroupBox(
-                    **groupbox,
-                ),
-
-                widget.WindowName(
-                    font = "Cantarell Bold",
-                    show_state = False,
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[0],
-                    foreground = colors[1],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[1],
-                    foreground = colors[2],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[2],
-                    foreground = colors[3],
-                ),
+            widgets = [
+                widget.GroupBox(**groupbox),
+                widget.WindowName(**windowname),
+                widget.TextBox(**separator, background = colors[0], foreground = colors[1]),
+                widget.TextBox(**separator, background = colors[1], foreground = colors[2]),
+                widget.TextBox(**separator, background = colors[2], foreground = colors[3]),
 
                 widget.TextBox(
                     text = "",
@@ -395,10 +374,7 @@ screens = [
                 ),
 
                 widget.Systray(),
-
-                widget.CurrentLayoutIcon(
-                    scale = 0.75,
-                ),
+                widget.CurrentLayoutIcon(scale = 0.75),
             ],
 
             size = 22,
@@ -408,106 +384,20 @@ screens = [
 
     Screen(
         top = bar.Bar(
-            [
-                widget.GroupBox(
-                    **groupbox,
-                ),
-
-                widget.WindowName(
-                    font = "Cantarell Bold",
-                    show_state = False,
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = FA4,
-                    fontsize = 16,
-                ),
-
-                widget.CPUGraph(
-                    line_width = 4,
-                    fill_color = colors[3],
-                    graph_color = colors[1],
-                    border_color = colors[0],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = FA4,
-                    fontsize = 16,
-                ),
-
-                widget.NetGraph(
-                    line_width = 4,
-                    fill_color = colors[3],
-                    graph_color = colors[6],
-                    border_color = colors[0],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[0],
-                    foreground = colors[1],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[1],
-                    foreground = colors[2],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[2],
-                    foreground = colors[3],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[3],
-                    foreground = colors[4],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[4],
-                    foreground = colors[5],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[5],
-                    foreground = colors[6],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[6],
-                    foreground = colors[8],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[8],
-                    foreground = colors[9],
-                ),
-
-                widget.Clock(
-                    format = "%A %d %B, %H:%M",
-                    mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("gsimplecal")},
-                    background = colors[9],
-                    foreground = colors[7],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[9],
-                    foreground = colors[0],
-                ),
-
-                widget.CurrentLayoutIcon(
-                    scale = 0.75,
-                ),
+            widgets = [
+                widget.GroupBox(**groupbox),
+                widget.WindowName(**windowname),
+                widget.TextBox(**separator, background = colors[0], foreground = colors[1]),
+                widget.TextBox(**separator, background = colors[1], foreground = colors[2]),
+                widget.TextBox(**separator, background = colors[2], foreground = colors[3]),
+                widget.TextBox(**separator, background = colors[3], foreground = colors[4]),
+                widget.TextBox(**separator, background = colors[4], foreground = colors[5]),
+                widget.TextBox(**separator, background = colors[5], foreground = colors[6]),
+                widget.TextBox(**separator, background = colors[6], foreground = colors[8]),
+                widget.TextBox(**separator, background = colors[8], foreground = colors[9]),
+                widget.Clock(format = "%A %d %B, %H:%M", background = colors[9], foreground = colors[7]),
+                widget.TextBox(**separator, background = colors[9], foreground = colors[0]),
+                widget.CurrentLayoutIcon(scale = 0.75),
             ],
 
             size = 24,
