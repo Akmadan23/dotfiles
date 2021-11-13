@@ -1,8 +1,10 @@
 # Setting zsh home folder
-export ZDOTDIR="$HOME/.config/zsh/"
+export ZDOTDIR="$HOME/.config/zsh"
 
 # Setting zsh history file
 export HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
 
 # Setting starship config file
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
@@ -17,7 +19,7 @@ export CARGO_HOME="$HOME/.local/share/cargo"
 export SCRIPTS="$HOME/git-repos/scripts"
 
 # Setting trash directory
-export TRASH="$HOME/.local/share/Trash/files/"
+export TRASH="$HOME/.local/share/Trash/files"
 
 # Setting default apps
 export TERMINAL="alacritty"

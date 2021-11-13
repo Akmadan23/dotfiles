@@ -4,24 +4,15 @@ zstyle ":completion:*" menu select
 zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=*" "l:|=* r:|=*"
 zmodload zsh/complist
 
+# History configuration (https://zsh.sourceforge.io/Doc/Release/Options.html#History)
+setopt extended_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt share_history
+
 ###############################################################
 ##                         KEY BINDINGS                      ##
 ###############################################################
-
-# Make sure that the terminal is in application mode when zle is active, since
-# only then values from $terminfo are valid
-if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-    function zle-line-init() {
-        echoti smkx
-    }
-
-    function zle-line-finish() {
-        echoti rmkx
-    }
-
-    zle -N zle-line-init
-    zle -N zle-line-finish
-fi
 
 # [PageUp] - Up a line of history
 if [[ -n "${terminfo[kpp]}" ]]; then
