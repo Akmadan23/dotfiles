@@ -9,7 +9,7 @@ ranger/plugins/ranger_devicons/*
 !ranger/plugins/ranger_devicons/devicons.py
 
 # Mpv
-mpv/scripts/mpv_thumbnail_script_server_bis.lua
+mpv/scripts/
 
 # Zsh history
 zsh/.zsh_history

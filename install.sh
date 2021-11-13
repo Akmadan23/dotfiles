@@ -60,9 +60,13 @@ mkdir -p ~/.config/conky/
 cp -r conky/* ~/.config/conky/
 
 #mpv
-mkdir -p ~/.config/mpv
-cp -r mpv/scripts/ ~/.config/mpv
-cp mpv/scripts/mpv_thumbnail_script_server.lua ~/.config/mpv/scripts/mpv_thumbnail_script_server_bis.lua
+mkdir -p ~/.config/mpv/scripts/
+cp -r mpv/* ~/.config/mpv/
+cd ~/.config/mpv/
+wget https://github.com/TheAMM/mpv_thumbnail_script/releases/download/0.4.2/mpv_thumbnail_script_client_osc.lua
+wget https://github.com/TheAMM/mpv_thumbnail_script/releases/download/0.4.2/mpv_thumbnail_script_server.lua
+cp mpv_thumbnail_script_server.lua mpv_thumbnail_script_server_bis.lua
+cd -
 
 # starship
 mkdir -p ~/.config/starship/
@@ -74,10 +78,12 @@ mkdir -p ~/.config/Dharkael/
 cp misc/* ~/.config/Dharkael/
 
 # zsh 
-mkdir -p ~/.config/zsh/
+mkdir -p ~/.config/zsh/plugins/
 cp zsh/.zsh* ~/.config/zsh/
-git clone https://github.com/zsh-users/zsh-autosuggestions.git zsh/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git zsh/plugins/zsh-syntax-highlighting
+cd ~/.config/zsh/plugins/
+git clone https://github.com/zsh-users/zsh-autosuggestions.git
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+cd -
 
 # X
 cp .Xresources ~
