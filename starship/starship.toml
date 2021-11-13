@@ -1,7 +1,7 @@
 ## INSTALLATION: curl -fsSL https://starship.rs/install.sh | bash
 
 # Don't print a new line at the start of the prompt
-add_newline = false
+add_newline = true
 scan_timeout = 60
 
 # Use custom format
@@ -11,8 +11,8 @@ format = """
 [└──](bold blue)$character"""
 
 [character]
-success_symbol = "[❯](bold blue)"
-error_symbol = "[❯](bold red)"
+success_symbol = "[❯](blue)"
+error_symbol = "[❯](red)"
 vicmd_symbol = "[─](bold blue)"
 
 [directory]
