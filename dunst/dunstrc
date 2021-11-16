@@ -5,14 +5,14 @@ geometry = "300x60-20+48"
 indicate_hidden = yes
 shrink = no
 separator_height = 0
-padding = 12
-horizontal_padding = 12
+padding = 8
+horizontal_padding = 8
 sort = no
 idle_threshold = 120
-font = sans 12
+font = Cantarell Bold 10
 line_height = 4
 corner_radius = 8
-frame_width = 2
+frame_width = 0
 markup = full
 format = %s\n%b
 alignment = left
@@ -38,21 +38,21 @@ context = ctrl+shift+period
 
 [urgency_low]
 timeout = 2
-background = "#000000"
-foreground = "#DFDFDF"
+background = "#A6E22E"
+foreground = "#F8F8F0"
 frame_color = "#1ABC9C"
 icon = /home/azadahmadi/.config/dunst/icons/normal.png
 
 [urgency_normal]
 timeout = 4
-background = "#000000"
-foreground = "#DFDFDF"
+background = "#66D8EF"
+foreground = "#000000"
 frame_color = "#1ABC9C"
 icon = /home/azadahmadi/.config/dunst/icons/normal.png
 
 [urgency_critical]
 timeout = 60
-background = "#242424"
-foreground = "#DFDFDF"
+background = "#F92672"
+foreground = "#F8F8F0"
 frame_color = "#D71C15"
 icon = /home/azadahmadi/.config/dunst/icons/critical.png

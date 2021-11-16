@@ -1,17 +1,21 @@
 * {
     background-color: #00000000;
-    background-solid: #000000;
-    background-transparent: #000000AA;
-    text-color: #EEEEEE;
-    accent-light: #1ABC9C;
-    accent-dark: #24574D;
+    background-transparent: #242424BB;
+    text-color: #F8F8F0;
+    color0: #000000;
+    color1: #F92672;
+    color2: #A6E22E;
+    color3: #E6DB74;
+    color4: #66D8EF;
+    color5: #FD971F;
+    color6: #AE81FF;
 }
 
 window {
     height: 500px;
     width: 800px;
     border: 2px solid;
-    border-color: @accent-light;
+    border-color: @color1;
     border-radius: 12px;
     background-color: @background-transparent;
     spacing: 0;
@@ -27,14 +31,13 @@ button {
 }
 
 button selected {
-    text-color: @background-solid;
-    background-color: @accent-light;
+    text-color: @color0;
+    background-color: @color1;
 }
 
 entry {
     expand: false;
     padding: 16px;
-    text-color: @text-color;
 }
 
 listview {
@@ -53,8 +56,8 @@ element-icon {
 }
 
 element selected {
-    border: 1px solid;
+    border: 0px;
     border-radius: 12px;
-    border-color: @background-solid;
-    background-color: @accent-dark;
+    text-color: @color0;
+    background-color: @color6;
 }
