@@ -12,6 +12,7 @@ import os, re, socket, subprocess
 home = os.environ["HOME"]
 path = os.environ["PATH"]
 term = os.environ["TERMINAL"]
+browser = os.environ["BROWSER"]
 
 # Keys aliases
 mod = "mod4"
@@ -76,7 +77,6 @@ keys = [
 
     # App spawning
     Key([mod],              "f",        lazy.spawn("firefox")),
-    Key([mod],              "c",        lazy.spawn("chromium")),
     Key([mod],              "g",        lazy.spawn("galculator")),
     Key([mod],              "t",        lazy.spawn("thunderbird")),
     Key([mod],              "s",        lazy.spawn("flameshot gui")),
@@ -110,10 +110,25 @@ keys = [
     Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),               # -5% volume
     Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),            # mute
 
+    # Opening websites
+    KeyChord([mod], "w", [
+        Key([], "a", lazy.spawn(browser + " amazon.it")),
+        Key([], "c", lazy.spawn(browser + " chess.com")),
+        Key([], "d", lazy.spawn(browser + " duckduckgo.com")),
+        Key([], "e", lazy.spawn(browser + " ebay.it")),
+        Key([], "f", lazy.spawn(browser + " flathub.com")),
+        Key([], "g", lazy.spawn(browser + " github.com")),
+        Key([], "r", lazy.spawn(browser + " reddit.com")),
+        Key([], "o", lazy.spawn(browser + " odysee.com")),
+        Key([], "t", lazy.spawn(browser + " twitch.tv")),
+        Key([], "w", lazy.spawn(browser + " wikipedia.com")),
+        Key([], "y", lazy.spawn(browser + " youtube.com")),
+    ]),
+
     # Set volume
     KeyChord([mod], "v", [
         Key([], str(i), lazy.spawn("amixer set Master " + str(i) + "0%")) for i in range(1, 10)
-    ])
+    ]),
 ]
 
 # Mouse bindings
@@ -362,7 +377,6 @@ screens = [
 
                 widget.Clock(
                     format = "%A %d %B, %H:%M",
-                    mouse_callbacks = {"Button1": lambda: qtile.cmd_spawn("gsimplecal")},
                     background = colors[9],
                     foreground = colors[7],
                 ),
