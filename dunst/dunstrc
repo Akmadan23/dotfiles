@@ -38,15 +38,15 @@ context = ctrl+shift+period
 
 [urgency_low]
 timeout = 2
-background = "#A6E22E"
+background = "#66D8EF"
 foreground = "#F8F8F0"
 frame_color = "#1ABC9C"
 icon = /home/azadahmadi/.config/dunst/icons/normal.png
 
 [urgency_normal]
 timeout = 4
-background = "#66D8EF"
-foreground = "#000000"
+background = "#465457"
+foreground = "#F8F8F0"
 frame_color = "#1ABC9C"
 icon = /home/azadahmadi/.config/dunst/icons/normal.png
 

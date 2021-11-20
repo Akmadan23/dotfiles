@@ -91,9 +91,6 @@ source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Using aliases after "sudo"
 alias sudo="sudo "
 
-# Quit zsh with :q
-alias :q="exit"
-
 # Jumping back directories
 alias ..="cd .."
 alias ...="cd ../.."
@@ -146,11 +143,10 @@ alias gcm="git commit -m"
 alias gca="git commit -a"
 alias gpom="git push origin master"
 
-# Replacing ls with lsd
+# Replacing ls and tree with lsd
 alias ls="lsd -l --group-dirs first"
 alias la="lsd -lA --group-dirs first"
-alias lst="ls --tree"
-alias lat="la --tree"
+alias tree="lsd --tree --group-dirs last"
 
 # Vim
 alias vim="nvim"
