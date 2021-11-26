@@ -11,6 +11,13 @@ function! Compile()
         exec '!rustc %'
     elseif ext == 'java'
         exec '!javac %'
+    elseif getline(1) =~# '^#!.*/bin/.*sh$'
+        silent exec '![ -x /bin/shellcheck ]'
+        if v:shell_error == 0
+            exec '!shellcheck %'
+        else
+            echo 'Shellcheck is not installed.'
+        endif
     else
         echo 'Nothing to compile.'
     endif
