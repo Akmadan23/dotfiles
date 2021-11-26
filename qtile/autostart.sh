@@ -15,6 +15,9 @@ pidof -q xss-lock       || xss-lock -l -- i3lock-fancy &    # lock screen manage
 # setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg
 
+# xmodmap settings
+xmodmap ~/.Xmodmap
+
 # handmade power management script
 pkill -f ~/git-repos/scripts/battery-check
 ~/git-repos/scripts/battery-check &

@@ -88,6 +88,7 @@ cd -
 # X
 cp .Xresources ~
 cp .Xinitrc ~
+cp .Xmodmap ~
 
 # Git
 cp .gitconfig ~
