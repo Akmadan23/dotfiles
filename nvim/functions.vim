@@ -16,10 +16,10 @@ function! Compile()
         if v:shell_error == 0
             exec '!shellcheck %'
         else
-            echo 'Shellcheck is not installed.'
+            echo 'ERROR: Shellcheck is not installed.'
         endif
     else
-        echo 'Nothing to compile.'
+        echo 'ERROR: Nothing to compile.'
     endif
 endfunction
 
@@ -34,12 +34,17 @@ function! Run()
     else
         let l:ext = expand('%:e')
         if l:ext == 'c' || l:ext == 'cpp' || l:ext == 'go' || l:ext == 'rs'
-            split term://%:p:r
+            silent exec '![ -x %:p:r ]'
+            if v:shell_error == 0
+                split term://%:p:r
+            else
+                echo 'ERROR: No "'.expand('%:p:r').'" executable file.'
+            endif
         elseif l:ext == 'java'
             cd %:h
             split term://java %:r
         else
-            echo 'Nothing to execute.'
+            echo 'ERROR: Nothing to execute.'
         endif
     endif
 endfunction
