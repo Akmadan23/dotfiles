@@ -41,8 +41,11 @@ source ~/.config/nvim/keybindings.vim
 " Automatic insert mode in terminal buffers
 autocmd BufEnter term://* startinsert | set nonumber
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
+" COQ
+let g:coq_settings = {
+    \ 'auto_start': 'shut-up',
+    \ 'keymap.recommended': v:true,
+    \ }
 
 " Hexokinase
 let g:Hexokinase_highlighters = ['backgroundfull']

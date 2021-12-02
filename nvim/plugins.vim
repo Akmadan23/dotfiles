@@ -8,6 +8,11 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mattn/calendar-vim'
     Plug 'powerman/vim-plugin-AnsiEsc'
 
+    " LSP Completion
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+    Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+
     " dev tools
     Plug 'jiangmiao/auto-pairs'
     Plug 'alvan/vim-closetag'
@@ -18,14 +23,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mattn/emmet-vim'
     Plug 'Yggdroot/indentLine'
 
-    " deoplete
-    Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    Plug 'Shougo/deoplete-clangx'
-    Plug 'Shougo/neco-syntax'
-    Plug 'Shougo/neco-vim'
-    Plug 'lervag/vimtex'
-    Plug 'deoplete-plugins/deoplete-jedi'
-
     " appearance plugins
     Plug 'rrethy/vim-hexokinase', {'do': 'make hexokinase'}
     Plug 'flazz/vim-colorschemes'
@@ -33,3 +30,13 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 call plug#end()
+
+lua << EOF
+require('lspconfig').vimls.setup                {}
+require('lspconfig').texlab.setup               {}
+require('lspconfig').clangd.setup               {}
+require('lspconfig').phpactor.setup             {}
+require('lspconfig').emmet_ls.setup             {}
+require('lspconfig').rust_analyzer.setup        {}
+require('lspconfig').jedi_language_server.setup {}
+require('lspconfig').java_language_server.setup {}
