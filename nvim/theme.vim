@@ -91,6 +91,9 @@ hi TabLine          guifg=#F8F8F0   guibg=#465457   gui=none
 hi TabLineSel       guifg=#080808   guibg=#E6DB74   gui=bold
 hi TabLineFill      guifg=#465457
 
+" IndentBlankLine
+hi IndentBlankLineChar              guifg=#465457   gui=nocombine
+
 if has('spell')
     hi SpellBad     guisp=#FF0000                   gui=undercurl
     hi SpellCap     guisp=#7070F0                   gui=undercurl

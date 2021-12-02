@@ -64,8 +64,10 @@ let g:airline_powerline_fonts = 0
 " let g:airline_right_sep = ''
 
 " IndentLine
-let g:indentLine_fileTypeExclude = ['markdown', 'vimwiki', 'coc-explorer', 'help', 'man', 'tex', 'startify']
-let g:indentLine_char = '│'
+let g:indent_blankline_max_indent_increase = 1
+let g:indent_blankline_show_first_indent_level = v:false
+let g:indent_blankline_show_trailing_blankline_indent = v:false
+let g:indent_blankline_filetype_exclude = ['help', 'man', 'markdown', 'vimwiki', 'tex', 'startify']
 
 " WimWiki
 let g:vimwiki_global_ext = 0

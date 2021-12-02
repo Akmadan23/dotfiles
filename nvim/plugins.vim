@@ -21,7 +21,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
     Plug 'mattn/emmet-vim'
-    Plug 'Yggdroot/indentLine'
+    Plug 'lukas-reineke/indent-blankline.nvim'
 
     " appearance plugins
     Plug 'rrethy/vim-hexokinase', {'do': 'make hexokinase'}
