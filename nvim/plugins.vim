@@ -1,13 +1,4 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
-    Plug 'mhinz/vim-startify'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/goyo.vim'
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'vimwiki/vimwiki'
-    Plug 'mattn/calendar-vim'
-    Plug 'powerman/vim-plugin-AnsiEsc'
-
     " LSP Completion
     Plug 'neovim/nvim-lspconfig'
     Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
@@ -20,17 +11,26 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
+    Plug 'calebsmith/vim-lambdify'
     Plug 'mattn/emmet-vim'
-    Plug 'lukas-reineke/indent-blankline.nvim'
 
-    " appearance plugins
+    " appearance
     Plug 'rrethy/vim-hexokinase', {'do': 'make hexokinase'}
-    Plug 'sersorrel/vim-lilypond'
+    Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'nvim-lualine/lualine.nvim'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'mhinz/vim-startify'
+
+    " misc
+    Plug 'vimwiki/vimwiki'
+    Plug 'mattn/calendar-vim'
+    Plug 'junegunn/fzf.vim'
+    Plug 'powerman/vim-plugin-AnsiEsc'
 call plug#end()
 
 lua << EOF
-require('lualine').setup                        {}
+require('lualine').vimls.setup                  {}
 require('lspconfig').vimls.setup                {}
 require('lspconfig').texlab.setup               {}
 require('lspconfig').clangd.setup               {}

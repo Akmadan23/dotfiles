@@ -29,9 +29,8 @@ nno N Nzz
 " Folding
 nno <silent><space> za
 
-" Wrap/nowrap
-nno <silent><leader>wy :set wrap<cr>
-nno <silent><leader>wn :set nowrap<cr>
+" Toggle wrap
+nno <silent><a-w> :set invwrap <bar> set wrap?<cr>
 
 " Quit insert mode
 ino <a-i> <esc>
@@ -53,10 +52,6 @@ nno <s-tab> gT
 " Adding visual tabbing
 vno <Tab> >gv
 vno <S-Tab> <gv
-
-" Using Tab to navigate completion menus
-ino <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-ino <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
 " Increasing and decreasing values
 nno <a-+> <c-a>

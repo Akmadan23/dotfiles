@@ -1,5 +1,6 @@
 " Basic settings
 set hidden
+set nowrap
 set number
 set incsearch
 set ignorecase
@@ -11,7 +12,10 @@ set nobackup
 set background=dark
 set mouse=a
 set encoding=UTF-8
+set shortmess+=c
 set clipboard+=unnamedplus
+set completeopt=menuone
+set colorcolumn=10000
 
 " Splits
 set splitbelow
@@ -57,6 +61,9 @@ let g:closetag_filetypes = 'html, xml, php'
 " Man.vim
 let g:no_man_maps = 1
 
+" Emmet key
+let g:user_emmet_leader_key = '<c-e>'
+
 " IndentLine
 let g:indent_blankline_max_indent_increase = 1
 let g:indent_blankline_show_first_indent_level = v:false
@@ -74,8 +81,8 @@ let g:vimwiki_list = [{
 let g:startify_custom_header = startify#pad(split(system('figlet -f poison "Neovim"'), '\n'))
 let g:startify_session_dir = '~/.config/nvim/sessions'
 let g:startify_lists = [
-    \ {'type': 'files', 'header': ['   Recent files']},
-    \ {'type': 'sessions', 'header': ['   Sessions']}
+    \ {'type': 'files',     'header': ['   Recent files']},
+    \ {'type': 'sessions',  'header': ['   Sessions']}
     \ ]
 
 " Setting filetype to css in rofi stylesheets
