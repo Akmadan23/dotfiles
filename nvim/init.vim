@@ -57,12 +57,6 @@ let g:closetag_filetypes = 'html, xml, php'
 " Man.vim
 let g:no_man_maps = 1
 
-" Airline
-let g:airline_theme = 'molokai'
-let g:airline_powerline_fonts = 0
-" let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
-
 " IndentLine
 let g:indent_blankline_max_indent_increase = 1
 let g:indent_blankline_show_first_indent_level = v:false

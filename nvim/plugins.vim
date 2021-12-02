@@ -25,13 +25,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " appearance plugins
     Plug 'rrethy/vim-hexokinase', {'do': 'make hexokinase'}
-    Plug 'flazz/vim-colorschemes'
     Plug 'sersorrel/vim-lilypond'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
 
 lua << EOF
+require('lualine').setup                        {}
 require('lspconfig').vimls.setup                {}
 require('lspconfig').texlab.setup               {}
 require('lspconfig').clangd.setup               {}
