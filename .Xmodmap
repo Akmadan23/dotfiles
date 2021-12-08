@@ -1,4 +1,0 @@
-! using caps_lock as escape and shift+caps_lock as caps_lock
-clear Lock
-remove Lock = Caps_Lock
-keysym Caps_Lock = Escape Caps_Lock

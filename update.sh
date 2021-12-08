@@ -1,7 +1,5 @@
 #!/bin/sh
 
-cp      ~/.Xinitrc              .
-cp      ~/.Xmodmap              .
 cp      ~/.Xresources           .
 cp      ~/.gitconfig            .
 cp      ~/.stalonetrayrc        .

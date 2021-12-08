@@ -85,10 +85,8 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 cd -
 
-# X
+# Xresources
 cp .Xresources ~
-cp .Xinitrc ~
-cp .Xmodmap ~
 
 # Git
 cp .gitconfig ~
