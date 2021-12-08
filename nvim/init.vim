@@ -48,7 +48,7 @@ endif
 
 " Sourcing theme, plugins, functions and keybindings
 source ~/.config/nvim/theme.vim
-source ~/.config/nvim/plugins.vim
+source ~/.config/nvim/plugins.lua
 source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim
 

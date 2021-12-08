@@ -1,35 +1,33 @@
-call plug#begin('~/.config/nvim/autoload/plugged')
-    " LSP Completion
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-    Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+require("packer").startup {
+    function()
+        use "wbthomason/packer.nvim"
+        use "neovim/nvim-lspconfig"
+        use "ms-jpq/coq_nvim"
+        use "ms-jpq/coq.artifacts"
 
-    " dev tools
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'alvan/vim-closetag'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'calebsmith/vim-lambdify'
-    Plug 'mattn/emmet-vim'
+        use "jiangmiao/auto-pairs"
+        use "alvan/vim-closetag"
+        use "tpope/vim-commentary"
+        use "tpope/vim-repeat"
+        use "tpope/vim-fugitive"
+        use "airblade/vim-gitgutter"
+        use "calebsmith/vim-lambdify"
+        use "mattn/emmet-vim"
 
-    " appearance
-    Plug 'rrethy/vim-hexokinase', {'do': 'make hexokinase'}
-    Plug 'lukas-reineke/indent-blankline.nvim'
-    Plug 'nvim-lualine/lualine.nvim'
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'sheerun/vim-polyglot'
+        use {"rrethy/vim-hexokinase", run = "make hexokinase"}
+        use "lukas-reineke/indent-blankline.nvim"
+        use "nvim-lualine/lualine.nvim"
+        use "ryanoasis/vim-devicons"
+        use "sheerun/vim-polyglot"
 
-    " misc
-    Plug 'vimwiki/vimwiki'
-    Plug 'mattn/calendar-vim'
-    Plug 'mhinz/vim-startify'
-    Plug 'junegunn/fzf.vim'
-    Plug 'powerman/vim-plugin-AnsiEsc'
-call plug#end()
+        use "vimwiki/vimwiki"
+        use "mattn/calendar-vim"
+        use "mhinz/vim-startify"
+        use "junegunn/fzf.vim"
+        use "powerman/vim-plugin-AnsiEsc"
+    end
+}
 
-lua << EOF
 local colors = {
     black   = "#232526",
     magenta = "#F92672",
@@ -101,13 +99,18 @@ require("lualine").setup {
 }
 
 -- LSP (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
-require('lualine').vimls.setup                  {}
-require('lspconfig').vimls.setup                {}
-require('lspconfig').texlab.setup               {}
-require('lspconfig').clangd.setup               {}
-require('lspconfig').phpactor.setup             {}
-require('lspconfig').emmet_ls.setup             {}
-require('lspconfig').rust_analyzer.setup        {}
-require('lspconfig').jedi_language_server.setup {}
-require('lspconfig').java_language_server.setup {}
-EOF
+local srv = {
+    "vimls",
+    "bashls",
+    "texlab",
+    "clangd",
+    "phpactor",
+    "emmet_ls",
+    "rust_analyzer",
+    "jedi_language_server",
+    "java_language_server",
+}
+
+for _, i in ipairs(srv) do
+    require("lspconfig")[i].setup {}
+end
