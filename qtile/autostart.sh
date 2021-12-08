@@ -13,10 +13,7 @@ pidof -q pasystray      || pasystray --include-monitors &   # pulseaudio tray ic
 pidof -q xss-lock       || xss-lock -l -- i3lock-fancy &    # lock screen manager
 
 # setting wallpaper
-xwallpaper --zoom ~/.config/qtile/background.jpg
-
-# xmodmap settings
-xmodmap ~/.Xmodmap
+xwallpaper --zoom ~/.config/qtile/background.jpg &
 
 # handmade power management script
 pkill -f ~/git-repos/scripts/battery-check

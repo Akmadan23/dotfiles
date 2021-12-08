@@ -13,7 +13,7 @@ set background=dark
 set mouse=a
 set encoding=UTF-8
 set shortmess+=c
-set clipboard+=unnamedplus
+set clipboard=unnamedplus
 set completeopt=menuone
 set colorcolumn=10000
 
@@ -36,6 +36,16 @@ set foldnestmax=10
 set foldlevel=100
 set nofoldenable
 
+" Setting filetype to css in rofi stylesheets
+if expand('%:e') == 'rasi'
+    set ft=css
+endif
+
+" Disabling custom mappings defined by sersorrel/vim-lilypond
+if expand('%:e') == 'ly'
+    let b:did_ftplugin = 1
+endif
+
 " Sourcing theme, plugins, functions and keybindings
 source ~/.config/nvim/theme.vim
 source ~/.config/nvim/plugins.vim
@@ -48,7 +58,9 @@ autocmd BufEnter term://* startinsert | set nonumber
 " COQ
 let g:coq_settings = {
     \ 'auto_start': 'shut-up',
-    \ 'keymap.recommended': v:true,
+    \ 'keymap.recommended': v:false,
+    \ 'display.preview.border': 'double',
+    \ 'display.ghost_text.context': [' < ', ' > ']
     \ }
 
 " Hexokinase
@@ -84,8 +96,3 @@ let g:startify_lists = [
     \ {'type': 'files',     'header': ['   Recent files']},
     \ {'type': 'sessions',  'header': ['   Sessions']}
     \ ]
-
-" Setting filetype to css in rofi stylesheets
-if (expand('%:e') == 'rasi')
-    set ft=css
-endif

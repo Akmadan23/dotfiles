@@ -20,11 +20,11 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'ryanoasis/vim-devicons'
     Plug 'sheerun/vim-polyglot'
-    Plug 'mhinz/vim-startify'
 
     " misc
     Plug 'vimwiki/vimwiki'
     Plug 'mattn/calendar-vim'
+    Plug 'mhinz/vim-startify'
     Plug 'junegunn/fzf.vim'
     Plug 'powerman/vim-plugin-AnsiEsc'
 call plug#end()

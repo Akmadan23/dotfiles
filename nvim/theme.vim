@@ -41,7 +41,6 @@ hi Folded           guifg=#465457   guibg=#000000
 hi Function         guifg=#A6E22E
 hi Identifier       guifg=#FD971F
 hi Ignore           guifg=#808080   guibg=bg
-hi IncSearch        guifg=#C4BE89   guibg=#000000
 
 hi Keyword          guifg=#F92672                   gui=bold
 hi Label            guifg=#F92672                   gui=bold
@@ -53,17 +52,17 @@ hi ModeMsg          guifg=#E6DB74
 hi MoreMsg          guifg=#E6DB74
 hi Operator         guifg=#F92672
 
-" complete menu
-hi Pmenu            guifg=#66D9EF   guibg=#000000
-hi PmenuSel                         guibg=#465457
-hi PmenuSbar                        guibg=#080808
-hi PmenuThumb       guifg=#66D9EF
+" popup menu
+hi Pmenu            guifg=#F8F8F0   guibg=#465457
+hi PmenuSbar        guifg=#F8F8F0   guibg=#465457
+hi PmenuSel         guifg=#000000   guibg=#66D9EF
 
 hi PreCondit        guifg=#A6E22E                   gui=bold
 hi PreProc          guifg=#A6E22E
 hi Question         guifg=#66D9EF
 hi Repeat           guifg=#F92672                   gui=bold
 hi Search           guifg=#000000   guibg=#FFE792
+hi IncSearch        guifg=#C4BE89   guibg=#000000
 
 " marks
 hi SignColumn       guifg=#A6E22E   guibg=#232526
@@ -93,10 +92,4 @@ hi TabLineFill      guifg=#465457
 
 " IndentBlankLine
 hi IndentBlankLineChar              guifg=#465457   gui=nocombine
-
-if has('spell')
-    hi SpellBad     guisp=#FF0000                   gui=undercurl
-    hi SpellCap     guisp=#7070F0                   gui=undercurl
-    hi SpellLocal   guisp=#70F0F0                   gui=undercurl
-    hi SpellRare    guisp=#FFFFFF                   gui=undercurl
-endif
+hi IndentBlanklineSpaceChar         guifg=#F8F8F0   gui=nocombine

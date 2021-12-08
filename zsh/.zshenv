@@ -31,7 +31,7 @@ export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="sxiv"
 export PAGER="less"
-export MANPAGER="nvim +Man!"
+export MANPAGER="nvim -M +Man!"
 export OPENER="xdg-open"
 
 # Pfetch

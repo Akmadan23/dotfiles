@@ -1,20 +1,20 @@
 " Compile function for C, C++, Go, Rust and Java
 function! Compile()
     let l:ext = expand('%:e')
-    if ext == 'c'
-        exec '!gcc % -o %:r'
-    elseif ext == 'cpp'
-        exec '!g++ % -o %:r'
-    elseif ext == 'go'
-        exec '!go build %'
-    elseif ext == 'rs'
-        exec '!rustc %'
-    elseif ext == 'java'
-        exec '!javac %'
+    if l:ext == 'c'
+        !gcc % -o %:r
+    elseif l:ext == 'cpp'
+        !g++ % -o %:r
+    elseif l:ext == 'go'
+        !go build %
+    elseif l:ext == 'rs'
+        !rustc %
+    elseif l:ext == 'java'
+        !javac %
     elseif getline(1) =~# '^#!.*/bin/.*sh$'
-        silent exec '![ -x /bin/shellcheck ]'
+        silent ![ -x /bin/shellcheck ]
         if v:shell_error == 0
-            exec '!shellcheck %'
+            !shellcheck %
         else
             echo 'ERROR: Shellcheck is not installed.'
         endif
@@ -26,15 +26,15 @@ endfunction
 " Run function for C, C++, Go, Rust, Java compiled code and any script
 function! Run()
     if getline(1) =~# '^#!.*/bin/.*$'
-        silent exec '![ -x % ]'
+        silent ![ -x % ]
         if v:shell_error == 1
-            silent exec '!chmod +x %'
+            silent !chmod +x %
         endif
         split term://%:p
     else
         let l:ext = expand('%:e')
         if l:ext == 'c' || l:ext == 'cpp' || l:ext == 'go' || l:ext == 'rs'
-            silent exec '![ -x %:p:r ]'
+            silent ![ -x %:p:r ]
             if v:shell_error == 0
                 split term://%:p:r
             else
@@ -50,5 +50,5 @@ function! Run()
 endfunction
 
 " Calling functions
-nmap <silent><F5> :call Compile()<CR>
-nmap <silent><F6> :call Run()<CR>
+nmap <F5> <cmd>call Compile()<CR>
+nmap <F6> <cmd>call Run()<CR>

@@ -77,7 +77,7 @@ keys = [
 
     # App spawning
     Key([mod],              "f",        lazy.spawn("firefox")),
-    Key([mod],              "g",        lazy.spawn("galculator")),
+    Key([mod],              "c",        lazy.spawn("qalculate-gtk")),
     Key([mod],              "t",        lazy.spawn("thunderbird")),
     Key([mod],              "s",        lazy.spawn("flameshot gui")),
     Key([mod],              "e",        lazy.spawn(term + " -t Ranger -e ranger")),
@@ -133,8 +133,8 @@ keys = [
 
 # Mouse bindings
 mouse = [
-    Drag([mod],         "Button1",  lazy.window.set_position_floating(), start = lazy.window.get_position()),
-    Drag([mod],         "Button3",  lazy.window.set_size_floating(), start = lazy.window.get_size()),
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start = lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),     start = lazy.window.get_size()),
 ]
 
 #          1    2    3    4    5    6    7    8    9
@@ -200,9 +200,9 @@ floating_layout = layout.Floating(
     float_rules = [
         *layout.Floating.default_float_rules,   # Defaults
         Match(wm_class = "lxpolkit"),           # Authentication windows
-        Match(wm_class = "galculator"),         # Galculator
         Match(wm_class = "Calendar"),           # Thunderbird calendar window
         Match(wm_class = "Msgcompose"),         # Thunderbird message window
+        Match(wm_class = "qalculate-gtk"),      # Qalculate
     ]
 )
 
@@ -229,6 +229,7 @@ groupbox = dict(
     fontsize = 16,
     active = colors[7],
     inactive = colors[8],
+    urgent_border = colors[5],
     this_screen_border = colors[4],
     this_current_screen_border = colors[4],
     other_screen_border = colors[8],
@@ -421,12 +422,11 @@ screens = [
 ]
 
 # Other settings
-cursor_warp = False
-auto_fullscreen = True
-bring_front_click = False
-follow_mouse_focus = True
+cursor_warp         = False
+auto_fullscreen     = True
+bring_front_click   = False
+follow_mouse_focus  = True
 reconfigure_screens = True
-focus_on_window_activation = "auto"
 
 # neofetch fixes
 wmname = "Qtile"

@@ -30,7 +30,7 @@ nno N Nzz
 nno <silent><space> za
 
 " Toggle wrap
-nno <silent><a-w> :set invwrap <bar> set wrap?<cr>
+nno <a-w> <cmd>set wrap! <bar> echo &wrap ? "Wrap enabled" : "Wrap disabled"<cr>
 
 " Quit insert mode
 ino <a-i> <esc>
@@ -39,19 +39,19 @@ ino <a-i> <esc>
 nno <c-a> ggVG
 
 " Reload config
-nno <c-r> :source ~/.config/nvim/init.vim<cr>
+nno <silent><c-r> <cmd>source ~/.config/nvim/init.vim <bar> echo "Config reloaded."<cr>
 
 " Disabling Ctrl+q for visual block
 nno <c-q> <nop>
 vno <c-q> <nop>
 
 " Moving between tabs
-nno <tab> gt
+nno <tab>   gt
 nno <s-tab> gT
 
 " Adding visual tabbing
-vno <Tab> >gv
-vno <S-Tab> <gv
+vno <tab>   >gv
+vno <s-tab> <gv
 
 " Increasing and decreasing values
 nno <a-+> <c-a>
@@ -65,34 +65,33 @@ nno <c-j> <c-w>j
 nno <c-k> <c-w>k
 nno <c-l> <c-w>l
 
-" Disabling arrow keys
-nno <up> <nop>
-vno <up> <nop>
-nno <down> <nop>
-vno <down> <nop>
-nno <left> <nop>
-vno <left> <nop>
+" Disabling keys
+nno <cr>    <nop>
+vno <cr>    <nop>
+nno <bs>    <nop>
+vno <bs>    <nop>
+nno <up>    <nop>
+vno <up>    <nop>
+nno <down>  <nop>
+vno <down>  <nop>
+nno <left>  <nop>
+vno <left>  <nop>
 nno <right> <nop>
 vno <right> <nop>
-
-" Disabling enter and backspace
-nno <return> <nop>
-vno <return> <nop>
-nno <backspace> <nop>
-vno <backspace> <nop>
 
 " Terminal bindings 
 tno <esc> <c-\><c-n>
 
 " Command mode abbreviations
-cabbr W w
-cabbr Q q
-cabbr Qa qa
-cabbr QA qa
-cabbr Wq wq
-cabbr WQ wq
-cabbr Wa wa
-cabbr WA wa
-cabbr Wqa wqa
-cabbr WQa wqa
-cabbr WQA wqa
+ca H    h
+ca W    w
+ca Q    q
+ca Qa   qa
+ca QA   qa
+ca Wq   wq
+ca WQ   wq
+ca Wa   wa
+ca WA   wa
+ca Wqa  wqa
+ca WQa  wqa
+ca WQA  wqa
