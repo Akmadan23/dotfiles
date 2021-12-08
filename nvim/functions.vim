@@ -59,6 +59,13 @@ function! Run()
     endif
 endfunction
 
+" Custom mappings for FZF
+function! FZF_map()
+    tno <buffer><esc>   <c-c>
+    tno <buffer><tab>   <up>
+    tno <buffer><s-tab> <down>
+endfunction
+
 " Calling functions
 nmap <F5> <cmd>call Compile()<CR>
 nmap <F6> <cmd>call Run()<CR>

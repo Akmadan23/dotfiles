@@ -55,6 +55,9 @@ source ~/.config/nvim/keybindings.vim
 " Automatic insert mode in terminal buffers
 autocmd BufEnter term://* startinsert | set nonumber
 
+" Enabling custom mappings for FZF
+autocmd FileType fzf call FZF_map()
+
 " COQ
 let g:coq_settings = {
     \ 'auto_start': 'shut-up',
