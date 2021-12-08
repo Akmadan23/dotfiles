@@ -11,6 +11,10 @@ function! Compile()
         !rustc %
     elseif l:ext == 'java'
         !javac %
+    elseif l:ext == 'tex'
+        !pdflatex %
+    elseif l:ext == 'ly'
+        !lilypond %
     elseif getline(1) =~# '^#!.*/bin/.*sh$'
         silent ![ -x /bin/shellcheck ]
         if v:shell_error == 0
@@ -43,6 +47,12 @@ function! Run()
         elseif l:ext == 'java'
             cd %:h
             split term://java %:r
+        elseif l:ext == 'tex' || l:ext == 'ly'
+            if exists('$READER')
+                silent !$READER %:p:r.pdf & disown
+            else
+                echo 'ERROR: You must set the $READER environment variable.'
+            endif
         else
             echo 'ERROR: Nothing to execute.'
         endif
