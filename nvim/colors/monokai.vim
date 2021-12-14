@@ -35,7 +35,7 @@ hi DiffText                         guibg=#4C4745   gui=italic,bold
 hi Directory        guifg=#A6E22E                   gui=bold
 hi Error            guifg=#E6DB74   guibg=#1E0010
 hi ErrorMsg         guifg=#F92672   guibg=#232526   gui=bold
-hi Exception        guifg=#A6E22E                   gui=bold
+hi Exception        guifg=#FD971F                   gui=bold
 hi FoldColumn       guifg=#465457   guibg=#000000
 hi Folded           guifg=#465457   guibg=#000000
 hi Function         guifg=#A6E22E

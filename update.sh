@@ -6,7 +6,6 @@ cp      ~/.stalonetrayrc        .
 cp      ~/.config/zsh/.zsh*     zsh
 cp      ~/.config/xob/*         xob
 cp      ~/.config/htop/*        htop
-cp      ~/.config/nvim/*        nvim
 cp      ~/.config/conky/*       conky
 cp      ~/.config/qtile/*       qtile
 cp      ~/.config/bspwm/*       bspwm
@@ -20,5 +19,6 @@ cp      ~/.config/xmonad/*      xmonad
 cp -r   ~/.config/xmobar/*      xmobar
 cp -r   ~/.config/ranger/*      ranger
 cp -r   ~/.config/dunst/*       dunst
+cp -r   ~/.config/nvim/*        nvim
 cp -r   ~/.config/rofi/*        rofi
 cp -r   ~/.config/mpv/*         mpv

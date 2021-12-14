@@ -8,6 +8,9 @@ ranger/plugins/ranger_devicons/*
 !ranger/plugins/ranger_devicons/__init__.py
 !ranger/plugins/ranger_devicons/devicons.py
 
+# Neovim
+nvim/plugin
+
 # Mpv
 mpv/scripts/
 
