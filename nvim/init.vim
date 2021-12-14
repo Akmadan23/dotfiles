@@ -36,18 +36,20 @@ set foldnestmax=10
 set foldlevel=100
 set nofoldenable
 
+" Setting color scheme
+color monokai
+
 " Setting filetype to css in rofi stylesheets
 if expand('%:e') == 'rasi'
     set ft=css
 endif
 
-" Disabling custom mappings defined by sersorrel/vim-lilypond
+" Disabling custom keybindings defined by sersorrel/vim-lilypond
 if expand('%:e') == 'ly'
     let b:did_ftplugin = 1
 endif
 
-" Sourcing theme, plugins, functions and keybindings
-source ~/.config/nvim/theme.vim
+" Sourcing plugins, functions and keybindings
 source ~/.config/nvim/plugins.lua
 source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim

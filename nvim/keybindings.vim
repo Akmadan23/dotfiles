@@ -16,8 +16,10 @@ nno U <c-r>
 " Fixing Y behaviour
 nno Y y$
 
-" Disabling Q
+" Disabling Q and mapping <c-q> to q
 nno Q <nop>
+nno q <cmd>echo "For macros and cmdwin use <\c-q>"<cr>
+nno <c-q> q
 
 " Join lines with dj
 nno dj J
@@ -39,11 +41,7 @@ ino <a-i> <esc>
 nno <c-a> ggVG
 
 " Reload config
-nno <silent><c-r> <cmd>source ~/.config/nvim/init.vim <bar> echo "Config reloaded."<cr>
-
-" Disabling Ctrl+q for visual block
-nno <c-q> <nop>
-vno <c-q> <nop>
+nno <c-r> <cmd>source ~/.config/nvim/init.vim <bar> echo "Config reloaded."<cr>
 
 " Moving between tabs
 nno <tab>   gt

@@ -1,10 +1,13 @@
 require("packer").startup {
     function()
         use "wbthomason/packer.nvim"
+
+        -- LSP & COQ
         use "neovim/nvim-lspconfig"
         use "ms-jpq/coq_nvim"
         use "ms-jpq/coq.artifacts"
 
+        -- dev tools
         use "jiangmiao/auto-pairs"
         use "alvan/vim-closetag"
         use "tpope/vim-commentary"
@@ -14,12 +17,14 @@ require("packer").startup {
         use "calebsmith/vim-lambdify"
         use "mattn/emmet-vim"
 
+        -- appearance
         use {"rrethy/vim-hexokinase", run = "make hexokinase"}
         use "lukas-reineke/indent-blankline.nvim"
         use "nvim-lualine/lualine.nvim"
         use "ryanoasis/vim-devicons"
         use "sheerun/vim-polyglot"
 
+        -- misc
         use "vimwiki/vimwiki"
         use "mattn/calendar-vim"
         use "mhinz/vim-startify"
@@ -40,6 +45,7 @@ local colors = {
     gray    = "#465457",
 }
 
+-- custom filename module for lualine
 local function filename_status()
     -- default
     local bg = colors.gray
@@ -57,6 +63,7 @@ local function filename_status()
     return "%t %m"
 end
 
+-- lualine configuration
 require("lualine").setup {
     options = {
         -- section_separators = {left = "", right = ""},
@@ -81,7 +88,6 @@ require("lualine").setup {
     sections = {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diff", {"diagnostics", sources = {"nvim_lsp", "coc"}}},
-        -- lualine_c = {"filename"},
         lualine_c = {{filename_status, color = "lualine_filename_status"}},
         lualine_x = {"filetype"},
         lualine_y = {"encoding"},
