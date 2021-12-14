@@ -1,21 +1,16 @@
 * {
-    background-color: #00000000;
+    background-color: #465457;
     background-transparent: #242424BB;
     text-color: #F8F8F0;
-    color0: #000000;
-    color1: #F92672;
-    color2: #A6E22E;
-    color3: #E6DB74;
-    color4: #66D8EF;
-    color5: #FD971F;
-    color6: #AE81FF;
+    accent1: #66D8EF;
+    accent2: #E6DB74;
+    accent3: #000000;
 }
 
 window {
     height: 500px;
     width: 800px;
-    border: 2px solid;
-    border-color: @color1;
+    border: none;
     border-radius: 12px;
     background-color: @background-transparent;
     spacing: 0;
@@ -31,8 +26,8 @@ button {
 }
 
 button selected {
-    text-color: @color0;
-    background-color: @color1;
+    text-color: @accent3;
+    background-color: @accent1;
 }
 
 entry {
@@ -58,6 +53,6 @@ element-icon {
 element selected {
     border: 0px;
     border-radius: 12px;
-    text-color: @color0;
-    background-color: @color6;
+    text-color: @accent3;
+    background-color: @accent2;
 }

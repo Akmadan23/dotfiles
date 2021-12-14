@@ -16,3 +16,6 @@ mpv/scripts/
 
 # Zsh history
 zsh/.zsh_history
+
+# Rofi
+rofi/current.rasi
