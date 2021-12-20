@@ -15,7 +15,7 @@ require("packer").startup {
         use "tpope/vim-fugitive"
         use "airblade/vim-gitgutter"
         use "calebsmith/vim-lambdify"
-        use "mattn/emmet-vim"
+        use {"mattn/emmet-vim", opt = true, ft = {"html", "css", "php"}}
 
         -- appearance
         use {"rrethy/vim-hexokinase", run = "make hexokinase"}
@@ -26,9 +26,8 @@ require("packer").startup {
 
         -- misc
         use "vimwiki/vimwiki"
-        use "mattn/calendar-vim"
-        use "mhinz/vim-startify"
         use "junegunn/fzf.vim"
+        use "mhinz/vim-startify"
         use "powerman/vim-plugin-AnsiEsc"
     end
 }

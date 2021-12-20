@@ -39,26 +39,15 @@ set nofoldenable
 " Setting color scheme
 color monokai
 
-" Setting filetype to css in rofi stylesheets
-if expand('%:e') == 'rasi'
-    set ft=css
-endif
-
-" Disabling custom keybindings defined by sersorrel/vim-lilypond
-if expand('%:e') == 'ly'
-    let b:did_ftplugin = 1
-endif
-
 " Sourcing plugins, functions and keybindings
 source ~/.config/nvim/plugins.lua
 source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim
 
-" Automatic insert mode in terminal buffers
-autocmd BufEnter term://* startinsert | set nonumber
-
-" Enabling custom mappings for FZF
-autocmd FileType fzf call FZF_map()
+autocmd BufEnter *.rasi     set ft=css                  " Setting filetype to css in rofi stylesheets
+autocmd BufEnter *.ly       let b:did_ftplugin = 1      " Disabling custom keybindings defined by sersorrel/vim-lilypond
+autocmd BufEnter term://*   startinsert | set nonumber  " Automatic insert mode in terminal buffers
+autocmd FileType fzf        call FZF_map()              " Enabling custom mappings for FZF
 
 " COQ
 let g:coq_settings = {
