@@ -42,7 +42,7 @@ function! Run()
             if v:shell_error == 0
                 split term://%:p:r
             else
-                echo 'ERROR: No "'.expand('%:p:r').'" executable file.'
+                echo 'ERROR: No "' . expand('%:p:r') . '" executable file.'
             endif
         elseif l:ext == 'java'
             cd %:h

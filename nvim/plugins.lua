@@ -1,3 +1,4 @@
+-- defining plugins
 require("packer").startup {
     function()
         use "wbthomason/packer.nvim"
@@ -18,11 +19,11 @@ require("packer").startup {
         use {"mattn/emmet-vim", opt = true, ft = {"html", "css", "php"}}
 
         -- appearance
-        use {"rrethy/vim-hexokinase", run = "make hexokinase"}
-        use "lukas-reineke/indent-blankline.nvim"
-        use "nvim-lualine/lualine.nvim"
-        use "ryanoasis/vim-devicons"
         use "sheerun/vim-polyglot"
+        use "ryanoasis/vim-devicons"
+        use "nvim-lualine/lualine.nvim"
+        use "lukas-reineke/indent-blankline.nvim"
+        use {"rrethy/vim-hexokinase", run = "make hexokinase"}
 
         -- misc
         use "vimwiki/vimwiki"
@@ -32,6 +33,7 @@ require("packer").startup {
     end
 }
 
+-- custom colors for lualine
 local colors = {
     black   = "#232526",
     magenta = "#F92672",
@@ -58,7 +60,7 @@ local function filename_status()
         style = "italic"
     end
 
-    vim.cmd("hi! lualine_filename_status guifg=" .. fg .. " guibg=" .. bg ..  " gui=" .. style)
+    vim.cmd("hi! lualine_filename_status guifg=" .. fg .. " guibg=" .. bg .. " gui=" .. style)
     return "%t %m"
 end
 
