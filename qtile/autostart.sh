@@ -6,7 +6,7 @@ pidof -q dunst          || dunst &                          # notification daemo
 pidof -q picom          || picom -f &                       # compositor
 pidof -q lxpolkit       || lxpolkit &                       # authentication agent
 pidof -q flameshot      || flameshot &                      # screenshot tool
-pidof -q parcellite     || parcellite &                     # clipboard manager
+pidof -q clipmenud      || clipmenud &                      # clipboard manager
 pidof -q nm-applet      || nm-applet &                      # network manager
 pidof -q blueman-applet || blueman-applet &                 # bluetooth manager
 pidof -q pasystray      || pasystray --include-monitors &   # pulseaudio tray icon
