@@ -81,6 +81,7 @@ vno <right> <nop>
 tno <esc> <c-\><c-n>
 
 " popup menu
+ino <silent><expr><space>   pumvisible() ? "\<space>" : "\<space><c-e>"
 ino <silent><expr><esc>     pumvisible() ? "\<c-e><esc>" : "\<esc>"
 ino <silent><expr><c-c>     pumvisible() ? "\<c-e><c-c>" : "\<c-c>"
 ino <silent><expr><bs>      pumvisible() ? "\<c-e><bs>"  : "\<bs>"

@@ -168,13 +168,17 @@ alias vim="nvim"
 alias vfz="cd /tmp/fz3temp-2/ && vim -p *.* && cd -"
 alias vwiki="nvim ~/git-repos/vimwiki/notes/index.wiki"
 
-# Misc
-alias md="mkdir"
+# cp, mv, md, rm
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias md="mkdir -pv"
 alias rm="trash"
+
+# Misc
 alias pm="pacman"
 alias ps="ps axu | less"
+alias top="btm -b"
 alias ytdl="youtube-dl"
-alias vtop="vtop -t brew --update-interval 500"
 alias pping="prettyping"
 alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"
 

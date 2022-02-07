@@ -15,7 +15,7 @@ require("packer").startup {
         use "tpope/vim-repeat"
         use "tpope/vim-fugitive"
         use "airblade/vim-gitgutter"
-        use "calebsmith/vim-lambdify"
+        use {"calebsmith/vim-lambdify", opt = true, ft = {"python", "haskell"}}
         use {"mattn/emmet-vim", opt = true, ft = {"html", "css", "php"}}
 
         -- appearance

@@ -76,11 +76,13 @@ keys = [
     Key([mod, sft],         "d",        lazy.spawn("rofi -modi menu:rofi-dotfiles-menu -show menu")),
 
     # App spawning
+    Key([mod],              "b",        lazy.spawn("blender")),
     Key([mod],              "f",        lazy.spawn("firefox")),
+    Key([mod],              "x",        lazy.spawn("firefox -P extra")),
     Key([mod],              "c",        lazy.spawn("qalculate-gtk")),
     Key([mod],              "t",        lazy.spawn("thunderbird")),
     Key([mod],              "s",        lazy.spawn("flameshot gui")),
-    Key([mod],              "v",        lazy.spawn("clipmenu")),
+    Key([mod, sft],         "v",        lazy.spawn("clipmenu")),
     Key([mod],              "e",        lazy.spawn(term + " -t Ranger -e ranger")),
 
     # Volume and brightness controls

@@ -44,6 +44,7 @@ source ~/.config/nvim/plugins.lua
 source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim
 
+" Autocommands 
 autocmd BufEnter *.rasi     set ft=css                  " Setting filetype to css in rofi stylesheets
 autocmd BufEnter *.ly       let b:did_ftplugin = 1      " Disabling custom keybindings defined by sersorrel/vim-lilypond
 autocmd BufEnter term://*   startinsert | set nonumber  " Automatic insert mode in terminal buffers
@@ -52,6 +53,7 @@ autocmd FileType fzf        call FZF_map()              " Enabling custom mappin
 " COQ
 let g:coq_settings = {
     \ 'auto_start': 'shut-up',
+    \ 'completion.smart': v:false,
     \ 'keymap.recommended': v:false,
     \ 'display.preview.border': 'double',
     \ 'display.ghost_text.context': [' < ', ' > ']

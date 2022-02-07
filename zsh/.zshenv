@@ -16,7 +16,7 @@ export XMONAD_CONFIG_DIR="$HOME/.config/xmonad"
 export CARGO_HOME="$HOME/.local/share/cargo"
 
 # Setting clipmenu launcher
-export CM_LAUNCHER="rofi-script"
+export CM_LAUNCHER="rofi"
 
 # Setting scripts directory
 export SCRIPTS="$HOME/git-repos/scripts"
