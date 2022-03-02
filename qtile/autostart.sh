@@ -3,7 +3,7 @@
 # launching apps only if there are no istances already running
 pidof -q conky          || conky &                          # desktop widgets
 pidof -q dunst          || dunst &                          # notification daemon
-pidof -q picom          || picom -f &                       # compositor
+pidof -q picom          || picom -bf &                      # compositor
 pidof -q lxpolkit       || lxpolkit &                       # authentication agent
 pidof -q flameshot      || flameshot &                      # screenshot tool
 pidof -q clipmenud      || clipmenud &                      # clipboard manager
@@ -14,10 +14,6 @@ pidof -q light-locker   || light-locker &                   # lock screen using 
 
 # setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg &
-
-# handmade power management script
-pkill -f ~/git-repos/scripts/battery-check
-~/git-repos/scripts/battery-check &
 
 # xob volume bar
 pkill -f ~/.config/xob/pulse-volume-watcher.py

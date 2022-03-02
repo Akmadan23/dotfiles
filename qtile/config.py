@@ -1,16 +1,10 @@
-# IMPORTANT:
-# in order to avoid switching groups typing
-# the current group name, comment out the "toggle_group" funcion in
-# /usr/local/lib/python3.x/site-packages/libqtile/config.py (if installed via pip)
-
+import os, re, socket, subprocess
 from libqtile import qtile, layout, bar, widget, hook
 from libqtile.lazy import lazy
 from libqtile.config import Key, KeyChord, Screen, Group, Drag, Match
-import os, re, socket, subprocess
 
 # Importing environment variables
 home = os.environ["HOME"]
-path = os.environ["PATH"]
 term = os.environ["TERMINAL"]
 browser = os.environ["BROWSER"]
 
@@ -20,9 +14,8 @@ alt = "mod1"
 sft = "shift"
 ctrl = "control"
 
-# FontAwesome
-FA4 = "FontAwesome"                 # V4.7
-FA5 = "Font Awesome 5 Free Solid"   # V5.15
+# FontAwesome v4.7
+FA4 = "FontAwesome"
 
 # Monokai Color Scheme (https://kolormark.com/brands/monokai)
 colors = [
@@ -71,9 +64,9 @@ keys = [
     # Terminal and rofi
     Key([mod],              "Return",   lazy.spawn(term)),
     Key([mod],              "space",    lazy.spawn("rofi -modi drun,run -show drun")),
-    Key([mod, sft],         "e",        lazy.spawn("rofi -modi menu:rofi-power-menu -show menu")),
-    Key([mod, sft],         "x",        lazy.spawn("rofi -modi menu:rofi-xrandr-menu -show menu")),
-    Key([mod, sft],         "d",        lazy.spawn("rofi -modi menu:rofi-dotfiles-menu -show menu")),
+    Key([mod, sft],         "e",        lazy.spawn("rofi -modi x:rofi-power-menu -show")),
+    Key([mod, sft],         "x",        lazy.spawn("rofi -modi x:rofi-xrandr-menu -show")),
+    Key([mod, sft],         "d",        lazy.spawn("rofi -modi x:rofi-dotfiles-menu -show")),
 
     # App spawning
     Key([mod],              "b",        lazy.spawn("blender")),
@@ -90,9 +83,9 @@ keys = [
     Key([mod],              "Down",     lazy.spawn("amixer set Master 5%-")),               # -5% volume
     Key([mod],              "m",        lazy.spawn("amixer set Master toggle")),            # mute
     Key([mod],              "p",        lazy.spawn("deadbeef --play-pause")),               # deadbeef toggle play/pause
-    Key([mod],              "Right",    lazy.spawn("brightlight -i 239")),                  # +5% backlight
-    Key([mod],              "Left",     lazy.spawn("brightlight -d 239")),                  # -5% backlight
-    Key([mod],              "r",        lazy.spawn("brightlight -w 2390")),                 # resets to 50%
+    Key([mod],              "Right",    lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
+    Key([mod],              "Left",     lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
+    Key([mod],              "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
 
     # Moving cursor with keyboard
     Key([mod, ctrl],        "b",        lazy.spawn("xdotool click 1")),                     # left click
@@ -107,8 +100,8 @@ keys = [
     Key([mod, ctrl, alt],   "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move right pointer 4px
 
     # Special keys
-    Key([], "XF86MonBrightnessUp",      lazy.spawn("brightlight -i 239")),                  # +5% backlight
-    Key([], "XF86MonBrightnessDown",    lazy.spawn("brightlight -d 239")),                  # -5% backlight
+    Key([], "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
+    Key([], "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
     Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master 5%+")),               # +5% volume
     Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master 5%-")),               # -5% volume
     Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),            # mute
@@ -266,11 +259,11 @@ screens = [
                 ),
 
                 widget.CheckUpdates(
-                    distro = "Fedora",
+                    distro = "Arch",
                     update_interval = 600,
                     no_update_string = "✔",
                     display_format = "{updates}",
-                    execute = term + " --hold -e sudo dnf up",
+                    execute = term + " --hold -e paru",
                     colour_have_updates = colors[0],
                     colour_no_updates = colors[0],
                     background = colors[3],
@@ -347,27 +340,24 @@ screens = [
                     foreground = colors[8],
                 ),
 
-                widget.Battery(
-                    format = "{char}",
+                widget.TextBox(
+                    text = "",
                     font = FA4,
                     fontsize = 16,
-                    empty_char = "",
-                    discharge_char = "",
-                    full_char = "",
-                    unknown_char = "",
-                    charge_char = "",
-                    show_short_text = False,
-                    update_interval = 30,
-                    low_foreground = colors[1],
                     background = colors[8],
                     foreground = colors[7],
                 ),
 
                 widget.Battery(
-                    format = "{percent:1.0%}",
+                    format = "{char}{percent:1.0%}",
+                    charge_char = " ",
+                    discharge_char = "",
+                    unknown_char = "",
                     show_short_text = False,
-                    notify_below = 10,
                     update_interval = 30,
+                    notify_below = 20,
+                    notification_timeout = 0,
+                    low_percentage = 0.2,
                     low_foreground = colors[1],
                     background = colors[8],
                     foreground = colors[7],
