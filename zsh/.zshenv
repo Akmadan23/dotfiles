@@ -45,7 +45,7 @@ export PF_COL3="1"  # Title
 
 # Disabling GTK3 client side decorations
 export GTK_CSD=0
-export LD_PRELOAD="$HOME/.config/gtk3-nocsd/libgtk3-nocsd.so.0"
+export LD_PRELOAD="/usr/lib/libgtk3-nocsd.so.0"
 
 # Qt settings
 export QT_QPA_PLATFORMTHEME="qt5ct"
@@ -56,6 +56,9 @@ export QT_SCALE_FACTOR=1
 
 # Java fix for Qtile
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Settin jdtls home for nvim plugin
+export JDTLS_HOME="/usr/share/java/jdtls"
 
 # Setting path for binaries
 export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$CARGO_HOME/bin":"$SCRIPTS"

@@ -1,6 +1,6 @@
 -- defining plugins
 require("packer").startup {
-    function()
+    function(use)
         use "wbthomason/packer.nvim"
 
         -- LSP & CMP
@@ -23,12 +23,12 @@ require("packer").startup {
 
         -- appearance
         use "sheerun/vim-polyglot"
+        use "rrethy/vim-hexokinase"
         use "ryanoasis/vim-devicons"
         use "nvim-lualine/lualine.nvim"
         use "lukas-reineke/indent-blankline.nvim"
-        use {"rrethy/vim-hexokinase", run = "make hexokinase"}
 
-        -- misc
+        -- utilities
         use "vimwiki/vimwiki"
         use "junegunn/fzf.vim"
         use "mhinz/vim-startify"
@@ -111,14 +111,15 @@ require("lualine").setup {
 -- Setup nvim-lsp (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
 local srv = {
     "vimls",
+    "jdtls",
     "bashls",
     "texlab",
     "clangd",
     "phpactor",
     "emmet_ls",
+    "sumneko_lua",
     "rust_analyzer",
     "jedi_language_server",
-    "java_language_server",
 }
 
 for _, i in ipairs(srv) do

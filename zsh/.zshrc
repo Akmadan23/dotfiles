@@ -96,8 +96,8 @@ bindkey -M viins "^[[1;5C" forward-word
 bindkey -M viins "^[[1;5D" backward-word
 
 # Plugins
-source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 ###############################################################
 ##                         ALIASES                           ##
@@ -175,12 +175,12 @@ alias md="mkdir -pv"
 alias rm="trash"
 
 # Misc
-alias pm="pacman"
 alias ps="ps axu | less"
 alias top="btm -b"
 alias ytdl="youtube-dl"
 alias pping="prettyping"
 alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"
+alias src="source $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshenv"
 
 ###############################################################
 ##                         VI MODE                           ##
@@ -217,8 +217,11 @@ precmd() {
    echo -ne "\e[5 q"
 }
 
+# Enabling z.lua
+eval "$(lua ~/.local/share/z.lua/src/z.lua --init zsh)"
+
 # Enabling starship prompt
-eval $(starship init zsh)
+eval "$(starship init zsh)"
 
 # Autostart
 pfetch
