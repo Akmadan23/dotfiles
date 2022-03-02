@@ -10,7 +10,7 @@ pidof -q clipmenud      || clipmenud &                      # clipboard manager
 pidof -q nm-applet      || nm-applet &                      # network manager
 pidof -q blueman-applet || blueman-applet &                 # bluetooth manager
 pidof -q pasystray      || pasystray --include-monitors &   # pulseaudio tray icon
-pidof -q xss-lock       || xss-lock -l -- i3lock-fancy &    # lock screen manager
+pidof -q light-locker   || light-locker &                   # lock screen using lightdm
 
 # setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg &
