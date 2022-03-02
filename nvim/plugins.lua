@@ -3,10 +3,13 @@ require("packer").startup {
     function()
         use "wbthomason/packer.nvim"
 
-        -- LSP & COQ
+        -- LSP & CMP
         use "neovim/nvim-lspconfig"
-        use "ms-jpq/coq_nvim"
-        use "ms-jpq/coq.artifacts"
+        use "hrsh7th/nvim-cmp"
+        use "hrsh7th/cmp-nvim-lsp"
+        use "hrsh7th/cmp-path"
+        use "hrsh7th/cmp-vsnip"
+        use "hrsh7th/vim-vsnip"
 
         -- dev tools
         use "jiangmiao/auto-pairs"
@@ -64,7 +67,7 @@ local function filename_status()
     return "%t %m"
 end
 
--- lualine configuration
+-- Setup lualine
 require("lualine").setup {
     options = {
         -- section_separators = {left = "", right = ""},
@@ -105,7 +108,7 @@ require("lualine").setup {
     }
 }
 
--- LSP (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+-- Setup nvim-lsp (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
 local srv = {
     "vimls",
     "bashls",
@@ -119,5 +122,38 @@ local srv = {
 }
 
 for _, i in ipairs(srv) do
-    require("lspconfig")[i].setup {}
+    require("lspconfig")[i].setup {
+        capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    }
 end
+
+-- Setup nvim-cmp (https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion)
+local cmp = require("cmp")
+
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+
+    mapping = {
+        ["<tab>"]   = cmp.mapping.select_next_item(),
+        ["<s-tab>"] = cmp.mapping.select_prev_item(),
+        ["<down>"]  = cmp.mapping.scroll_docs(2),
+        ["<up>"]    = cmp.mapping.scroll_docs(-2),
+        ["<c-space>"] = cmp.mapping.complete(),
+        ["<CR>"]    = cmp.mapping.confirm({select = false}),
+        ["<C-y>"]   = cmp.config.disable,
+        ["<C-e>"]   = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
+    },
+
+    sources = cmp.config.sources({
+        {name = "nvim_lsp"},
+        {name = "vsnip"},
+        {name = "path"},
+    })
+})

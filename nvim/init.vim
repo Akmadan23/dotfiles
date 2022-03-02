@@ -50,15 +50,6 @@ autocmd BufEnter *.ly       let b:did_ftplugin = 1      " Disabling custom keybi
 autocmd BufEnter term://*   startinsert | set nonumber  " Automatic insert mode in terminal buffers
 autocmd FileType fzf        call FZF_map()              " Enabling custom mappings for FZF
 
-" COQ
-let g:coq_settings = {
-    \ 'auto_start': 'shut-up',
-    \ 'completion.smart': v:false,
-    \ 'keymap.recommended': v:false,
-    \ 'display.preview.border': 'double',
-    \ 'display.ghost_text.context': [' < ', ' > ']
-    \ }
-
 " Hexokinase
 let g:Hexokinase_highlighters = ['backgroundfull']
 let g:Hexokinase_optOutPatterns = 'colour_names'
