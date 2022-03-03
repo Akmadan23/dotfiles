@@ -1,9 +1,12 @@
 ! setting DPI
 Xft.dpi: 105
 
-! SXIV color settings
-Sxiv*background: #242424
-Sxiv*foreground: #1ABC9C
+! NSXIV color settings
+Nsxiv*window.background: #000000
+Nsxiv*window.foreground: #1ABC9C
+Nsxiv*bar.background: #1ABC9C
+Nsxiv*bar.foreground: #000000
+Nsxiv*bar.font: Cantarell:pixelsize=14
 
 XTerm*renderFont: true
 XTerm*scrollBar: false
