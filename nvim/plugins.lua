@@ -7,6 +7,7 @@ require("packer").startup {
         use "neovim/nvim-lspconfig"
         use "hrsh7th/nvim-cmp"
         use "hrsh7th/cmp-nvim-lsp"
+        use "hrsh7th/cmp-buffer"
         use "hrsh7th/cmp-path"
         use "hrsh7th/cmp-vsnip"
         use "hrsh7th/vim-vsnip"
@@ -18,8 +19,7 @@ require("packer").startup {
         use "tpope/vim-repeat"
         use "tpope/vim-fugitive"
         use "airblade/vim-gitgutter"
-        use {"calebsmith/vim-lambdify", opt = true, ft = {"python", "haskell"}}
-        use {"mattn/emmet-vim", opt = true, ft = {"html", "css", "php"}}
+        use {"mattn/emmet-vim", ft = {"html", "css", "php"}}
 
         -- appearance
         use "sheerun/vim-polyglot"
@@ -70,9 +70,10 @@ end
 -- Setup lualine
 require("lualine").setup {
     options = {
-        -- section_separators = {left = "", right = ""},
-        section_separators = {},
-        component_separators = {left = "●", right = "●"},
+        section_separators = {left = "", right = ""},
+        component_separators = {left = "", right = ""},
+        -- section_separators = {},
+        -- component_separators = {left = "●", right = "●"},
         theme = {
             normal = {
                 a = {fg = colors.black, bg = colors.yellow, gui = "bold"},
@@ -108,7 +109,34 @@ require("lualine").setup {
     }
 }
 
--- Setup nvim-lsp (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+-- Setup nvim-cmp
+local cmp = require("cmp")
+
+cmp.setup {
+    mapping = {
+        ["<tab>"]   = cmp.mapping.select_next_item(),
+        ["<s-tab>"] = cmp.mapping.select_prev_item(),
+        ["<down>"]  = cmp.mapping.scroll_docs(2),
+        ["<up>"]    = cmp.mapping.scroll_docs(-2),
+        ["<cr>"]    = cmp.mapping.confirm(),
+        ["<c-y>"]   = cmp.config.disable,
+    },
+
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+
+    sources = cmp.config.sources {
+        {name = "nvim_lsp"},
+        {name = "buffer"},
+        {name = "vsnip"},
+        {name = "path"},
+    }
+}
+
+-- Defining language servers (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
 local srv = {
     "vimls",
     "jdtls",
@@ -122,39 +150,12 @@ local srv = {
     "jedi_language_server",
 }
 
+-- Enabling completion capabilities
+local cap = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- Setup nvim-lsp
 for _, i in ipairs(srv) do
     require("lspconfig")[i].setup {
-        capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+        capabilities = cap
     }
 end
-
--- Setup nvim-cmp (https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion)
-local cmp = require("cmp")
-
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
-    },
-
-    mapping = {
-        ["<tab>"]   = cmp.mapping.select_next_item(),
-        ["<s-tab>"] = cmp.mapping.select_prev_item(),
-        ["<down>"]  = cmp.mapping.scroll_docs(2),
-        ["<up>"]    = cmp.mapping.scroll_docs(-2),
-        ["<c-space>"] = cmp.mapping.complete(),
-        ["<CR>"]    = cmp.mapping.confirm({select = false}),
-        ["<C-y>"]   = cmp.config.disable,
-        ["<C-e>"]   = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        }),
-    },
-
-    sources = cmp.config.sources({
-        {name = "nvim_lsp"},
-        {name = "vsnip"},
-        {name = "path"},
-    })
-})
