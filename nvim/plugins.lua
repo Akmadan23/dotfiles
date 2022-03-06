@@ -26,13 +26,12 @@ require("packer").startup {
         use "rrethy/vim-hexokinase"
         use "ryanoasis/vim-devicons"
         use "nvim-lualine/lualine.nvim"
+        use "powerman/vim-plugin-AnsiEsc"
         use "lukas-reineke/indent-blankline.nvim"
 
         -- utilities
         use "vimwiki/vimwiki"
         use "junegunn/fzf.vim"
-        use "mhinz/vim-startify"
-        use "powerman/vim-plugin-AnsiEsc"
     end
 }
 

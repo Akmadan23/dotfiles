@@ -75,11 +75,3 @@ let g:vimwiki_list = [{
     \ 'path': '~/git-repos/vimwiki/notes/',
     \ 'path_html': '~/git-repos/vimwiki/html/'
     \ }]
-
-" Startify
-let g:startify_custom_header = startify#pad(split(system('figlet -f poison "Neovim"'), '\n'))
-let g:startify_session_dir = '~/.config/nvim/sessions'
-let g:startify_lists = [
-    \ {'type': 'files',     'header': ['   Recent files']},
-    \ {'type': 'sessions',  'header': ['   Sessions']}
-    \ ]
