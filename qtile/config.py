@@ -64,9 +64,9 @@ keys = [
     # Terminal and rofi
     Key([mod],              "Return",   lazy.spawn(term)),
     Key([mod],              "space",    lazy.spawn("rofi -modi drun,run -show drun")),
-    Key([mod, sft],         "e",        lazy.spawn("rofi -modi x:rofi-power-menu -show")),
-    Key([mod, sft],         "x",        lazy.spawn("rofi -modi x:rofi-xrandr-menu -show")),
-    Key([mod, sft],         "d",        lazy.spawn("rofi -modi x:rofi-dotfiles-menu -show")),
+    Key([mod, sft],         "e",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-power-menu -show")),
+    Key([mod, sft],         "x",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-xrandr-menu -show")),
+    Key([mod, sft],         "d",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-dotfiles-menu -show")),
 
     # App spawning
     Key([mod],              "b",        lazy.spawn("blender")),
