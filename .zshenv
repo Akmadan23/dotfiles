@@ -1,8 +1,8 @@
 # Setting zsh home folder
-export ZDOTDIR="$HOME/.config/zsh"
+# export ZDOTDIR="$HOME/.config/zsh"
 
 # Setting zsh history file
-export HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTFILE="~/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
