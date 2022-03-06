@@ -2,6 +2,9 @@
 xmonad/xmonad.o
 xmonad/xmonad.hi
 
+# Qtile
+qtile/__pycache__
+
 # Ranger
 ranger/plugins/__pycache__
 ranger/plugins/ranger_devicons/*
