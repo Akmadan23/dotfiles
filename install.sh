@@ -2,7 +2,7 @@
 
 # every directory inside ~/.config
 for i in */; do
-    cp -rvi $i ~/.config/
+    cp -rv $i ~/.config/
 done
 
 # dotfiles in the home directory
@@ -18,5 +18,5 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 
 # zsh plugins
 mkdir -p ~/.config/zsh/plugins/
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/plugins/
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/zsh/plugins/
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/zsh/plugins/zsh-syntax-highlighting

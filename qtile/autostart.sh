@@ -5,7 +5,6 @@ pidof -q conky          || conky &                          # desktop widgets
 pidof -q dunst          || dunst &                          # notification daemon
 pidof -q picom          || picom -bf &                      # compositor
 pidof -q lxpolkit       || lxpolkit &                       # authentication agent
-pidof -q flameshot      || flameshot &                      # screenshot tool
 pidof -q clipmenud      || clipmenud &                      # clipboard manager
 pidof -q nm-applet      || nm-applet &                      # network manager
 pidof -q blueman-applet || blueman-applet &                 # bluetooth manager
