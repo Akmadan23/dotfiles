@@ -1,8 +1,5 @@
-# Setting zsh home folder
-# export ZDOTDIR="$HOME/.config/zsh"
-
 # Setting zsh history file
-export HISTFILE="~/.zsh_history"
+export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
@@ -32,7 +29,7 @@ export EDITOR="nvim"
 export READER="zathura"
 export BROWSER="firefox"
 export VIDEO="mpv"
-export IMAGE="sxiv"
+export IMAGE="nsxiv"
 export PAGER="less"
 export MANPAGER="nvim -M +Man!"
 export OPENER="xdg-open"
@@ -59,6 +56,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Settin jdtls home for nvim plugin
 export JDTLS_HOME="/usr/share/java/jdtls"
+export WORKSPACE="$HOME/.local/share/jdtls"
 
 # Setting path for binaries
 export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$CARGO_HOME/bin":"$SCRIPTS"

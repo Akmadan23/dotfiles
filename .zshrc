@@ -117,9 +117,7 @@ alias ......="cd ../../../../.."
 alias zhist="nvim ~/.config/zsh/.zsh_history"
 alias xconf="nvim ~/.Xresources"
 alias lconf="nvim ~/.config/leftwm/config.toml"
-alias zconf="nvim -p \
-    ~/.config/zsh/.zshrc \
-    ~/.config/zsh/.zshenv"
+alias zconf="nvim -p ~/.zshrc ~/.zshenv"
 alias rconf="nvim -p \
     ~/.config/ranger/rc.conf \
     ~/.config/ranger/scope.sh"
@@ -180,7 +178,7 @@ alias top="btm -b"
 alias ytdl="youtube-dl"
 alias pping="prettyping"
 alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"
-alias src="source $ZDOTDIR/.zshrc && source $ZDOTDIR/.zshenv"
+alias src="source ~/.zshrc && source ~/.zshenv"
 
 ###############################################################
 ##                         VI MODE                           ##
@@ -218,7 +216,7 @@ precmd() {
 }
 
 # Enabling z.lua
-eval "$(lua ~/.local/share/z.lua/src/z.lua --init zsh)"
+eval "$(lua ~/.local/share/z.lua/z.lua --init zsh)"
 
 # Enabling starship prompt
 eval "$(starship init zsh)"
