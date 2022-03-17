@@ -14,8 +14,8 @@ alt = "mod1"
 sft = "shift"
 ctrl = "control"
 
-# FontAwesome v4.7
-FA4 = "FontAwesome"
+# Font Awesome
+awesome = "Font Awesome 6 Free Solid"
 
 # Monokai Color Scheme (https://kolormark.com/brands/monokai)
 colors = [
@@ -76,7 +76,7 @@ keys = [
     Key([mod],              "t",        lazy.spawn("thunderbird")),
     Key([mod],              "s",        lazy.spawn("flameshot gui")),
     Key([mod, sft],         "v",        lazy.spawn("clipmenu")),
-    Key([mod],              "e",        lazy.spawn(term + " -t Ranger -e ranger")),
+    Key([mod],              "e",        lazy.spawn(f"{term} -t Ranger -e ranger")),
 
     # Volume and brightness controls
     Key([mod],              "Up",       lazy.spawn("amixer set Master 5%+")),               # +5% volume
@@ -88,16 +88,17 @@ keys = [
     Key([mod],              "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
 
     # Moving cursor with keyboard
-    Key([mod, ctrl],        "b",        lazy.spawn("xdotool click 1")),                     # left click
-    Key([mod, ctrl],        "n",        lazy.spawn("xdotool click 3")),                     # right click
-    Key([mod, ctrl],        "h",        lazy.spawn("xdotool mousemove_relative -- -46 0")), # move left pointer 46px
-    Key([mod, ctrl],        "j",        lazy.spawn("xdotool mousemove_relative -- 0 46")),  # move down pointer 46px
-    Key([mod, ctrl],        "k",        lazy.spawn("xdotool mousemove_relative -- 0 -46")), # move up pointer 46px
-    Key([mod, ctrl],        "l",        lazy.spawn("xdotool mousemove_relative -- 46 0")),  # move right pointer 46px
-    Key([mod, ctrl, alt],   "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move left pointer 4px
-    Key([mod, ctrl, alt],   "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move down pointer 4px
-    Key([mod, ctrl, alt],   "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move up pointer 4px
-    Key([mod, ctrl, alt],   "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move right pointer 4px
+    Key([alt, ctrl],        "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move left pointer 4px
+    Key([alt, ctrl],        "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move down pointer 4px
+    Key([alt, ctrl],        "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move up pointer 4px
+    Key([alt, ctrl],        "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move right pointer 4px
+    Key([alt],              "h",        lazy.spawn("xdotool mousemove_relative -- -64 0")), # move left pointer 64px
+    Key([alt],              "j",        lazy.spawn("xdotool mousemove_relative -- 0 64")),  # move down pointer 64px
+    Key([alt],              "k",        lazy.spawn("xdotool mousemove_relative -- 0 -64")), # move up pointer 64px
+    Key([alt],              "l",        lazy.spawn("xdotool mousemove_relative -- 64 0")),  # move right pointer 64px
+    Key([alt],              "b",        lazy.spawn("xdotool click 1")),                     # left click
+    Key([alt],              "n",        lazy.spawn("xdotool click 2")),                     # center click
+    Key([alt],              "m",        lazy.spawn("xdotool click 3")),                     # right click
 
     # Special keys
     Key([], "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
@@ -123,7 +124,7 @@ keys = [
 
     # Set volume
     KeyChord([mod], "v", [
-        Key([], str(i), lazy.spawn("amixer set Master " + str(i) + "0%")) for i in range(1, 10)
+        Key([], str(i), lazy.spawn(f"amixer set Master {str(i)}0%")) for i in range(1, 10)
     ]),
 ]
 
@@ -213,16 +214,14 @@ extension_defaults = widget_defaults.copy()
 # Separator defaults
 separator = dict(
     text = "",
-    font = "Hasklug Nerd Font Mono",
-    fontsize = 32,
+    fontsize = 24,
     padding = 0,
     margin = 0
 )
 
 # Groupbox defaults
 groupbox = dict(
-    font = FA4,
-    fontsize = 16,
+    font = awesome,
     active = colors[7],
     inactive = colors[8],
     urgent_border = colors[5],
@@ -247,14 +246,24 @@ screens = [
             widgets = [
                 widget.GroupBox(**groupbox),
                 widget.WindowName(**windowname),
-                widget.TextBox(**separator, background = colors[0], foreground = colors[1]),
-                widget.TextBox(**separator, background = colors[1], foreground = colors[2]),
-                widget.TextBox(**separator, background = colors[2], foreground = colors[3]),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[0],
+                    foreground = colors[1],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[1],
+                    foreground = colors[2],
+                ),
 
                 widget.TextBox(
                     text = "",
-                    font = FA4,
-                    background = colors[3],
+                    font = awesome,
+                    fontsize = 12,
+                    background = colors[2],
                     foreground = colors[0],
                 ),
 
@@ -263,9 +272,30 @@ screens = [
                     update_interval = 600,
                     no_update_string = "✔",
                     display_format = "{updates}",
-                    execute = term + " --hold -e paru",
+                    execute = f"{term} --hold -e paru",
                     colour_have_updates = colors[0],
                     colour_no_updates = colors[0],
+                    background = colors[2],
+                    foreground = colors[0],
+                ),
+
+                widget.TextBox(
+                    **separator,
+                    background = colors[2],
+                    foreground = colors[3],
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    font = awesome,
+                    background = colors[3],
+                    foreground = colors[0],
+                ),
+
+                widget.Memory(
+                    format = "{MemUsed: .2f}/{MemTotal: .0f} GB",
+                    measure_mem = "G",
+                    update_interval = 2,
                     background = colors[3],
                     foreground = colors[0],
                 ),
@@ -278,8 +308,7 @@ screens = [
 
                 widget.TextBox(
                     text = "",
-                    font = FA4,
-                    fontsize = 16,
+                    font = awesome,
                     background = colors[4],
                     foreground = colors[0],
                 ),
@@ -300,8 +329,7 @@ screens = [
 
                 widget.TextBox(
                     text = "",
-                    font = FA4,
-                    fontsize = 16,
+                    font = awesome,
                     background = colors[5],
                     foreground = colors[0],
                 ),
@@ -322,8 +350,7 @@ screens = [
 
                 widget.TextBox(
                     text = "",
-                    font = FA4,
-                    fontsize = 16,
+                    font = awesome,
                     background = colors[6],
                     foreground = colors[0],
                 ),
@@ -342,7 +369,7 @@ screens = [
 
                 widget.TextBox(
                     text = "",
-                    font = FA4,
+                    font = awesome,
                     fontsize = 16,
                     background = colors[8],
                     foreground = colors[7],
@@ -353,6 +380,7 @@ screens = [
                     charge_char = " ",
                     discharge_char = "",
                     unknown_char = "",
+                    full_char = "",
                     show_short_text = False,
                     update_interval = 30,
                     notify_below = 20,
@@ -367,6 +395,14 @@ screens = [
                     **separator,
                     background = colors[8],
                     foreground = colors[9],
+                ),
+
+                widget.TextBox(
+                    text = "",
+                    font = awesome,
+                    fontsize = 12,
+                    background = colors[9],
+                    foreground = colors[7],
                 ),
 
                 widget.Clock(
