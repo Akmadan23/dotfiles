@@ -48,31 +48,11 @@ local colors = {
     gray    = "#465457",
 }
 
--- custom filename module for lualine
-local function filename_status()
-    -- default
-    local bg = colors.gray
-    local fg = colors.white
-    local style = "none"
-
-    if vim.bo.modified then -- unsaved
-        -- fg = colors.orange
-        style = "bold"
-    elseif not vim.bo.modifiable or vim.bo.readonly then -- readonly
-        style = "italic"
-    end
-
-    vim.cmd("hi! lualine_filename_status guifg=" .. fg .. " guibg=" .. bg .. " gui=" .. style)
-    return "%t %m"
-end
-
 -- Setup lualine
 require("lualine").setup {
     options = {
-        section_separators = {left = "", right = ""},
-        component_separators = {left = "", right = ""},
-        -- section_separators = {},
-        -- component_separators = {left = "●", right = "●"},
+        section_separators      = {left = "", right = ""},
+        component_separators    = {left = "", right = ""},
         theme = {
             normal = {
                 a = {fg = colors.black, bg = colors.yellow, gui = "bold"},
@@ -91,8 +71,8 @@ require("lualine").setup {
 
     sections = {
         lualine_a = {"mode"},
-        lualine_b = {"branch", "diff", {"diagnostics", sources = {"nvim_lsp", "coc"}}},
-        lualine_c = {{filename_status, color = "lualine_filename_status"}},
+        lualine_b = {"branch", "diff", {"diagnostics", sources = {"nvim_lsp"}}},
+        lualine_c = {{"filename", symbols = {modified = " +", readonly = " -"}}},
         lualine_x = {"filetype"},
         lualine_y = {"encoding"},
         lualine_z = {"progress", "location"}
@@ -118,6 +98,7 @@ cmp.setup {
         ["<down>"]  = cmp.mapping.scroll_docs(2),
         ["<up>"]    = cmp.mapping.scroll_docs(-2),
         ["<cr>"]    = cmp.mapping.confirm(),
+        ["<c-e>"]   = cmp.mapping.close(),
         ["<c-y>"]   = cmp.config.disable,
     },
 
