@@ -22,6 +22,7 @@ require("packer").startup {
         use {"mattn/emmet-vim", ft = {"html", "css", "php"}}
 
         -- appearance
+        use "onsails/lspkind-nvim"
         use "sheerun/vim-polyglot"
         use "rrethy/vim-hexokinase"
         use "ryanoasis/vim-devicons"
@@ -113,6 +114,12 @@ cmp.setup {
         {name = "buffer"},
         {name = "vsnip"},
         {name = "path"},
+    },
+
+    formatting = {
+        format = require("lspkind").cmp_format {
+            mode = "symbol_text"
+        }
     }
 }
 
