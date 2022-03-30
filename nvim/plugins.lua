@@ -11,6 +11,7 @@ require("packer").startup {
         use "hrsh7th/cmp-path"
         use "hrsh7th/cmp-vsnip"
         use "hrsh7th/vim-vsnip"
+        use 'mfussenegger/nvim-jdtls'
 
         -- dev tools
         use "jiangmiao/auto-pairs"
@@ -111,9 +112,9 @@ cmp.setup {
 
     sources = cmp.config.sources {
         {name = "nvim_lsp"},
-        {name = "buffer"},
-        {name = "vsnip"},
         {name = "path"},
+        {name = "vsnip"},
+        {name = "buffer"},
     },
 
     formatting = {
@@ -126,7 +127,6 @@ cmp.setup {
 -- Defining language servers (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
 local srv = {
     "vimls",
-    "jdtls",
     "bashls",
     "texlab",
     "clangd",
