@@ -9,7 +9,7 @@ pidof -q clipmenud      || clipmenud &          # clipboard manager
 pidof -q nm-applet      || nm-applet &          # network manager
 pidof -q blueman-applet || blueman-applet &     # bluetooth manager
 pidof -q light-locker   || light-locker &       # lock screen using lightdm
-pidof -q pasystray      || pasystray --include-monitors --notify=all & # pulseaudio tray icon
+pidof -q pasystray      || pasystray --include-monitors --notify=none & # pulseaudio tray icon
 
 # setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg &

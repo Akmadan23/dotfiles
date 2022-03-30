@@ -79,9 +79,9 @@ keys = [
     Key([mod],              "e",        lazy.spawn(f"{term} -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([mod],              "Up",       lazy.spawn("amixer set Master unmute 5%+")),        # +5% volume
-    Key([mod],              "Down",     lazy.spawn("amixer set Master unmute 5%-")),        # -5% volume
-    Key([mod],              "m",        lazy.spawn("amixer set Master toggle")),            # mute
+    Key([mod],              "Up",       lazy.spawn("dunsty amixer set Master unmute 5%+")), # +5% volume
+    Key([mod],              "Down",     lazy.spawn("dunsty amixer set Master unmute 5%-")), # -5% volume
+    Key([mod],              "m",        lazy.spawn("dunsty amixer set Master toggle")),     # mute
     Key([mod],              "Right",    lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
     Key([mod],              "Left",     lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
     Key([mod],              "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
@@ -102,9 +102,9 @@ keys = [
     # Special keys
     Key([], "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
     Key([], "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
-    Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master unmute 5%+")),        # +5% volume
-    Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master unmute 5%-")),        # -5% volume
-    Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),            # mute
+    Key([], "XF86AudioRaiseVolume",     lazy.spawn("dunsty amixer set Master unmute 5%+")), # +5% volume
+    Key([], "XF86AudioLowerVolume",     lazy.spawn("dunsty amixer set Master unmute 5%-")), # -5% volume
+    Key([], "XF86AudioMute",            lazy.spawn("dunsty amixer set Master toggle")),     # mute
 
     # Opening websites
     KeyChord([mod], "w", [
