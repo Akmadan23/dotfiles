@@ -54,9 +54,8 @@ export QT_SCALE_FACTOR=1
 # Java fix for Qtile
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# Settin jdtls home for nvim plugin
+# Setting jdtls home for nvim-jdtls plugin
 export JDTLS_HOME="/usr/share/java/jdtls"
-export WORKSPACE="$HOME/.local/share/jdtls"
 
 # Setting path for binaries
 export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$CARGO_HOME/bin":"$SCRIPTS"

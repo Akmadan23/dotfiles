@@ -6,11 +6,11 @@ for i in */; do
 done
 
 # dotfiles in the home directory
-cp .zshrc       ~
-cp .zshenv      ~
-cp .gitconfig   ~
-cp .Xresources  ~
-cp .stalonetray ~
+cp .zshrc           ~
+cp .zshenv          ~
+cp .gitconfig       ~
+cp .Xresources      ~
+cp .stalonetrayrc   ~
 
 # nvim plugin manager
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
