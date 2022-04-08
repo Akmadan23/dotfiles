@@ -10,6 +10,7 @@ pidof -q nm-applet      || nm-applet &          # network manager
 pidof -q blueman-applet || blueman-applet &     # bluetooth manager
 pidof -q light-locker   || light-locker &       # lock screen using lightdm
 pidof -q pasystray      || pasystray --include-monitors --notify=none & # pulseaudio tray icon
+pgrep ejectsy &> /dev/null | ejectsy &
 
 # setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg &

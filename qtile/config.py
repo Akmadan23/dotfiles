@@ -408,6 +408,7 @@ screens = [
                     format = "%A %d %B, %H:%M",
                     background = colors[9],
                     foreground = colors[7],
+                    mouse_callbacks = dict(Button1 = lazy.spawn("gsimplecal"))
                 ),
 
                 widget.TextBox(

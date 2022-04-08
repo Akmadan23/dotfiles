@@ -1,8 +1,3 @@
-local function git()
-    vim.cmd("cd %:h")
-    return os.execute("git status &> /dev/null") == 0
-end
-
 -- defining plugins
 require("packer").startup {
     function(use)
@@ -122,8 +117,8 @@ require("packer").startup {
         use "jiangmiao/auto-pairs"
         use "tpope/vim-commentary"
         use "tpope/vim-repeat"
-        use {"tpope/vim-fugitive", cond = {git}}
-        use {"airblade/vim-gitgutter", cond = {git}}
+        use "tpope/vim-fugitive"
+        use "airblade/vim-gitgutter"
         use {"alvan/vim-closetag", ft = {"html", "xml", "php"}}
         use {"mattn/emmet-vim", ft = {"html", "css", "php"}}
 
