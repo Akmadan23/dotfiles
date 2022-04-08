@@ -10,7 +10,11 @@ function! Compile()
     elseif l:ext == 'rs'
         !rustc %
     elseif l:ext == 'java'
-        !javac %
+        if expand('%:p:h:t') == 'src'
+            !javac % -d %:p:h:h/bin
+        else
+            !javac %
+        endif
     elseif l:ext == 'tex'
         !pdflatex %
     elseif l:ext == 'ly'
@@ -45,8 +49,13 @@ function! Run()
                 echo 'ERROR: No "' . expand('%:p:r') . '" executable file.'
             endif
         elseif l:ext == 'java'
-            cd %:h
-            split term://java %:r
+            if expand('%:p:h:t') == 'src'
+                cd %:h:h/bin
+            else
+                cd %:h
+            endif
+            split term://java %:t:r
+            cd -
         elseif l:ext == 'tex' || l:ext == 'ly'
             if exists('$READER')
                 silent !$READER %:p:r.pdf & disown
