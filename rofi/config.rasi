@@ -1,5 +1,6 @@
 configuration {
-    theme: "current.rasi";
     font: "Hasklug Nerd Font 12";
     show-icons: true;
 }
+
+@theme "current.rasi"

@@ -45,4 +45,4 @@ function run {
     ${actions[$entry]}
 }
 
-source rofi-base-menu
+source ~/.config/rofi/scripts/rofi-base-menu

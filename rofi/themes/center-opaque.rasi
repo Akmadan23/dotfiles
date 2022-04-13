@@ -50,9 +50,17 @@ element-icon {
     border: 0px;
 }
 
-element selected {
+element.selected {
     border: 0px;
     border-radius: 12px;
+    background-color: @accent2;
+}
+
+element-text.selected {
     text-color: @accent3;
+    background-color: @accent2;
+}
+
+element-icon.selected {
     background-color: @accent2;
 }

@@ -84,4 +84,4 @@ function run {
     killall rofi
 }
 
-source rofi-base-menu
+source ~/.config/rofi/scripts/rofi-base-menu

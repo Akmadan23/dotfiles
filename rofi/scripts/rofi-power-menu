@@ -33,7 +33,7 @@ actions[shutdown]="systemctl poweroff"
 actions[reboot]="systemctl reboot"
 actions[suspend]="systemctl suspend"
 actions[hibernate]="systemctl hibernate"
-actions[logout]="loginctl terminate-user $USER"
+actions[logout]="loginctl terminate-session $XDG_SESSION_ID"
 actions[lockscreen]="i3lock-fancy"
 
 # By default, ask for confirmation for actions that are irreversible
@@ -47,4 +47,4 @@ function run {
     ${actions[$entry]}
 }
 
-source rofi-base-menu
+source ~/.config/rofi/scripts/rofi-base-menu
