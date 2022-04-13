@@ -18,5 +18,6 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 
 # zsh plugins
 mkdir -p ~/.config/zsh/plugins/
+git clone https://github.com/hlissner/zsh-autopair.git ~/.config/zsh/plugins/zsh-autopair
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/zsh/plugins/zsh-syntax-highlighting

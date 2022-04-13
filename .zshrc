@@ -96,6 +96,7 @@ bindkey -M viins "^[[1;5C" forward-word
 bindkey -M viins "^[[1;5D" backward-word
 
 # Plugins
+source "$HOME/.config/zsh/plugins/zsh-autopair/autopair.zsh"
 source "$HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
