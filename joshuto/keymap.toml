@@ -1,222 +1,100 @@
-[keymaps]
-# backspace = 263
+mapcommand = [
+    { keys = [ "T" ],           command = "new_tab" },
+    { keys = [ "ctrl+t" ],      command = "new_tab" },
+    { keys = [ "W" ],           command = "close_tab" },
+    { keys = [ "ctrl+w" ],      command = "close_tab" },
+    { keys = [ "q" ],           command = "close_tab" },
+    { keys = [ "Q" ],           command = "quit_to_cwd" },
 
-[[mapcommand]]
-command = "new_tab"
-keys = ["g", "n"]
+    { keys = [ "R" ],           command = "reload_dirlist" },
+    { keys = [ "z", "h" ],      command = "toggle_hidden" },
+    { keys = [ "\t" ],          command = "tab_switch 1" },
+    { keys = [ "backtab" ],     command = "tab_switch -1" },
 
-[[mapcommand]]
-command = "close_tab"
-keys = ["g", "c"]
+    { keys = [ "alt+1" ],       command = "tab_switch_index 1" },
+    { keys = [ "alt+2" ],       command = "tab_switch_index 2" },
+    { keys = [ "alt+3" ],       command = "tab_switch_index 3" },
+    { keys = [ "alt+4" ],       command = "tab_switch_index 4" },
+    { keys = [ "alt+5" ],       command = "tab_switch_index 5" },
 
-[[mapcommand]]
-command = "close_tab"
-keys = ["q"]
+    # arrow keys
+    { keys = [ "arrow_up" ],    command = "cursor_move_up" },
+    { keys = [ "arrow_down" ],  command = "cursor_move_down" },
+    { keys = [ "arrow_left" ],  command = "cd .." },
+    { keys = [ "arrow_right" ], command = "open" },
+    { keys = [ "\n" ],          command = "open" },
+    { keys = [ "end" ],         command = "cursor_move_end" },
+    { keys = [ "home" ],        command = "cursor_move_home" },
+    { keys = [ "page_up" ],     command = "cursor_move_page_up" },
+    { keys = [ "page_down" ],   command = "cursor_move_page_down" },
+    { keys = [ "ctrl+u" ],      command = "cursor_move_page_up 0.5" },
+    { keys = [ "ctrl+d" ],      command = "cursor_move_page_down 0.5" },
 
-[[mapcommand]]
-command = "force_quit"
-keys = ["Q"]
+    # vim-like keybindings
+    { keys = [ "j" ],           command = "cursor_move_down" },
+    { keys = [ "k" ],           command = "cursor_move_up" },
+    { keys = [ "h" ],           command = "cd .." },
+    { keys = [ "l" ],           command = "open" },
+    { keys = [ "g", "g" ],      command = "cursor_move_home" },
+    { keys = [ "G" ],           command = "cursor_move_end" },
+    { keys = [ "r" ],           command = "open_with" },
 
-[[mapcommand]]
-command = "reload_dirlist"
-keys = ["R"]
+    { keys = [ "[" ],           command = "parent_cursor_move_up" },
+    { keys = [ "]" ],           command = "parent_cursor_move_down" },
 
-[[mapcommand]]
-command = "toggle_hidden"
-keys = ["z", "h"]
+    { keys = [ "c", "d" ],      command = ":cd " },
+    { keys = [ "d", "d" ],      command = "cut_files" },
+    { keys = [ "y", "y" ],      command = "copy_files" },
+    { keys = [ "p", "p" ],      command = "paste_files" },
+    { keys = [ "p", "o" ],      command = "paste_files --overwrite=true" },
 
-[[mapcommand]]
-command = "tab_switch 1"
-keys = ["\t"]
+    { keys = [ "y", "n" ],      command = "copy_filename" },
+    { keys = [ "y", "." ],      command = "copy_filename_without_extension" },
+    { keys = [ "y", "p" ],      command = "copy_filepath" },
+    { keys = [ "y", "d" ],      command = "copy_dirpath" },
 
-[[mapcommand]]
-command = "tab_switch -1"
-keys = ["backtab"]
+    { keys = [ "delete" ],      command = "delete_files" },
+    { keys = [ "d", "D" ],      command = "delete_files" },
 
-[[mapcommand]]
-command = "cursor_move_up"
-keys = ["arrow_up"]
+    { keys = [ "a" ],           command = "rename_append" },
+    { keys = [ "A" ],           command = "rename_prepend" },
 
-[[mapcommand]]
-command = "cursor_move_up"
-keys = ["k"]
+    { keys = [ "f", "t" ],      command = ":touch " },
 
-[[mapcommand]]
-command = "cursor_move_down"
-keys = ["arrow_down"]
+    { keys = [ " " ],           command = "select --toggle=true" },
+    { keys = [ "t" ],           command = "select --all=true --toggle=true" },
 
-[[mapcommand]]
-command = "cursor_move_down"
-keys = ["j"]
+    { keys = [ "w" ],           command = "show_workers --exit-key=w" },
+    { keys = [ "b", "b" ],      command = "bulk_rename" },
+    { keys = [ "=" ],           command = "set_mode" },
 
-[[mapcommand]]
-command = "cursor_move_end"
-keys = ["end"]
+    { keys = [ ":" ],           command = ":" },
+    { keys = [ ";" ],           command = ":" },
 
-[[mapcommand]]
-command = "cursor_move_end"
-keys = ["G"]
+    { keys = [ "'" ],           command = ":shell " },
+    { keys = [ "m", "k" ],      command = ":mkdir " },
+    { keys = [ "c", "w" ],      command = ":rename " },
 
-[[mapcommand]]
-command = "cursor_move_home"
-keys = ["home"]
+    { keys = [ "/" ],           command = ":search " },
+    { keys = [ "|" ],           command = ":search_inc " },
+    { keys = [ "\\" ],          command = ":search_glob " },
+    { keys = [ "S" ],           command = "search_fzf" },
+    { keys = [ "C" ],           command = "subdir_fzf" },
 
-[[mapcommand]]
-command = "cursor_move_home"
-keys = ["g", "g"]
+    { keys = [ "n" ],           command = "search_next" },
+    { keys = [ "N" ],           command = "search_prev" },
 
-[[mapcommand]]
-command = "cursor_move_page_up"
-keys = ["K"]
+    { keys = [ "s", "r" ],      command = "sort reverse" },
+    { keys = [ "s", "l" ],      command = "sort lexical" },
+    { keys = [ "s", "m" ],      command = "sort mtime" },
+    { keys = [ "s", "n" ],      command = "sort natural" },
+    { keys = [ "s", "s" ],      command = "sort size" },
+    { keys = [ "s", "e" ],      command = "sort ext" },
 
-[[mapcommand]]
-command = "cursor_move_page_down"
-keys = ["J"]
-
-[[mapcommand]]
-command = "parent_cursor_move_up"
-keys = ["["]
-
-[[mapcommand]]
-command = "parent_cursor_move_down"
-keys = ["]"]
-
-[[mapcommand]]
-command = "open"
-keys = ["arrow_right"]
-
-[[mapcommand]]
-command = "open"
-keys = ["l"]
-
-[[mapcommand]]
-command = "open"
-keys = ["\n"]
-
-[[mapcommand]]
-command = "open_with"
-keys = ["r"]
-
-[[mapcommand]]
-command = ":cd "
-keys = ["c", "d"]
-
-[[mapcommand]]
-command = "cd .."
-keys = ["arrow_left"]
-
-[[mapcommand]]
-command = "cd .."
-keys = ["h"]
-
-[[mapcommand]]
-command = "cut_files"
-keys = ["d", "d"]
-
-[[mapcommand]]
-command = "copy_files"
-keys = ["y", "y"]
-
-[[mapcommand]]
-command = "paste_files"
-keys = ["p", "p"]
-
-[[mapcommand]]
-command = "paste_files --overwrite=true"
-keys = ["p", "o"]
-
-[[mapcommand]]
-command = "delete_files"
-keys = ["d", "D"]
-
-[[mapcommand]]
-command = "delete_files"
-keys = ["delete"]
-
-[[mapcommand]]
-command = "rename_append"
-keys = ["a"]
-
-[[mapcommand]]
-command = "rename_prepend"
-keys = ["I"]
-
-[[mapcommand]]
-command = "select --toggle=true"
-keys = [" "]
-
-[[mapcommand]]
-command = "select --toggle=true --all=true"
-keys = ["t"]
-
-[[mapcommand]]
-command = ":search "
-keys = ["/"]
-
-[[mapcommand]]
-command = ":search_glob "
-keys = ["\\"]
-
-[[mapcommand]]
-command = "search_next"
-keys = ["n"]
-
-[[mapcommand]]
-command = "search_prev"
-keys = ["N"]
-
-[[mapcommand]]
-command = "bulk_rename"
-keys = ["b", "b"]
-
-[[mapcommand]]
-command = "set_mode"
-keys = ["="]
-
-[[mapcommand]]
-command = ":"
-keys = [":"]
-
-[[mapcommand]]
-command = ":mkdir "
-keys = ["m", "d"]
-
-[[mapcommand]]
-command = ":rename "
-keys = ["c", "w"]
-
-[[mapcommand]]
-command = "sort lexical"
-keys = ["s", "l"]
-
-[[mapcommand]]
-command = "sort mtime"
-keys = ["s", "m"]
-
-[[mapcommand]]
-command = "sort natural"
-keys = ["s", "n"]
-
-[[mapcommand]]
-command = "sort reverse"
-keys = ["s", "r"]
-
-[[mapcommand]]
-command = "cd /"
-keys = ["g", "/"]
-
-[[mapcommand]]
-command = "cd /run/media/azadahmadi"
-keys = ["g", "m"]
-
-[[mapcommand]]
-command = "cd /etc"
-keys = ["g", "e"]
-
-[[mapcommand]]
-command = "cd ~"
-keys = ["g", "h"]
-
-[[mapcommand]]
-command = "cd ~/.mf"
-keys = ["g", "f"]
+    { keys = [ "g", "r" ],      command = "cd /" },
+    { keys = [ "g", "c" ],      command = "cd ~/.config" },
+    { keys = [ "g", "d" ],      command = "cd ~/Downloads" },
+    { keys = [ "g", "e" ],      command = "cd /etc" },
+    { keys = [ "g", "h" ],      command = "cd ~/" },
+    { keys = [ "?" ],           command = "help" }
+]
