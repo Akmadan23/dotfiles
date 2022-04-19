@@ -12,5 +12,9 @@ pidof -q light-locker   || light-locker &       # lock screen using lightdm
 pidof -q pasystray      || pasystray --include-monitors --notify=none & # pulseaudio tray icon
 pgrep ejectsy &> /dev/null | ejectsy &
 
+# handmade power management script
+pkill -f "$SCRIPTS/battery-check"
+"$SCRIPTS/battery-check &"
+
 # setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg &
