@@ -87,14 +87,14 @@ keys = [
     Key([mod],              "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
 
     # Moving cursor with keyboard
-    Key([alt, ctrl],        "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move left pointer 4px
-    Key([alt, ctrl],        "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move down pointer 4px
-    Key([alt, ctrl],        "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move up pointer 4px
-    Key([alt, ctrl],        "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move right pointer 4px
-    Key([alt],              "h",        lazy.spawn("xdotool mousemove_relative -- -64 0")), # move left pointer 64px
-    Key([alt],              "j",        lazy.spawn("xdotool mousemove_relative -- 0 64")),  # move down pointer 64px
-    Key([alt],              "k",        lazy.spawn("xdotool mousemove_relative -- 0 -64")), # move up pointer 64px
-    Key([alt],              "l",        lazy.spawn("xdotool mousemove_relative -- 64 0")),  # move right pointer 64px
+    Key([alt, ctrl],        "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move pointer 4px left
+    Key([alt, ctrl],        "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move pointer 4px down
+    Key([alt, ctrl],        "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move pointer 4px up
+    Key([alt, ctrl],        "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move pointer 4px right
+    Key([alt],              "h",        lazy.spawn("xdotool mousemove_relative -- -64 0")), # move pointer 64px left
+    Key([alt],              "j",        lazy.spawn("xdotool mousemove_relative -- 0 64")),  # move pointer 64px down
+    Key([alt],              "k",        lazy.spawn("xdotool mousemove_relative -- 0 -64")), # move pointer 64px up
+    Key([alt],              "l",        lazy.spawn("xdotool mousemove_relative -- 64 0")),  # move pointer 64px right
     Key([alt],              "b",        lazy.spawn("xdotool click 1")),                     # left click
     Key([alt],              "n",        lazy.spawn("xdotool click 2")),                     # center click
     Key([alt],              "m",        lazy.spawn("xdotool click 3")),                     # right click
@@ -382,8 +382,6 @@ screens = [
                     full_char = "",
                     show_short_text = False,
                     update_interval = 30,
-                    notify_below = 20,
-                    notification_timeout = 0,
                     low_percentage = 0.2,
                     low_foreground = colors[1],
                     background = colors[8],
