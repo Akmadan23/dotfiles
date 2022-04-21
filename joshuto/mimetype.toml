@@ -17,17 +17,17 @@ image = [
 video = [
     { command = "mpv", args = [ "--" ], fork = true, silent = true },
     { command = "mediainfo", confirm_exit = true },
-    { command = "mpv", args = [ "--mute", "on", "--" ], fork = true, silent = true }
 ]
 
 audio = [
-    { command = "deadbeef", fork = true, silent = true },
     { command = "mpv", args = [ "--" ], fork = true, silent = true },
+    { command = "deadbeef", fork = true, silent = true },
     { command = "mediainfo", confirm_exit = true }
 ]
 
-libreoffice = [
-    { command = "libreoffice", fork = true, silent = true }
+office = [
+    { command = "libreoffice", fork = true, silent = true },
+    { command = "onlyoffice", fork = true, silent = true }
 ]
 
 [extension]
@@ -115,17 +115,17 @@ ogg.inherit = "audio"
 wav.inherit = "audio"
 ts.inherit = "audio"
 
-# libreoffice formats
-odt.inherit = "libreoffice"
-ods.inherit = "libreoffice"
-odp.inherit = "libreoffice"
-odf.inherit = "libreoffice"
-doc.inherit = "libreoffice"
-xls.inherit = "libreoffice"
-ppt.inherit = "libreoffice"
-docx.inherit = "libreoffice"
-xlsx.inherit = "libreoffice"
-pptx.inherit = "libreoffice"
+# office formats
+odt.inherit = "office"
+ods.inherit = "office"
+odp.inherit = "office"
+odf.inherit = "office"
+doc.inherit = "office"
+xls.inherit = "office"
+ppt.inherit = "office"
+docx.inherit = "office"
+xlsx.inherit = "office"
+pptx.inherit = "office"
 
 # archive formats
 7z.app_list = [

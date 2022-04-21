@@ -1,5 +1,5 @@
-import os, re, socket, subprocess
-from libqtile import qtile, layout, bar, widget, hook
+import os, subprocess
+from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
 from libqtile.config import Key, KeyChord, Screen, Group, Drag, Match
 
