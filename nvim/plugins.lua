@@ -127,8 +127,8 @@ require("packer").startup {
         use "sheerun/vim-polyglot"
         use "rrethy/vim-hexokinase"
         use "ryanoasis/vim-devicons"
-        use "powerman/vim-plugin-AnsiEsc"
         use "lukas-reineke/indent-blankline.nvim"
+
         use {
             "nvim-lualine/lualine.nvim",
             config = function()

@@ -1,3 +1,6 @@
+" Leader key
+let g:mapleader = ' '
+
 " Start/end of line with H/L
 nno H ^
 vno H ^
@@ -10,16 +13,16 @@ vno J <c-d>zz
 nno K <c-u>zz
 vno K <c-u>zz
 
+" Disabling Q and mapping <c-q> to q
+nno Q <nop>
+nno q <cmd>echo "For macros and cmdwin use <\c-q>"<cr>
+nno <c-q> q
+
 " Undo with U
 nno U <c-r>
 
 " Fixing Y behaviour
 nno Y y$
-
-" Disabling Q and mapping <c-q> to q
-nno Q <nop>
-nno q <cmd>echo "For macros and cmdwin use <\c-q>"<cr>
-nno <c-q> q
 
 " Join lines with dj
 nno dj J
@@ -28,8 +31,8 @@ nno dj J
 nno n nzz
 nno N Nzz
 
-" Folding
-nno <silent><space> za
+" Removing search highlights with backspace
+nno <bs> <cmd>nohlsearch<cr>
 
 " Toggle wrap
 nno <a-w> <cmd>set wrap! <bar> echo &wrap ? "Wrap enabled" : "Wrap disabled"<cr>
@@ -51,6 +54,10 @@ nno <s-tab> gT
 vno <tab>   >gv
 vno <s-tab> <gv
 
+" FZF
+nno <leader>f <cmd>FZF<cr>
+nno <leader>F <cmd>FZF ~<cr>
+
 " Increasing and decreasing values
 nno <a-+> <c-a>
 vno <a-+> <c-a>
@@ -64,10 +71,6 @@ nno <c-k> <c-w>k
 nno <c-l> <c-w>l
 
 " Disabling keys
-nno <cr>    <nop>
-vno <cr>    <nop>
-nno <bs>    <nop>
-vno <bs>    <nop>
 nno <up>    <nop>
 vno <up>    <nop>
 nno <down>  <nop>

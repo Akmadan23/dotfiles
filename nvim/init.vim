@@ -1,5 +1,4 @@
 " Basic settings
-set hidden
 set nowrap
 set number
 set incsearch
@@ -50,6 +49,12 @@ autocmd BufEnter *.ly       let b:did_ftplugin = 1      " Disabling custom keybi
 autocmd BufEnter term://*   startinsert | set nonumber  " Automatic insert mode in terminal buffers
 autocmd FileType fzf        call FZF_map()              " Enabling custom mappings for FZF
 
+" Man.vim
+let g:no_man_maps = 1
+
+" Closetag
+let g:closetag_filetypes = 'html, xml, php'
+
 " Hexokinase
 let g:Hexokinase_highlighters = ['backgroundfull']
 let g:Hexokinase_optOutPatterns = 'colour_names'
@@ -57,15 +62,6 @@ let g:Hexokinase_optOutPatterns = 'colour_names'
 " Markdown preview
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
-
-" Closetag
-let g:closetag_filetypes = 'html, xml, php'
-
-" Man.vim
-let g:no_man_maps = 1
-
-" Emmet key
-let g:user_emmet_leader_key = '<c-e>'
 
 " IndentLine
 let g:indent_blankline_max_indent_increase = 1

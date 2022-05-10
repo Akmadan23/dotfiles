@@ -146,6 +146,7 @@ alias pbconf="nvim ~/.config/polybar/config -c 'set ft=toml'"
 
 # Git
 alias gs="git status"
+alias gp="git push"
 alias ga="git add"
 alias gaa="git add -A"
 alias gau="git add -u"
@@ -155,7 +156,6 @@ alias gd="git diff --color"
 alias gc="git commit"
 alias gcm="git commit -m"
 alias gca="git commit -a"
-alias gpom="git push origin master"
 
 # Replacing ls and tree with lsd
 alias ls="lsd -l --group-dirs first"
