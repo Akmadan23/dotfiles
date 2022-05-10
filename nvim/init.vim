@@ -54,6 +54,10 @@ autocmd FileType fzf        call FZF_map()              " Enabling custom mappin
 let g:Hexokinase_highlighters = ['backgroundfull']
 let g:Hexokinase_optOutPatterns = 'colour_names'
 
+" Markdown preview
+let g:mkdp_auto_start = 1
+let g:mkdp_auto_close = 1
+
 " Closetag
 let g:closetag_filetypes = 'html, xml, php'
 

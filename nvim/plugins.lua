@@ -121,6 +121,7 @@ require("packer").startup {
         use "airblade/vim-gitgutter"
         use {"alvan/vim-closetag", ft = {"html", "xml", "php"}}
         use {"mattn/emmet-vim", ft = {"html", "css", "php"}}
+        use {"iamcco/markdown-preview.nvim", ft = {"markdown"}, run = "cd app & yarn install"}
 
         -- appearance
         use "sheerun/vim-polyglot"
