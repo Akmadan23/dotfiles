@@ -53,11 +53,11 @@ autocmd FileType fzf        call FZF_map()              " Enabling custom mappin
 let g:no_man_maps = 1
 
 " Closetag
-let g:closetag_filetypes = 'html, xml, php'
+let g:closetag_filetypes = "html, xml, php"
 
 " Hexokinase
-let g:Hexokinase_highlighters = ['backgroundfull']
-let g:Hexokinase_optOutPatterns = 'colour_names'
+let g:Hexokinase_highlighters = ["backgroundfull"]
+let g:Hexokinase_optOutPatterns = "colour_names"
 
 " Markdown preview
 let g:mkdp_auto_start = 1
@@ -67,11 +67,11 @@ let g:mkdp_auto_close = 1
 let g:indent_blankline_max_indent_increase = 1
 let g:indent_blankline_show_first_indent_level = v:false
 let g:indent_blankline_show_trailing_blankline_indent = v:false
-let g:indent_blankline_filetype_exclude = ['help', 'man', 'markdown', 'vimwiki', 'tex', 'startify']
+let g:indent_blankline_filetype_exclude = ["help", "man", "markdown", "vimwiki", "tex", "startify"]
 
 " WimWiki
 let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{
-    \ 'path': '~/git-repos/vimwiki/notes/',
-    \ 'path_html': '~/git-repos/vimwiki/html/'
+    \ "path": "~/git-repos/vimwiki/notes/",
+    \ "path_html": "~/git-repos/vimwiki/html/"
     \ }]
