@@ -1,40 +1,44 @@
 # Theme
 
-set recolor-darkcolor       "#DDDDDD"
-set recolor-lightcolor      "#242424"
+set recolor-lightcolor      "#000000"
+set recolor-darkcolor       "#EEEEEE"
 
-set inputbar-fg	            "#DDDDDD"
-set inputbar-bg	            "#242424"
+set highlight-color         "#FD971F"
+set highlight-active-color  "#E6DB74"
 
-set statusbar-bg            "#1ABC9C"
+set inputbar-bg	            "#000000"
+set inputbar-fg	            "#EEEEEE"
+
+set statusbar-bg            "#66D8EF"
 set statusbar-fg            "#000000"
 
-set highlight-color         "#24574D"
-set highlight-active-color  "#1ABC9C"
+set index-bg                "#000000"
+set index-fg                "#EEEEEE"
+set index-active-bg         "#E6DB74"
+set index-active-fg         "#000000"
 
-set index-bg                "#242424"
-set index-fg                "#DDDDDD"
-set index-active-bg         "#1ABC9C"
-set index-active-fg         "#242424"
+set completion-bg           "#000000"
+set completion-fg           "#EEEEEE"
+set completion-group-bg     "#000000"
+set completion-group-fg     "#EEEEEE"
+set completion-highlight-bg "#66D8EF"
+set completion-highlight-fg "#000000"
 
-set completion-bg           "#242424"
-set completion-fg           "#DDDDDD"
-set completion-group-bg     "#242424"
-set completion-group-fg     "#DDDDDD"
-set completion-highlight-bg "#1ABC9C"
-set completion-highlight-fg "#242424"
+set notification-error-bg   "#F92672"
+set notification-error-fg   "#EEEEEE"
+set notification-warning-bg "#FD971F"
+set notification-warning-fg "#000000"
 
 # Keys in normal mode
 map p print
-map i recolor
 map f toggle_fullscreen
+map i toggle_index
 map <C-j> zoom out
 map <C-k> zoom in
-map <C-i> toggle_index
 
 # Keybindings in fullscreen mode
-map [fullscreen] i recolor
 map [fullscreen] p print
 map [fullscreen] f toggle_fullscreen
+map [fullscreen] i toggle_index
 map [fullscreen] <C-j> zoom out
 map [fullscreen] <C-k> zoom in
