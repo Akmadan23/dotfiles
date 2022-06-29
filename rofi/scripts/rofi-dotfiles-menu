@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi conky dunst zathura starship)
+all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi conky dunst picom zathura starship)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -28,6 +28,7 @@ texts[zsh]="zsh"
 texts[rofi]="Rofi"
 texts[conky]="Conky"
 texts[dunst]="Dunst"
+texts[picom]="Picom"
 texts[zathura]="Zathura"
 texts[starship]="Starship"
 
@@ -48,6 +49,7 @@ icons[zsh]=""
 icons[rofi]=""
 icons[conky]=""
 icons[dunst]=""
+icons[picom]=""
 icons[zathura]=""
 icons[starship]=""
 icons[cancel]="×"
@@ -69,6 +71,7 @@ actions[zsh]="-p ~/.config/zsh/.zshrc ~/.config/zsh/.zshenv"
 actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/*"
 actions[conky]="~/.config/conky/conky.conf -c 'set ft=lua'"
 actions[dunst]="~/.config/dunst/dunstrc -c 'set ft=toml'"
+actions[picom]="~/.config/picom/picom.conf"
 actions[zathura]="~/.config/zathura/zathurarc"
 actions[starship]="~/.config/starship/starship.toml"
 
