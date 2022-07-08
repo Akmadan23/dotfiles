@@ -9,8 +9,11 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 # Setting Xmonad config directory
 export XMONAD_CONFIG_DIR="$HOME/.config/xmonad"
 
-# Setting cargo home folder
+# Setting cargo home directory
 export CARGO_HOME="$HOME/.local/share/cargo"
+
+# Setting nimble home directory
+export NIMBLE_DIR="$HOME/.local/share/nimble"
 
 # Setting clipmenu launcher
 export CM_LAUNCHER="rofi"
@@ -58,4 +61,4 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export JDTLS_HOME="/usr/share/java/jdtls"
 
 # Setting path for binaries
-export PATH="/usr/bin":"/usr/sbin":"/usr/local/bin":"/usr/local/sbin":"$HOME/.local/bin":"$CARGO_HOME/bin":"$SCRIPTS"
+export PATH="/usr/bin":"/usr/local/bin":"$HOME/.local/bin":"$CARGO_HOME/bin":"$NIMBLE_DIR/bin":"$SCRIPTS"
