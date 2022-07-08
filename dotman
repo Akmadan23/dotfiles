@@ -10,7 +10,6 @@ case "$1" in
         # dotfiles in the home directory
         cp .zshrc           ~
         cp .zshenv          ~
-        cp .gitconfig       ~
         cp .Xresources      ~
         cp .stalonetrayrc   ~
 
@@ -33,7 +32,6 @@ case "$1" in
         # dotfiles in the home directory
         cp ~/.zshrc         .
         cp ~/.zshenv        .
-        cp ~/.gitconfig     .
         cp ~/.Xresources    .
         cp ~/.stalonetrayrc .
         ;;
