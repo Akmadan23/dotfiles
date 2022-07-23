@@ -1,28 +1,40 @@
+# Setting XDG default dirs
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Setting zsh history file
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000
 
-# Setting starship config file
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+# Setting less history file
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 
-# Setting Xmonad config directory
-export XMONAD_CONFIG_DIR="$HOME/.config/xmonad"
+# Setting GNUPG home directory
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
 # Setting cargo home directory
-export CARGO_HOME="$HOME/.local/share/cargo"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+
+# Setting android home directory
+export ANDROID_HOME="$XDG_DATA_HOME/android"
 
 # Setting nimble home directory
-export NIMBLE_DIR="$HOME/.local/share/nimble"
+export NIMBLE_DIR="$XDG_DATA_HOME/nimble"
+
+# Setting Xmonad config directory
+export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
+
+# Setting starship config file
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 
 # Setting clipmenu launcher
 export CM_LAUNCHER="rofi"
 
 # Setting scripts directory
 export SCRIPTS="$HOME/git-repos/scripts"
-
-# Setting trash directory
-export TRASH="$HOME/.local/share/Trash/files"
 
 # Setting default apps
 export TERMINAL="alacritty"
