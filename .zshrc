@@ -1,5 +1,5 @@
 # Case insensitive tab-completion
-autoload -U compinit && compinit
+autoload -U compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 zstyle ":completion:*" menu select
 zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=*" "l:|=* r:|=*"
 zmodload zsh/complist
@@ -104,9 +104,6 @@ source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 ##                         ALIASES                           ##
 ###############################################################
 
-# Using aliases after "sudo"
-alias sudo="sudo "
-
 # Jumping back directories
 alias ..="cd .."
 alias ...="cd ../.."
@@ -137,6 +134,9 @@ alias jconf="nvim -p \
 alias xmconf="nvim -p \
     ~/.config/xmonad/xmonad.hs \
     ~/.config/xmobar/xmobar.hs"
+alias dkconf="nvim -p \
+    ~/.config/dk/dkrc \
+    ~/.config/dk/sxhkdrc"
 alias bspconf="nvim -p \
     ~/.config/bspwm/bspwmrc \
     ~/.config/sxhkd/sxhkdrc"
@@ -164,6 +164,7 @@ alias tree="lsd --tree --group-dirs last"
 
 # Vim
 alias vim="nvim"
+alias svim="sudo nvim"
 alias vfz="cd /tmp/fz3temp-2/ && vim -p *.* && cd -"
 alias vwiki="nvim ~/git-repos/vimwiki/notes/index.wiki"
 
@@ -176,6 +177,7 @@ alias rm="trash"
 # Misc
 alias ps="ps axu | less"
 alias top="btm -b"
+alias grep="grep --color"
 alias ytdl="youtube-dl"
 alias pping="prettyping"
 alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"

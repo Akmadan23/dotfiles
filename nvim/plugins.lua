@@ -53,13 +53,14 @@ require("packer").startup {
                 -- Defining language servers (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
                 local srv = {
                     "vimls",
+                    "nimls",
                     "bashls",
                     "texlab",
                     "clangd",
                     "phpactor",
-                    "emmet_ls",
                     "sumneko_lua",
                     "rust_analyzer",
+                    "quick_lint_js",
                     "jedi_language_server",
                 }
 
@@ -119,9 +120,9 @@ require("packer").startup {
         use "tpope/vim-repeat"
         use "tpope/vim-fugitive"
         use "airblade/vim-gitgutter"
-        use {"alvan/vim-closetag", ft = {"html", "xml", "php"}}
-        use {"mattn/emmet-vim", ft = {"html", "css", "php"}}
-        use {"iamcco/markdown-preview.nvim", ft = {"markdown"}, run = "cd app & yarn install"}
+        use {"alvan/vim-closetag",              ft = {"html", "xml", "php"}}
+        use {"mattn/emmet-vim",                 ft = {"html", "css", "php"}}
+        use {"iamcco/markdown-preview.nvim",    ft = {"markdown"}, run = "cd app & yarn install"}
 
         -- appearance
         use "sheerun/vim-polyglot"

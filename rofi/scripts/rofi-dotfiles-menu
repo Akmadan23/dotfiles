@@ -6,7 +6,7 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto vim mpv zsh rofi conky dunst picom zathura starship)
+all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto nvim mpv zsh rofi conky dunst picom zathura starship)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
@@ -22,7 +22,7 @@ texts[polybar]="polybar"
 texts[alacritty]="Alacritty"
 texts[ranger]="Ranger"
 texts[joshuto]="Joshuto"
-texts[vim]="Vim"
+texts[nvim]="NeoVim"
 texts[mpv]="mpv"
 texts[zsh]="zsh"
 texts[rofi]="Rofi"
@@ -43,7 +43,7 @@ icons[polybar]=""
 icons[alacritty]=""
 icons[ranger]=""
 icons[joshuto]=""
-icons[vim]=""
+icons[nvim]=""
 icons[mpv]=""
 icons[zsh]=""
 icons[rofi]=""
@@ -61,11 +61,11 @@ actions[awesome]="~/.config/awesome/rc.lua"
 actions[leftwm]="~/.config/leftwm/config.toml"
 actions[bspwm]="~/.config/bspwm/bspwmrc"
 actions[sxhkd]="~/.config/sxhkd/sxhkdrc"
-actions[polybar]="~/.config/polybar/config -c 'set ft=toml'"
+actions[polybar]="~/.config/polybar/config.ini"
 actions[alacritty]="~/.config/alacritty/alacritty.yml"
 actions[ranger]="-p ~/.config/ranger/rc.conf ~/.config/ranger/scope.sh"
 actions[joshuto]="-p ~/.config/joshuto/joshuto.toml ~/.config/joshuto/keymap.toml ~/.config/joshuto/mimetype.toml"
-actions[vim]="-p ~/.config/nvim/init.vim ~/.config/nvim/plugins.vim ~/.config/nvim/functions.vim ~/.config/nvim/keybindings.vim"
+actions[nvim]="-p ~/.config/nvim/init.vim ~/.config/nvim/plugins.lua ~/.config/nvim/functions.vim ~/.config/nvim/keybindings.vim"
 actions[mpv]="-p ~/.config/mpv/mpv.conf ~/.config/mpv/input.conf"
 actions[zsh]="-p ~/.config/zsh/.zshrc ~/.config/zsh/.zshenv"
 actions[rofi]="-p ~/.config/rofi/config.rasi ~/.config/rofi/scripts/*"

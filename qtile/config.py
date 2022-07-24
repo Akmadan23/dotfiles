@@ -1,10 +1,9 @@
-import os, subprocess
+import os, subprocess as sp
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
 from libqtile.config import Key, KeyChord, Screen, Group, Drag, Match
 
 # Importing environment variables
-home = os.environ["HOME"]
 term = os.environ["TERMINAL"]
 browser = os.environ["BROWSER"]
 
@@ -34,92 +33,75 @@ colors = [
 # Keyboard bindings
 keys = [
     # Switch between windows
-    Key([mod],              "h",        lazy.layout.left()),
-    Key([mod],              "j",        lazy.layout.down()),
-    Key([mod],              "k",        lazy.layout.up()),
-    Key([mod],              "l",        lazy.layout.right()),
+    Key([mod],          "h",        lazy.layout.left()),
+    Key([mod],          "j",        lazy.layout.down()),
+    Key([mod],          "k",        lazy.layout.up()),
+    Key([mod],          "l",        lazy.layout.right()),
 
     # Move windows in current stack
-    Key([mod, sft],         "h",        lazy.layout.shuffle_left()),
-    Key([mod, sft],         "j",        lazy.layout.shuffle_down()),
-    Key([mod, sft],         "k",        lazy.layout.shuffle_up()),
-    Key([mod, sft],         "l",        lazy.layout.shuffle_right()),
+    Key([mod, sft],     "h",        lazy.layout.shuffle_left()),
+    Key([mod, sft],     "j",        lazy.layout.shuffle_down()),
+    Key([mod, sft],     "k",        lazy.layout.shuffle_up()),
+    Key([mod, sft],     "l",        lazy.layout.shuffle_right()),
 
     # Switch between monitors
-    Key([mod],              "comma",    lazy.prev_screen()),
-    Key([mod],              "period",   lazy.next_screen()),
+    Key([mod],          "comma",    lazy.prev_screen()),
+    Key([mod],          "period",   lazy.next_screen()),
 
     # Windows and layout behaviour
-    Key([mod, sft],         "r",        lazy.restart()),
-    Key([mod, sft],         "q",        lazy.window.kill()),
-    Key([mod, sft],         "n",        lazy.layout.normalize()),
-    Key([mod, sft],         "f",        lazy.window.toggle_floating()),
-    Key([mod],              "plus",     lazy.layout.grow()),
-    Key([mod],              "minus",    lazy.layout.shrink()),
+    Key([mod, sft],     "r",        lazy.restart()),
+    Key([mod, sft],     "q",        lazy.window.kill()),
+    Key([mod, sft],     "n",        lazy.layout.normalize()),
+    Key([mod, sft],     "f",        lazy.window.toggle_floating()),
+    Key([mod],          "plus",     lazy.layout.grow()),
+    Key([mod],          "minus",    lazy.layout.shrink()),
 
     # Toggle between different layouts
-    Key([mod],              "Tab",      lazy.next_layout()),
-    Key([mod, sft],         "Tab",      lazy.prev_layout()),
+    Key([mod],          "Tab",      lazy.next_layout()),
+    Key([mod, sft],     "Tab",      lazy.prev_layout()),
 
     # Terminal and rofi
-    Key([mod],              "Return",   lazy.spawn(term)),
-    Key([mod],              "space",    lazy.spawn("rofi -modi drun,run -show drun")),
-    Key([mod, sft],         "e",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-power-menu -show")),
-    Key([mod, sft],         "x",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-xrandr-menu -show")),
-    Key([mod, sft],         "d",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-dotfiles-menu -show")),
+    Key([mod],          "Return",   lazy.spawn(term)),
+    Key([mod],          "space",    lazy.spawn("rofi -modi drun,run -show drun")),
+    Key([mod, sft],     "e",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-power-menu -show")),
+    Key([mod, sft],     "x",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-xrandr-menu -show")),
+    Key([mod, sft],     "d",        lazy.spawn("rofi -modi x:~/.config/rofi/scripts/rofi-dotfiles-menu -show")),
 
     # App spawning
-    Key([mod],              "b",        lazy.spawn("blender")),
-    Key([mod],              "f",        lazy.spawn("firefox")),
-    Key([mod],              "x",        lazy.spawn("firefox -P extra")),
-    Key([mod],              "c",        lazy.spawn("qalculate-gtk")),
-    Key([mod],              "t",        lazy.spawn("thunderbird")),
-    Key([mod],              "s",        lazy.spawn("flameshot gui")),
-    Key([mod, sft],         "v",        lazy.spawn("clipmenu")),
-    Key([mod],              "e",        lazy.spawn(f"{term} -t Ranger -e ranger")),
+    Key([mod],          "f",        lazy.spawn("firefox")),
+    Key([mod],          "x",        lazy.spawn("firefox -P extra")),
+    Key([mod],          "c",        lazy.spawn("qalculate-gtk")),
+    Key([mod],          "s",        lazy.spawn("flameshot gui")),
+    Key([mod, sft],     "v",        lazy.spawn("clipmenu")),
+    Key([mod],          "e",        lazy.spawn(f"{term} -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([mod],              "Up",       lazy.spawn("dw amixer set Master unmute 5%+")),     # +5% volume
-    Key([mod],              "Down",     lazy.spawn("dw amixer set Master unmute 5%-")),     # -5% volume
-    Key([mod],              "m",        lazy.spawn("dw amixer set Master toggle")),         # mute
-    Key([mod],              "Right",    lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
-    Key([mod],              "Left",     lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
-    Key([mod],              "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
+    Key([mod],          "Up",       lazy.spawn("dw amixer set Master unmute 5%+")),     # +5% volume
+    Key([mod],          "Down",     lazy.spawn("dw amixer set Master unmute 5%-")),     # -5% volume
+    Key([mod],          "m",        lazy.spawn("dw amixer set Master toggle")),         # mute
+    Key([mod],          "Right",    lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
+    Key([mod],          "Left",     lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
+    Key([mod],          "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
 
     # Moving cursor with keyboard
-    Key([alt, ctrl],        "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move pointer 4px left
-    Key([alt, ctrl],        "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move pointer 4px down
-    Key([alt, ctrl],        "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move pointer 4px up
-    Key([alt, ctrl],        "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move pointer 4px right
-    Key([alt],              "h",        lazy.spawn("xdotool mousemove_relative -- -64 0")), # move pointer 64px left
-    Key([alt],              "j",        lazy.spawn("xdotool mousemove_relative -- 0 64")),  # move pointer 64px down
-    Key([alt],              "k",        lazy.spawn("xdotool mousemove_relative -- 0 -64")), # move pointer 64px up
-    Key([alt],              "l",        lazy.spawn("xdotool mousemove_relative -- 64 0")),  # move pointer 64px right
-    Key([alt],              "b",        lazy.spawn("xdotool click 1")),                     # left click
-    Key([alt],              "n",        lazy.spawn("xdotool click 2")),                     # center click
-    Key([alt],              "m",        lazy.spawn("xdotool click 3")),                     # right click
+    Key([alt, ctrl],    "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move pointer 4px left
+    Key([alt, ctrl],    "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move pointer 4px down
+    Key([alt, ctrl],    "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move pointer 4px up
+    Key([alt, ctrl],    "l",        lazy.spawn("xdotool mousemove_relative -- 4 0")),   # move pointer 4px right
+    Key([alt],          "h",        lazy.spawn("xdotool mousemove_relative -- -64 0")), # move pointer 64px left
+    Key([alt],          "j",        lazy.spawn("xdotool mousemove_relative -- 0 64")),  # move pointer 64px down
+    Key([alt],          "k",        lazy.spawn("xdotool mousemove_relative -- 0 -64")), # move pointer 64px up
+    Key([alt],          "l",        lazy.spawn("xdotool mousemove_relative -- 64 0")),  # move pointer 64px right
+    Key([alt],          "b",        lazy.spawn("xdotool click 1")),                     # left click
+    Key([alt],          "n",        lazy.spawn("xdotool click 2")),                     # center click
+    Key([alt],          "m",        lazy.spawn("xdotool click 3")),                     # right click
 
     # Special keys
-    Key([], "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
-    Key([], "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
-    Key([], "XF86AudioRaiseVolume",     lazy.spawn("dw amixer set Master unmute 5%+")),     # +5% volume
-    Key([], "XF86AudioLowerVolume",     lazy.spawn("dw amixer set Master unmute 5%-")),     # -5% volume
-    Key([], "XF86AudioMute",            lazy.spawn("dw amixer set Master toggle")),         # mute
-
-    # Opening websites
-    KeyChord([mod], "w", [
-        Key([], "a", lazy.spawn(browser + " amazon.it")),
-        Key([], "c", lazy.spawn(browser + " chess.com")),
-        Key([], "d", lazy.spawn(browser + " duckduckgo.com")),
-        Key([], "e", lazy.spawn(browser + " ebay.it")),
-        Key([], "f", lazy.spawn(browser + " flathub.com")),
-        Key([], "g", lazy.spawn(browser + " github.com")),
-        Key([], "r", lazy.spawn(browser + " reddit.com")),
-        Key([], "o", lazy.spawn(browser + " odysee.com")),
-        Key([], "t", lazy.spawn(browser + " twitch.tv")),
-        Key([], "w", lazy.spawn(browser + " wikipedia.com")),
-        Key([], "y", lazy.spawn(browser + " youtube.com")),
-    ]),
+    Key([], "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc 5 -steps 1")),      # +5% backlight
+    Key([], "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec 5 -steps 1")),      # -5% backlight
+    Key([], "XF86AudioRaiseVolume",     lazy.spawn("dw amixer set Master unmute 5%+")), # +5% volume
+    Key([], "XF86AudioLowerVolume",     lazy.spawn("dw amixer set Master unmute 5%-")), # -5% volume
+    Key([], "XF86AudioMute",            lazy.spawn("dw amixer set Master toggle")),     # mute
 
     # Set volume
     KeyChord([mod], "v", [
@@ -147,7 +129,7 @@ for i in groups:
 # Default layout theme
 layout_theme = dict(
     border_normal = colors[0],
-    border_focus = colors[3],
+    border_focus = colors[4],
     border_width = 2,
     single_border_width = 0,
     margin = 8,
@@ -180,7 +162,7 @@ layouts = [
         section_padding = 0,
         bg_color = colors[0],
         active_fg = colors[0],
-        active_bg = colors[3],
+        active_bg = colors[4],
         inactive_fg = colors[7],
         inactive_bg = colors[8],
         urgent_fg = colors[7],
@@ -189,7 +171,7 @@ layouts = [
 ]
 
 floating_layout = layout.Floating(
-    border_focus = colors[4],
+    border_focus = colors[3],
     border_normal = colors[0],
     border_width = 2,
 
@@ -202,13 +184,12 @@ floating_layout = layout.Floating(
     ]
 )
 
+# Widget defaults
 widget_defaults = dict(
     font = "Cantarell Bold",
     fontsize = 14,
     padding = 4,
 )
-
-extension_defaults = widget_defaults.copy()
 
 # Separator defaults
 separator = dict(
@@ -267,11 +248,11 @@ screens = [
                 ),
 
                 widget.CheckUpdates(
-                    distro = "Arch",
-                    update_interval = 600,
+                    distro = "Arch_checkupdates",
+                    update_interval = 300,
                     no_update_string = "✔",
                     display_format = "{updates}",
-                    execute = f"{term} --hold -e paru",
+                    execute = f"{term} -e paru",
                     colour_have_updates = colors[0],
                     colour_no_updates = colors[0],
                     background = colors[2],
@@ -462,9 +443,9 @@ dename = ""
 # Monitor detection script
 @hook.subscribe.startup_once
 def autostart_once():
-    subprocess.call([home + "/.config/qtile/monitordetection.sh"])
+    sp.run([os.path.expanduser("~/.config/qtile/monitordetection.sh")])
 
 # Autostart script
 @hook.subscribe.startup
 def autostart():
-    subprocess.call([home + "/.config/qtile/autostart.sh"])
+    sp.run([os.path.expanduser("~/.config/qtile/autostart.sh")])

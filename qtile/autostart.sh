@@ -18,3 +18,6 @@ pkill -f "$SCRIPTS/battery-check"
 
 # setting wallpaper
 xwallpaper --zoom ~/.config/qtile/background.jpg &
+
+# mapping caps to escape and shift+caps to caps_lock
+setxkbmap -option caps:escape_shifted_capslock

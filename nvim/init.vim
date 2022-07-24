@@ -44,10 +44,13 @@ source ~/.config/nvim/functions.vim
 source ~/.config/nvim/keybindings.vim
 
 " Autocommands 
-autocmd BufEnter *.rasi     set ft=css                  " Setting filetype to css in rofi stylesheets
-autocmd BufEnter *.ly       let b:did_ftplugin = 1      " Disabling custom keybindings defined by sersorrel/vim-lilypond
-autocmd BufEnter term://*   startinsert | set nonumber  " Automatic insert mode in terminal buffers
-autocmd FileType fzf        call FZF_map()              " Enabling custom mappings for FZF
+au BufEnter *           nno <buffer><F5> <cmd>call Compile()<cr>|nno <buffer><F6> <cmd>call Run()<cr>
+au BufEnter *.md        ++once MarkdownPreview      " Starting the markdown preview client just once
+au BufEnter *.rasi      set ft=css                  " Setting filetype to css in rofi stylesheets
+au BufEnter term://*    start | set nonumber        " Automatic insert mode in terminal buffers
+au FileType lilypond    setl commentstring=\%\ %s   " Setting comment pattern for lilypond files
+au FileType nim         setl commentstring=#\ %s    " Setting comment pattern for nim files
+au FileType fzf         call FZF_map()              " Enabling custom mappings for FZF
 
 " Man.vim
 let g:no_man_maps = 1
@@ -58,10 +61,6 @@ let g:closetag_filetypes = "html, xml, php"
 " Hexokinase
 let g:Hexokinase_highlighters = ["backgroundfull"]
 let g:Hexokinase_optOutPatterns = "colour_names"
-
-" Markdown preview
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_close = 1
 
 " IndentLine
 let g:indent_blankline_max_indent_increase = 1

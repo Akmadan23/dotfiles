@@ -58,6 +58,10 @@ vno <s-tab> <gv
 nno <leader>f <cmd>FZF<cr>
 nno <leader>F <cmd>FZF ~<cr>
 
+" Packer
+nno <leader>pc <cmd>PackerCompile<cr>
+nno <leader>ps <cmd>PackerSync<cr>
+
 " Increasing and decreasing values
 nno <a-+> <c-a>
 vno <a-+> <c-a>
@@ -79,6 +83,10 @@ nno <left>  <nop>
 vno <left>  <nop>
 nno <right> <nop>
 vno <right> <nop>
+nno <space> <nop>
+vno <space> <nop>
+nno <c-z>   <nop>
+vno <c-z>   <nop>
 
 " Terminal bindings 
 tno <esc> <c-\><c-n>
@@ -96,3 +104,4 @@ ca WA   wa
 ca Wqa  wqa
 ca WQa  wqa
 ca WQA  wqa
+ca t    tabnew
