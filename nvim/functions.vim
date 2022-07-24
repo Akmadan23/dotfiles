@@ -5,25 +5,54 @@ function! Compile()
     elseif &ft == "cpp"
         !g++ % -o %:r
     elseif &ft == "go"
-        !go build %
-    elseif &ft == "nim"
-        !nim c %
-    elseif &ft == "rust"
-        !rustc %
-    elseif &ft == "java"
-        if expand("%:p:h:t") == "src"
-            !javac % -d %:p:h:h/bin
+        silent ![ -x "/bin/go" ]
+        if v:shell_error == 0
+            !go build %
         else
-            !javac %
+            echoe "Go is not installed."
+        endif
+    elseif &ft == "nim"
+        silent ![ -x "/bin/nim" ]
+        if v:shell_error == 0
+            !nim c %
+        else
+            echoe "Nim is not installed."
+        endif
+    elseif &ft == "rust"
+        silent ![ -x "/bin/rustc" ]
+        if v:shell_error == 0
+            !rustc %
+        else
+            echoe "Rust is not installed."
+        endif
+    elseif &ft == "java"
+        silent ![ -x "/bin/javac" ]
+        if v:shell_error == 0
+            if expand("%:p:h:t") == "src"
+                !javac % -d %:p:h:h/bin
+            else
+                !javac %
+            endif
+        else
+            echoe "Java is not installed."
         endif
     elseif &ft == "tex"
-        !pdflatex %
+        silent ![ -x "/bin/pdflatex" ]
+        if v:shell_error == 0
+            !pdflatex %
+            echoe "LaTeX is not installed."
+        endif
     elseif &ft == "lilypond"
-        cd %:h
-        !lilypond '%'
-        cd -
+        silent ![ -x "/bin/lilypond" ]
+        if v:shell_error == 0
+            cd %:h
+            !lilypond '%'
+            cd -
+        else
+            echoe "Lilypond is not installed."
+        endif
     elseif getline(1) =~# "^#!.*/bin/.*sh$"
-        silent ![ -x /bin/shellcheck ]
+        silent ![ -x "/bin/shellcheck" ]
         if v:shell_error == 0
             !shellcheck %
         else
@@ -45,7 +74,7 @@ function! Run()
         endif
     elseif &ft == "java"
         if expand("%:p:h:t") == "src"
-            cd %:h:h/bin
+            cd %:p:h:h/bin
         else
             cd %:h
         endif
@@ -85,7 +114,3 @@ function! FZF_map()
     tno <buffer><tab>   <up>
     tno <buffer><s-tab> <down>
 endfunction
-
-" Calling functions
-nno <buffer><F5> <cmd>call Compile()<cr>
-nno <buffer><F6> <cmd>call Run()<cr>
