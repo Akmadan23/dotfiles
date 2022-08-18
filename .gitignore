@@ -1,24 +1,24 @@
 # Xmonad
-xmonad/xmonad.o
-xmonad/xmonad.hi
+config/xmonad/xmonad.o
+config/xmonad/xmonad.hi
 
 # Qtile
-qtile/__pycache__
+config/qtile/__pycache__
 
 # Ranger
-ranger/plugins/__pycache__
-ranger/plugins/ranger_devicons/*
-!ranger/plugins/ranger_devicons/__init__.py
-!ranger/plugins/ranger_devicons/devicons.py
+config/ranger/plugins/__pycache__
+config/ranger/plugins/ranger_devicons/*
+!config/ranger/plugins/ranger_devicons/__init__.py
+!config/ranger/plugins/ranger_devicons/devicons.py
 
 # Neovim
-nvim/plugin
+config/nvim/plugin
 
 # Mpv
-mpv/scripts/
+config/mpv/scripts/
 
 # Zsh history
-zsh/.zsh_history
+config/zsh/.zsh_history
 
 # Rofi
-rofi/current.rasi
+config/rofi/current.rasi

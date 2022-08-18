@@ -1,10 +1,10 @@
 # Variables
-DIRS = $(wildcard */)
+DIRS = $(notdir $(wildcard config/*))
 FILES = .zshrc .zshenv .Xresources .stalonetrayrc
 
 update:
 	@for i in $(DIRS); do \
-		cp -r ~/.config/$$i .; \
+		cp -r ~/.config/$$i config; \
 	done
 
 	@for i in $(FILES); do \
