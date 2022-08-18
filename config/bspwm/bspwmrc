@@ -3,16 +3,7 @@
 ###------------ Autostart ------------###
 killall sxhkd
 sxhkd &
-dunst &
-picom -f &
-nm-applet &
-flameshot &
-parcellite &
-blueman-applet &
-xss-lock -l -- i3lock-fancy &
-xwallpaper --zoom ~/.config/qtile/images/wallpaper.jpg
-
-###------------ Scripts ------------###
+~/git-repos/dotfiles/scripts/autostart
 ~/.config/polybar/launch.sh &
 ~/.config/scripts/battery-check.sh &
 

@@ -448,4 +448,4 @@ def autostart_once():
 # Autostart script
 @hook.subscribe.startup
 def autostart():
-    sp.run([os.path.expanduser("~/.config/qtile/autostart.sh")])
+    sp.run([os.path.expanduser("~/git-repos/dotfiles/scripts/autostart")])
