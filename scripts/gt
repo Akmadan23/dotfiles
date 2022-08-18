@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ -n "$2" ]; then
+    d="$2"
+else
+    d="/"
+fi
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    echo "Usage: gt \"{text to translate}/{starting language}/{translate language}\""
+    echo "  -h, --help      Show this message."
+else
+    text="$(echo "$1" | cut -d "$d" -f 1)"
+    sl="$(echo "$1" | cut -d "$d" -f 2)"
+    tl="$(echo "$1" | cut -d "$d" -f 3)"
+
+    if [ -n "$BROWSER" ]; then
+        $BROWSER "https://translate.google.com/?sl=$sl&tl=$tl&text=$text"
+    else
+        echo "ERROR: You must set the \$BROWSER environment variable."
+    fi
+fi

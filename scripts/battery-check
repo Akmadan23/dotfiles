@@ -1,0 +1,27 @@
+#!/bin/sh
+
+while :; do
+    if acpi -b | grep -q "Charging"; then
+        battery="$(acpi -b | cut -d , -f 2 | cut -d % -f 1)"
+        if [ $battery -gt 20 ]; then
+            sleep 600s
+        else
+            sleep 120s
+        fi
+    else
+        battery="$(acpi -b | cut -d , -f 2 | cut -d % -f 1)"
+        if [ $battery -gt 40 ]; then
+            sleep 600s
+        elif [ $battery -gt 20 ]; then
+            sleep 120s
+        else
+            if acpi -b | grep -q "Charging"; then
+                sleep 300s
+            else
+                notify-send "Battery low: $(acpi -b | cut -d , -f 2)" -u critical
+                sleep 60s
+            fi
+        fi
+    fi
+done
+

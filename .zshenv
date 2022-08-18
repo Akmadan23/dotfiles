@@ -34,7 +34,7 @@ export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export CM_LAUNCHER="rofi"
 
 # Setting scripts directory
-export SCRIPTS="$HOME/git-repos/scripts"
+export SCRIPTS="$HOME/git-repos/dotfiles/scripts"
 
 # Setting default apps
 export TERMINAL="alacritty"
