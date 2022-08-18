@@ -149,7 +149,7 @@ colors:
   # Default colors
   primary:
     background: "#242424"
-    foreground: "#DDDDDD"
+    foreground: "#EEEEEE"
 
   normal:
     black:      "#000000"

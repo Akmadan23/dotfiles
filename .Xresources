@@ -3,8 +3,8 @@ Xft.dpi: 105
 
 ! NSXIV color settings
 Nsxiv*window.background: #000000
-Nsxiv*window.foreground: #1ABC9C
-Nsxiv*bar.background: #1ABC9C
+Nsxiv*window.foreground: #66D8EF
+Nsxiv*bar.background: #66D8EF
 Nsxiv*bar.foreground: #000000
 Nsxiv*bar.font: Cantarell:pixelsize=14
 

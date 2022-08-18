@@ -22,7 +22,6 @@ hi Constant         guifg=#AE81FF                   gui=bold
 hi Character        guifg=#E6DB74
 hi String           guifg=#E6DB74
 hi Define           guifg=#66D9EF
-hi Conditional      guifg=#F92672                   gui=bold
 hi Debug            guifg=#BCA3A3                   gui=bold
 hi Delimiter        guifg=#8F8F8F
 
@@ -44,6 +43,8 @@ hi Ignore           guifg=#808080   guibg=bg
 
 hi Keyword          guifg=#F92672                   gui=bold
 hi Label            guifg=#F92672                   gui=bold
+hi Repeat           guifg=#F92672                   gui=bold
+hi Conditional      guifg=#F92672                   gui=bold
 hi Macro            guifg=#A6E22E                   gui=italic
 hi SpecialKey       guifg=#66D9EF                   gui=italic
 
@@ -60,7 +61,6 @@ hi PmenuSel         guifg=#000000   guibg=#66D9EF
 hi PreCondit        guifg=#A6E22E                   gui=bold
 hi PreProc          guifg=#A6E22E
 hi Question         guifg=#66D9EF
-hi Repeat           guifg=#F92672                   gui=bold
 hi Search           guifg=#000000   guibg=#FFE792
 hi IncSearch        guifg=#C4BE89   guibg=#000000
 
