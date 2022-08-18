@@ -1,7 +1,6 @@
-# My dotfiles for qtile and other programs
-___
+# My configuration files and scripts
 
-## Qtile
-![screenshot1](https://i.imgur.com/hf6F4Qm.png)
-![screenshot2](https://i.imgur.com/UeAF7Qn.png)
+### Qtile screenshots
+![screenshot1](https://i.imgur.com/S25mu7s.jpg)
+![screenshot2](https://i.imgur.com/PK955du.jpg)
 
