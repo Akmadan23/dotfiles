@@ -47,4 +47,4 @@ function run {
     ${actions[$entry]}
 }
 
-source ~/.config/rofi/scripts/rofi-base-menu
+source "$XDG_CONFIG_HOME/rofi/scripts/rofi-base-menu"
