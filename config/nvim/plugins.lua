@@ -114,6 +114,39 @@ require("packer").startup {
             end
         }
 
+        -- Treesitter
+        use {
+            "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+
+            config = function()
+                require("nvim-treesitter.configs").setup {
+                    ensure_installed = {
+                        "bash",
+                        "c",
+                        "cpp",
+                        "css",
+                        "html",
+                        "java",
+                        "javascript",
+                        "json",
+                        "latex",
+                        "lua",
+                        "make",
+                        "php",
+                        "python",
+                        "ruby",
+                        "rust",
+                        "sql",
+                        "toml",
+                        "vim",
+                    },
+
+                    highlight = {enable = true}
+                }
+            end
+        }
+
         -- dev tools
         use "jiangmiao/auto-pairs"
         use "tpope/vim-commentary"
@@ -125,7 +158,6 @@ require("packer").startup {
         use {"iamcco/markdown-preview.nvim",    ft = {"markdown"}, run = "cd app & yarn install"}
 
         -- appearance
-        use "sheerun/vim-polyglot"
         use "rrethy/vim-hexokinase"
         use "ryanoasis/vim-devicons"
         use "lukas-reineke/indent-blankline.nvim"
