@@ -13,7 +13,7 @@ vno J <c-d>zz
 nno K <c-u>zz
 vno K <c-u>zz
 
-" Disabling Q and mapping <c-q> to q
+" Disable Q and map <c-q> to q
 nno Q <nop>
 nno q <cmd>echo "For macros and cmdwin use <\c-q>"<cr>
 nno <c-q> q
@@ -21,7 +21,7 @@ nno <c-q> q
 " Undo with U
 nno U <c-r>
 
-" Fixing Y behaviour
+" Fix Y behaviour
 nno Y y$
 
 " Join lines with dj
@@ -31,7 +31,7 @@ nno dj J
 nno n nzz
 nno N Nzz
 
-" Removing search highlights with backspace
+" Remove search highlights with backspace
 nno <bs> <cmd>nohlsearch<cr>
 
 " Toggle wrap
@@ -46,11 +46,11 @@ nno <c-a> ggVG
 " Reload config
 nno <c-r> <cmd>source ~/.config/nvim/init.vim <bar> echo "Config reloaded."<cr>
 
-" Moving between tabs
+" Move between tabs
 nno <tab>   gt
 nno <s-tab> gT
 
-" Adding visual tabbing
+" Add visual tabbing
 vno <tab>   >gv
 vno <s-tab> <gv
 
@@ -62,19 +62,23 @@ nno <leader>F <cmd>FZF ~<cr>
 nno <leader>pc <cmd>PackerCompile<cr>
 nno <leader>ps <cmd>PackerSync<cr>
 
-" Increasing and decreasing values
+" Functions
+nno <F5> <cmd>call Compile()<cr>
+nno <F6> <cmd>call Run()<cr>
+
+" Increase and decrease values
 nno <a-+> <c-a>
 vno <a-+> <c-a>
 nno <a--> <c-x>
 vno <a--> <c-x>
 
-" Moving between splits
+" Move between splits
 nno <c-h> <c-w>h
 nno <c-j> <c-w>j
 nno <c-k> <c-w>k
 nno <c-l> <c-w>l
 
-" Disabling keys
+" Disable keys
 nno <up>    <nop>
 vno <up>    <nop>
 nno <down>  <nop>

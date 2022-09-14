@@ -37,10 +37,10 @@ require("packer").startup {
                     },
 
                     sources = cmp.config.sources {
-                        {name = "nvim_lsp"},
-                        {name = "path"},
-                        {name = "vsnip"},
-                        {name = "buffer"},
+                        { name = "nvim_lsp" },
+                        { name = "path"     },
+                        { name = "vsnip"    },
+                        { name = "buffer"   },
                     },
 
                     formatting = {
@@ -79,10 +79,10 @@ require("packer").startup {
         -- JDTLS
         use {
             "mfussenegger/nvim-jdtls",
-            ft = {"java"},
+            ft = { "java" },
 
             config = function()
-                local jdtls_config = {
+                require("jdtls").start_or_attach {
                     -- The command that starts the language server
                     -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
                     cmd = {
@@ -105,12 +105,8 @@ require("packer").startup {
 
                     -- This is the default if not provided, you can remove it. Or adjust as needed.
                     -- One dedicated LSP server & client will be started per unique root_dir
-                    root_dir = require("jdtls.setup").find_root({".git", "mvnw", "gradlew"}),
+                    root_dir = require("jdtls.setup").find_root { ".git", "mvnw", "gradlew" },
                 }
-
-                -- This starts a new client & server,
-                -- or attaches to an existing client & server depending on the `root_dir`.
-                require("jdtls").start_or_attach(jdtls_config)
             end
         }
 
@@ -121,6 +117,8 @@ require("packer").startup {
 
             config = function()
                 require("nvim-treesitter.configs").setup {
+                    highlight = { enable = true },
+
                     ensure_installed = {
                         "bash",
                         "c",
@@ -140,28 +138,12 @@ require("packer").startup {
                         "sql",
                         "toml",
                         "vim",
-                    },
-
-                    highlight = {enable = true}
+                    }
                 }
             end
         }
 
-        -- dev tools
-        use "jiangmiao/auto-pairs"
-        use "tpope/vim-commentary"
-        use "tpope/vim-repeat"
-        use "tpope/vim-fugitive"
-        use "airblade/vim-gitgutter"
-        use {"alvan/vim-closetag",              ft = {"html", "xml", "php"}}
-        use {"mattn/emmet-vim",                 ft = {"html", "css", "php"}}
-        use {"iamcco/markdown-preview.nvim",    ft = {"markdown"}, run = "cd app & yarn install"}
-
-        -- appearance
-        use "rrethy/vim-hexokinase"
-        use "ryanoasis/vim-devicons"
-        use "lukas-reineke/indent-blankline.nvim"
-
+        -- Lualine
         use {
             "nvim-lualine/lualine.nvim",
             config = function()
@@ -179,51 +161,60 @@ require("packer").startup {
                 }
 
                 -- defining options and sections
-                local lualine_config = {
+                require("lualine").setup {
                     options = {
-                        section_separators      = {left = "", right = ""},
-                        component_separators    = {left = "", right = ""},
+                        section_separators      = { left = "", right = "" },
+                        component_separators    = { left = "", right = "" },
+
                         theme = {
                             normal = {
-                                a = {fg = colors.black, bg = colors.yellow, gui = "bold"},
-                                b = {fg = colors.white, bg = colors.black},
-                                c = {fg = colors.white, bg = colors.gray}
+                                a = { fg = colors.black, bg = colors.yellow, gui = "bold"   },
+                                b = { fg = colors.white, bg = colors.black                  },
+                                c = { fg = colors.white, bg = colors.gray                   },
                             },
 
-                            insert      = {a = {fg = colors.black,  bg = colors.blue,       gui = "bold"}},
-                            visual      = {a = {fg = colors.black,  bg = colors.green,      gui = "bold"}},
-                            replace     = {a = {fg = colors.black,  bg = colors.magenta,    gui = "bold"}},
-                            command     = {a = {fg = colors.black,  bg = colors.orange,     gui = "bold"}},
-                            terminal    = {a = {fg = colors.black,  bg = colors.purple,     gui = "bold"}},
-                            inactive    = {c = {fg = colors.yellow, bg = colors.gray}}
+                            insert      = { a = { fg = colors.black,  bg = colors.blue,     gui = "bold" } },
+                            visual      = { a = { fg = colors.black,  bg = colors.green,    gui = "bold" } },
+                            replace     = { a = { fg = colors.black,  bg = colors.magenta,  gui = "bold" } },
+                            command     = { a = { fg = colors.black,  bg = colors.orange,   gui = "bold" } },
+                            terminal    = { a = { fg = colors.black,  bg = colors.purple,   gui = "bold" } },
+                            inactive    = { c = { fg = colors.yellow, bg = colors.gray                   } },
                         }
                     },
 
                     sections = {
-                        lualine_a = {"mode"},
-                        lualine_b = {"branch", "diff", {"diagnostics", sources = {"nvim_lsp"}}},
-                        lualine_c = {{"filename", symbols = {modified = " +", readonly = " -"}}},
-                        lualine_x = {"filetype"},
-                        lualine_y = {"encoding"},
-                        lualine_z = {"progress", "location"}
+                        lualine_a = { "mode"                                                                },
+                        lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_lsp" } }         },
+                        lualine_c = { { "filename", symbols = { modified = " +", readonly = " -" } }  },
+                        lualine_x = { "filetype"                                                            },
+                        lualine_y = { "encoding"                                                            },
+                        lualine_z = { "progress", "location"                                                },
                     },
 
                     inactive_sections = {
                         lualine_a = {},
                         lualine_b = {},
-                        lualine_c = {"filename"},
-                        lualine_x = {"filetype", "location"},
+                        lualine_c = { "filename" },
+                        lualine_x = { "filetype", "location" },
                         lualine_y = {},
-                        lualine_z = {}
+                        lualine_z = {},
                     }
                 }
-
-                require("lualine").setup(lualine_config)
             end
         }
 
-        -- utilities
-        use "vimwiki/vimwiki"
-        use "junegunn/fzf.vim"
+        -- others
+        use { "vimwiki/vimwiki"                                     }
+        use { "junegunn/fzf.vim"                                    }
+        use { "jiangmiao/auto-pairs"                                }
+        use { "tpope/vim-commentary"                                }
+        use { "tpope/vim-repeat"                                    }
+        use { "tpope/vim-fugitive"                                  }
+        use { "airblade/vim-gitgutter"                              }
+        use { "rrethy/vim-hexokinase"                               }
+        use { "ryanoasis/vim-devicons"                              }
+        use { "lukas-reineke/indent-blankline.nvim"                 }
+        use { "alvan/vim-closetag", ft = { "html", "xml", "php" }   }
+        use { "mattn/emmet-vim",    ft = { "html", "css", "php" }   }
     end
 }
