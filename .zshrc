@@ -104,7 +104,7 @@ source "$HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 ##                         ALIASES                           ##
 ###############################################################
 
-# Jumping back directories
+# Jump back directories
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -112,57 +112,59 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # Config files
-alias zhist="nvim ~/.config/zsh/.zsh_history"
-alias xconf="nvim ~/.Xresources"
-alias lconf="nvim ~/.config/leftwm/config.toml"
-alias zconf="nvim -p ~/.zshrc ~/.zshenv"
+alias zhist="nvim $XDG_CONFIG_HOME/zsh/.zsh_history"
+alias xconf="nvim $HOME/.Xresources"
+alias lconf="nvim $XDG_CONFIG_HOME/leftwm/config.toml"
+alias zconf="nvim -p $HOME/.zshrc $HOME/.zshenv"
 alias rconf="nvim -p \
-    ~/.config/ranger/rc.conf \
-    ~/.config/ranger/scope.sh"
+    $XDG_CONFIG_HOME/ranger/rc.conf \
+    $XDG_CONFIG_HOME/ranger/scope.sh"
 alias qconf="nvim -p \
-    ~/.config/qtile/config.py \
-    ~/.config/qtile/autostart.sh"
+    $XDG_CONFIG_HOME/qtile/config.py \
+    $SCRIPTS/autostart"
 alias vconf="nvim -p \
-    ~/.config/nvim/init.vim \
-    ~/.config/nvim/plugins.lua \
-    ~/.config/nvim/functions.vim \
-    ~/.config/nvim/keybindings.vim"
+    $XDG_CONFIG_HOME/nvim/init.vim \
+    $XDG_CONFIG_HOME/nvim/plugins.lua \
+    $XDG_CONFIG_HOME/nvim/functions.vim \
+    $XDG_CONFIG_HOME/nvim/keybindings.vim"
 alias jconf="nvim -p \
-    ~/.config/joshuto/joshuto.toml \
-    ~/.config/joshuto/keymap.toml \
-    ~/.config/joshuto/mimetype.toml"
+    $XDG_CONFIG_HOME/joshuto/joshuto.toml \
+    $XDG_CONFIG_HOME/joshuto/keymap.toml \
+    $XDG_CONFIG_HOME/joshuto/mimetype.toml"
 alias xmconf="nvim -p \
-    ~/.config/xmonad/xmonad.hs \
-    ~/.config/xmobar/xmobar.hs"
+    $XDG_CONFIG_HOME/xmonad/xmonad.hs \
+    $XDG_CONFIG_HOME/xmobar/xmobar.hs"
 alias dkconf="nvim -p \
-    ~/.config/dk/dkrc \
-    ~/.config/dk/sxhkdrc"
+    $XDG_CONFIG_HOME/dk/dkrc \
+    $XDG_CONFIG_HOME/dk/sxhkdrc"
 alias bspconf="nvim -p \
-    ~/.config/bspwm/bspwmrc \
-    ~/.config/sxhkd/sxhkdrc"
+    $XDG_CONFIG_HOME/bspwm/bspwmrc \
+    $XDG_CONFIG_HOME/sxhkd/sxhkdrc \
+    $SCRIPTS/autostart"
 alias kconf="sudo nvim /usr/share/X11/xkb/symbols/pc"
-alias alconf="nvim ~/.config/alacritty/alacritty.yml"
-alias pbconf="nvim ~/.config/polybar/config -c 'set ft=toml'"
+alias alconf="nvim $XDG_CONFIG_HOME/alacritty/alacritty.yml"
+alias pbconf="nvim $XDG_CONFIG_HOME/polybar/config -c 'set ft=toml'"
 
-# Git
+# git
 alias gs="git status"
 alias gp="git push"
 alias ga="git add"
 alias gaa="git add -A"
 alias gau="git add -u"
 alias grm="git rm -r"
+alias gmv="git mv"
 alias grs="git restore --staged"
 alias gd="git diff --color"
 alias gc="git commit"
 alias gcm="git commit -m"
 alias gca="git commit -a"
 
-# Replacing ls and tree with lsd
+# ls
 alias ls="lsd -l --group-dirs first"
 alias la="lsd -lA --group-dirs first"
 alias tree="lsd --tree --group-dirs last"
 
-# Vim
+# vim
 alias vim="nvim"
 alias svim="sudo nvim"
 alias vfz="cd /tmp/fz3temp-2/ && vim -p *.* && cd -"
@@ -187,22 +189,22 @@ alias src="source ~/.zshrc && source ~/.zshenv"
 ##                         VI MODE                           ##
 ###############################################################
 
-# Setting vi mode keybindings
+# Set vi mode keybindings
 bindkey -v
 bindkey -M vicmd "H" beginning-of-line
 bindkey -M vicmd "L" end-of-line
 bindkey -M vicmd "U" redo
 
-# Use vim keys in tab complete menu:
+# Use vim keys in tab complete menu
 bindkey -M menuselect "h" vi-backward-char
 bindkey -M menuselect "j" vi-down-line-or-history
 bindkey -M menuselect "k" vi-up-line-or-history
 bindkey -M menuselect "l" vi-forward-char
 
-# Removing mode switching delay.
+# Remove mode switching delay
 KEYTIMEOUT=5
 
-# Changing cursor shape for different vi modes.
+# Change cursor shape for different vi modes
 function zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]] || [[ $1 = "block" ]]; then
         echo -ne "\e[2 q"
@@ -213,15 +215,15 @@ function zle-keymap-select {
 
 zle -N zle-keymap-select
 
-# Use beam shape cursor for each new prompt.
+# Use beam shape cursor for each new prompt
 precmd() {
    echo -ne "\e[5 q"
 }
 
-# Enabling z.lua
+# Enable z.lua
 eval "$(lua ~/.local/share/z.lua/z.lua --init zsh)"
 
-# Enabling starship prompt
+# Enable starship prompt
 eval "$(starship init zsh)"
 
 # Map caps to escape and shift+caps to caps_lock
