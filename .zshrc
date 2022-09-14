@@ -224,5 +224,8 @@ eval "$(lua ~/.local/share/z.lua/z.lua --init zsh)"
 # Enabling starship prompt
 eval "$(starship init zsh)"
 
+# Map caps to escape and shift+caps to caps_lock
+setxkbmap -option caps:escape_shifted_capslock
+
 # Autostart
 pfetch
