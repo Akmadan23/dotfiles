@@ -143,6 +143,32 @@ require("packer").startup {
             end
         }
 
+        use {
+            "nvim-telescope/telescope.nvim",
+            tag = "0.1.0",
+            requires = { "nvim-lua/plenary.nvim" },
+
+            config = function()
+                require("telescope").setup {
+                    defaults = {
+                        mappings = {
+                            n = {
+                                ["H"]       = { "^", type = "command" },
+                                ["L"]       = { "$", type = "command" },
+                                ["<tab>"]   = "move_selection_worse",
+                                ["<s-tab>"] = "move_selection_better",
+                            },
+
+                            i = {
+                                ["<tab>"]   = "move_selection_worse",
+                                ["<s-tab>"] = "move_selection_better",
+                            }
+                        }
+                    }
+                }
+            end
+        }
+
         -- Lualine
         use {
             "nvim-lualine/lualine.nvim",
@@ -205,14 +231,13 @@ require("packer").startup {
 
         -- others
         use { "vimwiki/vimwiki"                                     }
-        use { "junegunn/fzf.vim"                                    }
         use { "jiangmiao/auto-pairs"                                }
         use { "tpope/vim-commentary"                                }
         use { "tpope/vim-repeat"                                    }
         use { "tpope/vim-fugitive"                                  }
         use { "airblade/vim-gitgutter"                              }
         use { "rrethy/vim-hexokinase"                               }
-        use { "ryanoasis/vim-devicons"                              }
+        use { "kyazdani42/nvim-web-devicons"                        }
         use { "lukas-reineke/indent-blankline.nvim"                 }
         use { "alvan/vim-closetag", ft = { "html", "xml", "php" }   }
         use { "mattn/emmet-vim",    ft = { "html", "css", "php" }   }

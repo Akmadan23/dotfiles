@@ -113,10 +113,3 @@ function! Run()
         echo "WARNING: Nothing to execute."
     endif
 endfunction
-
-" Custom mappings for FZF
-function! FZF_map()
-    tno <buffer><esc>   <c-c>
-    tno <buffer><tab>   <up>
-    tno <buffer><s-tab> <down>
-endfunction
