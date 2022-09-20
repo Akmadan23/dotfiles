@@ -40,7 +40,7 @@ color monokai
 
 " Sourcing plugins, functions and keybindings
 source ~/.config/nvim/plugins.lua
-source ~/.config/nvim/functions.vim
+source ~/.config/nvim/functions.lua
 source ~/.config/nvim/keybindings.vim
 
 " Autocommands 
