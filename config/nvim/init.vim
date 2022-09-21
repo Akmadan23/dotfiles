@@ -58,10 +58,6 @@ let g:no_man_maps = 1
 " Closetag
 let g:closetag_filetypes = "html, xml, php"
 
-" Hexokinase
-let g:Hexokinase_highlighters = ["backgroundfull"]
-let g:Hexokinase_optOutPatterns = "colour_names"
-
 " IndentLine
 let g:indent_blankline_max_indent_increase = 1
 let g:indent_blankline_show_first_indent_level = v:false

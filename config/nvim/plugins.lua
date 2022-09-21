@@ -229,6 +229,17 @@ require("packer").startup {
             end
         }
 
+        -- Highlight colors
+        use {
+            "brenoprata10/nvim-highlight-colors",
+
+            config = function()
+                require("nvim-highlight-colors").setup {
+                    render = "background"
+                }
+            end
+        }
+
         -- others
         use { "vimwiki/vimwiki"                                     }
         use { "jiangmiao/auto-pairs"                                }
@@ -236,7 +247,6 @@ require("packer").startup {
         use { "tpope/vim-repeat"                                    }
         use { "tpope/vim-fugitive"                                  }
         use { "airblade/vim-gitgutter"                              }
-        use { "rrethy/vim-hexokinase"                               }
         use { "kyazdani42/nvim-web-devicons"                        }
         use { "lukas-reineke/indent-blankline.nvim"                 }
         use { "alvan/vim-closetag", ft = { "html", "xml", "php" }   }
