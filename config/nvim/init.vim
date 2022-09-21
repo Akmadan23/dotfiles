@@ -41,7 +41,7 @@ color monokai
 " Plugins, functions and keybindings
 source ~/.config/nvim/plugins.lua
 source ~/.config/nvim/functions.lua
-source ~/.config/nvim/keybindings.vim
+source ~/.config/nvim/keybindings.lua
 
 " Autocommands 
 au BufEnter *.rasi      set ft=css                  " Set filetype to css in rofi stylesheets
