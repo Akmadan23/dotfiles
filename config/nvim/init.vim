@@ -42,9 +42,4 @@ color monokai
 source ~/.config/nvim/plugins.lua
 source ~/.config/nvim/functions.lua
 source ~/.config/nvim/keybindings.lua
-
-" Autocommands 
-au BufEnter *.rasi      set ft=css                  " Set filetype to css in rofi stylesheets
-au BufEnter term://*    start | set nonumber        " Automatic insert mode in terminal buffers
-au FileType lilypond    setl commentstring=\%\ %s   " Set comment pattern for lilypond files
-au FileType nim         setl commentstring=#\ %s    " Set comment pattern for nim files
+source ~/.config/nvim/autocmds.lua
