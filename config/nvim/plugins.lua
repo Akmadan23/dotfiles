@@ -1,4 +1,4 @@
--- defining plugins
+-- Initialize plugins
 require("packer").startup {
     function(use)
         use "wbthomason/packer.nvim"
@@ -6,6 +6,7 @@ require("packer").startup {
         -- LSP & CMP
         use {
             "neovim/nvim-lspconfig",
+
             requires = {
                 "hrsh7th/nvim-cmp",
                 "hrsh7th/cmp-nvim-lsp",
@@ -19,7 +20,21 @@ require("packer").startup {
             config = function()
                 local cmp = require("cmp")
 
+                -- Setup nvim-cmp
                 cmp.setup {
+                    sources = cmp.config.sources {
+                        { name = "nvim_lsp" },
+                        { name = "path"     },
+                        { name = "vsnip"    },
+                        { name = "buffer"   },
+                    },
+
+                    snippet = {
+                        expand = function(args)
+                            vim.fn["vsnip#anonymous"](args.body)
+                        end,
+                    },
+
                     mapping = {
                         ["<tab>"]   = cmp.mapping.select_next_item(),
                         ["<s-tab>"] = cmp.mapping.select_prev_item(),
@@ -30,19 +45,6 @@ require("packer").startup {
                         ["<c-y>"]   = cmp.config.disable,
                     },
 
-                    snippet = {
-                        expand = function(args)
-                            vim.fn["vsnip#anonymous"](args.body)
-                        end,
-                    },
-
-                    sources = cmp.config.sources {
-                        { name = "nvim_lsp" },
-                        { name = "path"     },
-                        { name = "vsnip"    },
-                        { name = "buffer"   },
-                    },
-
                     formatting = {
                         format = require("lspkind").cmp_format {
                             mode = "symbol_text"
@@ -50,7 +52,7 @@ require("packer").startup {
                     }
                 }
 
-                -- Defining language servers (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+                -- Language servers (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
                 local srv = {
                     "vimls",
                     "nimls",
@@ -64,13 +66,23 @@ require("packer").startup {
                     "jedi_language_server",
                 }
 
-                -- Enabling completion capabilities
+                -- Enable completion capabilities
                 local cap = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+                -- Suppress warning "Undefined global `vim`" in lua
+                local lua_settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" }
+                        }
+                    }
+                }
+
                 -- Setup nvim-lsp
-                for _, i in ipairs(srv) do
+                for _, i in pairs(srv) do
                     require("lspconfig")[i].setup {
-                        capabilities = cap
+                        capabilities = cap,
+                        settings = (i == "sumneko_lua") and lua_settings or nil
                     }
                 end
             end
@@ -116,6 +128,10 @@ require("packer").startup {
             run = ":TSUpdate",
 
             config = function()
+                -- Assign parsers to unsupported filetypes
+                local ft_parser = require("nvim-treesitter.parsers").filetype_to_parsername
+                ft_parser.zsh = "bash"
+
                 require("nvim-treesitter.configs").setup {
                     highlight = { enable = true },
 
@@ -143,6 +159,7 @@ require("packer").startup {
             end
         }
 
+        -- Telescope
         use {
             "nvim-telescope/telescope.nvim",
             tag = "0.1.0",
@@ -172,6 +189,7 @@ require("packer").startup {
         -- Lualine
         use {
             "nvim-lualine/lualine.nvim",
+
             config = function()
                 -- custom colors
                 local colors = {
@@ -186,7 +204,7 @@ require("packer").startup {
                     gray    = "#465457",
                 }
 
-                -- defining options and sections
+                -- Define options and sections
                 require("lualine").setup {
                     options = {
                         section_separators      = { left = "", right = "" },
@@ -209,19 +227,19 @@ require("packer").startup {
                     },
 
                     sections = {
-                        lualine_a = { "mode"                                                                },
-                        lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_lsp" } }         },
-                        lualine_c = { { "filename", symbols = { modified = " +", readonly = " -" } }  },
-                        lualine_x = { "filetype"                                                            },
-                        lualine_y = { "encoding"                                                            },
-                        lualine_z = { "progress", "location"                                                },
+                        lualine_a = { "mode"                                                        },
+                        lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_lsp" } } },
+                        lualine_c = { { "filename", newfile_status = true }                         },
+                        lualine_x = { { "filetype", colored = false }                               },
+                        lualine_y = { "encoding"                                                    },
+                        lualine_z = { "progress", "location"                                        },
                     },
 
                     inactive_sections = {
                         lualine_a = {},
                         lualine_b = {},
                         lualine_c = { "filename" },
-                        lualine_x = { "filetype", "location" },
+                        lualine_x = { { "filetype", colored = false }, "location" },
                         lualine_y = {},
                         lualine_z = {},
                     }
@@ -240,16 +258,59 @@ require("packer").startup {
             end
         }
 
+        -- Indent blankline
+        use {
+            "lukas-reineke/indent-blankline.nvim",
+
+            config = function()
+                require("indent_blankline").setup {
+                    indent_level                    = 10,
+                    max_indent_increase             = 1,
+                    show_first_indent_level         = false,
+                    show_trailing_blankline_indent  = false,
+                    filetype_exclude = {
+                        "help",
+                        "man",
+                        "markdown",
+                        "vimwiki",
+                        "tex",
+                    }
+                }
+            end
+        }
+
+        -- VimWiki
+        use {
+            "vimwiki/vimwiki",
+
+            config = function()
+                vim.g.vimwiki_global_ext = 0
+                vim.g.vimwiki_list = { {
+                    path        = "~/git-repos/vimwiki/notes/",
+                    path_html   = "~/git-repos/vimwiki/html/",
+                } }
+            end
+        }
+
+        -- Closetag
+        use {
+            "alvan/vim-closetag",
+            ft = { "html", "xml", "php" },
+            config = function() vim.g.closetag_filetypes = "html, xml, php" end
+        }
+
+        -- Emmet
+        use {
+            "mattn/emmet-vim",
+            ft = { "html", "css", "php" }
+        }
+
         -- others
-        use { "vimwiki/vimwiki"                                     }
-        use { "jiangmiao/auto-pairs"                                }
-        use { "tpope/vim-commentary"                                }
-        use { "tpope/vim-repeat"                                    }
-        use { "tpope/vim-fugitive"                                  }
-        use { "airblade/vim-gitgutter"                              }
-        use { "kyazdani42/nvim-web-devicons"                        }
-        use { "lukas-reineke/indent-blankline.nvim"                 }
-        use { "alvan/vim-closetag", ft = { "html", "xml", "php" }   }
-        use { "mattn/emmet-vim",    ft = { "html", "css", "php" }   }
+        use "jiangmiao/auto-pairs"
+        use "tpope/vim-commentary"
+        use "tpope/vim-repeat"
+        use "tpope/vim-fugitive"
+        use "airblade/vim-gitgutter"
+        use "kyazdani42/nvim-web-devicons"
     end
 }
