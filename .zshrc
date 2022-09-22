@@ -123,10 +123,12 @@ alias qconf="nvim -p \
     $XDG_CONFIG_HOME/qtile/config.py \
     $SCRIPTS/autostart"
 alias vconf="nvim -p \
-    $XDG_CONFIG_HOME/nvim/init.vim \
-    $XDG_CONFIG_HOME/nvim/plugins.lua \
-    $XDG_CONFIG_HOME/nvim/functions.vim \
-    $XDG_CONFIG_HOME/nvim/keybindings.vim"
+    $XDG_CONFIG_HOME/nvim/init.lua \
+    $XDG_CONFIG_HOME/nvim/lua/options.lua \
+    $XDG_CONFIG_HOME/nvim/lua/plugins.lua \
+    $XDG_CONFIG_HOME/nvim/lua/functions.lua \
+    $XDG_CONFIG_HOME/nvim/lua/autocmds.lua \
+    $XDG_CONFIG_HOME/nvim/lua/keymaps.lua"
 alias jconf="nvim -p \
     $XDG_CONFIG_HOME/joshuto/joshuto.toml \
     $XDG_CONFIG_HOME/joshuto/keymap.toml \
