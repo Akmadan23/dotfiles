@@ -278,6 +278,18 @@ local packer_startup = function(use)
         end
     }
 
+    -- Git signs
+    use {
+        "lewis6991/gitsigns.nvim",
+
+        config = function()
+            require("gitsigns").setup {
+                signcolumn = true,
+                numhl = true
+            }
+        end
+    }
+
     -- VimWiki
     use {
         "vimwiki/vimwiki",
@@ -309,7 +321,6 @@ local packer_startup = function(use)
     use "tpope/vim-commentary"
     use "tpope/vim-repeat"
     use "tpope/vim-fugitive"
-    use "airblade/vim-gitgutter"
     use "kyazdani42/nvim-web-devicons"
 end
 
