@@ -125,6 +125,7 @@ local packer_startup = function(use)
     use {
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
+        requires = { "windwp/nvim-ts-autotag" },
 
         config = function()
             -- Assign parsers to unsupported filetypes
@@ -132,7 +133,8 @@ local packer_startup = function(use)
             ft_parser.zsh = "bash"
 
             require("nvim-treesitter.configs").setup {
-                highlight = { enable = true },
+                highlight   = { enable = true },
+                autotag     = { enable = true },
 
                 ensure_installed = {
                     "bash",
@@ -301,13 +303,6 @@ local packer_startup = function(use)
                 path_html   = "~/git-repos/vimwiki/html/",
             } }
         end
-    }
-
-    -- Closetag
-    use {
-        "alvan/vim-closetag",
-        ft = { "html", "xml", "php" },
-        config = function() vim.g.closetag_filetypes = "html, xml, php" end
     }
 
     -- Emmet
