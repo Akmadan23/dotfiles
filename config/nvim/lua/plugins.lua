@@ -292,6 +292,15 @@ local packer_startup = function(use)
         end
     }
 
+    -- Autopairs
+    use {
+        "windwp/nvim-autopairs",
+
+        config = function()
+            require("nvim-autopairs").setup()
+        end
+    }
+
     -- VimWiki
     use {
         "vimwiki/vimwiki",
@@ -312,7 +321,6 @@ local packer_startup = function(use)
     }
 
     -- others
-    use "jiangmiao/auto-pairs"
     use "tpope/vim-commentary"
     use "tpope/vim-repeat"
     use "tpope/vim-fugitive"
