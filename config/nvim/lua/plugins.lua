@@ -305,7 +305,19 @@ local packer_startup = function(use)
         "windwp/nvim-autopairs",
 
         config = function()
-            require("nvim-autopairs").setup()
+            local autopairs = require "nvim-autopairs"
+            local rule = require "nvim-autopairs.rule"
+
+            -- Setup autopairs
+            autopairs.setup()
+
+            -- Symmetric padding in brackets
+            autopairs.add_rules {
+                rule(" ", " "):with_pair(function(opts)
+                    local pair = opts.line:sub(opts.col - 1, opts.col)
+                    return vim.tbl_contains({ "()", "[]", "{}" }, pair)
+                end),
+            }
         end
     }
 
