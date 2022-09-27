@@ -2,12 +2,54 @@
 local packer_startup = function(use)
     use "wbthomason/packer.nvim"
 
-    -- LSP & CMP
+    -- LSP
     use {
         "neovim/nvim-lspconfig",
 
+        config = function()
+            -- If buffer has already an LSP client attached
+            if #vim.lsp.buf_get_clients() > 0 then
+                return
+            end
+
+            -- Language servers
+            local srv = {
+                "vimls",
+                "nimls",
+                "bashls",
+                "texlab",
+                "clangd",
+                "phpactor",
+                "emmet_ls",
+                "sumneko_lua",
+                "rust_analyzer",
+                "quick_lint_js",
+                "jedi_language_server",
+            }
+
+            -- Suppress warning "Undefined global `vim`" in lua
+            local lua_settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { "vim" }
+                    }
+                }
+            }
+
+            -- Setup nvim-lsp
+            for _, i in pairs(srv) do
+                require("lspconfig")[i].setup {
+                    settings = (i == "sumneko_lua") and lua_settings or nil
+                }
+            end
+        end
+    }
+
+    -- Completion
+    use {
+        "hrsh7th/nvim-cmp",
+
         requires = {
-            "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -50,40 +92,6 @@ local packer_startup = function(use)
                     }
                 }
             }
-
-            -- Language servers
-            local srv = {
-                "vimls",
-                "nimls",
-                "bashls",
-                "texlab",
-                "clangd",
-                "phpactor",
-                "sumneko_lua",
-                "rust_analyzer",
-                "quick_lint_js",
-                "jedi_language_server",
-            }
-
-            -- Enable completion capabilities
-            local cap = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-            -- Suppress warning "Undefined global `vim`" in lua
-            local lua_settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" }
-                    }
-                }
-            }
-
-            -- Setup nvim-lsp
-            for _, i in pairs(srv) do
-                require("lspconfig")[i].setup {
-                    capabilities = cap,
-                    settings = (i == "sumneko_lua") and lua_settings or nil
-                }
-            end
         end
     }
 
