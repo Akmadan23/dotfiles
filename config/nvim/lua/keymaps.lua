@@ -35,10 +35,10 @@ map("nv",   "L",            "$")
 map("nv",   "J",            "<c-d>zz")
 map("nv",   "K",            "<c-u>zz")
 
--- Disable Q and map <c-q> to q
-map("n",    "<c-q>",        "q")
+-- Disable Q and map <leader>q to q
+map("n",    "q",            "<nop>")
 map("n",    "Q",            "<nop>")
-map("n",    "q",            function() print "For macros and cmdwin use <c-q>" end)
+map("n",    "<leader>q",    "q")
 
 -- Redo with U
 map("n",    "U",            "<c-r>")
@@ -50,13 +50,15 @@ map("n",    "Y",            "y$")
 map("n",    "dj",           "J")
 
 -- Automatic centering when cycling between search highlights
-map("nv",   "n",            "nzz")
+map("n",    "n",            "nzz")
+map("n",    "N",            "Nzz")
 
 -- Hide search highlights
 map("n",    "<bs>",         "<cmd>nohlsearch<cr>")
 
 -- Toggle wrap
-map("n",    "<a-w>",        function() vim.o.wrap = not vim.o.wrap; print("Wrap:", vim.o.wrap) end)
+map("n",    "<a-i>",        "<cmd>set ic!<bar>set ic?<cr>")
+map("n",    "<a-w>",        "<cmd>set wrap!<bar>set wrap?<cr>")
 
 -- Select all
 map("n",    "<c-a>",        "ggVG")
@@ -76,18 +78,20 @@ map("v",    "<tab>",        ">gv")
 map("v",    "<s-tab>",      "<gv")
 
 -- Increase/decrease numeric values
-map("nv",   "<a-+>",        "<c-a>")
-map("nv",   "<a-->",        "<c-x>")
+map("nv",   "+",            "<c-a>")
+map("nv",   "-",            "<c-x>")
 
 -- Telescope
-map("n",    "<leader>tf",   "<cmd>Telescope find_files<cr>")
-map("n",    "<leader>tm",   "<cmd>Telescope man_pages<cr>")
-map("n",    "<leader>tb",   "<cmd>Telescope builtin<cr>")
+map("n",    "<leader>ff",   "<cmd>Telescope find_files<cr>")
+map("n",    "<leader>fr",   "<cmd>Telescope oldfiles<cr>")
+map("n",    "<leader>fm",   "<cmd>Telescope man_pages<cr>")
+map("n",    "<leader>fh",   "<cmd>Telescope help_tags<cr>")
+map("n",    "<leader>fb",   "<cmd>Telescope builtin<cr>")
 
 -- Packer
-map("n",    "<leader>pc",   "<cmd>PackerCompile<cr>")
-map("n",    "<leader>ps",   "<cmd>PackerSync<cr>")
 map("n",    "<leader>pi",   "<cmd>PackerInstall<cr>")
+map("n",    "<leader>pc",   "<cmd>PackerClean<cr>")
+map("n",    "<leader>ps",   "<cmd>PackerSync<cr>")
 
 -- Custom functions
 map("n",    "<f5>",         "<cmd>lua Compile()<cr>")
