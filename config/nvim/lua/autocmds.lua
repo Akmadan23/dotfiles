@@ -17,11 +17,3 @@ autocmd("BufEnter", {
         vim.bo.filetype = "css"
     end
 })
-
--- Set comment pattern for lilypond files
-autocmd("FileType", {
-    pattern = "lilypond",
-    callback = function()
-        vim.bo.commentstring = "% %s"
-    end
-})

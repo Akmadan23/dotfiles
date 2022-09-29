@@ -300,6 +300,17 @@ local packer_startup = function(use)
         end
     }
 
+    -- Comment
+    use {
+        "numToStr/Comment.nvim",
+
+        config = function()
+            require("Comment").setup {
+                ignore = "^$",
+            }
+        end
+    }
+
     -- Autopairs
     use {
         "windwp/nvim-autopairs",
@@ -341,7 +352,6 @@ local packer_startup = function(use)
     }
 
     -- others
-    use "tpope/vim-commentary"
     use "tpope/vim-repeat"
     use "tpope/vim-fugitive"
     use "kyazdani42/nvim-web-devicons"
