@@ -1,4 +1,13 @@
--- List of config file
+-- Set leader key
+vim.g.mapleader = " "
+
+-- Disable custom keymaps in man buffers
+vim.g.no_man_maps = 1
+
+-- Set colorscheme
+vim.cmd "color monokai"
+
+-- List of config files
 local files = {
     "options",
     "plugins",
@@ -11,6 +20,3 @@ local files = {
 for _, f in ipairs(files) do
     require(f)
 end
-
--- Set colorscheme
-vim.cmd "color monokai"

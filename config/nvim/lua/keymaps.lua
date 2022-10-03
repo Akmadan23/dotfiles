@@ -1,6 +1,3 @@
--- Leader key
-vim.g.mapleader = " "
-
 -- Default options for each keymap
 local opts = {
     silent = true,
@@ -9,18 +6,9 @@ local opts = {
 
 -- Generic function to set each keymap
 local map = function(mode, key, value)
-    -- If mode has more than one chars
+    -- If mode has more than one char transform it in a table
     if #mode > 1 then
-        -- Initialize an empty table
-        local mode_table = {}
-
-        -- For each char create a table item
-        for i = 1, #mode do
-            mode_table[i] = mode:sub(i, i)
-        end
-
-        -- Replace the old string with the table
-        mode = mode_table
+        mode = vim.split(mode, "")
     end
 
     -- Run the actual keymap command

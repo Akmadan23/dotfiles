@@ -1,17 +1,19 @@
--- Compile function for C, C++, Go, Rust, Java, LaTeX and Lilypond
+local fmt = string.format
+
+-- Compile function for C, C++, Go, Rust, Nim, Zig, Java, LaTeX and Lilypond
 Compile = function()
     local case = {
         c = function()
-            vim.cmd "!gcc '%' -o '%:r'"
+            vim.cmd "!gcc -o '%:r' '%'"
         end,
 
         cpp = function()
-            vim.cmd "!g++ '%' -o '%:r'"
+            vim.cmd "!g++ -o '%:r' '%'"
         end,
 
         go = function()
             if vim.fn.executable "go" then
-                vim.cmd "!go build '%' -o '%:r'"
+                vim.cmd "!go build -o '%:r' '%'"
             else
                 print "Go is not installed."
             end
@@ -19,7 +21,7 @@ Compile = function()
 
         rust = function()
             if vim.fn.executable "rustc" then
-                vim.cmd "!rustc '%' -o '%:r'"
+                vim.cmd "!rustc -o '%:r' '%'"
             else
                 print "Rust is not installed."
             end
@@ -79,11 +81,11 @@ Compile = function()
             print "Shellcheck is not installed."
         end
     else
-        print(("Unable to compile %s."):format(vim.o.ft))
+        print(fmt("Unable to compile %s.", vim.o.ft))
     end
 end
 
--- Run function for Java, any precompiled code and any script
+-- Run function for Java, Python, Perl, Ruby, Lua, LaTeX, Lilypond and any binary file
 Run = function()
     -- Determine if a file exists
     local file_exists = function(path)
@@ -92,16 +94,6 @@ Run = function()
     end
 
     local case = {
-        c = function()
-            vim.cmd "silent ![ -x %:r ]"
-
-            if vim.v.shell_error == 0 then
-                vim.cmd "split term://./%:r"
-            else
-                print(("Executable file '%s' not found."):format(vim.fn.expand "%:r"))
-            end
-        end,
-
         java = function()
             if vim.fn.executable "java" then
                 if vim.fn.expand "%:p:h:t" == "src" then
@@ -165,32 +157,45 @@ Run = function()
 
         tex = function()
             if os.getenv "READER" then
-                local pdf = vim.fn.expand("%:r") .. ".pdf"
+                local pdf_path = vim.fn.expand("%:r") .. ".pdf"
 
-                if file_exists(pdf) then
-                    vim.cmd "silent !$READER '%:r.pdf' & disown"
+                if file_exists(pdf_path) then
+                    os.execute(fmt("$READER '%s' & disown", pdf_path))
                 else
-                    print(("File %s not found."):format(pdf))
+                    print(fmt("File '%s' not found.", pdf_path))
                 end
             else
                 print "The $READER environment variable is not set."
             end
         end,
+
+        bin = function()
+            local bin_path = vim.fn.expand "%:r"
+
+            if os.execute(fmt("[ -x %s ]", bin_path)) == 0 then
+                vim.cmd "split term://./%:r"
+            else
+                print(fmt("Executable file '%s' not found.", bin_path))
+            end
+        end,
     }
 
     -- Create duplicates in `case` table
-    case.cpp        = case.c
-    case.go         = case.c
-    case.rust       = case.c
+    case.c          = case.bin
+    case.cpp        = case.bin
+    case.go         = case.bin
+    case.rust       = case.bin
+    case.nim        = case.bin
+    case.zig        = case.bin
     case.lilypond   = case.tex
 
     if case[vim.o.ft] then
         case[vim.o.ft]()
-    elseif vim.fn.getline(1):find("^#!/.*sh$") then
-        vim.cmd "silent ![ -x % ]"
+    elseif vim.fn.getline(1):find("^#!/.*$") then
+        local file_path = vim.fn.expand "%"
 
-        if vim.v.shell_error == 1 then
-            vim.cmd "silent !chmod +x %"
+        if os.execute(fmt("[ -x %s ]", file_path)) == 0 then
+            os.execute(fmt("chmod +x %s", file_path))
         end
 
         vim.cmd "split term://./%"
