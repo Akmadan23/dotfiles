@@ -139,6 +139,22 @@ Run = function()
             end
         end,
 
+        perl = function()
+            if vim.fn.executable "perl" then
+                vim.cmd "split term://perl '%'"
+            else
+                print "Perl is not installed."
+            end
+        end,
+
+        ruby = function()
+            if vim.fn.executable "ruby" then
+                vim.cmd "split term://ruby '%'"
+            else
+                print "Ruby is not installed."
+            end
+        end,
+
         lua = function()
             if vim.fn.executable "lua" then
                 vim.cmd "split term://lua '%'"
