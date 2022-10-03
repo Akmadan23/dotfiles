@@ -25,6 +25,22 @@ Compile = function()
             end
         end,
 
+        nim = function()
+            if vim.fn.executable "nim" then
+                vim.cmd "!nim compile -o:'%:r' '%'"
+            else
+                print "Nim is not installed."
+            end
+        end,
+
+        zig = function()
+            if vim.fn.executable "zig" then
+                vim.cmd "!zig build-exe '%' -femit-bin='%:r'"
+            else
+                print "Zig is not installed."
+            end
+        end,
+
         java = function()
             if vim.fn.executable "javac" then
                 if vim.fn.expand "%:p:h:t" == "src" then
