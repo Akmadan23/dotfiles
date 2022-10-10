@@ -17,3 +17,17 @@ autocmd("BufEnter", {
         vim.bo.filetype = "css"
     end
 })
+
+-- Compile packer when writing `plugins.lua` file
+autocmd("BufWritePost", {
+    pattern = os.getenv "HOME" .. "/.config/nvim/lua/plugins.lua",
+    callback = function()
+        local packer_compile = function()
+            vim.cmd "source %"
+            require("packer").compile()
+            print "Packer compiled successfully."
+        end
+
+        vim.schedule(packer_compile)
+    end
+})
