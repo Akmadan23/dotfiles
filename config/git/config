@@ -1,26 +1,26 @@
 [user]
-    name = Akmadan23
-    email = azadahmadi@mailo.com
+name = Akmadan23
+email = azadahmadi@mailo.com
+
 [core]
-    pager = diff-so-fancy | less --mouse -x4
-    ; pager = diff-so-fancy | nvim -RMn -c 'set ft=diff | AnsiEsc'
+pager = diff-so-fancy | less --mouse -x4
 
 [color]
-    ui = true
+ui = true
 
 [color "diff"]
-    meta = yellow
-    frag = magenta bold
-    commit = yellow bold
-    old = red bold
-    new = green bold
-    whitespace = red reverse
+meta = yellow
+frag = magenta bold
+commit = yellow bold
+old = red bold
+new = green bold
+whitespace = red reverse
 
 [color "diff-highlight"]
-    oldNormal = red bold
-    oldHighlight = red bold 52
-    newNormal = green bold
-    newHighlight = green bold 22
+oldNormal = red bold
+oldHighlight = red bold 52
+newNormal = green bold
+newHighlight = green bold 22
 
 [diff-so-fancy]
-    first-run = true
+first-run = true
