@@ -5,6 +5,9 @@ email = azadahmadi@mailo.com
 [core]
 pager = diff-so-fancy | less --mouse -x4
 
+[init]
+defaultBranch = master
+
 [color]
 ui = true
 
