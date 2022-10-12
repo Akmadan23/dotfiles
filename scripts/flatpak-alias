@@ -1,0 +1,12 @@
+#!/bin/sh
+# USAGE: ./flatpak-alias >> /path/to/bashrc/or/zshrc
+
+echo "# Flatpak aliases"
+
+# For each flatpak installed (apps only), automatically create a shell alias
+flatpak list --app | while read -r line; do
+    name="$(echo "$line" | cut -f 1 | sed "s/ /-/g" | tr "[:upper:]" "[:lower:]")"
+    id="$(echo "$line" | cut -f 2)"
+
+    echo "alias $name=\"flatpak run $id\""
+done
