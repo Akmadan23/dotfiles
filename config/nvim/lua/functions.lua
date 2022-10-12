@@ -155,6 +155,16 @@ Run = function()
             end
         end,
 
+        lisp = function()
+            if vim.fn.executable "sbcl" then
+                vim.cmd "split term://sbcl --script '%'"
+            elseif vim.fn.executable "clisp" then
+                vim.cmd "split term://clisp '%'"
+            else
+                print "sbcl or clisp is not installed."
+            end
+        end,
+
         tex = function()
             if os.getenv "READER" then
                 local pdf_path = vim.fn.expand("%:r") .. ".pdf"
