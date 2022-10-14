@@ -54,7 +54,7 @@ local packer_startup = function(use)
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-vsnip",
-            "hrsh7th/vim-vsnip",
+            "saadparwaiz1/cmp_luasnip",
             "onsails/lspkind-nvim",
         },
 
@@ -66,13 +66,13 @@ local packer_startup = function(use)
                 sources = cmp.config.sources {
                     { name = "nvim_lsp" },
                     { name = "path"     },
-                    { name = "vsnip"    },
+                    { name = "luasnip"  },
                     { name = "buffer"   },
                 },
 
                 snippet = {
                     expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
 
@@ -92,6 +92,16 @@ local packer_startup = function(use)
                     }
                 }
             }
+        end
+    }
+
+    -- Snippets
+    use {
+        "L3MON4D3/LuaSnip",
+        tag = "v1.*",
+
+        config = function()
+            require("luasnip.loaders.from_snipmate").lazy_load()
         end
     }
 
