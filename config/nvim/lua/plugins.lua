@@ -223,6 +223,18 @@ local packer_startup = function(use)
                 gray    = "#465457",
             }
 
+            -- Change filename module's color when the file is modified
+            local filename_color = function()
+                if vim.bo.modified then
+                    return {
+                        fg = colors.magenta,
+                        gui = "bold",
+                    }
+                else
+                    return nil
+                end
+            end
+
             -- Define options and sections
             require("lualine").setup {
                 options = {
@@ -247,8 +259,8 @@ local packer_startup = function(use)
 
                 sections = {
                     lualine_a = { "mode"                                                        },
-                    lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_lsp" } } },
-                    lualine_c = { { "filename", newfile_status = true }                         },
+                    lualine_b = { { "filename", newfile_status = true, color = filename_color } },
+                    lualine_c = { "branch", "diff", { "diagnostics", sources = { "nvim_lsp" } } },
                     lualine_x = { { "filetype", colored = false }                               },
                     lualine_y = { "encoding"                                                    },
                     lualine_z = { "progress", "location"                                        },
