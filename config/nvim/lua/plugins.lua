@@ -139,6 +139,18 @@ local packer_startup = function(use)
         end
     }
 
+    -- Trouble
+    use {
+        "folke/trouble.nvim",
+
+        config = function()
+            require("trouble").setup {
+                indent_lines = false,
+                auto_close = true
+            }
+        end
+    }
+
     -- Treesitter
     use {
         "nvim-treesitter/nvim-treesitter",

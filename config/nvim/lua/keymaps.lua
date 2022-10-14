@@ -76,6 +76,9 @@ map("n",    "<leader>fm",   "<cmd>Telescope man_pages<cr>")
 map("n",    "<leader>fh",   "<cmd>Telescope help_tags<cr>")
 map("n",    "<leader>fb",   "<cmd>Telescope builtin<cr>")
 
+-- Trouble
+map("n",    "<leader>t",    "<cmd>TroubleToggle<cr>")
+
 -- Packer
 map("n",    "<leader>pi",   "<cmd>PackerInstall<cr>")
 map("n",    "<leader>pc",   "<cmd>PackerClean<cr>")
