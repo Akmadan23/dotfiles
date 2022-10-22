@@ -7,6 +7,19 @@ vim.g.no_man_maps = 1
 -- Set colorscheme
 vim.cmd "color monokai"
 
+-- List of command abbreviations
+local abbr = {
+    "W", "Q",
+    "WQ", "Wq",
+    "WA", "Wa",
+    "QA", "Qa",
+    "WQA", "WQa", "Wqa"
+}
+
+for _, a in ipairs(abbr) do
+    vim.cmd(("cabbrev %s %s"):format(a, a:lower()))
+end
+
 -- List of config files
 local files = {
     "options",
