@@ -88,9 +88,18 @@ map("n",    "<leader>ps",   "<cmd>PackerSync<cr>")
 map("n",    "<f5>",         "<cmd>lua Compile()<cr>")
 map("n",    "<f6>",         "<cmd>lua Run()<cr>")
 
--- Disable keys
-map("nv",   "<space>",      "<nop>")
-map("nv",   "<c-z>",        "<nop>")
 
 -- Terminal bindings
 map("t",    "<esc>",        "<c-\\><c-n>")
+
+-- Disable keys
+local disabled = {
+    { "nv", "<c-z>"         },
+    { "nv", "<space>"       },
+    { "i",  "<pageup>"      },
+    { "i",  "<pagedown>"    },
+}
+
+for _, v in ipairs(disabled) do
+    map(v[1], v[2], "<nop>")
+end
