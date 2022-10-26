@@ -110,7 +110,64 @@ local packer_startup = function(use)
         tag = "v1.*",
 
         config = function()
-            require("luasnip.loaders.from_snipmate").lazy_load()
+            local ls = require("luasnip")
+            local fmt = require("luasnip.extras.fmt").fmt
+            local i = ls.insert_node
+
+            local snips = {
+                rust = {
+                    mr = {
+                        string = [[
+                            match xy {
+                                Ok(xy) => xy,
+                                Err(xy) => xy,
+                            }
+                        ]],
+
+                        nodes = {
+                            i(1, "condition"),
+                            i(2, "arg"),
+                            i(4, "/* if Ok */"),
+                            i(3, "arg"),
+                            i(0, "/* if Err */")
+                        },
+
+                        opts = {
+                            delimiters = "xy"
+                        }
+                    },
+
+                    mo = {
+                        string = [[
+                            match xy {
+                                Some(xy) => xy,
+                                None => xy,
+                            }
+                        ]],
+
+                        nodes = {
+                            i(1, "condition"),
+                            i(2, "arg"),
+                            i(3, "/* if Some */"),
+                            i(0, "/* if None */")
+                        },
+
+                        opts = {
+                            delimiters = "xy"
+                        }
+                    }
+                }
+            }
+
+            for ft, s in pairs(snips) do
+                local snip = {}
+
+                for trigger, v in pairs(s) do
+                    table.insert(snip, ls.snippet(trigger, fmt(v.string, v.nodes or {}, v.opts or {})))
+                end
+
+                ls.add_snippets(ft, snip)
+            end
         end
     }
 
