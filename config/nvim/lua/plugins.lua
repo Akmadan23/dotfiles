@@ -1,35 +1,39 @@
 -- Define packer's startup function
 local packer_startup = function(use)
     use "wbthomason/packer.nvim"
+    use "nvim-lua/plenary.nvim"
+    use "kyazdani42/nvim-web-devicons"
+    use "tpope/vim-fugitive"
+    use "tpope/vim-repeat"
 
     -- LSP
     use {
         "neovim/nvim-lspconfig",
 
         config = function()
-            -- If buffer has already an LSP client attached
-            if #vim.lsp.buf_get_clients() > 0 then
-                return
-            end
-
             -- Language servers
             local srv = {
-                "vimls",
-                "nimls",
                 "bashls",
-                "texlab",
                 "clangd",
-                "phpactor",
                 "emmet_ls",
-                "sumneko_lua",
-                "rust_analyzer",
+                "gopls",
+                "nimls",
+                "phpactor",
+                "pyright",
                 "quick_lint_js",
-                "jedi_language_server",
+                "sqls",
+                "sumneko_lua",
+                "texlab",
+                "vimls",
             }
 
             -- Suppress warning "Undefined global `vim`" in lua
             local lua_settings = {
                 Lua = {
+                    runtime = {
+                        version = "LuaJIT"
+                    },
+
                     diagnostics = {
                         globals = { "vim" }
                     }
@@ -59,15 +63,15 @@ local packer_startup = function(use)
         },
 
         config = function()
-            local cmp = require("cmp")
+            local cmp = require "cmp"
 
             -- Setup nvim-cmp
             cmp.setup {
                 sources = {
                     { name = "nvim_lsp" },
-                    { name = "path"     },
                     { name = "luasnip"  },
-                    { name = "buffer"   },
+                    { name = "path",    trailing_slash = true },
+                    { name = "buffer",  keyword_length = 5 },
                 },
 
                 snippet = {
@@ -88,7 +92,13 @@ local packer_startup = function(use)
 
                 formatting = {
                     format = require("lspkind").cmp_format {
-                        mode = "symbol_text"
+                        mode = "symbol_text",
+                        menu = {
+                            nvim_lsp    = "[LSP]",
+                            luasnip     = "[SNIP]",
+                            path        = "[PATH]",
+                            buffer      = "[BUF]",
+                        }
                     }
                 }
             }
@@ -177,9 +187,15 @@ local packer_startup = function(use)
         ft = { "java" },
 
         config = function()
+            -- Custom paths
+            local path = {
+                jar = "/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+                config = "/usr/share/java/jdtls/config_linux",
+                data = os.getenv "XDG_DATA_HOME" .. "/jdtls/",
+            }
+
+            -- Initialize JDTLS
             require("jdtls").start_or_attach {
-                -- The command that starts the language server
-                -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
                 cmd = {
                     "java",
                     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
@@ -192,10 +208,9 @@ local packer_startup = function(use)
                     "--add-opens", "java.base/java.util=ALL-UNNAMED",
                     "--add-opens", "java.base/java.lang=ALL-UNNAMED",
 
-                    -- the following options must be modified depending on the system
-                    "-jar", "/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
-                    "-configuration", "/usr/share/java/jdtls/config_linux",
-                    "-data", vim.fn.expand("%:p:h:h")
+                    "-jar",             path.jar,
+                    "-configuration",   path.config,
+                    "-data",            path.data,
                 },
 
                 -- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -282,7 +297,6 @@ local packer_startup = function(use)
     use {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.0",
-        requires = { "nvim-lua/plenary.nvim" },
 
         config = function()
             require("telescope").setup {
@@ -384,6 +398,7 @@ local packer_startup = function(use)
 
         config = function()
             require("nvim-highlight-colors").setup {
+                enable_named_colors = false,
                 render = "background"
             }
         end
@@ -441,15 +456,18 @@ local packer_startup = function(use)
             local autopairs = require "nvim-autopairs"
             local rule = require "nvim-autopairs.rule"
 
+            -- Symmetric padding in brackets
+            local padding = function(opts)
+                local pair = opts.line:sub(opts.col - 1, opts.col)
+                return vim.tbl_contains({ "()", "[]", "{}" }, pair)
+            end
+
             -- Setup autopairs
             autopairs.setup()
 
-            -- Symmetric padding in brackets
+            -- Set autopairs additional rules
             autopairs.add_rules {
-                rule(" ", " "):with_pair(function(opts)
-                    local pair = opts.line:sub(opts.col - 1, opts.col)
-                    return vim.tbl_contains({ "()", "[]", "{}" }, pair)
-                end),
+                rule(" ", " "):with_pair(padding)
             }
         end
     }
@@ -466,17 +484,6 @@ local packer_startup = function(use)
             } }
         end
     }
-
-    -- Emmet
-    use {
-        "mattn/emmet-vim",
-        ft = { "html", "css", "php" }
-    }
-
-    -- others
-    use "tpope/vim-repeat"
-    use "tpope/vim-fugitive"
-    use "kyazdani42/nvim-web-devicons"
 end
 
 -- Initialize packer

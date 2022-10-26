@@ -5,7 +5,8 @@ local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufEnter", {
     pattern = "term://*",
     callback = function()
-        vim.o.number = false
+        vim.o.nu = false
+        vim.o.rnu = false
         vim.cmd "startinsert"
     end
 })
@@ -22,12 +23,10 @@ autocmd("BufEnter", {
 autocmd("BufWritePost", {
     pattern = os.getenv "HOME" .. "/.config/nvim/lua/plugins.lua",
     callback = function()
-        local packer_compile = function()
+        vim.schedule(function()
             vim.cmd "source %"
             require("packer").compile()
             print "Packer compiled successfully."
-        end
-
-        vim.schedule(packer_compile)
+        end)
     end
 })

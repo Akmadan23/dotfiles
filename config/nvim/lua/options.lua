@@ -1,3 +1,4 @@
+-- List of options
 local opts = {
     -- General
     tgc         = true,
@@ -5,17 +6,19 @@ local opts = {
     backup      = false,
     wrap        = false,
     number      = true,
+    rnu         = true,
     incsearch   = true,
     ignorecase  = true,
     cursorline  = true,
     background  = "dark",
     clipboard   = "unnamedplus",
     completeopt = "menuone",
+    mousemodel  = "extend",
     mouse       = "a",
 
     -- Splits
-    splitbelow = true,
-    splitright = true,
+    splitbelow  = true,
+    splitright  = true,
 
     -- Tabs
     expandtab   = true,
