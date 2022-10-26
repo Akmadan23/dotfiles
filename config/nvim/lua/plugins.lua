@@ -51,9 +51,9 @@ local packer_startup = function(use)
 
         requires = {
             "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
-            "hrsh7th/cmp-vsnip",
             "saadparwaiz1/cmp_luasnip",
             "onsails/lspkind-nvim",
         },
@@ -63,7 +63,7 @@ local packer_startup = function(use)
 
             -- Setup nvim-cmp
             cmp.setup {
-                sources = cmp.config.sources {
+                sources = {
                     { name = "nvim_lsp" },
                     { name = "path"     },
                     { name = "luasnip"  },
@@ -92,6 +92,15 @@ local packer_startup = function(use)
                     }
                 }
             }
+
+            -- Cmdline and path source for ':'
+            cmp.setup.cmdline(":", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources {
+                    { name = "cmdline", keyword_length = 5 },
+                    { name = "path" },
+                }
+            })
         end
     }
 
