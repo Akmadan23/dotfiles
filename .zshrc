@@ -187,6 +187,16 @@ alias pping="prettyping"
 alias tlauncher="java -jar ~/Scaricati/TLauncher/TLauncher*.jar"
 alias src="source ~/.zshrc && source ~/.zshenv"
 
+# Flatpak apps
+alias discord="flatpak run com.discordapp.Discord"
+alias flatseal="flatpak run com.github.tchx84.Flatseal"
+alias pulseeffects="flatpak run com.github.wwmm.pulseeffects"
+alias android-studio="flatpak run com.google.AndroidStudio"
+alias microsoft-teams="flatpak run com.microsoft.Teams"
+alias obs-studio="flatpak run com.obsproject.Studio"
+alias netbeans="flatpak run org.apache.netbeans"
+alias telegram="flatpak run org.telegram.desktop"
+
 ###############################################################
 ##                         VI MODE                           ##
 ###############################################################
