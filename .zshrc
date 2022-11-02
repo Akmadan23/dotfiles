@@ -228,9 +228,23 @@ function zle-keymap-select {
 zle -N zle-keymap-select
 
 # Use beam shape cursor for each new prompt
-precmd() {
+function precmd {
    echo -ne "\e[5 q"
 }
+
+# Add dynamic title capability
+function title_precmd {
+    print -Pn -- "\e]2;%n@%m: %~\a"
+}
+
+function title_preexec {
+    print -Pn -- "\e]2;%n@%m: ${(q)1}\a"
+}
+
+if [[ "$TERM" == "alacritty" ]]; then
+    add-zsh-hook -Uz precmd title_precmd
+    add-zsh-hook -Uz preexec title_preexec
+fi
 
 # Enable z.lua
 eval "$(lua ~/.local/share/z.lua/z.lua --init zsh)"
