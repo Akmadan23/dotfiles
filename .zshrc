@@ -143,8 +143,11 @@ alias bspconf="nvim -p \
     $XDG_CONFIG_HOME/bspwm/bspwmrc \
     $XDG_CONFIG_HOME/sxhkd/sxhkdrc \
     $SCRIPTS/autostart"
+alias alconf="nvim -p \
+    $XDG_CONFIG_HOME/alacritty/alacritty.yml \
+    $XDG_CONFIG_HOME/alacritty/colorscheme.yml \
+    $XDG_CONFIG_HOME/alacritty/keybindings.yml"
 alias kconf="sudo nvim /usr/share/X11/xkb/symbols/pc"
-alias alconf="nvim $XDG_CONFIG_HOME/alacritty/alacritty.yml"
 alias pbconf="nvim $XDG_CONFIG_HOME/polybar/config -c 'set ft=toml'"
 
 # git

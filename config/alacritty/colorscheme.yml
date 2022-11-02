@@ -1,0 +1,26 @@
+# Monokai Color Scheme (https://kolormark.com/brands/monokai)
+colors:
+  # Default colors
+  primary:
+    background: "#242424"
+    foreground: "#EEEEEE"
+
+  normal:
+    black:      "#000000"
+    red:        "#F92672"
+    green:      "#A6E22E"
+    yellow:     "#E6DB74"
+    blue:       "#66D8EF"
+    magenta:    "#FD971F"
+    cyan:       "#AE81FF"
+    white:      "#F8F8F0"
+
+  bright:
+    black:      "#666666"
+    red:        "#FF6188"
+    green:      "#A9DC76"
+    yellow:     "#FFD866"
+    blue:       "#78DCE8"
+    magenta:    "#FC9867"
+    cyan:       "#AB9DF2"
+    white:      "#F8F8F0"
