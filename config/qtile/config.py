@@ -137,37 +137,9 @@ layout_theme = dict(
 )
 
 layouts = [
-    # layout.Bsp(),
-    # layout.Columns(),
-    # layout.Floating(),
-    # layout.Matrix(),    
-    # layout.Max(),
-    # layout.RatioTile(),
-    # layout.Slice(),
-    # layout.Stack(),
-    # layout.Tile(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme, ratio = 0.6),
-
-    layout.TreeTab(
-        font = "Cantarell bold",
-        font_size = 12,
-        border_width = 0,
-        panel_width = 128,
-        margin_left = 0,
-        padding_left = 0,
-        section_padding = 0,
-        bg_color = colors[0],
-        active_fg = colors[0],
-        active_bg = colors[4],
-        inactive_fg = colors[7],
-        inactive_bg = colors[8],
-        urgent_fg = colors[7],
-        urgent_bg = colors[1],
-    ),
+    layout.Max(),
 ]
 
 floating_layout = layout.Floating(
