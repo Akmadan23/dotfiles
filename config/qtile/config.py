@@ -199,7 +199,7 @@ separator = dict(
     margin = 0
 )
 
-# Groupbox defaults
+# GroupBox defaults
 groupbox = dict(
     font = awesome,
     active = colors[7],
@@ -213,10 +213,15 @@ groupbox = dict(
     highlight_method = "line",
 )
 
-# Windowname defaults
-windowname = dict(
-    format = "{name}",
-    font = "Cantarell Bold",
+# TaskList defaults
+tasklist = dict(
+    font = "Cantarell",
+    margin = 0,
+    border = None,
+    icon_size = 16,
+    title_width_method = "uniform",
+    markup_focused = "<b>{}</b>",
+    markup_floating = "[F] {}",
 )
 
 # Screen settings
@@ -225,7 +230,7 @@ screens = [
         top = bar.Bar(
             widgets = [
                 widget.GroupBox(**groupbox),
-                widget.WindowName(**windowname),
+                widget.TaskList(**tasklist),
 
                 widget.TextBox(
                     **separator,
@@ -400,7 +405,7 @@ screens = [
                 widget.CurrentLayoutIcon(scale = 0.75),
             ],
 
-            size = 22,
+            size = 24,
             background = colors[0],
         )
     ),
@@ -409,7 +414,7 @@ screens = [
         top = bar.Bar(
             widgets = [
                 widget.GroupBox(**groupbox),
-                widget.WindowName(**windowname),
+                widget.TaskList(**tasklist),
                 widget.TextBox(**separator, background = colors[0], foreground = colors[1]),
                 widget.TextBox(**separator, background = colors[1], foreground = colors[2]),
                 widget.TextBox(**separator, background = colors[2], foreground = colors[3]),
