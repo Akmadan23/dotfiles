@@ -1,11 +1,11 @@
+# pyright: reportPrivateImportUsage = false
 import os, subprocess as sp
-from libqtile import layout, bar, widget, hook
+from libqtile import layout, hook, widget
 from libqtile.lazy import lazy
-from libqtile.config import Key, KeyChord, Screen, Group, Drag, Match
+from libqtile.config import Bar, Drag, Group, Key, KeyChord, Match, Screen
 
 # Importing environment variables
 term = os.environ["TERMINAL"]
-browser = os.environ["BROWSER"]
 
 # Keys aliases
 mod = "mod4"
@@ -83,7 +83,7 @@ keys = [
     Key([mod],          "Left",     lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
     Key([mod],          "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
 
-    # Moving cursor with keyboard
+    # Move with keyboard
     Key([alt, ctrl],    "h",        lazy.spawn("xdotool mousemove_relative -- -4 0")),  # move pointer 4px left
     Key([alt, ctrl],    "j",        lazy.spawn("xdotool mousemove_relative -- 0 4")),   # move pointer 4px down
     Key([alt, ctrl],    "k",        lazy.spawn("xdotool mousemove_relative -- 0 -4")),  # move pointer 4px up
@@ -104,9 +104,10 @@ keys = [
     Key([], "XF86AudioMute",            lazy.spawn("dw amixer set Master toggle")),     # mute
 
     # Set volume
-    KeyChord([mod], "v", [
-        Key([], str(i), lazy.spawn(f"dw amixer set Master {str(i)}0%")) for i in range(1, 10)
-    ]),
+    KeyChord([mod], "v", [Key([], str(i), lazy.spawn(f"dw amixer set Master {str(i)}0%")) for i in range(1, 10)]),
+
+    # Set brightness
+    KeyChord([mod], "b", [Key([], str(i), lazy.spawn(f"xbacklight -set {str(i)}0")) for i in range(1, 10)]),
 ]
 
 # Mouse bindings
@@ -115,9 +116,9 @@ mouse = [
     Drag([mod], "Button3", lazy.window.set_size_floating(),     start = lazy.window.get_size()),
 ]
 
-#          1    2    3    4    5    6    7    8    9
-labels = ["", "", "", "", "", "", "", "", ""]
-groups = [Group(name = str(i), label = labels[i - 1]) for i in range(1, 10)]
+#                1    2    3    4    5    6    7    8    9
+labels = [None, "", "", "", "", "", "", "", "", ""]
+groups = [Group(name = str(i), label = labels[i]) for i in range(1, 10)]
 
 for i in groups:
     keys.extend([
@@ -136,6 +137,7 @@ layout_theme = dict(
     single_margin = 0,
 )
 
+# Layouts list
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme, ratio = 0.6),
@@ -152,6 +154,7 @@ floating_layout = layout.Floating(
         Match(wm_class = "lxpolkit"),           # Authentication windows
         Match(wm_class = "Calendar"),           # Thunderbird calendar window
         Match(wm_class = "Msgcompose"),         # Thunderbird message window
+        Match(wm_class = "pinentry-gtk-2"),     # GPG passphrase prompt
         Match(wm_class = "qalculate-gtk"),      # Qalculate
     ]
 )
@@ -196,214 +199,205 @@ tasklist = dict(
     markup_floating = "[F] {}",
 )
 
-# Screen settings
-screens = [
-    Screen(
-        top = bar.Bar(
-            widgets = [
-                widget.GroupBox(**groupbox),
-                widget.TaskList(**tasklist),
+# Widgets list for primary monitor
+widgets1 = [
+    widget.GroupBox(**groupbox),
+    widget.TaskList(**tasklist),
 
-                widget.TextBox(
-                    **separator,
-                    background = colors[0],
-                    foreground = colors[1],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[1],
-                    foreground = colors[2],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = awesome,
-                    fontsize = 12,
-                    background = colors[2],
-                    foreground = colors[0],
-                ),
-
-                widget.CheckUpdates(
-                    distro = "Arch_checkupdates",
-                    update_interval = 300,
-                    no_update_string = "✔",
-                    display_format = "{updates}",
-                    execute = f"{term} -e paru",
-                    colour_have_updates = colors[0],
-                    colour_no_updates = colors[0],
-                    background = colors[2],
-                    foreground = colors[0],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[2],
-                    foreground = colors[3],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = awesome,
-                    background = colors[3],
-                    foreground = colors[0],
-                ),
-
-                widget.Memory(
-                    format = "{MemUsed: .2f}/{MemTotal: .0f} GB",
-                    measure_mem = "G",
-                    update_interval = 2,
-                    background = colors[3],
-                    foreground = colors[0],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[3],
-                    foreground = colors[4],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = awesome,
-                    background = colors[4],
-                    foreground = colors[0],
-                ),
-
-                widget.ThermalSensor(
-                    update_interval = 2,
-                    foreground_alert = colors[1],
-                    threshold = 90,
-                    background = colors[4],
-                    foreground = colors[0],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[4],
-                    foreground = colors[5],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = awesome,
-                    background = colors[5],
-                    foreground = colors[0],
-                ),
-
-                widget.Backlight(
-                    backlight_name = "intel_backlight",
-                    brightness_file = "brightness",
-                    change_command = None,
-                    background = colors[5],
-                    foreground = colors[0],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[5],
-                    foreground = colors[6],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = awesome,
-                    background = colors[6],
-                    foreground = colors[0],
-                ),
-
-                widget.Volume(
-                    step = 5,
-                    background = colors[6],
-                    foreground = colors[0],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[6],
-                    foreground = colors[8],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = awesome,
-                    fontsize = 16,
-                    background = colors[8],
-                    foreground = colors[7],
-                ),
-
-                widget.Battery(
-                    format = "{char}{percent:1.0%}",
-                    charge_char = " ",
-                    discharge_char = "",
-                    unknown_char = "",
-                    full_char = "",
-                    show_short_text = False,
-                    update_interval = 30,
-                    low_percentage = 0.2,
-                    low_foreground = colors[1],
-                    background = colors[8],
-                    foreground = colors[7],
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[8],
-                    foreground = colors[9],
-                ),
-
-                widget.TextBox(
-                    text = "",
-                    font = awesome,
-                    fontsize = 12,
-                    background = colors[9],
-                    foreground = colors[7],
-                ),
-
-                widget.Clock(
-                    format = "%A %d %B, %H:%M",
-                    background = colors[9],
-                    foreground = colors[7],
-                    mouse_callbacks = dict(Button1 = lazy.spawn("gscal"))
-                ),
-
-                widget.TextBox(
-                    **separator,
-                    background = colors[9],
-                    foreground = colors[0],
-                ),
-
-                widget.Systray(),
-                widget.CurrentLayoutIcon(scale = 0.75),
-            ],
-
-            size = 24,
-            background = colors[0],
-        )
+    widget.TextBox(
+        **separator,
+        background = colors[0],
+        foreground = colors[1],
     ),
 
-    Screen(
-        top = bar.Bar(
-            widgets = [
-                widget.GroupBox(**groupbox),
-                widget.TaskList(**tasklist),
-                widget.TextBox(**separator, background = colors[0], foreground = colors[1]),
-                widget.TextBox(**separator, background = colors[1], foreground = colors[2]),
-                widget.TextBox(**separator, background = colors[2], foreground = colors[3]),
-                widget.TextBox(**separator, background = colors[3], foreground = colors[4]),
-                widget.TextBox(**separator, background = colors[4], foreground = colors[5]),
-                widget.TextBox(**separator, background = colors[5], foreground = colors[6]),
-                widget.TextBox(**separator, background = colors[6], foreground = colors[8]),
-                widget.TextBox(**separator, background = colors[8], foreground = colors[9]),
-                widget.Clock(format = "%A %d %B, %H:%M", background = colors[9], foreground = colors[7]),
-                widget.TextBox(**separator, background = colors[9], foreground = colors[0]),
-                widget.CurrentLayoutIcon(scale = 0.75),
-            ],
+    widget.TextBox(
+        **separator,
+        background = colors[1],
+        foreground = colors[2],
+    ),
 
-            size = 24,
-            background = colors[0],
-        )
-    )
+    widget.TextBox(
+        text = "",
+        font = awesome,
+        fontsize = 12,
+        background = colors[2],
+        foreground = colors[0],
+    ),
+
+    widget.CheckUpdates(
+        distro = "Arch_checkupdates",
+        update_interval = 300,
+        no_update_string = "✔",
+        display_format = "{updates}",
+        execute = f"{term} -e paru",
+        colour_have_updates = colors[0],
+        colour_no_updates = colors[0],
+        background = colors[2],
+        foreground = colors[0],
+    ),
+
+    widget.TextBox(
+        **separator,
+        background = colors[2],
+        foreground = colors[3],
+    ),
+
+    widget.TextBox(
+        text = "",
+        font = awesome,
+        background = colors[3],
+        foreground = colors[0],
+    ),
+
+    widget.Memory(
+        format = "{MemUsed: .2f}/{MemTotal: .0f} GB",
+        measure_mem = "G",
+        update_interval = 2,
+        background = colors[3],
+        foreground = colors[0],
+    ),
+
+    widget.TextBox(
+        **separator,
+        background = colors[3],
+        foreground = colors[4],
+    ),
+
+    widget.TextBox(
+        text = "",
+        font = awesome,
+        background = colors[4],
+        foreground = colors[0],
+    ),
+
+    widget.ThermalSensor(
+        update_interval = 2,
+        foreground_alert = colors[1],
+        threshold = 90,
+        background = colors[4],
+        foreground = colors[0],
+    ),
+
+    widget.TextBox(
+        **separator,
+        background = colors[4],
+        foreground = colors[5],
+    ),
+
+    widget.TextBox(
+        text = "",
+        font = awesome,
+        background = colors[5],
+        foreground = colors[0],
+    ),
+
+    widget.Backlight(
+        backlight_name = "intel_backlight",
+        brightness_file = "brightness",
+        change_command = None,
+        background = colors[5],
+        foreground = colors[0],
+    ),
+
+    widget.TextBox(
+        **separator,
+        background = colors[5],
+        foreground = colors[6],
+    ),
+
+    widget.TextBox(
+        text = "",
+        font = awesome,
+        background = colors[6],
+        foreground = colors[0],
+    ),
+
+    widget.Volume(
+        step = 5,
+        background = colors[6],
+        foreground = colors[0],
+    ),
+
+    widget.TextBox(
+        **separator,
+        background = colors[6],
+        foreground = colors[8],
+    ),
+
+    widget.TextBox(
+        text = "",
+        font = awesome,
+        fontsize = 16,
+        background = colors[8],
+        foreground = colors[7],
+    ),
+
+    widget.Battery(
+        format = "{char}{percent:1.0%}",
+        charge_char = " ",
+        discharge_char = "",
+        unknown_char = "",
+        full_char = "",
+        show_short_text = False,
+        update_interval = 30,
+        low_percentage = 0.2,
+        low_foreground = colors[1],
+        background = colors[8],
+        foreground = colors[7],
+    ),
+
+    widget.TextBox(
+        **separator,
+        background = colors[8],
+        foreground = colors[9],
+    ),
+
+    widget.TextBox(
+        text = "",
+        font = awesome,
+        fontsize = 12,
+        background = colors[9],
+        foreground = colors[7],
+    ),
+
+    widget.Clock(
+        format = "%A %d %B, %H:%M",
+        background = colors[9],
+        foreground = colors[7],
+        mouse_callbacks = dict(Button1 = lazy.spawn("gscal"))
+    ),
+
+    widget.TextBox(
+        **separator,
+        background = colors[9],
+        foreground = colors[0],
+    ),
+
+    widget.Systray(),
+    widget.CurrentLayoutIcon(scale = 0.75),
+]
+
+# Widgets list for secondary monitor
+widgets2 = [
+    widget.GroupBox(**groupbox),
+    widget.TaskList(**tasklist),
+    widget.TextBox(**separator, background = colors[0], foreground = colors[1]),
+    widget.TextBox(**separator, background = colors[1], foreground = colors[2]),
+    widget.TextBox(**separator, background = colors[2], foreground = colors[3]),
+    widget.TextBox(**separator, background = colors[3], foreground = colors[4]),
+    widget.TextBox(**separator, background = colors[4], foreground = colors[5]),
+    widget.TextBox(**separator, background = colors[5], foreground = colors[6]),
+    widget.TextBox(**separator, background = colors[6], foreground = colors[8]),
+    widget.TextBox(**separator, background = colors[8], foreground = colors[9]),
+    widget.Clock(format = "%A %d %B, %H:%M", background = colors[9], foreground = colors[7]),
+    widget.TextBox(**separator, background = colors[9], foreground = colors[0]),
+    widget.CurrentLayoutIcon(scale = 0.75),
+]
+
+# Screen settings
+screens = [
+    Screen(top = Bar(widgets = widgets1, background = colors[0], size = 24)),
+    Screen(top = Bar(widgets = widgets2, background = colors[0], size = 24))
 ]
 
 # Other settings
