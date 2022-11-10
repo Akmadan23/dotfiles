@@ -1,3 +1,10 @@
+-- Use cache for faster startup if `impatient` is installed
+if not pcall(require, "impatient") then
+    vim.schedule(function()
+        print "Impatient.nvim is not installed"
+    end)
+end
+
 -- Set leader key
 vim.g.mapleader = " "
 
