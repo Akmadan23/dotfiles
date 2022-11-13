@@ -1,6 +1,6 @@
 # pyright: reportPrivateImportUsage = false
-import os, subprocess as sp
-from libqtile import layout, hook, widget
+import hooks, os
+from libqtile import layout, widget
 from libqtile.lazy import lazy
 from libqtile.config import Bar, Drag, Group, Key, KeyChord, Match, Screen
 
@@ -410,13 +410,3 @@ reconfigure_screens = True
 # neofetch fixes
 wmname = "Qtile"
 dename = ""
-
-# Monitor detection script
-@hook.subscribe.startup_once
-def autostart_once():
-    sp.run([os.path.expanduser("~/.config/qtile/monitordetection.sh")])
-
-# Autostart script
-@hook.subscribe.startup
-def autostart():
-    sp.run([os.path.expanduser("~/git-repos/dotfiles/scripts/autostart")])
