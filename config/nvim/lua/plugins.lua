@@ -221,6 +221,16 @@ local packer_startup = function(use)
         end
     }
 
+    -- Rust tools
+    use {
+        "simrat39/rust-tools.nvim",
+        ft = { "rust" },
+
+        config = function()
+            require("rust-tools").setup()
+        end
+    }
+
     -- Trouble
     use {
         "folke/trouble.nvim",
