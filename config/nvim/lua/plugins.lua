@@ -1,5 +1,5 @@
 -- Define packer's startup function
-local packer_startup = function(use)
+return function(use)
     use "wbthomason/packer.nvim"
     use "nvim-lua/plenary.nvim"
     use "lewis6991/impatient.nvim"
@@ -185,6 +185,3 @@ local packer_startup = function(use)
         end
     }
 end
-
--- Initialize packer
-require("packer").startup(packer_startup)

@@ -1,5 +1,5 @@
 -- List of options
-local opts = {
+return {
     -- General
     tgc         = true,
     showmode    = false,
@@ -35,8 +35,3 @@ local opts = {
     foldlevel   = 64,
     foldnestmax = 8,
 }
-
--- Initialize each option
-for key, value in pairs(opts) do
-    vim.o[key] = value
-end

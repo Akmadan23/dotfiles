@@ -1,105 +1,95 @@
--- Default options for each keymap
-local opts = {
-    silent = true,
-    noremap = true,
+local L = "<leader>"
+
+return {
+    n = {
+        -- Disable q, Q and U
+        ["q"] = false,
+        ["Q"] = false,
+        ["U"] = false,
+
+        -- Map <leader>q to q
+        [L.."q"] = "q",
+
+        -- Paste in visual mode without losing the last clipboard register
+        [L.."p"] = "\"_dP",
+
+        -- Join lines with dj
+        ["dj"] = "J",
+
+        -- Select all
+        ["<c-a>"] = "ggVG",
+
+        -- Hide search highlights
+        ["<bs>"] = vim.cmd.nohl,
+
+        -- Automatic centering when cycling between search highlights
+        ["n"] = "nzz",
+        ["N"] = "Nzz",
+
+        -- Move between tabs
+        ["<tab>"]   = "gt",
+        ["<s-tab>"] = "gT",
+
+        -- Toggle wrap and ignorecase
+        ["<a-w>"] = function() vim.o.wrap = not vim.o.wrap; print("Wrap:", vim.o.wrap) end,
+        ["<a-i>"] = function() vim.o.ic = not vim.o.ic; print("Ignorecase:", vim.o.ic) end,
+
+        -- Telescope
+        [L.."ff"] = function() require("telescope.builtin").find_files() end,
+        [L.."fr"] = function() require("telescope.builtin").oldfiles() end,
+        [L.."fm"] = function() require("telescope.builtin").man_pages() end,
+        [L.."fh"] = function() require("telescope.builtin").help_tags() end,
+        [L.."fb"] = function() require("telescope.builtin").builtin() end,
+
+        -- Packer
+        [L.."pi"] = function() require("packer").install() end,
+        [L.."pc"] = function() require("packer").clean() end,
+        [L.."ps"] = function() require("packer").sync() end,
+
+        -- Trouble
+        [L.."t"] = function() require("trouble").toggle() end,
+
+        -- Custom functions
+        ["<f5>"] = function() require("functions").compile() end,
+        ["<f6>"] = function() require("functions").run() end,
+    },
+
+    v = {
+        -- Visual tabbing
+        ["<tab>"]   = ">gv",
+        ["<s-tab>"] = "<gv",
+    },
+
+    n_v = {
+        -- Disable Ctrl+Z and the space bar
+        ["<c-z>"]   = false,
+        ["<space>"] = false,
+
+        -- Start/end of line with H/L
+        ["H"] = "^",
+        ["L"] = "$",
+
+        -- PageUp/PageDown with J/K
+        ["J"] = "<c-d>zz",
+        ["K"] = "<c-u>zz",
+
+        -- Increase/decrease numeric values
+        ["+"] = "<c-a>",
+        ["-"] = "<c-x>",
+    },
+
+    i_s = {
+        -- Disable PageUp and PageDown
+        ["<pageup>"]   = false,
+        ["<pagedown>"] = false,
+
+        -- LuaSnip
+        ["<c-n>"] = function() require("luasnip").jump(1) end,
+        ["<c-p>"] = function() require("luasnip").jump(-1) end,
+    },
+
+    t = {
+        -- Terminal bindings
+        ["<esc>"] = "<c-\\><c-n>",
+    },
 }
-
--- Generic function to set each keymap
-local map = function(mode, key, value)
-    -- If mode has more than one char transform it in a table
-    if #mode > 1 then
-        mode = vim.split(mode, "")
-    end
-
-    -- Run the actual keymap command
-    vim.keymap.set(mode, key, value, opts)
-end
-
--- Start/end of line with H/L
-map("nv",   "H",            "^")
-map("nv",   "L",            "$")
-
--- PageUp/PageDown with J/K
-map("nv",   "J",            "<c-d>zz")
-map("nv",   "K",            "<c-u>zz")
-
--- Disable Q and map <leader>q to q
-map("n",    "q",            "<nop>")
-map("n",    "Q",            "<nop>")
-map("n",    "<leader>q",    "q")
-
--- Redo with U
-map("n",    "U",            "<c-r>")
-
--- Fix Y behaviour
-map("n",    "Y",            "y$")
-
--- Join lines with dj
-map("n",    "dj",           "J")
-
--- Automatic centering when cycling between search highlights
-map("n",    "n",            "nzz")
-map("n",    "N",            "Nzz")
-
--- Hide search highlights
-map("n",    "<bs>",         "<cmd>nohlsearch<cr>")
-
--- Toggle wrap
-map("n",    "<a-i>",        "<cmd>set ic!<bar>set ic?<cr>")
-map("n",    "<a-w>",        "<cmd>set wrap!<bar>set wrap?<cr>")
-
--- Select all
-map("n",    "<c-a>",        "ggVG")
-
--- Move between splits
-map("n",    "<c-h>",        "<c-w>h")
-map("n",    "<c-j>",        "<c-w>j")
-map("n",    "<c-k>",        "<c-w>k")
-map("n",    "<c-l>",        "<c-w>l")
-
--- Move between tabs
-map("n",    "<tab>",        "gt")
-map("n",    "<s-tab>",      "gT")
-
--- Visual tabbing
-map("v",    "<tab>",        ">gv")
-map("v",    "<s-tab>",      "<gv")
-
--- Increase/decrease numeric values
-map("nv",   "+",            "<c-a>")
-map("nv",   "-",            "<c-x>")
-
--- Telescope
-map("n",    "<leader>ff",   "<cmd>Telescope find_files<cr>")
-map("n",    "<leader>fr",   "<cmd>Telescope oldfiles<cr>")
-map("n",    "<leader>fm",   "<cmd>Telescope man_pages<cr>")
-map("n",    "<leader>fh",   "<cmd>Telescope help_tags<cr>")
-map("n",    "<leader>fb",   "<cmd>Telescope builtin<cr>")
-
--- Trouble
-map("n",    "<leader>t",    "<cmd>TroubleToggle<cr>")
-
--- Packer
-map("n",    "<leader>pi",   "<cmd>PackerInstall<cr>")
-map("n",    "<leader>pc",   "<cmd>PackerClean<cr>")
-map("n",    "<leader>ps",   "<cmd>PackerSync<cr>")
-
--- Custom functions
-map("n",    "<f5>",         "<cmd>lua Compile()<cr>")
-map("n",    "<f6>",         "<cmd>lua Run()<cr>")
-
-
--- Terminal bindings
-map("t",    "<esc>",        "<c-\\><c-n>")
-
--- Disable keys
-local disabled = {
-    { "nv", "<c-z>"         },
-    { "nv", "<space>"       },
-    { "i",  "<pageup>"      },
-    { "i",  "<pagedown>"    },
-}
-
-for _, v in ipairs(disabled) do
-    map(v[1], v[2], "<nop>")
-end
