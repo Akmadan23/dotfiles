@@ -219,6 +219,24 @@ case = {
             os.execute(fmt("[ -x %s ] || chmod +x %s", file_path, file_path))
             vim.cmd.split("term://./%")
         end
+    },
+
+    test = {
+        go = function()
+            if vim.fn.executable("go") then
+                vim.cmd.split("term://go test")
+            else
+                print("Go is not installed.")
+            end
+        end,
+
+        rust = function()
+            if vim.fn.executable("cargo") then
+                vim.cmd.split("term://cargo test")
+            else
+                print("Cargo is not installed.")
+            end
+        end
     }
 }
 
@@ -244,6 +262,15 @@ return {
             case.run.default()
         else
             print("WARNING: Nothing to execute.")
+        end
+    end,
+
+    -- Test function for Go and Rust
+    test = function()
+        if case.test[vim.o.ft] then
+            case.test[vim.o.ft]()
+        else
+            print("WARNING: Nothing to test")
         end
     end
 }

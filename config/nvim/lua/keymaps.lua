@@ -52,6 +52,7 @@ return {
         -- Custom functions
         ["<f5>"] = function() require("functions").compile() end,
         ["<f6>"] = function() require("functions").run() end,
+        ["<f7>"] = function() require("functions").test() end,
     },
 
     v = {
