@@ -4,6 +4,13 @@ vim.g.mapleader = " "
 -- Disable custom keymaps in man buffers
 vim.g.no_man_maps = true
 
+-- Add filetypes
+vim.filetype.add {
+    extension = {
+        rasi = "css"
+    }
+}
+
 -- Import `impatient` and `packer` in a protected call
 -- to avoid a bunch of errors if not yet installed
 xpcall(function()

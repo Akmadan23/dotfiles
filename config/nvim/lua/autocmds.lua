@@ -11,16 +11,6 @@ return {
         }
     },
 
-    { -- Set filetype to css in rofi stylesheets
-        event = "BufEnter",
-        opts = {
-            pattern = "*.rasi",
-            callback = function()
-                vim.bo.filetype = "css"
-            end
-        }
-    },
-
     { -- Compile packer when writing `plugins.lua` file
         event = "BufWritePost",
         opts = {
