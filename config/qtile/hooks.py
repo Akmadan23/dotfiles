@@ -1,4 +1,5 @@
 import subprocess as sp
+from os import path
 from libqtile import hook
 
 # Monitor detection script
@@ -26,20 +27,10 @@ def autostart_once():
 # Autostart script
 @hook.subscribe.startup
 def autostart():
-    apps = [
-        ["conky",           ""],        # desktop widgets
-        ["dunst",           ""],        # notification daemon
-        ["picom",           " -bf"],    # compositor
-        ["lxpolkit",        ""],        # authentication agent
-        ["clipmenud",       ""],        # clipboard manager
-        ["nm-applet",       ""],        # network manager
-        ["eject-applet",    ""],        # external disk manager
-        ["blueman-applet",  ""],        # bluetooth manager
-        ["light-locker",    ""],        # lock screen using lightdm
-        ["battery-check",   ""],        # handmade power management script
-        ["pasystray",       " --include-monitors --notify=none"],
-        ["xwallpaper",      " --zoom ~/.config/qtile/background.jpg"],
-    ]
+    cmd = ""
 
-    for a in apps:
-        sp.run(f"pgrep -x {a[0]} || {a[0] + a[1]} &", shell = True)
+    with open(path.expanduser("~/git-repos/dotfiles/autostart.csv")) as f:
+        for app, args in [l.strip().split(";") for l in f.readlines()]:
+            cmd += f"pgrep -x {app} || {app + args} &\n"
+
+    sp.run(cmd, shell = True)

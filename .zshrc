@@ -119,9 +119,7 @@ alias zconf="nvim -p $HOME/.zshrc $HOME/.zshenv"
 alias rconf="nvim -p \
     $XDG_CONFIG_HOME/ranger/rc.conf \
     $XDG_CONFIG_HOME/ranger/scope.sh"
-alias qconf="nvim -p \
-    $XDG_CONFIG_HOME/qtile/config.py \
-    $SCRIPTS/autostart"
+alias qconf="nvim -p $XDG_CONFIG_HOME/qtile/*.py"
 alias vconf="nvim -p \
     $XDG_CONFIG_HOME/nvim/init.lua \
     $XDG_CONFIG_HOME/nvim/lua/options.lua \
@@ -141,14 +139,14 @@ alias dkconf="nvim -p \
     $XDG_CONFIG_HOME/dk/sxhkdrc"
 alias bspconf="nvim -p \
     $XDG_CONFIG_HOME/bspwm/bspwmrc \
-    $XDG_CONFIG_HOME/sxhkd/sxhkdrc \
-    $SCRIPTS/autostart"
+    $XDG_CONFIG_HOME/sxhkd/sxhkdrc"
 alias alconf="nvim -p \
     $XDG_CONFIG_HOME/alacritty/alacritty.yml \
     $XDG_CONFIG_HOME/alacritty/colorscheme.yml \
     $XDG_CONFIG_HOME/alacritty/keybindings.yml"
-alias kconf="sudo nvim /usr/share/X11/xkb/symbols/pc"
 alias pbconf="nvim $XDG_CONFIG_HOME/polybar/config -c 'set ft=toml'"
+alias asconf="nvim ~/git-repos/dotfiles/autostart.csv"
+alias kconf="sudo nvim /usr/share/X11/xkb/symbols/pc"
 
 # git
 alias gs="git status"

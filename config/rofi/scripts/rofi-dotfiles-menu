@@ -6,12 +6,13 @@ set -u
 title="Dotfiles menu"
 
 # All supported choices
-all=(qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto nvim mpv zsh rofi conky dunst picom zathura starship)
+all=(autostart qtile xmonad awesome leftwm bspwm sxhkd polybar alacritty ranger joshuto nvim mpv zsh rofi conky dunst picom zathura starship)
 
 # By default, show all (i.e., just copy the array)
 show=("${all[@]}")
 
 declare -A texts
+texts[autostart]="Autostart"
 texts[qtile]="Qtile"
 texts[xmonad]="Xmonad"
 texts[awesome]="Awesome"
@@ -33,6 +34,7 @@ texts[zathura]="Zathura"
 texts[starship]="Starship"
 
 declare -A icons
+icons[autostart]=""
 icons[qtile]=""
 icons[xmonad]=""
 icons[awesome]=""
@@ -55,7 +57,8 @@ icons[starship]=""
 icons[cancel]="×"
 
 declare -A actions
-actions[qtile]="-p $XDG_CONFIG_HOME/qtile/config.py $SCRIPTS/autostart"
+actions[autostart]="-p ~/git-repos/dotfiles/autostart.csv"
+actions[qtile]="-p $XDG_CONFIG_HOME/qtile/config.py"
 actions[xmonad]="-p $XDG_CONFIG_HOME/xmonad/xmonad.hs $XDG_CONFIG_HOME/xmobar/xmobar.hs"
 actions[awesome]="$XDG_CONFIG_HOME/awesome/rc.lua"
 actions[leftwm]="$XDG_CONFIG_HOME/leftwm/config.toml"

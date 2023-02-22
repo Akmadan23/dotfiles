@@ -3,9 +3,11 @@
 ###------------ Autostart ------------###
 killall sxhkd
 sxhkd &
-~/git-repos/dotfiles/scripts/autostart
 ~/.config/polybar/launch.sh &
-~/.config/scripts/battery-check.sh &
+
+while IFS=";" read app args; do
+    pgrep -x $app || $app $args &
+done < x.csv
 
 ###------------ Monitors ------------###
 if [ $(xrandr | grep "HDMI1 disconnected") ]; then

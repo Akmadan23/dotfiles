@@ -1,0 +1,12 @@
+picom; -bf
+conky;
+dunst;
+lxpolkit;
+clipmenud;
+nm-applet;
+eject-applet;
+blueman-applet;
+light-locker;
+battery-check;
+pasystray; --include-monitors --notify=none
+xwallpaper; --zoom ~/.config/qtile/background.jpg
