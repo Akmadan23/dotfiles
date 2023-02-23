@@ -1,8 +1,10 @@
 # Variables
 DIRS = $(notdir $(wildcard config/*))
-FILES = .zshrc .zshenv .Xresources .stalonetrayrc
+FILES = .Xresources .stalonetrayrc
 
 update:
+	@rm -rf config/zsh/plugins
+
 	@for i in $(DIRS); do \
 		cp -r ~/.config/$$i config; \
 	done

@@ -112,10 +112,11 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # Config files
-alias zhist="nvim $XDG_CONFIG_HOME/zsh/.zsh_history"
 alias xconf="nvim $HOME/.Xresources"
 alias lconf="nvim $XDG_CONFIG_HOME/leftwm/config.toml"
-alias zconf="nvim -p $HOME/.zshrc $HOME/.zshenv"
+alias zconf="nvim -p \
+    $ZDOTDIR/.zshrc \
+    $ZDOTDIR/.zshenv"
 alias rconf="nvim -p \
     $XDG_CONFIG_HOME/ranger/rc.conf \
     $XDG_CONFIG_HOME/ranger/scope.sh"
@@ -124,9 +125,9 @@ alias vconf="nvim -p \
     $XDG_CONFIG_HOME/nvim/init.lua \
     $XDG_CONFIG_HOME/nvim/lua/options.lua \
     $XDG_CONFIG_HOME/nvim/lua/plugins.lua \
-    $XDG_CONFIG_HOME/nvim/lua/functions.lua \
+    $XDG_CONFIG_HOME/nvim/lua/keymaps.lua \
     $XDG_CONFIG_HOME/nvim/lua/autocmds.lua \
-    $XDG_CONFIG_HOME/nvim/lua/keymaps.lua"
+    $XDG_CONFIG_HOME/nvim/lua/functions.lua"
 alias jconf="nvim -p \
     $XDG_CONFIG_HOME/joshuto/joshuto.toml \
     $XDG_CONFIG_HOME/joshuto/keymap.toml \

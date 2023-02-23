@@ -17,8 +17,8 @@ config/nvim/plugin
 # Mpv
 config/mpv/scripts/
 
-# Zsh history
-config/zsh/.zsh_history
+# Zsh
+config/zsh/plugins
 
 # Rofi
 config/rofi/current.rasi
