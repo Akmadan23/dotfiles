@@ -1,4 +1,4 @@
-# pyright: reportPrivateImportUsage = fals
+# pyright: reportPrivateImportUsage = false
 import hooks as _, utils as u
 from libqtile import layout, widget
 from libqtile.lazy import lazy
@@ -50,9 +50,9 @@ keys = [
     Key([u.mod],            "e",        lazy.spawn(f"{u.term} -t Ranger -e ranger")),
 
     # Volume and brightness controls
-    Key([u.mod],            "Up",       lazy.spawn("dw amixer set Master unmute 5%+")),     # +5% volume
-    Key([u.mod],            "Down",     lazy.spawn("dw amixer set Master unmute 5%-")),     # -5% volume
-    Key([u.mod],            "m",        lazy.spawn("dw amixer set Master toggle")),         # mute
+    Key([u.mod],            "Up",       lazy.spawn("amixer set Master unmute 5%+")),        # +5% volume
+    Key([u.mod],            "Down",     lazy.spawn("amixer set Master unmute 5%-")),        # -5% volume
+    Key([u.mod],            "m",        lazy.spawn("amixer set Master toggle")),            # mute
     Key([u.mod],            "Right",    lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
     Key([u.mod],            "Left",     lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
     Key([u.mod],            "r",        lazy.spawn("xbacklight -set 50")),                  # sets backlight to 50%
@@ -71,14 +71,14 @@ keys = [
     Key([u.alt],            "m",        lazy.spawn("xdotool click 3")),                     # right click
 
     # Special keys
-    Key([], "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc 5 -steps 1")),      # +5% backlight
-    Key([], "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec 5 -steps 1")),      # -5% backlight
-    Key([], "XF86AudioRaiseVolume",     lazy.spawn("dw amixer set Master unmute 5%+")), # +5% volume
-    Key([], "XF86AudioLowerVolume",     lazy.spawn("dw amixer set Master unmute 5%-")), # -5% volume
-    Key([], "XF86AudioMute",            lazy.spawn("dw amixer set Master toggle")),     # mute
+    Key([], "XF86MonBrightnessUp",      lazy.spawn("xbacklight -inc 5 -steps 1")),          # +5% backlight
+    Key([], "XF86MonBrightnessDown",    lazy.spawn("xbacklight -dec 5 -steps 1")),          # -5% backlight
+    Key([], "XF86AudioRaiseVolume",     lazy.spawn("amixer set Master unmute 5%+")),        # +5% volume
+    Key([], "XF86AudioLowerVolume",     lazy.spawn("amixer set Master unmute 5%-")),        # -5% volume
+    Key([], "XF86AudioMute",            lazy.spawn("amixer set Master toggle")),            # mute
 
     # Set volume
-    KeyChord([u.mod], "v", [Key([], str(i), lazy.spawn(f"dw amixer set Master {str(i)}0%")) for i in range(1, 10)]),
+    KeyChord([u.mod], "v", [Key([], str(i), lazy.spawn(f"amixer set Master {str(i)}0%")) for i in range(1, 10)]),
 
     # Set brightness
     KeyChord([u.mod], "b", [Key([], str(i), lazy.spawn(f"xbacklight -set {str(i)}0")) for i in range(1, 10)]),

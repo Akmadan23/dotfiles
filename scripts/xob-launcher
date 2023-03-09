@@ -1,0 +1,5 @@
+#!/bin/sh
+
+killall xob
+~/.config/xob/pulse-volume-watcher.py | xob -s volume &
+~/.config/xob/brightness-watcher.sh | xob -s brightness &
