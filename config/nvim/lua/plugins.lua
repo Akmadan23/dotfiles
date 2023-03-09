@@ -82,26 +82,7 @@ return function(use)
     use {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.0",
-
-        config = function()
-            require("telescope").setup {
-                defaults = {
-                    mappings = {
-                        n = {
-                            ["H"]       = { "^", type = "command" },
-                            ["L"]       = { "$", type = "command" },
-                            ["<tab>"]   = "move_selection_worse",
-                            ["<s-tab>"] = "move_selection_better",
-                        },
-
-                        i = {
-                            ["<tab>"]   = "move_selection_worse",
-                            ["<s-tab>"] = "move_selection_better",
-                        }
-                    }
-                }
-            }
-        end
+        config = require("configs.telescope")
     }
 
     -- Lualine
