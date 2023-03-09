@@ -88,7 +88,7 @@ case = {
 
         lilypond = function()
             if vim.fn.executable("lilypond") then
-                vim.cmd("!lilypond -o '%:r.pdf' '%'")
+                vim.cmd("!lilypond -o '%:r' '%'")
             else
                 print("Lilypond is not installed.")
             end
@@ -115,14 +115,13 @@ case = {
         end,
 
         rust = function()
-            if vim.fn.executable("cargo") then
+            if vim.fn.executable("cargo") and root_dir("%", "Cargo.toml") then
                 if os.execute(fmt("cargo check --bin=%s &> /dev/null", vim.fn.expand("%:t:r"))) == 0 then
                     vim.cmd.split("term://cargo run --bin=%:t:r")
                 else
                     vim.cmd.split("term://cargo run")
                 end
             else
-                print("Cargo is not installed.")
                 case.run.bin()
             end
         end,
@@ -200,7 +199,7 @@ case = {
             end
         end,
 
-        tex = function()
+        pdf = function()
             if os.getenv("READER") then
                 local pdf_path = vim.fn.expand("%:r") .. ".pdf"
 
@@ -258,6 +257,8 @@ return {
             case.run[vim.o.ft]()
         elseif vim.tbl_contains({ "c", "cpp", "go", "rust", "nim", "zig" }, vim.o.ft) then
             case.run.bin()
+        elseif vim.tbl_contains({ "tex", "lilypond" }, vim.o.ft) then
+            case.run.pdf()
         elseif vim.fn.getline(1):find("^#!/.*$") then
             case.run.default()
         else
