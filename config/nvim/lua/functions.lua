@@ -86,6 +86,14 @@ case = {
             end
         end,
 
+        dot = function()
+            if vim.fn.executable("dot") then
+                vim.cmd("!dot '%' -Tpdf > '%:r.pdf'")
+            else
+                print("Dot is not installed.")
+            end
+        end,
+
         lilypond = function()
             if vim.fn.executable("lilypond") then
                 vim.cmd("!lilypond -o '%:r' '%'")
@@ -240,7 +248,7 @@ case = {
 }
 
 return {
-    -- Compile function for C, C++, Go, Rust, Nim, Zig, Java, LaTeX and Lilypond
+    -- Compile function for C, C++, Go, Rust, Nim, Zig, Java, LaTeX, Dot and Lilypond
     compile = function()
         if case.compile[vim.o.ft] then
             case.compile[vim.o.ft]()
@@ -251,13 +259,13 @@ return {
         end
     end,
 
-    -- Run function for Java, Python, Perl, Ruby, Lua, Common Lisp, LaTeX, Lilypond and any binary file
+    -- Run function for Java, Python, Perl, Ruby, Lua, Common Lisp, LaTeX, Dot, Lilypond and any binary file
     run = function()
         if case.run[vim.o.ft] then
             case.run[vim.o.ft]()
         elseif vim.tbl_contains({ "c", "cpp", "go", "rust", "nim", "zig" }, vim.o.ft) then
             case.run.bin()
-        elseif vim.tbl_contains({ "tex", "lilypond" }, vim.o.ft) then
+        elseif vim.tbl_contains({ "tex", "dot", "lilypond" }, vim.o.ft) then
             case.run.pdf()
         elseif vim.fn.getline(1):find("^#!/.*$") then
             case.run.default()
