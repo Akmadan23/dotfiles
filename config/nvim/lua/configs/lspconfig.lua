@@ -5,12 +5,12 @@ return function()
         "clangd",
         "emmet_ls",
         "gopls",
+        "lua_ls",
         "nimls",
         "phpactor",
         "pyright",
         "quick_lint_js",
         "sqls",
-        "sumneko_lua",
         "texlab",
         "vimls",
     }
@@ -29,9 +29,9 @@ return function()
     }
 
     -- Setup nvim-lsp
-    for _, i in pairs(srv) do
-        require("lspconfig")[i].setup {
-            settings = (i == "sumneko_lua") and lua_settings or nil
+    for _, s in ipairs(srv) do
+        require("lspconfig")[s].setup {
+            settings = (s == "lua_ls") and lua_settings or nil
         }
     end
 end
