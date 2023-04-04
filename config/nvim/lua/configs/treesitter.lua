@@ -10,11 +10,6 @@ return function()
         autotag     = { enable = true },
         endwise     = { enable = true },
 
-        refactor = {
-            smart_rename            = { enable = true },
-            highlight_definitions   = { enable = true }
-        },
-
         ensure_installed = {
             "bash",
             "c",

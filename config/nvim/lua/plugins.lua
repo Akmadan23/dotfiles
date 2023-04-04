@@ -82,7 +82,6 @@ return function(use)
 
         requires = {
             "nvim-treesitter/playground",
-            "nvim-treesitter/nvim-treesitter-refactor",
             "RRethy/nvim-treesitter-endwise",
             "windwp/nvim-ts-autotag",
         }

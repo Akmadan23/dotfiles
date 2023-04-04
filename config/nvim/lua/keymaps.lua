@@ -19,6 +19,12 @@ return {
         -- Select all
         ["<c-a>"] = "ggVG",
 
+        -- LSP shortcuts
+        ["grr"] = vim.lsp.buf.rename,
+        ["gd"] = vim.lsp.buf.definition,
+        [L.."i"] = vim.lsp.buf.hover,
+        [L.."ca"] = vim.lsp.buf.code_action,
+
         -- Hide search highlights
         ["<bs>"] = vim.cmd.nohl,
 
