@@ -52,6 +52,16 @@ return function(use)
         end
     }
 
+    -- Crates
+    use {
+        "Saecki/crates.nvim",
+        event = { "BufRead Cargo.toml" },
+
+        config = function()
+            require("crates").setup()
+        end
+    }
+
     -- Trouble
     use {
         "folke/trouble.nvim",
