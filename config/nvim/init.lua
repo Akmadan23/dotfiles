@@ -7,7 +7,8 @@ vim.g.no_man_maps = true
 -- Add filetypes
 vim.filetype.add {
     extension = {
-        rasi = "css"
+        rasi = "rasi",
+        yuck = "yuck",
     }
 }
 

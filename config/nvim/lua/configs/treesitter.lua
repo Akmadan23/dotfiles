@@ -7,6 +7,7 @@ return function()
     -- Setup treesitter
     require("nvim-treesitter.configs").setup {
         highlight   = { enable = true },
+        playground  = { enable = true },
         autotag     = { enable = true },
         endwise     = { enable = true },
 
@@ -16,6 +17,8 @@ return function()
             "cpp",
             "css",
             "commonlisp",
+            "diff",
+            "dot",
             "go",
             "haskell",
             "html",
@@ -29,13 +32,17 @@ return function()
             "perl",
             "php",
             "python",
+            "query",
             "r",
+            "rasi",
             "ruby",
             "rust",
             "scheme",
+            "scss",
             "sql",
             "toml",
             "vim",
+            "yuck",
             "zig",
         }
     }
