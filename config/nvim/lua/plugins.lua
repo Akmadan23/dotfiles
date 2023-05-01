@@ -81,7 +81,6 @@ return function(use)
         config = require("configs.treesitter"),
 
         requires = {
-            "nvim-treesitter/playground",
             "RRethy/nvim-treesitter-endwise",
             "windwp/nvim-ts-autotag",
         }
