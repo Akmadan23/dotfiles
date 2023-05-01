@@ -20,6 +20,7 @@ return function(use)
 
         requires = {
             "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -90,7 +91,11 @@ return function(use)
     use {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.0",
-        config = require("configs.telescope")
+        config = require("configs.telescope"),
+
+        requires = {
+            "debugloop/telescope-undo.nvim"
+        }
     }
 
     -- Lualine
