@@ -155,10 +155,17 @@ return function(use)
         end
     }
 
-    -- Autopairs
+    -- Ultimate autopair
     use {
-        "windwp/nvim-autopairs",
-        config = require("configs.autopairs")
+        "altermo/ultimate-autopair.nvim",
+
+        config = function()
+            require("ultimate-autopair").setup {
+                cr = {
+                    addsemi = false
+                }
+            }
+        end
     }
 
     -- VimWiki
