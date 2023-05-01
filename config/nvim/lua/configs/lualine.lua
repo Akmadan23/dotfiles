@@ -55,13 +55,9 @@ return function()
             lualine_z = { "progress", "location"                                        },
         },
 
-        inactive_sections = {
-            lualine_a = {},
-            lualine_b = {},
+        inactive_winbar = {
             lualine_c = { "filename" },
             lualine_x = { { "filetype", colored = false }, "location" },
-            lualine_y = {},
-            lualine_z = {},
         }
     }
 end

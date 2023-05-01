@@ -9,29 +9,26 @@ return function()
         "nimls",
         "phpactor",
         "pyright",
-        "quick_lint_js",
-        "sqls",
+        "sqlls",
         "texlab",
+        "tsserver",
         "vimls",
     }
 
-    -- Suppress warning "Undefined global `vim`" in lua
-    local lua_settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT"
-            },
-
-            diagnostics = {
-                globals = { "vim" }
-            }
-        }
-    }
-
-    -- Setup nvim-lsp
+    -- Setup each LSP server
     for _, s in ipairs(srv) do
         require("lspconfig")[s].setup {
-            settings = (s == "lua_ls") and lua_settings or nil
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = "LuaJIT"
+                    },
+
+                    diagnostics = {
+                        globals = { "vim" }
+                    }
+                }
+            }
         }
     end
 end

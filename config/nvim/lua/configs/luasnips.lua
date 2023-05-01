@@ -41,7 +41,7 @@ return function()
     }
 
     for ft, s in pairs(snips) do
-        local snip = table
+        local snip = {}
 
         for trigger, v in pairs(s) do
             table.insert(snip, ls.snippet(trigger, fmt(v.string, v.nodes or {}, v.opts or {})))

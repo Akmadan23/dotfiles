@@ -3,9 +3,7 @@ return function(use)
     use "wbthomason/packer.nvim"
     use "nvim-lua/plenary.nvim"
     use "lewis6991/impatient.nvim"
-    use "kyazdani42/nvim-web-devicons"
-    use "tpope/vim-fugitive"
-    use "tpope/vim-repeat"
+    use "nvim-tree/nvim-web-devicons"
 
     -- LSP
     use {
@@ -90,7 +88,7 @@ return function(use)
     -- Telescope
     use {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.0",
+        tag = "0.1.*",
         config = require("configs.telescope"),
 
         requires = {
@@ -122,10 +120,12 @@ return function(use)
 
         config = function()
             require("indent_blankline").setup {
+                char = "▏",
                 indent_level                    = 10,
-                max_indent_increase             = 1,
-                show_first_indent_level         = false,
+                max_indent_increase             = 2,
                 show_trailing_blankline_indent  = false,
+                show_first_indent_level         = true,
+
                 filetype_exclude = {
                     "help",
                     "man",
@@ -142,10 +142,7 @@ return function(use)
         "lewis6991/gitsigns.nvim",
 
         config = function()
-            require("gitsigns").setup {
-                signcolumn = true,
-                numhl = true
-            }
+            require("gitsigns").setup()
         end
     }
 
@@ -155,7 +152,7 @@ return function(use)
 
         config = function()
             require("Comment").setup {
-                ignore = "^$",
+                ignore = "^$"
             }
         end
     }
@@ -170,19 +167,6 @@ return function(use)
                     addsemi = false
                 }
             }
-        end
-    }
-
-    -- VimWiki
-    use {
-        "vimwiki/vimwiki",
-
-        config = function()
-            vim.g.vimwiki_global_ext = 0
-            vim.g.vimwiki_list = { {
-                path        = "~/git-repos/vimwiki/notes/",
-                path_html   = "~/git-repos/vimwiki/html/",
-            } }
         end
     }
 end
