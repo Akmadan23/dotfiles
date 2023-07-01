@@ -85,6 +85,11 @@ return {
         }
     },
 
+    {   -- Nvim tree
+        "nvim-tree/nvim-tree.lua",
+        config = require("configs.nvim-tree")
+    },
+
     {   -- Lualine
         "nvim-lualine/lualine.nvim",
         config = require("configs.lualine")
