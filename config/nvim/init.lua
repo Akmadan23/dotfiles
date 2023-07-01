@@ -38,16 +38,8 @@ end
 
 -- Set keymaps
 for mode, keymaps in pairs(require("keymaps")) do
-    -- If mode has more than one char transform it in a table
-    if #mode > 1 then
-        mode = vim.split(mode, "_")
-    end
-
     for key, value in pairs(keymaps) do
-        vim.keymap.set(mode, key, value or "<nop>", {
-            silent = true,
-            noremap = true
-        })
+        vim.keymap.set(mode, key, value, { silent = true })
     end
 end
 

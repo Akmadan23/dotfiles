@@ -1,29 +1,56 @@
-local L = "<leader>"
+local fn = require("functions")
+local L = "<Leader>"
+
+local toggle = {
+    wrap = function()
+        vim.o.wrap = not vim.o.wrap
+        print("Wrap:", vim.o.wrap)
+    end,
+
+    ignorecase = function()
+        vim.o.ic = not vim.o.ic
+        print("Ignorecase:", vim.o.ic)
+    end,
+
+    shiftwidth = function()
+        vim.o.sw = (vim.o.sw == 4) and 2 or 4
+        print("Shiftwidth:", vim.o.sw)
+    end
+}
 
 return {
     n = {
-        -- Disable q, Q and U
-        ["q"] = false,
-        ["Q"] = false,
-        ["U"] = false,
+        -- Disable horizontal mouse scrolling
+        ["<ScrollWheelLeft>"]  = "<NOP>",
+        ["<ScrollWheelRight>"] = "<NOP>",
 
-        -- Map <leader>q to q
+        -- Disable q and Q
+        ["q"] = "<NOP>",
+        ["Q"] = "<NOP>",
+        ["U"] = "<NOP>",
+
+        -- Map <Leader>q to q
         [L.."q"] = "q",
-
-        -- Paste in visual mode without losing the last clipboard register
-        [L.."p"] = "\"_dP",
 
         -- Join lines with dj
         ["dj"] = "J",
 
         -- Select all
-        ["<c-a>"] = "ggVG",
+        ["<C-A>"] = "ggVG",
+
+        -- Move between splits
+        ["<C-H>"] = "<C-W>h",
+        ["<C-J>"] = "<C-W>j",
+        ["<C-K>"] = "<C-W>k",
+        ["<C-L>"] = "<C-W>l",
 
         -- LSP shortcuts
         ["grr"] = vim.lsp.buf.rename,
-        ["gd"] = vim.lsp.buf.definition,
         [L.."i"] = vim.lsp.buf.hover,
         [L.."ca"] = vim.lsp.buf.code_action,
+
+        -- Show highlight info about token under cursor
+        [L.."h"] = vim.show_pos,
 
         -- Hide search highlights
         ["<bs>"] = vim.cmd.nohl,
@@ -33,12 +60,16 @@ return {
         ["N"] = "Nzz",
 
         -- Move between tabs
-        ["<tab>"]   = "gt",
-        ["<s-tab>"] = "gT",
+        ["<Tab>"]   = "gt",
+        ["<S-Tab>"] = "gT",
 
-        -- Toggle wrap and ignorecase
-        ["<a-w>"] = function() vim.o.wrap = not vim.o.wrap; print("Wrap:", vim.o.wrap) end,
-        ["<a-i>"] = function() vim.o.ic = not vim.o.ic; print("Ignorecase:", vim.o.ic) end,
+        -- Inspect lua object on the fly
+        [L.."vi"] = fn.inspect,
+
+        -- Toggles
+        [L.."tw"] = toggle.wrap,
+        [L.."ti"] = toggle.ignorecase,
+        [L.."ts"] = toggle.shiftwidth,
 
         -- Telescope
         [L.."ff"] = function() require("telescope.builtin").find_files() end,
@@ -46,57 +77,65 @@ return {
         [L.."fm"] = function() require("telescope.builtin").man_pages() end,
         [L.."fh"] = function() require("telescope.builtin").help_tags() end,
         [L.."fb"] = function() require("telescope.builtin").builtin() end,
+        [L.."gd"] = function() require("telescope.builtin").lsp_definitions { jump_type = "split" } end,
+        [L.."gr"] = function() require("telescope.builtin").lsp_references() end,
+        [L.."u"]  = function() require("telescope").extensions.undo.undo() end,
 
-        -- Packer
-        [L.."pi"] = function() require("packer").install() end,
-        [L.."pc"] = function() require("packer").clean() end,
-        [L.."ps"] = function() require("packer").sync() end,
+        -- Lazy
+        [L.."lh"] = function() require("lazy").home() end,
+        [L.."ls"] = function() require("lazy").sync() end,
 
         -- Trouble
-        [L.."t"] = function() require("trouble").toggle() end,
+        [L.."d"] = function() require("trouble").toggle() end,
 
-        -- Custom functions
-        ["<f5>"] = function() require("functions").compile() end,
-        ["<f6>"] = function() require("functions").run() end,
-        ["<f7>"] = function() require("functions").test() end,
+        -- Indent
+        [L.."ri"] = function() require("indent_blankline").refresh() end,
+
+        -- NvimTree
+        ["<C-E>"] = function() require("nvim-tree.api").tree.toggle { path = vim.fn.expand("%:h") } end,
+
+        -- Compile, run and test
+        ["<F5>"]    = fn.compile,
+        ["<F6>"]    = fn.run,
+        ["<F18>"]   = fn.run_with_args, -- <s-f6>
+        ["<F7>"]    = fn.test,
     },
 
     v = {
         -- Visual tabbing
-        ["<tab>"]   = ">gv",
-        ["<s-tab>"] = "<gv",
+        ["<Tab>"]   = ">gv",
+        ["<S-Tab>"] = "<gv",
+
+        -- Paste in visual mode without losing the last clipboard register
+        [L.."p"] = "\"_dP",
     },
 
-    n_v = {
-        -- Disable Ctrl+Z and the space bar
-        ["<c-z>"]   = false,
-        ["<space>"] = false,
-
+    [{ "n", "v" }] = {
         -- Start/end of line with H/L
         ["H"] = "^",
         ["L"] = "$",
 
         -- PageUp/PageDown with J/K
-        ["J"] = "<c-d>zz",
-        ["K"] = "<c-u>zz",
+        ["J"] = "<C-D>zz",
+        ["K"] = "<C-U>zz",
 
         -- Increase/decrease numeric values
-        ["+"] = "<c-a>",
-        ["-"] = "<c-x>",
+        ["+"] = "<C-A>",
+        ["-"] = "<C-X>",
     },
 
-    i_s = {
+    [{ "i", "s" }] = {
         -- Disable PageUp and PageDown
-        ["<pageup>"]   = false,
-        ["<pagedown>"] = false,
+        ["<PageUp>"]   = "<NOP>",
+        ["<PageDown>"] = "<NOP>",
 
         -- LuaSnip
-        ["<c-n>"] = function() require("luasnip").jump(1) end,
-        ["<c-p>"] = function() require("luasnip").jump(-1) end,
+        ["<C-N>"] = function() require("luasnip").jump(1) end,
+        ["<C-P>"] = function() require("luasnip").jump(-1) end,
     },
 
     t = {
         -- Terminal bindings
-        ["<esc>"] = "<c-\\><c-n>",
-    },
+        ["<Esc>"] = "<C-\\><C-N>",
+    }
 }
