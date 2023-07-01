@@ -1,22 +1,18 @@
--- Define packer's startup function
-return function(use)
-    use "wbthomason/packer.nvim"
-    use "nvim-lua/plenary.nvim"
-    use "lewis6991/impatient.nvim"
-    use "nvim-tree/nvim-web-devicons"
+return {
+    { "nvim-lua/plenary.nvim",          lazy = true },
+    { "nvim-tree/nvim-web-devicons",    lazy = true },
 
-    -- LSP
-    use {
+    {   -- LSP
         "neovim/nvim-lspconfig",
         config = require("configs.lspconfig")
-    }
+    },
 
-    -- Completion
-    use {
+    {   -- CMP
         "hrsh7th/nvim-cmp",
+        cond = vim.bo.modifiable,
         config = require("configs.cmp"),
 
-        requires = {
+        dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-cmdline",
@@ -25,44 +21,40 @@ return function(use)
             "saadparwaiz1/cmp_luasnip",
             "onsails/lspkind-nvim",
         }
-    }
+    },
 
-    -- Snippets
-    use {
+    {   -- Snippets
         "L3MON4D3/LuaSnip",
-        tag = "v1.*",
+        version = "v1.*",
+        cond = vim.bo.modifiable,
         config = require("configs.luasnips")
-    }
+    },
 
-    -- JDTLS
-    use {
+    {   -- JDTLS
         "mfussenegger/nvim-jdtls",
-        ft = { "java" },
+        ft = "java",
         config = require("configs.jdtls")
-    }
+    },
 
-    -- Rust tools
-    use {
+    {   -- Rust tools
         "simrat39/rust-tools.nvim",
-        ft = { "rust" },
+        ft = "rust",
 
         config = function()
             require("rust-tools").setup()
         end
-    }
+    },
 
-    -- Crates
-    use {
+    {   -- Crates
         "Saecki/crates.nvim",
-        event = { "BufRead Cargo.toml" },
+        event = "BufRead Cargo.toml",
 
         config = function()
             require("crates").setup()
         end
-    }
+    },
 
-    -- Trouble
-    use {
+    {   -- Trouble
         "folke/trouble.nvim",
 
         config = function()
@@ -71,39 +63,34 @@ return function(use)
                 auto_close = true
             }
         end
-    }
+    },
 
-    -- Treesitter
-    use {
+    {   -- Treesitter
         "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
         config = require("configs.treesitter"),
 
-        requires = {
+        dependencies = {
             "RRethy/nvim-treesitter-endwise",
             "windwp/nvim-ts-autotag",
         }
-    }
+    },
 
-    -- Telescope
-    use {
+    {   -- Telescope
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.*",
+        version = "0.1.*",
         config = require("configs.telescope"),
 
-        requires = {
+        dependencies = {
             "debugloop/telescope-undo.nvim"
         }
-    }
+    },
 
-    -- Lualine
-    use {
+    {   -- Lualine
         "nvim-lualine/lualine.nvim",
         config = require("configs.lualine")
-    }
+    },
 
-    -- Highlight colors
-    use {
+    {   -- Highlight colors
         "brenoprata10/nvim-highlight-colors",
 
         config = function()
@@ -112,10 +99,9 @@ return function(use)
                 render = "background"
             }
         end
-    }
+    },
 
-    -- Indent blankline
-    use {
+    {   -- Indent blankline
         "lukas-reineke/indent-blankline.nvim",
 
         config = function()
@@ -132,41 +118,46 @@ return function(use)
                     "markdown",
                     "vimwiki",
                     "tex",
+                    "text"
                 }
             }
         end
-    }
+    },
 
-    -- Git signs
-    use {
+    {   -- Git signs
         "lewis6991/gitsigns.nvim",
 
         config = function()
             require("gitsigns").setup()
         end
-    }
+    },
 
-    -- Comment
-    use {
+    {   -- Comment
         "numToStr/Comment.nvim",
+        cond = vim.bo.modifiable,
 
         config = function()
             require("Comment").setup {
                 ignore = "^$"
             }
         end
-    }
+    },
 
-    -- Ultimate autopair
-    use {
+    {   -- Autopairs
         "altermo/ultimate-autopair.nvim",
+        cond = vim.bo.modifiable,
+        -- commit = "b1cbb66",
 
         config = function()
             require("ultimate-autopair").setup {
+                bs = {
+                    overjump = false
+                },
+
                 cr = {
                     addsemi = false
-                }
+                },
             }
         end
-    }
-end
+    },
+}

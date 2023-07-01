@@ -12,19 +12,19 @@ vim.filetype.add {
     }
 }
 
--- Import `impatient` and `packer` in a protected call
--- to avoid a bunch of errors if not yet installed
-xpcall(function()
-    -- Use cache for faster startup
-    require("impatient")
+-- Add lazy to runtime path
+local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+vim.opt.rtp:prepend(lazy_path)
 
-    -- Initialize packer
-    require("packer").startup(require("plugins"))
-end, function(e)
-    vim.schedule(function()
-        vim.api.nvim_err_writeln(vim.split(e, "\n")[1])
-    end)
-end)
+-- Set lazy options
+local lazy_config = {
+    install = {
+        missing = false
+    }
+}
+
+-- Initialize lazy
+require("lazy").setup("plugins", lazy_config)
 
 -- Initialize options
 for key, value in pairs(require("options")) do
