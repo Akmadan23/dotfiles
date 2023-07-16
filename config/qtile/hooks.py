@@ -5,24 +5,25 @@ from libqtile import hook
 # Monitor detection script
 @hook.subscribe.startup_once
 def autostart_once():
-    cmd_dp = sp.run("xrandr | grep -q 'DP2-1 connected'", shell = True)
-    cmd_hdmi = sp.run("xrandr | grep -q 'HDMI1 connected'", shell = True)
+    xrandr = sp.run("xrandr", capture_output = True).stdout.decode()
+    ext_name = None
 
-    if cmd_dp.returncode == 0:
-        external_name = "DP2-1"
-    elif cmd_hdmi.returncode == 0:
-        external_name = "HDMI1"
+    if "DP2-1 connected" in xrandr:
+        ext_name = "DP2-1"
+    elif "HDMI1 connected" in xrandr:
+        ext_name = "HDMI1"
+
+    if ext_name:
+        cmd = f"""xrandr
+            --output eDP1       --mode 1600x900  --pos 0x180
+            --output {ext_name} --mode 1920x1080 --pos 1600x0 --primary"""
     else:
-        sp.run(f"""xrandr
-            --output eDP1 --mode 1600x900
-            --output HDMI1 --off
-            --output DP2-1 --off""".split())
+        cmd = """xrandr
+            --output eDP1   --mode 1600x900
+            --output HDMI1  --off
+            --output DP2-1  --off"""
 
-        return
-
-    sp.run(f"""xrandr
-        --output eDP1               --mode 1600x900  --pos 0x180
-        --output {external_name}    --mode 1920x1080 --pos 1600x0 --primary""".split())
+    sp.run(cmd.split())
 
 # Autostart script
 @hook.subscribe.startup
