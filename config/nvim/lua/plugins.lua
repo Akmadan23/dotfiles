@@ -1,6 +1,7 @@
 return {
-    { "nvim-lua/plenary.nvim",          lazy = true },
-    { "nvim-tree/nvim-web-devicons",    lazy = true },
+    { "nvim-lua/plenary.nvim",              lazy = true },
+    { "nvim-tree/nvim-web-devicons",        lazy = true },
+    { "folke/neodev.nvim", version = "*",   lazy = true },
 
     {   -- LSP
         "neovim/nvim-lspconfig",
@@ -14,7 +15,6 @@ return {
 
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",

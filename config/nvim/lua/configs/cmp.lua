@@ -32,7 +32,6 @@ return function()
                 mode = "symbol_text",
                 menu = {
                     nvim_lsp    = "[LSP]",
-                    nvim_lua    = "[API]",
                     luasnip     = "[SNIP]",
                     path        = "[PATH]",
                     buffer      = "[BUF]",

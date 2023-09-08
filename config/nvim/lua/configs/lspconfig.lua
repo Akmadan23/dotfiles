@@ -15,6 +15,9 @@ return function()
         "vimls",
     }
 
+    -- Initialize neodev
+    require("neodev").setup()
+
     -- Setup each LSP server
     for _, s in ipairs(srv) do
         require("lspconfig")[s].setup {
