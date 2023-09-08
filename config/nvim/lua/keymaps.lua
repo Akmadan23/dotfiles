@@ -71,16 +71,6 @@ return {
         [L.."ti"] = toggle.ignorecase,
         [L.."ts"] = toggle.shiftwidth,
 
-        -- Telescope
-        [L.."ff"] = function() require("telescope.builtin").find_files() end,
-        [L.."fr"] = function() require("telescope.builtin").oldfiles() end,
-        [L.."fm"] = function() require("telescope.builtin").man_pages() end,
-        [L.."fh"] = function() require("telescope.builtin").help_tags() end,
-        [L.."fb"] = function() require("telescope.builtin").builtin() end,
-        [L.."gd"] = function() require("telescope.builtin").lsp_definitions { jump_type = "split" } end,
-        [L.."gr"] = function() require("telescope.builtin").lsp_references() end,
-        [L.."u"]  = function() require("telescope").extensions.undo.undo() end,
-
         -- Lazy
         [L.."lh"] = function() require("lazy").home() end,
         [L.."ls"] = function() require("lazy").sync() end,

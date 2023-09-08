@@ -1,6 +1,7 @@
 return {
     { "nvim-lua/plenary.nvim",              lazy = true },
     { "nvim-tree/nvim-web-devicons",        lazy = true },
+    { "debugloop/telescope-undo.nvim",      lazy = true },
     { "folke/neodev.nvim", version = "*",   lazy = true },
 
     {   -- LSP
@@ -77,12 +78,9 @@ return {
 
     {   -- Telescope
         "nvim-telescope/telescope.nvim",
-        version = "0.1.*",
+        version = "*",
         config = require("configs.telescope"),
-
-        dependencies = {
-            "debugloop/telescope-undo.nvim"
-        }
+        keys = require("configs.telescope.keys"),
     },
 
     {   -- Nvim tree
