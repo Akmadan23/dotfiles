@@ -1,63 +1,140 @@
 return function()
-    -- custom colors
-    local colors = {
-        black   = "#272822",
-        gray    = "#465457",
-        white   = "#F8F8F0",
-        magenta = "#F92672",
-        green   = "#A6E22E",
-        yellow  = "#E6DB74",
-        blue    = "#66D9EF",
-        orange  = "#FD971F",
-        purple  = "#AE81FF",
-    }
+    -- Custom colors
+    local c = require("colorschemes").monokai
 
     -- Change filename module's color when the file is modified
     local filename_color = function()
         if vim.bo.modified then
             return {
-                fg = colors.magenta,
+                fg = c.magenta,
                 gui = "bold",
             }
-        else
-            return nil
         end
     end
+
+    local title = function(name)
+        return function()
+            return name
+        end
+    end
+
+    local nvim_tree_cwd = function()
+        local cwd = require("nvim-tree.core").get_cwd()
+        return vim.fn.fnamemodify(cwd, ":~")
+    end
+
+    local telescope_prompt_title = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local status = require("telescope.state").get_status(bufnr)
+        return status.picker.prompt_title
+    end
+
+    -- Custom extensions
+    local ext = {
+        nvim_tree = {
+            sections = {
+                lualine_a = { title("NvimTree") },
+                lualine_b = { nvim_tree_cwd },
+            },
+
+            filetypes = { "NvimTree" }
+        },
+
+        telescope = {
+            sections = {
+                lualine_a = { title("Telescope") },
+                lualine_b = { telescope_prompt_title },
+            },
+
+            filetypes = { "TelescopePrompt" }
+        }
+    }
 
     -- Define options and sections
     require("lualine").setup {
         options = {
+            globalstatus = true,
             section_separators      = { left = "", right = "" },
             component_separators    = { left = "", right = "" },
 
             theme = {
                 normal = {
-                    a = { fg = colors.black, bg = colors.yellow, gui = "bold"   },
-                    b = { fg = colors.white, bg = colors.black                  },
-                    c = { fg = colors.white, bg = colors.gray                   },
+                    a = { fg = c.bg1, bg = c.yellow, gui = "bold" },
+                    b = { fg = c.fg1, bg = c.bg1 },
+                    c = { fg = c.fg1, bg = c.grey }
                 },
 
-                insert      = { a = { fg = colors.black,  bg = colors.blue,     gui = "bold" } },
-                visual      = { a = { fg = colors.black,  bg = colors.green,    gui = "bold" } },
-                replace     = { a = { fg = colors.black,  bg = colors.magenta,  gui = "bold" } },
-                command     = { a = { fg = colors.black,  bg = colors.orange,   gui = "bold" } },
-                terminal    = { a = { fg = colors.black,  bg = colors.purple,   gui = "bold" } },
-                inactive    = { c = { fg = colors.yellow, bg = colors.gray                   } },
+                insert = {
+                    a = { fg = c.bg1, bg = c.blue, gui = "bold" }
+                },
+
+                visual = {
+                    a = { fg = c.bg1, bg = c.green, gui = "bold" }
+                },
+
+                replace = {
+                    a = { fg = c.bg1, bg = c.magenta, gui = "bold" }
+                },
+
+                command = {
+                    a = { fg = c.bg1, bg = c.orange, gui = "bold" }
+                },
+
+                terminal = {
+                    a = { fg = c.bg1, bg = c.purple, gui = "bold" }
+                },
+
+                inactive = {
+                    c = { fg = c.yellow, bg = c.grey }
+                }
             }
         },
 
         sections = {
-            lualine_a = { "mode"                                                        },
-            lualine_b = { { "filename", newfile_status = true, color = filename_color } },
-            lualine_c = { "branch", "diff", { "diagnostics", sources = { "nvim_lsp" } } },
-            lualine_x = { { "filetype", colored = false }                               },
-            lualine_y = { "encoding"                                                    },
-            lualine_z = { "progress", "location"                                        },
+            lualine_a = {
+                "mode"
+            },
+
+            lualine_b = {
+                { "filename", newfile_status = true, color = filename_color }
+            },
+
+            lualine_c = {
+                "branch",
+                "diff",
+                { "diagnostics", sources = { "nvim_lsp" } }
+            },
+
+            lualine_x = {
+                { "filetype", colored = false }
+            },
+
+            lualine_y = {
+                "encoding"
+            },
+
+            lualine_z = {
+                "progress",
+                "location"
+            }
         },
 
         inactive_winbar = {
-            lualine_c = { "filename" },
-            lualine_x = { { "filetype", colored = false }, "location" },
+            lualine_c = {
+                "filename"
+            },
+
+            lualine_x = {
+                { "filetype", colored = false }
+            }
+        },
+
+        extensions = {
+            ext.nvim_tree,
+            ext.telescope,
+            "lazy",
+            "man",
+            "trouble",
         }
     }
 end
