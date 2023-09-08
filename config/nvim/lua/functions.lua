@@ -1,285 +1,472 @@
 -- Save some typing effort
 local fmt = string.format
+local exp = vim.fn.expand
+local is_exe = vim.fn.executable
 
--- Split declaration and initialization to enable recursion
-local file_exists, root_dir, case
-
--- Determine if a file exists
-file_exists = function(path)
-    local f = io.open(path)
-    return f ~= nil and io.close(f)
+local is_file = function(f)
+    return vim.fn.filereadable(f) == 1
 end
 
--- Find the root directory of current project
-root_dir = function(path, file)
-    if file_exists(fmt("%s/%s", vim.fn.expand(path), file)) then
-        return true
-    elseif vim.fn.expand(path) == "." then
-        return false
+-- Module to be exported
+local M = {}
+
+---Find the root directory of current project
+---@param file string
+---@param path string?
+---@return string?
+M.root_dir = function(file, path)
+    if path == nil then
+        path = "%:p"
+    end
+
+    local exp_path = exp(path)
+
+    if is_file(fmt("%s/%s", exp_path, file)) then
+        return exp_path
+    elseif exp_path == "/" then
+        return nil
     else
-        return root_dir(path .. ":h", file)
+        return M.root_dir(file, path .. ":h")
     end
 end
 
--- Virtual switch/case statement
-case = {
-    compile = {
-        c = function()
-            vim.cmd("!gcc -o '%:r' '%'")
-        end,
+------------------------------------------
+--               COMPILE                --
+------------------------------------------
 
-        cpp = function()
-            vim.cmd("!g++ -o '%:r' '%'")
-        end,
+local compile = {}
 
-        go = function()
-            if vim.fn.executable("go") then
-                vim.cmd("!go build -o '%:r' '%'")
-            else
-                print("Go is not installed.")
-            end
-        end,
+compile.c = function()
+    return "gcc -o '%:r' '%'"
+end
 
-        rust = function()
-            if vim.fn.executable("cargo") and root_dir("%", "Cargo.toml") then
-                vim.cmd("!cargo build")
-            elseif vim.fn.executable("rustc") then
-                vim.cmd("!rustc -o '%:r' '%'")
-            else
-                print("Rust is not installed.")
-            end
-        end,
+compile.cpp = function()
+    return "g++ -o '%:r' '%'"
+end
 
-        nim = function()
-            if vim.fn.executable("nim") then
-                vim.cmd("!nim compile -o:'%:r' '%'")
-            else
-                print("Nim is not installed.")
-            end
-        end,
+compile.go = function()
+    if is_exe("go") then
+        return "go build -o '%:r' '%'"
+    end
 
-        zig = function()
-            if vim.fn.executable("zig") then
-                vim.cmd("!zig build-exe '%' -femit-bin='%:r'")
-            else
-                print("Zig is not installed.")
-            end
-        end,
+    print("Go is not installed.")
+end
 
-        java = function()
-            if vim.fn.executable("javac") then
-                if vim.fn.expand("%:p:h:t") == "src" then
-                    vim.cmd("!javac '%' -d '%:p:h:h/bin'")
-                else
-                    vim.cmd("!javac '%'")
-                end
-            else
-                print("Java is not installed.")
-            end
-        end,
-
-        tex = function()
-            if vim.fn.executable("pdflatex") then
-                vim.cmd("!pdflatex '%' -output-directory '%:h'")
-            else
-                print("LaTeX is not installed.")
-            end
-        end,
-
-        dot = function()
-            if vim.fn.executable("dot") then
-                vim.cmd("!dot '%' -Tpdf > '%:r.pdf'")
-            else
-                print("Dot is not installed.")
-            end
-        end,
-
-        lilypond = function()
-            if vim.fn.executable("lilypond") then
-                vim.cmd("!lilypond -o '%:r' '%'")
-            else
-                print("Lilypond is not installed.")
-            end
-        end,
-
-        shell = function()
-            if vim.fn.executable("shellcheck") then
-                vim.cmd("!shellcheck '%'")
-            else
-                print("Shellcheck is not installed.")
-            end
-        end
-    },
-
-    run = {
-        bin = function()
-            local bin_path = vim.fn.expand("%:r")
-
-            if os.execute(fmt("[ -x %s ]", bin_path)) == 0 then
-                vim.cmd.split("term://./%:r")
-            else
-                print(fmt("executable file '%s' not found.", bin_path))
-            end
-        end,
-
-        rust = function()
-            if vim.fn.executable("cargo") and root_dir("%", "Cargo.toml") then
-                if os.execute(fmt("cargo check --bin=%s &> /dev/null", vim.fn.expand("%:t:r"))) == 0 then
-                    vim.cmd.split("term://cargo run --bin=%:t:r")
-                else
-                    vim.cmd.split("term://cargo run")
-                end
-            else
-                case.run.bin()
-            end
-        end,
-
-        java = function()
-            if vim.fn.executable("java") then
-                if vim.fn.expand("%:p:h:t") == "src" then
-                    vim.cmd.cd("%:p:h:h/bin")
-                else
-                    vim.cmd.cd("%:h")
-                end
-
-                vim.cmd.split("term://java %:t:r")
-                vim.cmd.cd("-")
-            else
-                print("Java is not installed.")
-            end
-        end,
-
-        python = function()
-            if vim.fn.executable("python") then
-                local parent = vim.fn.expand("%:p:h")
-
-                if file_exists(parent .. "/__init__.py") then
-                    vim.cmd.cd("%:p:h:h")
-
-                    if file_exists(parent .. "/__main__.py") then
-                        vim.cmd.split("term://python -m %:p:h:t")
-                    else
-                        vim.cmd.split("term://python -m %:p:h:t.%:t:r")
-                    end
-
-                    vim.cmd.cd("-")
-                else
-                    vim.cmd.split("term://python %")
-                end
-            else
-                print("Python is not installed.")
-            end
-        end,
-
-        perl = function()
-            if vim.fn.executable("perl") then
-                vim.cmd.split("term://perl '%'")
-            else
-                print("Perl is not installed.")
-            end
-        end,
-
-        ruby = function()
-            if vim.fn.executable("ruby") then
-                vim.cmd.split("term://ruby '%'")
-            else
-                print("Ruby is not installed.")
-            end
-        end,
-
-        lua = function()
-            if vim.fn.executable("luajit") then
-                vim.cmd.split("term://luajit '%'")
-            elseif vim.fn.executable("lua") then
-                vim.cmd.split("term://lua '%'")
-            else
-                print("Lua is not installed.")
-            end
-        end,
-
-        lisp = function()
-            if vim.fn.executable("sbcl") then
-                vim.cmd.split("term://sbcl --script '%'")
-            elseif vim.fn.executable("clisp") then
-                vim.cmd.split("term://clisp '%'")
-            else
-                print("sbcl or clisp is not installed.")
-            end
-        end,
-
-        pdf = function()
-            if os.getenv("READER") then
-                local pdf_path = vim.fn.expand("%:r") .. ".pdf"
-
-                if file_exists(pdf_path) then
-                    os.execute(fmt("$READER '%s' & disown", pdf_path))
-                else
-                    print(fmt("File '%s' not found.", pdf_path))
-                end
-            else
-                print("The $READER environment variable is not set.")
-            end
-        end,
-
-        default = function()
-            local file_path = vim.fn.expand("%")
-            os.execute(fmt("[ -x %s ] || chmod +x %s", file_path, file_path))
-            vim.cmd.split("term://./%")
-        end
-    },
-
-    test = {
-        go = function()
-            if vim.fn.executable("go") then
-                vim.cmd.split("term://go test")
-            else
-                print("Go is not installed.")
-            end
-        end,
-
-        rust = function()
-            if vim.fn.executable("cargo") then
-                vim.cmd.split("term://cargo test")
-            else
-                print("Cargo is not installed.")
-            end
-        end
-    }
-}
-
-return {
-    -- Compile function for C, C++, Go, Rust, Nim, Zig, Java, LaTeX, Dot and Lilypond
-    compile = function()
-        if case.compile[vim.o.ft] then
-            case.compile[vim.o.ft]()
-        elseif vim.fn.getline(1):find("^#!/.*sh$") then
-            case.compile.shell()
+compile.java = function()
+    if is_exe("javac") then
+        if exp("%:p:h:t") == "src" then
+            return "javac '%' -d '%:p:h:h/bin'"
         else
-            print(fmt("Unable to compile %s files.", vim.o.ft))
-        end
-    end,
-
-    -- Run function for Java, Python, Perl, Ruby, Lua, Common Lisp, LaTeX, Dot, Lilypond and any binary file
-    run = function()
-        if case.run[vim.o.ft] then
-            case.run[vim.o.ft]()
-        elseif vim.tbl_contains({ "c", "cpp", "go", "rust", "nim", "zig" }, vim.o.ft) then
-            case.run.bin()
-        elseif vim.tbl_contains({ "tex", "dot", "lilypond" }, vim.o.ft) then
-            case.run.pdf()
-        elseif vim.fn.getline(1):find("^#!/.*$") then
-            case.run.default()
-        else
-            print("WARNING: Nothing to execute.")
-        end
-    end,
-
-    -- Test function for Go and Rust
-    test = function()
-        if case.test[vim.o.ft] then
-            case.test[vim.o.ft]()
-        else
-            print("WARNING: Nothing to test")
+            return "javac '%'"
         end
     end
-}
+
+    print("Java is not installed.")
+end
+
+compile.javascript = function()
+    local root = M.root_dir("package.json")
+
+    if is_exe("npm") and root then
+        local opts = {
+            split = true
+        }
+
+        if vim.fn.getcwd():match(root) == nil then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "npm run build", opts
+    end
+end
+
+compile.typescript = compile.javascript
+
+compile.lilypond = function()
+    if is_exe("lilypond") then
+        return "lilypond -o '%:r' '%'"
+    end
+
+    print("Lilypond is not installed.")
+end
+
+compile.nim = function()
+    if is_exe("nim") then
+        return "nim compile -o:'%:r' '%'"
+    end
+
+    print("Nim is not installed.")
+end
+
+compile.ocaml = function()
+    local root = M.root_dir("dune-project")
+
+    if is_exe("dune") and root then
+        local opts = {
+            split = true
+        }
+
+        if vim.fn.getcwd():match(root) == nil then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "dune build", opts
+    elseif is_exe("ocamlopt") then
+        return "ocamlopt -o '%:r' '%'"
+    end
+
+    print("OCaml is not installed.")
+end
+
+compile.rust = function()
+    local root = M.root_dir("Cargo.toml")
+
+    if is_exe("cargo") and root then
+        local opts = {
+            split = true
+        }
+
+        if vim.fn.getcwd():match(root) == nil then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "cargo build", opts
+    elseif is_exe("rustc") then
+        return "rustc -o '%:r' '%'"
+    end
+
+    print("Rust is not installed.")
+end
+
+compile.tex = function()
+    if is_exe("pdflatex") then
+        return "pdflatex '%' -output-directory '%:h'"
+    end
+
+    print("LaTeX is not installed.")
+end
+
+compile.dot = function()
+    if is_exe("dot") then
+        return "dot '%' -Tpdf > '%:r.pdf'"
+    end
+
+    print("Dot is not installed.")
+end
+
+compile.zig = function()
+    if is_exe("zig") then
+        return "zig build-exe '%' -femit-bin='%:r'"
+    end
+
+    print("Zig is not installed.")
+end
+
+-- Compile current file
+M.compile = function()
+    if compile[vim.o.ft] then
+        local cmd, opts = compile[vim.o.ft]()
+
+        if cmd then
+            if opts == nil then
+                opts = {}
+            end
+
+            if opts.split then
+                cmd = "split term://" .. cmd
+            else
+                cmd = "!" .. cmd
+            end
+
+            vim.cmd(cmd)
+
+            if opts.jump_back then
+                vim.cmd.cd("-")
+            end
+        end
+    else
+        print(fmt("Unable to compile %s files.", vim.o.ft))
+    end
+end
+
+------------------------------------------
+--                 RUN                  --
+------------------------------------------
+
+local run = {}
+
+run.bin = function()
+    local bin_path = exp("%:r")
+
+    if os.execute("test -x " .. bin_path) == 0 then
+        return "./%:r"
+    end
+
+    print(fmt("executable file '%s' not found.", bin_path))
+end
+
+run.rust = function()
+        local root = M.root_dir("Cargo.toml")
+
+        if is_exe("cargo") and root then
+            local cmd = "cargo run"
+            local opts = {}
+
+            if os.execute(fmt("cargo check --bin=%s &> /dev/null", exp("%:t:r"))) == 0 then
+                cmd = cmd .. " --bin=%:t:r"
+            end
+
+            if vim.fn.getcwd():match(root) == nil then
+                vim.cmd.cd(root)
+                opts.jump_back = true
+            end
+
+            return cmd, opts
+        end
+
+        return run.bin()
+    end
+
+run.java = function()
+    if is_exe("java") then
+        local path = "%:h"
+        local opts = { jump_back = true }
+
+        if exp("%:p:h:t") == "src" then
+            path = "%:p:h:h/bin"
+        end
+
+        vim.cd(path)
+        return "java %:t:r", opts
+    end
+
+    print("Java is not installed.")
+end
+
+run.javascript = function()
+    local root = M.root_dir("package.json")
+
+    if is_exe("npm") and root then
+        local opts = {}
+
+        if vim.fn.getcwd():match(root) == nil then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "npm run", opts
+    elseif is_exe("node") then
+        return "node '%'"
+    end
+end
+
+run.typescript = run.javascript
+
+run.python = function()
+    if is_exe("python") then
+        local cmd = "python"
+        local parent = exp("%:p:h")
+
+        if is_file(parent .. "/__init__.py") then
+            local opts = { jump_back = true }
+            vim.cmd.cd("%:p:h:h")
+
+            if is_file(parent .. "/__main__.py") then
+                cmd = cmd .. " -m %:p:h:t"
+            else
+                cmd = cmd .. " -m %:p:h:t.%:t:r"
+            end
+
+            return cmd, opts
+        else
+            return cmd .. " '%'"
+        end
+    end
+
+    print("Python is not installed.")
+end
+
+run.perl = function()
+    if is_exe("perl") then
+        return "perl '%'"
+    end
+
+    print("Perl is not installed.")
+end
+
+run.ruby = function()
+    if is_exe("ruby") then
+        return "ruby '%'"
+    end
+
+    print("Ruby is not installed.")
+end
+
+run.lua = function()
+    if is_exe("luajit") then
+        return "luajit '%'"
+    elseif is_exe("lua") then
+        return "lua '%'"
+    end
+
+    print("Lua is not installed.")
+end
+
+run.ocaml = function()
+    if is_exe("ocaml") then
+        return "ocaml '%'"
+    end
+
+    print("OCaml is not installed.")
+end
+
+run.lisp = function()
+    if is_exe("sbcl") then
+        return "sbcl --script '%'"
+    elseif is_exe("clisp") then
+        return "clisp '%'"
+    end
+
+    print("sbcl nor clisp are installed.")
+end
+
+run.sh = function()
+    local file_path = exp("%")
+    os.execute(fmt("test -x %s || chmod +x %s", file_path, file_path))
+    return "./%"
+end
+
+run.bash = run.sh
+run.zsh = run.sh
+
+run.tex = function()
+    if os.getenv("READER") then
+        local pdf_path = fmt("%s.pdf", exp("%:r"))
+
+        if is_file(pdf_path) then
+            os.execute(fmt("$READER '%s' & disown", pdf_path))
+        else
+            print(fmt("File '%s' not found.", pdf_path))
+        end
+    else
+        print("The $READER environment variable is not set.")
+    end
+end
+
+run.dot = run.tex
+run.lilypond = run.tex
+
+-- Run current file if executable or compiled file with same name without extension
+M.run = function(args)
+    local cmd, opts
+
+    if run[vim.o.ft] then
+        cmd, opts = run[vim.o.ft]()
+    elseif vim.fn.getline(1):match("^#!/.*$") then
+        cmd = run.sh()
+    else
+        cmd = run.bin()
+    end
+
+    if cmd then
+        vim.cmd.split("term://" .. cmd .. (args or ""))
+
+        if opts then
+            if opts.jump_back then
+                vim.cmd.cd("-")
+            end
+        end
+    end
+end
+
+-- Wrapper for M.run with option to pass arguments
+M.run_with_args = function()
+    vim.ui.input({ prompt = "Args: " }, function(input)
+        if input then
+            M.run(" " .. input)
+        end
+    end)
+end
+
+------------------------------------------
+--                 TEST                 --
+------------------------------------------
+
+local test = {}
+
+test.go = function()
+    if is_exe("go") then
+        return "go test"
+    end
+end
+
+test.rust = function()
+    local root = M.root_dir("Cargo.toml")
+
+    if is_exe("cargo") and root then
+        local opts = {}
+
+        if vim.fn.getcwd():match(root) == nil then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "cargo test", opts
+    end
+end
+
+test.javascript = function()
+    local root = M.root_dir("package.json")
+
+    if is_exe("npm") and root then
+        local opts = {}
+
+        if vim.fn.getcwd():match(root) == nil then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "npm test", opts
+    end
+end
+
+test.typescript = test.javascript
+
+test.sh = function()
+    if is_exe("shellcheck") then
+        return "shellcheck '%'"
+    end
+
+    print("Shellcheck is not installed.")
+end
+
+test.bash = test.sh
+test.zsh = test.sh
+
+-- Test current file if tests available
+M.test = function()
+    local cmd, opts
+
+    if test[vim.o.ft] then
+        cmd, opts = test[vim.o.ft]()
+    elseif vim.fn.getline(1):match("^#!/.*sh$") then
+        cmd = test.sh()
+    end
+
+    if cmd then
+        vim.cmd.split("term://" .. cmd)
+
+        if opts then
+            if opts.jump_back then
+                vim.cmd.cd("-")
+            end
+        end
+    else
+        print("WARNING: Nothing to test")
+    end
+end
+
+return M
