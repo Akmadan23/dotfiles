@@ -248,8 +248,8 @@ if [[ "$TERM" == "alacritty" ]]; then
     add-zsh-hook -Uz preexec title_preexec
 fi
 
-# Enable z.lua
-eval "$(lua ~/.local/share/z.lua/z.lua --init zsh)"
+# Enable zoxide
+eval "$(zoxide init zsh)"
 
 # Enable starship prompt
 eval "$(starship init zsh)"

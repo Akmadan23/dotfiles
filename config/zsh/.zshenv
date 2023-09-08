@@ -77,6 +77,9 @@ export QT_SCREEN_SCALE_FACTORS=1
 export QT_DEVICE_PIXEL_RATIO=0
 export QT_SCALE_FACTOR=1
 
+# Zoxide
+export _ZO_EXCLUDE_DIRS="$HOME":"/opt"
+
 # Java fix for Qtile
 export _JAVA_AWT_WM_NONREPARENTING=1
 
