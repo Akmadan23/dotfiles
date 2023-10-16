@@ -1,0 +1,13 @@
+blocks:
+  - permission
+  - user
+  - size
+  - date
+  - name
+
+sorting:
+  dir-grouping: first
+
+date: +%d/%m/%Y %H:%M:%S
+size: short
+literal: true
