@@ -1,0 +1,8 @@
+#!/bin/sh
+
+sudo sed -i.old \
+    -e "s/^    key *<CAPS> *{.*};.*$/    key <CAPS> {[  Escape,  Caps_Lock  ]};/" \
+    -e "s/^    modifier_map *Lock *{.*};.*$/    modifier_map Lock    { Shift + Caps_Lock };/" \
+    /usr/share/X11/xkb/symbols/pc
+
+setxkbmap -layout it

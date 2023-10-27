@@ -5,23 +5,23 @@ FILES = .Xresources .stalonetrayrc
 update:
 	@rm -rf config/zsh/plugins
 
-	@for i in $(DIRS); do \
-		cp -r ~/.config/$$i config; \
+	@for d in $(DIRS); do \
+		cp -r ~/.config/$$d config; \
 	done
 
-	@for i in $(FILES); do \
-		cp ~/$$i .; \
+	@for f in $(FILES); do \
+		cp ~/$$f .; \
 	done
 
 	@echo "Dotfiles updated successfully."
 
 install:
-	@for i in $(DIRS) ; do \
-		cp -rv $$i ~/.config/; \
+	@for d in $(DIRS); do \
+		cp -rv $$d ~/.config/; \
 	done
 
-	@for i in $(FILES); do \
-		cp $$i ~; \
+	@for f in $(FILES); do \
+		cp $$f ~; \
 	done
 
 	@# nvim plugin manager
@@ -33,5 +33,7 @@ install:
 	git clone https://github.com/hlissner/zsh-autopair.git ~/.config/zsh/plugins/zsh-autopair
 	git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/plugins/zsh-autosuggestions
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/zsh/plugins/zsh-syntax-highlighting
+
+	./scripts/remap-caps-lock
 
 	@echo "Dotfiles installed successfully."
