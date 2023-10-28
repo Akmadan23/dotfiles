@@ -65,7 +65,7 @@ return function()
                 },
 
                 insert = {
-                    a = { fg = c.bg1, bg = c.blue, gui = "bold" }
+                    a = { fg = c.bg1, bg = c.cyan, gui = "bold" }
                 },
 
                 visual = {

@@ -12,9 +12,9 @@ return function()
     end
 
     -- Setup treesitter
+    ---@diagnostic disable-next-line: missing-fields
     require("nvim-treesitter.configs").setup {
         highlight   = ON,
-        autotag     = ON,
         endwise     = ON,
     }
 end

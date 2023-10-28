@@ -18,8 +18,8 @@ return {
     { L.."fm", builtin("man_pages")         },
     { L.."fh", builtin("help_tags")         },
     { L.."fb", builtin("builtin")           },
-    { L.."gd", builtin("lsp_definitions",   { jump_type = "split" }) },
+    { L.."gd", builtin("lsp_definitions",   { jump_type = "tab" }) },
     { L.."gr", builtin("lsp_references")    },
+    { L.."nl", ext("notify")                },
     { L.."u",  ext("undo")                  },
-    { L.."n",  ext("notify")                },
 }

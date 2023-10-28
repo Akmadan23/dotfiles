@@ -1,11 +1,16 @@
 return function()
     local cmp = require("cmp")
+    local border = cmp.config.window.bordered()
 
     -- Setup nvim-cmp
     cmp.setup {
+        window = {
+            completion = border,
+            documentation = border,
+        },
+
         sources = {
             { name = "nvim_lsp" },
-            { name = "nvim_lua" },
             { name = "luasnip"  },
             { name = "path",    trailing_slash = true   },
             { name = "buffer",  keyword_length = 5      },

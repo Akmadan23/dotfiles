@@ -6,7 +6,7 @@ return function()
     local snips = {
         rust = {
             mr = {
-                string = [[
+                str = [[
                     match {1} {{
                         Ok({2}) => {4},
                         Err({3}) => {5},
@@ -23,7 +23,7 @@ return function()
             },
 
             mo = {
-                string = [[
+                str = [[
                     match {1} {{
                         Some({2}) => {3},
                         None => {4},
@@ -44,7 +44,7 @@ return function()
         local snip = {}
 
         for trigger, v in pairs(s) do
-            table.insert(snip, ls.snippet(trigger, fmt(v.string, v.nodes or {}, v.opts or {})))
+            table.insert(snip, ls.snippet(trigger, fmt(v.str, v.nodes or {}, v.opts or {})))
         end
 
         ls.add_snippets(ft, snip)
