@@ -7,13 +7,17 @@ local is_file = function(f)
     return vim.fn.filereadable(f) == 1
 end
 
+local notify = function(msg)
+    vim.notify(msg, vim.log.WARN)
+end
+
 -- Module to be exported
 local M = {}
 
 ---Find the root directory of current project
 ---@param file string
----@param path string?
----@return string?
+---@param path string|nil
+---@return string|nil
 M.root_dir = function(file, path)
     if path == nil then
         path = "%:p"
@@ -24,7 +28,7 @@ M.root_dir = function(file, path)
     if is_file(fmt("%s/%s", exp_path, file)) then
         return exp_path
     elseif exp_path == "/" then
-        return nil
+        return
     else
         return M.root_dir(file, path .. ":h")
     end
@@ -49,7 +53,7 @@ compile.go = function()
         return "go build -o '%:r' '%'"
     end
 
-    print("Go is not installed.")
+    notify("Go is not installed.")
 end
 
 compile.java = function()
@@ -61,7 +65,7 @@ compile.java = function()
         end
     end
 
-    print("Java is not installed.")
+    notify("Java is not installed.")
 end
 
 compile.javascript = function()
@@ -79,6 +83,8 @@ compile.javascript = function()
 
         return "npm run build", opts
     end
+
+    notify("NPM is not installed")
 end
 
 compile.typescript = compile.javascript
@@ -88,7 +94,7 @@ compile.lilypond = function()
         return "lilypond -o '%:r' '%'"
     end
 
-    print("Lilypond is not installed.")
+    notify("Lilypond is not installed.")
 end
 
 compile.nim = function()
@@ -96,7 +102,7 @@ compile.nim = function()
         return "nim compile -o:'%:r' '%'"
     end
 
-    print("Nim is not installed.")
+    notify("Nim is not installed.")
 end
 
 compile.ocaml = function()
@@ -117,7 +123,7 @@ compile.ocaml = function()
         return "ocamlopt -o '%:r' '%'"
     end
 
-    print("OCaml is not installed.")
+    notify("OCaml is not installed.")
 end
 
 compile.rust = function()
@@ -138,7 +144,7 @@ compile.rust = function()
         return "rustc -o '%:r' '%'"
     end
 
-    print("Rust is not installed.")
+    notify("Rust is not installed.")
 end
 
 compile.tex = function()
@@ -146,7 +152,7 @@ compile.tex = function()
         return "pdflatex '%' -output-directory '%:h'"
     end
 
-    print("LaTeX is not installed.")
+    notify("LaTeX is not installed.")
 end
 
 compile.dot = function()
@@ -154,7 +160,7 @@ compile.dot = function()
         return "dot '%' -Tpdf > '%:r.pdf'"
     end
 
-    print("Dot is not installed.")
+    notify("Dot is not installed.")
 end
 
 compile.zig = function()
@@ -162,10 +168,10 @@ compile.zig = function()
         return "zig build-exe '%' -femit-bin='%:r'"
     end
 
-    print("Zig is not installed.")
+    notify("Zig is not installed.")
 end
 
--- Compile current file
+--- Compile current file
 M.compile = function()
     if compile[vim.o.ft] then
         local cmd, opts = compile[vim.o.ft]()
@@ -188,7 +194,7 @@ M.compile = function()
             end
         end
     else
-        print(fmt("Unable to compile %s files.", vim.o.ft))
+        notify(fmt("Unable to compile %s files.", vim.o.ft))
     end
 end
 
@@ -205,30 +211,30 @@ run.bin = function()
         return "./%:r"
     end
 
-    print(fmt("executable file '%s' not found.", bin_path))
+    notify(fmt("executable file '%s' not found.", bin_path))
 end
 
 run.rust = function()
-        local root = M.root_dir("Cargo.toml")
+    local root = M.root_dir("Cargo.toml")
 
-        if is_exe("cargo") and root then
-            local cmd = "cargo run"
-            local opts = {}
+    if is_exe("cargo") and root then
+        local cmd = "cargo run"
+        local opts = {}
 
-            if os.execute(fmt("cargo check --bin=%s &> /dev/null", exp("%:t:r"))) == 0 then
-                cmd = cmd .. " --bin=%:t:r"
-            end
-
-            if vim.fn.getcwd():match(root) == nil then
-                vim.cmd.cd(root)
-                opts.jump_back = true
-            end
-
-            return cmd, opts
+        if os.execute(fmt("cargo check --bin=%s &> /dev/null", exp("%:t:r"))) == 0 then
+            cmd = cmd .. " --bin=%:t:r"
         end
 
-        return run.bin()
+        if vim.fn.getcwd():match(root) == nil then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return cmd, opts
     end
+
+    return run.bin()
+end
 
 run.java = function()
     if is_exe("java") then
@@ -243,7 +249,7 @@ run.java = function()
         return "java %:t:r", opts
     end
 
-    print("Java is not installed.")
+    notify("Java SDK is not installed.")
 end
 
 run.javascript = function()
@@ -286,7 +292,7 @@ run.python = function()
         end
     end
 
-    print("Python is not installed.")
+    notify("Python is not installed.")
 end
 
 run.perl = function()
@@ -294,7 +300,7 @@ run.perl = function()
         return "perl '%'"
     end
 
-    print("Perl is not installed.")
+    notify("Perl is not installed.")
 end
 
 run.ruby = function()
@@ -302,7 +308,7 @@ run.ruby = function()
         return "ruby '%'"
     end
 
-    print("Ruby is not installed.")
+    notify("Ruby is not installed.")
 end
 
 run.lua = function()
@@ -312,7 +318,7 @@ run.lua = function()
         return "lua '%'"
     end
 
-    print("Lua is not installed.")
+    notify("Lua is not installed.")
 end
 
 run.ocaml = function()
@@ -320,7 +326,7 @@ run.ocaml = function()
         return "ocaml '%'"
     end
 
-    print("OCaml is not installed.")
+    notify("OCaml is not installed.")
 end
 
 run.lisp = function()
@@ -330,7 +336,7 @@ run.lisp = function()
         return "clisp '%'"
     end
 
-    print("sbcl nor clisp are installed.")
+    notify("sbcl nor clisp are installed.")
 end
 
 run.sh = function()
@@ -349,23 +355,23 @@ run.tex = function()
         if is_file(pdf_path) then
             os.execute(fmt("$READER '%s' & disown", pdf_path))
         else
-            print(fmt("File '%s' not found.", pdf_path))
+            notify(fmt("File '%s' not found.", pdf_path))
         end
     else
-        print("The $READER environment variable is not set.")
+        notify("The $READER environment variable is not set.")
     end
 end
 
 run.dot = run.tex
 run.lilypond = run.tex
 
--- Run current file if executable or compiled file with same name without extension
+--- Run current file if executable or corresponding compiled file
 M.run = function(args)
     local cmd, opts
 
     if run[vim.o.ft] then
         cmd, opts = run[vim.o.ft]()
-    elseif vim.fn.getline(1):match("^#!/.*$") then
+    elseif tostring(vim.fn.getline(1)):match("^#!/.*$") then
         cmd = run.sh()
     else
         cmd = run.bin()
@@ -440,19 +446,19 @@ test.sh = function()
         return "shellcheck '%'"
     end
 
-    print("Shellcheck is not installed.")
+    notify("Shellcheck is not installed.")
 end
 
 test.bash = test.sh
 test.zsh = test.sh
 
--- Test current file if tests available
+--- Test function for Go, Rust and Shell
 M.test = function()
     local cmd, opts
 
     if test[vim.o.ft] then
         cmd, opts = test[vim.o.ft]()
-    elseif vim.fn.getline(1):match("^#!/.*sh$") then
+    elseif tostring(vim.fn.getline(1)):match("^#!/.*sh$") then
         cmd = test.sh()
     end
 
@@ -465,7 +471,7 @@ M.test = function()
             end
         end
     else
-        print("WARNING: Nothing to test")
+        notify("Nothing to test")
     end
 end
 
