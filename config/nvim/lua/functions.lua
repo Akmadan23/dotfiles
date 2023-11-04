@@ -503,4 +503,22 @@ M.inspect_object = function()
     end)
 end
 
+local trees = {}
+
+--- Toggle layer for vim.treesitter.inspect_tree
+M.inspect_tree = function()
+    local winnr = vim.api.nvim_get_current_win()
+
+    for i, t in ipairs(trees) do
+        if vim.tbl_contains(t, winnr) then
+            vim.api.nvim_win_close(t[2], false)
+            table.remove(trees, i)
+            return
+        end
+    end
+
+    vim.treesitter.inspect_tree()
+    table.insert(trees, { winnr, vim.api.nvim_get_current_win() })
+end
+
 return M
