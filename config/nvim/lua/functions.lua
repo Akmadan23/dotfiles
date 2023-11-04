@@ -3,6 +3,10 @@ local fmt = string.format
 local exp = vim.fn.expand
 local is_exe = vim.fn.executable
 
+local echo = function(obj, opts)
+    vim.api.nvim_echo({{ vim.inspect(obj) }}, true, opts or {})
+end
+
 local is_file = function(f)
     return vim.fn.filereadable(f) == 1
 end
@@ -473,6 +477,30 @@ M.test = function()
     else
         notify("Nothing to test")
     end
+end
+
+--- A convenient way to inspect lua objects on the fly
+M.inspect_object = function()
+    local opts = {
+        prompt = "Inspect: ",
+        completion = "lua"
+    }
+
+    vim.ui.input(opts, function(input)
+        if input == nil then
+            return
+        end
+
+        local f = loadstring("return " .. input)
+        vim.api.nvim_out_write("\n")
+
+        if f then
+            -- vim.print(f()) -- for some reason it does not work
+            echo(f())
+        else
+            notify("Error parsing lua: Syntax error.")
+        end
+    end)
 end
 
 return M
