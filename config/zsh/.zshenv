@@ -15,7 +15,7 @@ export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 # GNUPG home directory
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 
-# Cargo home directory
+# Rustup home directory
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 # Cargo home directory
@@ -48,8 +48,8 @@ export READER="zathura"
 export BROWSER="firefox"
 export VIDEO="mpv"
 export IMAGE="nsxiv"
-export PAGER="less"
-export MANPAGER="nvim -M +Man!"
+export PAGER="less -c"
+export MANPAGER="nvim +Man!"
 export OPENER="xdg-open"
 
 # Pfetch
@@ -66,7 +66,7 @@ export NBRC_PATH="$XDG_CONFIG_HOME/nb/nbrc"
 # export NB_COLOR_PRIMARY=4
 # export NB_COLOR_SECONDARY=8
 
-# Disabling GTK3 client side decorations
+# Disable GTK3 client side decorations
 export GTK_CSD=0
 export LD_PRELOAD="/usr/lib/libgtk3-nocsd.so.0"
 
@@ -77,8 +77,11 @@ export QT_SCREEN_SCALE_FACTORS=1
 export QT_DEVICE_PIXEL_RATIO=0
 export QT_SCALE_FACTOR=1
 
+# FZF
+export FZF_DEFAULT_OPTS="--cycle --bind=tab:up,btab:down"
+
 # Zoxide
-export _ZO_EXCLUDE_DIRS="$HOME":"/opt"
+export _ZO_EXCLUDE_DIRS="$HOME":"/opt/*"
 
 # Java fix for Qtile
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -86,5 +89,23 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # JTDLS home for nvim-jdtls plugin
 export JDTLS_HOME="/usr/share/java/jdtls"
 
+# Gradle
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+
+# Go build path
+export GOPATH="$XDG_DATA_HOME/go"
+
+# Opam
+export OPAMROOT="$XDG_DATA_HOME/opam"
+
 # Path for binaries
-export PATH="/usr/bin":"/usr/local/bin":"$HOME/.local/bin":"$CARGO_HOME/bin":"$NIMBLE_DIR/bin":"$SCRIPTS"
+export PATH="$SCRIPTS":\
+"/usr/lib/rustup/bin":\
+"$HOME/.local/bin":\
+"$CARGO_HOME/bin":\
+"$NIMBLE_DIR/bin":\
+"/usr/local/bin":\
+"/usr/bin"
+
+# Setup opam environment variables
+eval "$(opam env)"
