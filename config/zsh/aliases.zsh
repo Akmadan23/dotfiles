@@ -92,6 +92,7 @@ alias dv="docker volume"
 # Misc
 alias se="sudoedit"
 alias ps="ps axu | less"
+alias ext="atool -x"
 alias btm="btm -b"
 alias grep="grep --color"
 alias ytdl="yt-dlp"
