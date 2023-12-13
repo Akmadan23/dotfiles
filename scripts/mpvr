@@ -1,0 +1,6 @@
+#!/bin/bash
+# Shuffle play all videos in the current directory (recursively)
+# or from path specified as first argument
+
+[ -d "$1" ] && { dir="$1"; shift 1; } || dir="$(pwd)"
+fd -0 "\.(m4v|mp4|mov|avi)$" "$dir" | xargs -0 mpv --shuffle "$@"

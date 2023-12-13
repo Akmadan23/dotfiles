@@ -1,0 +1,9 @@
+#!/bin/bash
+# Interactively choose via fzf the video to play
+# in the current directory (recursively)
+# or from path specified as first argument
+
+dir="$HOME/Video"
+[ -d "$1" ] && { dir="$1"; shift 1; } || dir="$(pwd)"
+vid=$(fd --base-directory="$dir" "\.(m4v|mp4|mov|avi)$" | fzf --prompt="$dir > ")
+[ -n "$vid" ] && mpv "$@" "$dir/$vid" || echo "no vid"
