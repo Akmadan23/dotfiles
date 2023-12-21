@@ -1,9 +1,13 @@
 [user]
 name = Akmadan23
 email = azadahmadi@mailo.com
+signingkey = 15C83F0901FCBA13
 
 [core]
-pager = diff-so-fancy | less --mouse -x4
+pager = delta
+
+[advice]
+addIgnoredFile = false
 
 [init]
 defaultBranch = master
@@ -25,5 +29,5 @@ oldHighlight = red bold 52
 newNormal = green bold
 newHighlight = green bold 22
 
-[diff-so-fancy]
-first-run = true
+[delta]
+navigate = true
