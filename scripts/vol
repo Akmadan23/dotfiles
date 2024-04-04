@@ -1,0 +1,19 @@
+#!/bin/bash
+
+case "$1" in
+    mute)
+        amixer set Master toggle
+        amixer get Master | tail -2 | grep -Fq '[off]' && level='-m'
+    ;;
+    +*)
+        amixer set Master unmute "${1:1}%+"
+    ;;
+    -*)
+        amixer set Master unmute "${1:1}%-"
+    ;;
+    *)
+        exit 1
+    ;;
+esac
+
+volnoti-show "${level-$(amixer get Master | tail -1 | grep -Po '[0-9]+(?=%)')}"
