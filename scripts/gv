@@ -1,32 +1,36 @@
 #!/bin/bash
+# Edit modified, new, conflicting (or a combination of the tree) in nvim
 
-case "$1" in
-    m)
-        mode="modified"
-        regex="^ M"
-        col=3
-        ;;
-    n)
-        mode="new"
-        regex="^\?\?"
-        col=2
-        ;;
-    c)
-        mode="conflicting"
-        regex="^UU"
-        col=2
-        ;;
-    *)
-        echo "Unexpected argument: $1"
-        exit 1
-esac
+function update_regex {
+    [ -n "$regex" ] && regex+='|'
+    regex="${regex}$1"
+}
 
-files="$(git status -s "${2:-.}" | grep -E "$regex" | cut -d " " -f "$col")"
+while getopts 'mnc' flag; do
+    case "$flag" in
+        m)  # modified
+            update_regex ' M'
+            ;;
+        n)  # new
+            update_regex '\?\?'
+            ;;
+        c)  # conflicting
+            update_regex 'UU'
+            ;;
+        *)
+            echo "Unexpected flag: $1" >&2
+            exit 1
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+files="$(git status -s "${2:-.}" | grep -E "^($regex) " | awk '{ print $NF }')"
 
 if [[ -n "$files" ]]; then
     # shellcheck disable=2086
     nvim -p $files
 else
-    echo "No $mode files found."
+    echo 'No matching files found.'
     exit 1
 fi
