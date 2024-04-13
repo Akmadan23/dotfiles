@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# shellcheck disable=2154,2155,2317
+
+# Wrapper script to enable image previews in joshuto file manager
+
+function start_ueberzug {
+    mkfifo "$JOSHUTO_WRAP_UEBER_FIFO"
+    tail --follow "$JOSHUTO_WRAP_UEBER_FIFO" | ueberzug layer --parser bash &
+    echo "$!" > "$JOSHUTO_WRAP_PID_FILE"
+    mkdir -p "$JOSHUTO_WRAP_PREVIEW_META"
+}
+
+function stop_ueberzug {
+    UEBERZUG_PID=$(cat "$JOSHUTO_WRAP_PID_FILE")
+    kill "$UEBERZUG_PID"
+    rm -rf "$JOSHUTO_WRAP_TMP"
+}
+
+function show_image {
+    declare -A -p cmd=( \
+        [action]=add \
+        [identifier]="$JOSHUTO_WRAP_UEBER_ID" \
+        [path]="$1" \
+        [x]="$2" \
+        [y]="$3" \
+        [width]="$4" \
+        [height]="$5") \
+        >"$JOSHUTO_WRAP_UEBER_FIFO" \
+        2>"$JOSHUTO_LOGFILE"
+}
+
+function remove_image {
+    declare -A -p cmd=( \
+        [action]=remove \
+        [identifier]="$JOSHUTO_WRAP_UEBER_ID") \
+        >"$JOSHUTO_WRAP_UEBER_FIFO" \
+        2>"$JOSHUTO_LOGFILE"
+}
+
+function get_preview_meta_file {
+    echo "$JOSHUTO_WRAP_PREVIEW_META/$(echo "$1" | md5sum | sed 's/ //g')"
+}
+
+if [ -n "$DISPLAY" ] && command -v ueberzug > /dev/null; then
+    export JOSHUTO_WRAP_ID="$$"
+    export JOSHUTO_WRAP_TMP="$(mktemp -d -t joshuto-wrap-$JOSHUTO_WRAP_ID-XXXXXX)"
+    export JOSHUTO_WRAP_UEBER_FIFO="$JOSHUTO_WRAP_TMP/fifo"
+    export JOSHUTO_WRAP_PID_FILE="$JOSHUTO_WRAP_TMP/pid"
+    export JOSHUTO_WRAP_PREVIEW_META="$JOSHUTO_WRAP_TMP/preview-meta"
+    export JOSHUTO_LOGFILE="$XDG_STATE_HOME/joshuto/joshuto.log"
+    export JOSHUTO_CACHE="$XDG_CACHE_HOME/joshuto/thumbnails"
+
+    export -f get_preview_meta_file
+    export -f show_image
+    export -f remove_image
+
+    trap stop_ueberzug EXIT QUIT INT TERM
+    start_ueberzug
+    echo "ueberzug started"
+fi
+
+TYPE="release"
+
+if [ "$1" == "-d" ]; then
+    echo "[debug mode]"
+    TYPE="debug"
+    shift
+fi
+
+date +"---%n%d/%m/%Y - %H:%M:%S [$TYPE]%n---" >>"$JOSHUTO_LOGFILE"
+"$HOME/git-repos/_FORKS/joshuto/target/$TYPE/joshuto" "$@"
+exit $?
