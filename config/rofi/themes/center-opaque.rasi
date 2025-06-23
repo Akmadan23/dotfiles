@@ -1,10 +1,10 @@
 * {
-    background-color: #465457;
+    background-color:       #242424;
     background-transparent: #242424BB;
-    text-color: #F8F8F0;
-    accent1: #66D8EF;
-    accent2: #E6DB74;
-    accent3: #000000;
+    text-color:             #F8F8F0;
+    accent1:                #66D8EF;
+    accent2:                #465457;
+    accent3:                #000000;
 }
 
 window {
@@ -57,7 +57,7 @@ element.selected {
 }
 
 element-text.selected {
-    text-color: @accent3;
+    text-color: @text-color;
     background-color: @accent2;
 }
 

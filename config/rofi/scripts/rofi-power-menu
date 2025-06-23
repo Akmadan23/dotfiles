@@ -23,7 +23,7 @@ declare -A icons
 icons[shutdown]=""
 icons[reboot]=""
 icons[suspend]=""
-icons[hibernate]=""
+icons[hibernate]=""
 icons[logout]=""
 icons[lockscreen]=""
 icons[cancel]="×"
@@ -34,7 +34,7 @@ actions[reboot]="systemctl reboot"
 actions[suspend]="systemctl suspend"
 actions[hibernate]="systemctl hibernate"
 actions[logout]="loginctl terminate-session $XDG_SESSION_ID"
-actions[lockscreen]="i3lock-fancy"
+actions[lockscreen]="i3lock-fancy-dualmonitor"
 
 # By default, ask for confirmation for actions that are irreversible
 confirmations=(reboot shutdown logout)
