@@ -29,9 +29,22 @@ def autostart_once():
 @hook.subscribe.startup
 def autostart():
     cmd = ""
+    programs = {
+        "picom": " -bf",
+        "dunst": "",
+        "lxpolkit": "",
+        "clipmenud": "",
+        "nm-applet": "",
+        "eject-applet": "",
+        "blueman-applet": "",
+        "light-locker": "",
+        "battery-check": "",
+        "volnoti": "",
+        "pasystray": " --include-monitors --notify=none",
+        "xwallpaper": " --zoom ~/.config/qtile/background.jpg",
+    }
 
-    with open(path.expanduser("~/git-repos/dotfiles/autostart.csv")) as f:
-        for app, args in [l.strip().split(";") for l in f.readlines()]:
-            cmd += f"pgrep -x {app} || {app + args} &\n"
+    for app, args in programs.items():
+        cmd += f"pgrep -x {app} || {app + args} &\n"
 
     sp.run(cmd, shell = True)
