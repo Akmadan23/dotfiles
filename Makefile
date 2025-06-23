@@ -17,7 +17,7 @@ update:
 
 install:
 	@for d in $(DIRS); do \
-		cp -rv $$d ~/.config/; \
+		cp -rv config/$$d ~/.config/; \
 	done
 
 	@for f in $(FILES); do \
@@ -33,7 +33,5 @@ install:
 	git clone https://github.com/hlissner/zsh-autopair.git ~/.config/zsh/plugins/zsh-autopair
 	git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.config/zsh/plugins/zsh-autosuggestions
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.config/zsh/plugins/zsh-syntax-highlighting
-
-	./scripts/remap-caps-lock
 
 	@echo "Dotfiles installed successfully."
