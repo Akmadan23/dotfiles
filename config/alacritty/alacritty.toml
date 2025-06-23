@@ -1,0 +1,48 @@
+[general]
+live_config_reload = true
+import = [
+    "/home/azad/.config/alacritty/colorscheme.toml",
+    "/home/azad/.config/alacritty/keybindings.toml",
+]
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[cursor]
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "Off"
+shape = "Block"
+
+[env]
+TERM = "alacritty"
+
+[font]
+builtin_box_drawing = true
+size = 9.5
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.normal]
+# family = "monospace"
+family = "Hasklug Nerd Font Mono"
+
+[font.offset]
+x = 0
+y = 0
+
+[scrolling]
+history = 16000
+multiplier = 3
+
+[window]
+dynamic_title = true
+opacity = 0.75
+title = "Alacritty"
+
+[window.padding]
+x = 4
+y = 4
