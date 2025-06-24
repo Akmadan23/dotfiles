@@ -1,19 +1,48 @@
+local L = "<Leader>"
+
 return {
     { "nvim-lua/plenary.nvim",              lazy = true },
     { "nvim-tree/nvim-web-devicons",        lazy = true },
     { "debugloop/telescope-undo.nvim",      lazy = true },
-    { "folke/neodev.nvim", version = "*",   lazy = true },
-
+    { "folke/neodev.nvim",  version = "*",  lazy = true },
+    {   -- Notify
+        "rcarriga/nvim-notify",
+        priority = 60,
+        version = "*",
+        cond = not vim.g.started_by_firenvim,
+        config = function()
+            vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "#000000" })
+            vim.notify = require("notify")
+        end
+    },
     {   -- LSP
         "neovim/nvim-lspconfig",
-        config = require("configs.lspconfig")
+        cond = not vim.g.started_by_firenvim,
+        config = require("configs.lspconfig"),
     },
-
+    {   -- Lint
+        "mfussenegger/nvim-lint",
+        cond = false,
+        config = require("configs.lint"),
+    },
+    {   -- Fidget
+        "j-hui/fidget.nvim",
+        cond = false,
+        tag = "legacy",
+        event = "LspAttach",
+        opts = {
+            text = {
+                spinner = "meter"
+            },
+            window = {
+                blend = 0
+            },
+        },
+    },
     {   -- CMP
         "hrsh7th/nvim-cmp",
-        cond = vim.bo.modifiable,
+        event = "InsertEnter",
         config = require("configs.cmp"),
-
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-cmdline",
@@ -21,146 +50,153 @@ return {
             "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
             "onsails/lspkind-nvim",
-        }
+        },
     },
-
     {   -- Snippets
         "L3MON4D3/LuaSnip",
-        version = "v1.*",
-        cond = vim.bo.modifiable,
-        config = require("configs.luasnips")
+        cond = not vim.g.started_by_firenvim,
+        version = "*",
+        event = "InsertEnter",
+        config = require("configs.luasnips"),
     },
-
     {   -- JDTLS
         "mfussenegger/nvim-jdtls",
+        version = "*",
         ft = "java",
-        config = require("configs.jdtls")
+        config = require("configs.jdtls"),
     },
-
     {   -- Rust tools
         "simrat39/rust-tools.nvim",
         ft = "rust",
-
-        config = function()
-            require("rust-tools").setup()
-        end
+        opts = {},
     },
-
     {   -- Crates
         "Saecki/crates.nvim",
+        version = "*",
         event = "BufRead Cargo.toml",
-
-        config = function()
-            require("crates").setup()
-        end
+        opts = {},
     },
-
     {   -- Trouble
         "folke/trouble.nvim",
-
-        config = function()
-            require("trouble").setup {
-                indent_lines = false,
-                auto_close = true
-            }
-        end
+        version = "*",
+        opts = {
+            indent_lines = false,
+            auto_close = true,
+            focus = true,
+        },
+        keys = {
+            { L.."d", function() require("trouble").toggle { mode = "diagnostics" } end },
+        },
     },
-
     {   -- Treesitter
         "nvim-treesitter/nvim-treesitter",
+        version = "*",
+        build = ":TSUpdate",
         config = require("configs.treesitter"),
-
+        -- commit = "fa414da",
+        -- commit = "203981d",
         dependencies = {
             "RRethy/nvim-treesitter-endwise",
-            "windwp/nvim-ts-autotag",
         }
     },
-
     {   -- Telescope
         "nvim-telescope/telescope.nvim",
         version = "*",
         config = require("configs.telescope"),
         keys = require("configs.telescope.keys"),
     },
-
     {   -- Nvim tree
         "nvim-tree/nvim-tree.lua",
-        config = require("configs.nvim-tree")
+        dev = true,
+        cond = not vim.g.started_by_firenvim,
+        config = require("configs.nvim-tree"),
     },
-
     {   -- Lualine
         "nvim-lualine/lualine.nvim",
-        config = require("configs.lualine")
+        cond = not vim.g.started_by_firenvim,
+        config = require("configs.lualine"),
     },
-
     {   -- Highlight colors
         "brenoprata10/nvim-highlight-colors",
-
-        config = function()
-            require("nvim-highlight-colors").setup {
-                enable_named_colors = false,
-                render = "background"
-            }
-        end
+        opts = {
+            enable_named_colors = false,
+            render = "background"
+        },
     },
-
     {   -- Indent blankline
         "lukas-reineke/indent-blankline.nvim",
-
-        config = function()
-            require("indent_blankline").setup {
+        version = "*",
+        main = "ibl",
+        opts = {
+            indent = {
                 char = "▏",
-                indent_level                    = 10,
-                max_indent_increase             = 2,
-                show_trailing_blankline_indent  = false,
-                show_first_indent_level         = true,
-
-                filetype_exclude = {
-                    "help",
-                    "man",
-                    "markdown",
-                    "vimwiki",
-                    "tex",
-                    "text"
-                }
+                tab_char = "⇀"
+            },
+            scope = {
+                enabled = false
             }
-        end
+        },
     },
-
+    {   -- Guess indent
+        "NMAC427/guess-indent.nvim",
+        cond = not vim.g.started_by_firenvim,
+        opts = {},
+    },
     {   -- Git signs
         "lewis6991/gitsigns.nvim",
-
-        config = function()
-            require("gitsigns").setup()
-        end
+        event = "User LoadGitSigns",
+        init = require("configs.gitsigns"),
+        opts = {},
     },
-
     {   -- Comment
         "numToStr/Comment.nvim",
-        cond = vim.bo.modifiable,
-
-        config = function()
-            require("Comment").setup {
-                ignore = "^$"
-            }
-        end
+        version = "*",
+        event = "VeryLazy",
+        opts = {
+            ignore = "^$"
+        },
     },
-
     {   -- Autopairs
         "altermo/ultimate-autopair.nvim",
-        cond = vim.bo.modifiable,
         -- commit = "b1cbb66",
-
-        config = function()
-            require("ultimate-autopair").setup {
-                bs = {
-                    overjump = false
-                },
-
-                cr = {
-                    addsemi = false
-                },
-            }
-        end
+        event = "InsertEnter",
+        opts = {
+            bs = {
+                overjump = false
+            },
+            cr = {
+                addsemi = false
+            },
+        },
+    },
+    {   -- Surround
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        opts = {},
+    },
+    {   -- Hop
+        "phaazon/hop.nvim",
+        event = "VeryLazy",
+        opts = {
+            keys = "asdfghjklqwertyuiopzxcvbnm"
+        },
+        keys = {
+            { "\\", function() require("hop").hint_char1() end },
+        },
+    },
+    {   -- Scratchpad
+        "Akmadan23/scratchpad.nvim",
+        cond = not vim.g.started_by_firenvim,
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            { "<F2>", function() require("scratchpad").toggle() end }
+        },
+    },
+    {   -- Local session
+        "Akmadan23/local-session.nvim",
+        cond = not vim.g.started_by_firenvim,
+        opts = {},
     },
 }

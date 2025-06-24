@@ -4,7 +4,7 @@ local exp = vim.fn.expand
 local is_exe = vim.fn.executable
 
 local echo = function(obj, opts)
-    vim.api.nvim_echo({{ vim.inspect(obj) }}, true, opts or {})
+    vim.api.nvim_echo({ { vim.inspect(obj) } }, true, opts or {})
 end
 
 local is_file = function(f)
@@ -12,13 +12,13 @@ local is_file = function(f)
 end
 
 local notify = function(msg)
-    vim.notify(msg, vim.log.WARN)
+    vim.notify(msg, vim.log.levels.WARN)
 end
 
 -- Module to be exported
 local M = {}
 
----Find the root directory of current project
+--- Find the root directory of current project
 ---@param file string
 ---@param path string|nil
 ---@return string|nil
@@ -50,6 +50,25 @@ end
 
 compile.cpp = function()
     return "g++ -o '%:r' '%'"
+end
+
+compile.cs = function()
+    local root = M.root_dir("Program.cs")
+
+    if is_exe("dotnet") then
+        local opts = {
+            split = true
+        }
+
+        if vim.fn.getcwd() ~= root then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "dotnet build", opts
+    end
+
+    notify("Dotnet SDK is not installed.")
 end
 
 compile.go = function()
@@ -90,8 +109,6 @@ compile.javascript = function()
 
     notify("NPM is not installed")
 end
-
-compile.typescript = compile.javascript
 
 compile.lilypond = function()
     if is_exe("lilypond") then
@@ -153,7 +170,7 @@ end
 
 compile.tex = function()
     if is_exe("pdflatex") then
-        return "pdflatex '%' -output-directory '%:h'"
+        return "pdflatex -no-shell-escape -output-directory '%:h' '%'"
     end
 
     notify("LaTeX is not installed.")
@@ -175,7 +192,7 @@ compile.zig = function()
     notify("Zig is not installed.")
 end
 
---- Compile current file
+--- Compile function for C, C++, Go, Rust, Nim, Zig, Java, LaTeX, Dot and Lilypond
 M.compile = function()
     if compile[vim.o.ft] then
         local cmd, opts = compile[vim.o.ft]()
@@ -238,6 +255,23 @@ run.rust = function()
     end
 
     return run.bin()
+end
+
+run.cs = function()
+    local root = M.root_dir("Program.cs")
+
+    if is_exe("dotnet") then
+        local opts = {}
+
+        if vim.fn.getcwd() ~= root then
+            vim.cmd.cd(root)
+            opts.jump_back = true
+        end
+
+        return "dotnet run", opts
+    end
+
+    notify("Dotnet SDK is not installed.")
 end
 
 run.java = function()
@@ -316,7 +350,11 @@ run.ruby = function()
 end
 
 run.lua = function()
-    if is_exe("luajit") then
+    local line1 = tostring(vim.fn.getline(1))
+
+    if line1:match("^#!/.*$") then
+        return line1:sub(3) .. " '%'"
+    elseif is_exe("luajit") then
         return "luajit '%'"
     elseif is_exe("lua") then
         return "lua '%'"
@@ -352,7 +390,7 @@ end
 run.bash = run.sh
 run.zsh = run.sh
 
-run.tex = function()
+run.pdf = function()
     if os.getenv("READER") then
         local pdf_path = fmt("%s.pdf", exp("%:r"))
 
@@ -366,10 +404,11 @@ run.tex = function()
     end
 end
 
-run.dot = run.tex
-run.lilypond = run.tex
+run.tex = run.pdf
+run.dot = run.pdf
+run.lilypond = run.pdf
 
---- Run current file if executable or corresponding compiled file
+--- Run function for Java, Python, Perl, Ruby, Lua, Common Lisp, LaTeX, Dot, Lilypond and any binary file
 M.run = function(args)
     local cmd, opts
 
@@ -392,7 +431,7 @@ M.run = function(args)
     end
 end
 
--- Wrapper for M.run with option to pass arguments
+--- Wrapper for M.run with option to pass arguments
 M.run_with_args = function()
     vim.ui.input({ prompt = "Args: " }, function(input)
         if input then
@@ -475,7 +514,7 @@ M.test = function()
             end
         end
     else
-        notify("Nothing to test")
+        notify("WARNING: Nothing to test")
     end
 end
 
@@ -503,22 +542,53 @@ M.inspect_object = function()
     end)
 end
 
-local trees = {}
+---@class Tree
+---@field [1] integer win id of file
+---@field [2] integer win id of tree
+---@field [3] integer autocmd id
+
+---@type Tree[]
+M._trees = {}
+
+local close_tree = function(index, t)
+    vim.api.nvim_del_autocmd(t[3])
+    vim.api.nvim_win_close(t[2], false)
+    table.remove(M._trees, index)
+end
+
+local open_tree = function(file_winnr, tree_winnr)
+    local autocmd = vim.api.nvim_create_autocmd("WinClosed", {
+        pattern = tostring(tree_winnr),
+        once = true,
+        callback = function()
+            for i, t in ipairs(M._trees) do
+                if vim.tbl_contains(t, tree_winnr) then
+                    table.remove(M._trees, i)
+                    return
+                end
+            end
+        end
+    })
+    table.insert(M._trees, { file_winnr, tree_winnr, autocmd })
+end
 
 --- Toggle layer for vim.treesitter.inspect_tree
 M.inspect_tree = function()
     local winnr = vim.api.nvim_get_current_win()
 
-    for i, t in ipairs(trees) do
+    for i, t in ipairs(M._trees) do
         if vim.tbl_contains(t, winnr) then
-            vim.api.nvim_win_close(t[2], false)
-            table.remove(trees, i)
+            close_tree(i, t)
             return
         end
     end
 
-    vim.treesitter.inspect_tree()
-    table.insert(trees, { winnr, vim.api.nvim_get_current_win() })
+    if pcall(vim.treesitter.inspect_tree) then
+        open_tree(winnr, vim.api.nvim_get_current_win())
+        return
+    end
+
+    notify("This buffer does not support treesitter.")
 end
 
 return M

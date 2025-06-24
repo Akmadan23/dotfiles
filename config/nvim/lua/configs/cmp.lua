@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return function()
     local cmp = require("cmp")
     local border = cmp.config.window.bordered()
@@ -11,6 +12,7 @@ return function()
 
         sources = {
             { name = "nvim_lsp" },
+            { name = "nvim_lua" },
             { name = "luasnip"  },
             { name = "path",    trailing_slash = true   },
             { name = "buffer",  keyword_length = 5      },
@@ -37,6 +39,7 @@ return function()
                 mode = "symbol_text",
                 menu = {
                     nvim_lsp    = "[LSP]",
+                    -- nvim_lua    = "[API]",
                     luasnip     = "[SNIP]",
                     path        = "[PATH]",
                     buffer      = "[BUF]",

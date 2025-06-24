@@ -4,7 +4,6 @@ return function()
     -- Assign parsers to unsupported filetypes
     local ft_parser = {
         bash = "zsh",
-        html = "xml",
     }
 
     for parser, ft in pairs(ft_parser) do

@@ -3,7 +3,7 @@ return function()
     local path = {
         jar = "/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
         config = "/usr/share/java/jdtls/config_linux",
-        data = os.getenv "XDG_DATA_HOME" .. "/jdtls/",
+        data = os.getenv("ECLIPSE_WORKSPACE"),
     }
 
     -- Initialize JDTLS

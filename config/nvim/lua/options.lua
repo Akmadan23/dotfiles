@@ -10,6 +10,8 @@ return {
     incsearch   = true,
     ignorecase  = true,
     cursorline  = true,
+    cole        = 2,
+    scrolloff   = 4,
     background  = "dark",
     clipboard   = "unnamedplus",
     completeopt = "menuone",

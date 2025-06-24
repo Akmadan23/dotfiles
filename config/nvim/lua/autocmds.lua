@@ -7,7 +7,6 @@ return {
         opts = {
             pattern = "term://*",
             group = group,
-
             callback = function()
                 vim.o.nu = false
                 vim.o.rnu = false
@@ -15,27 +14,22 @@ return {
             end
         }
     },
-
-    {   -- Set tabs to 2 for some filetypes
+    {   -- Add syntax highlighting to lilypond
         event = "FileType",
         opts = {
-            pattern = { "json", "query" },
+            pattern = "lilypond",
             group = group,
-
             callback = function()
-                vim.bo.shiftwidth = 2
-                vim.bo.tabstop = 2
+                vim.opt.rtp:append("/usr/share/vim/vimfiles")
             end
         }
     },
-
     {   -- Open nvim-tree when editing plugins configuration
         event = "BufEnter",
         opts = {
             pattern = home .. "/.config/nvim/lua/plugins.lua",
             group = group,
             once = true,
-
             callback = function()
                 require("nvim-tree.api").tree.toggle {
                     path = vim.fn.expand("%:h") .. "/configs",

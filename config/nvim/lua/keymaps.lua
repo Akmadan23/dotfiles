@@ -1,33 +1,20 @@
 local fn = require("functions")
+local toggle = require("utils.toggle")
+
+-- Useful constants
 local L = "<Leader>"
-
-local toggle = {
-    wrap = function()
-        vim.o.wrap = not vim.o.wrap
-        print("Wrap:", vim.o.wrap)
-    end,
-
-    ignorecase = function()
-        vim.o.ic = not vim.o.ic
-        print("Ignorecase:", vim.o.ic)
-    end,
-
-    shiftwidth = function()
-        vim.o.sw = (vim.o.sw == 4) and 2 or 4
-        print("Shiftwidth:", vim.o.sw)
-    end
-}
+local NOP = "<NOP>"
 
 return {
     n = {
         -- Disable horizontal mouse scrolling
-        ["<ScrollWheelLeft>"]  = "<NOP>",
-        ["<ScrollWheelRight>"] = "<NOP>",
+        ["<ScrollWheelLeft>"]  = NOP,
+        ["<ScrollWheelRight>"] = NOP,
 
-        -- Disable q and Q
-        ["q"] = "<NOP>",
-        ["Q"] = "<NOP>",
-        ["U"] = "<NOP>",
+        -- Disable q, Q and U
+        ["q"] = NOP,
+        ["Q"] = NOP,
+        ["U"] = NOP,
 
         -- Map <Leader>q to q
         [L.."q"] = "q",
@@ -35,8 +22,8 @@ return {
         -- Join lines with dj
         ["dj"] = "J",
 
-        -- Select all
-        ["<C-A>"] = "ggVG",
+        -- gf to new tab
+        ["gf"] = "<C-W>gf",
 
         -- Move between splits
         ["<C-H>"] = "<C-W>h",
@@ -44,16 +31,27 @@ return {
         ["<C-K>"] = "<C-W>k",
         ["<C-L>"] = "<C-W>l",
 
+        -- Select all
+        ["<C-A>"] = "ggVG",
+
+        -- InspectTree
+        ["<C-T>"] = fn.inspect_tree,
+
         -- LSP shortcuts
         ["grr"] = vim.lsp.buf.rename,
         [L.."i"] = vim.lsp.buf.hover,
         [L.."ca"] = vim.lsp.buf.code_action,
+        [L.."cw"] = function() vim.lsp.buf.rename(vim.fn.input("New name: ")) end,
 
         -- Show highlight info about token under cursor
         [L.."h"] = vim.show_pos,
 
+        -- Buffers navigation
+        [L.."bn"] = vim.cmd.bn,
+        [L.."bp"] = vim.cmd.bp,
+
         -- Hide search highlights
-        ["<bs>"] = vim.cmd.nohl,
+        ["<BS>"] = vim.cmd.nohl,
 
         -- Automatic centering when cycling between search highlights
         ["n"] = "nzz",
@@ -64,7 +62,7 @@ return {
         ["<S-Tab>"] = "gT",
 
         -- Inspect lua object on the fly
-        [L.."vi"] = fn.inspect,
+        [L.."vi"] = fn.inspect_object,
 
         -- Toggles
         [L.."tw"] = toggle.wrap,
@@ -74,15 +72,24 @@ return {
         -- Lazy
         [L.."lh"] = function() require("lazy").home() end,
         [L.."ls"] = function() require("lazy").sync() end,
+        [L.."lp"] = function() require("lazy").profile() end,
 
-        -- Trouble
-        [L.."d"] = function() require("trouble").toggle() end,
+        -- Notify
+        [L.."nd"] = function() require("notify").dismiss() end,
 
-        -- Indent
-        [L.."ri"] = function() require("indent_blankline").refresh() end,
+        -- Guess indent
+        [L.."gi"] = function() require("guess-indent").set_from_buffer() end,
 
         -- NvimTree
         ["<C-E>"] = function() require("nvim-tree.api").tree.toggle { path = vim.fn.expand("%:h") } end,
+
+        -- GitSigns
+        ["gbt"] = function() require("gitsigns").toggle_current_line_blame() end,
+        ["gbl"] = function() require("gitsigns").blame_line { full = true } end,
+        ["ghp"] = function() require("gitsigns").preview_hunk() end,
+        ["ghr"] = function() require("gitsigns").reset_hunk() end,
+        ["gn"]  = function() require("gitsigns").nav_hunk("next") end,
+        ["gN"]  = function() require("gitsigns").nav_hunk("prev") end,
 
         -- Compile, run and test
         ["<F5>"]    = fn.compile,
@@ -100,7 +107,7 @@ return {
         [L.."p"] = "\"_dP",
     },
 
-    [{ "n", "v" }] = {
+    n_v = {
         -- Start/end of line with H/L
         ["H"] = "^",
         ["L"] = "$",
@@ -112,12 +119,14 @@ return {
         -- Increase/decrease numeric values
         ["+"] = "<C-A>",
         ["-"] = "<C-X>",
+
+        ["<c-s-.>"] = "q:",
     },
 
-    [{ "i", "s" }] = {
+    i_s = {
         -- Disable PageUp and PageDown
-        ["<PageUp>"]   = "<NOP>",
-        ["<PageDown>"] = "<NOP>",
+        ["<PageUp>"]   = NOP,
+        ["<PageDown>"] = NOP,
 
         -- LuaSnip
         ["<C-N>"] = function() require("luasnip").jump(1) end,
