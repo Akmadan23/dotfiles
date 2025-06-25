@@ -1,10 +1,12 @@
 # Theme
 
+set font "Cantarell 10"
+
 set recolor-lightcolor      "#000000"
 set recolor-darkcolor       "#EEEEEE"
 
-set highlight-color         "#FD971F"
-set highlight-active-color  "#E6DB74"
+# set highlight-color         "#FD971F"
+# set highlight-active-color  "#E6DB74"
 
 set inputbar-bg	            "#000000"
 set inputbar-fg	            "#EEEEEE"

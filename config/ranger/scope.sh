@@ -93,14 +93,14 @@ handle_image() {
     local mimetype="${1}"
     case "${mimetype}" in
         # SVG
-        # image/svg+xml)
-        #     convert "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
-        #     exit 1;;
+        image/svg+xml)
+            # convert "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
+            exit 1;;
 
         # Image
         image/*)
             local orientation
-            orientation="$( identify -format '%[EXIF:Orientation]\n' -- "${FILE_PATH}" )"
+            orientation="$(identify -format '%[EXIF:Orientation]\n' -- "${FILE_PATH}")"
             # If orientation data is present and the image actually
             # needs rotating ("1" means no rotation)...
             if [[ -n "$orientation" && "$orientation" != 1 ]]; then
@@ -210,7 +210,7 @@ handle_fallback() {
     exit 1
 }
 
-MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
+MIMETYPE="$(file --dereference --brief --mime-type -- "${FILE_PATH}")"
 if [[ "${PV_IMAGE_ENABLED}" == 'True' ]]; then
     handle_image "${MIMETYPE}"
 fi

@@ -1,5 +1,4 @@
 import subprocess as sp
-from os import path
 from libqtile import hook
 
 # Monitor detection script

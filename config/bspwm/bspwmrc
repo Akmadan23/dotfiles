@@ -10,7 +10,7 @@ while IFS=";" read app args; do
 done < x.csv
 
 ###------------ Monitors ------------###
-if [ $(xrandr | grep "HDMI1 disconnected") ]; then
+if [ $(xrandr | grep -q "HDMI1 disconnected") ]; then
 	bspc monitor eDP1  -d 1 2 3 4 5 6 7 8 9
 else
 	bspc monitor eDP1  -d 1 2 3 4 5 6 7 8 9
@@ -43,7 +43,7 @@ bspc config window_gap 20
 bspc config border_width 2
 
 ###------------ App launcher rules ------------###
-bspc rule -a Firefox desktop='^2'
-bspc rule -a Thunderbird desktop='^3'
-bspc rule -a Toolkit state=floating
+bspc rule -a Firefox desktop="^2"
+bspc rule -a Thunderbird desktop="^3"
+bspc rule -a Toolkit state="floating"
 

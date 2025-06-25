@@ -1,19 +1,24 @@
 ## INSTALLATION: curl -fsSL https://starship.rs/install.sh | bash
 
 # Don't print a new line at the start of the prompt
-add_newline = true
+add_newline = false
 scan_timeout = 60
 
 # Use custom format
-format = """
-[┌────](bold blue)$username[](fg:white bg:blue)[](fg:cyan bg:white)$hostname[──── ─ ─](bold cyan)$cmd_duration
-[│](bold blue)$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake
+format = """$status
+[┌────](bold blue)$username[](fg:white bg:blue)[](fg:cyan bg:white)$hostname[──── ─ ─](bold cyan)$time$cmd_duration
+[│](bold blue) $jobs$directory$git_branch$git_status$rust$ruby$python$lua$java$nodejs$php$cmake$nim$golang$haskell$ocaml
 [└──](bold blue)$character"""
 
 [character]
-success_symbol = "[❯](blue)"
-error_symbol = "[❯](red)"
-vicmd_symbol = "[─](bold blue)"
+format = "[$symbol](bold blue) "
+success_symbol = "❯"
+error_symbol = "❯"
+vimcmd_symbol = "●"
+
+[jobs]
+symbol = "+"
+style = "bold cyan"
 
 [directory]
 truncate_to_repo = false
@@ -24,7 +29,7 @@ format = "[$path]($style) [$read_only]($read_only_style)"
 
 [cmd_duration]
 style = "bold yellow"
-format = "[ \\[$duration\\]]($style)"
+format = " [\\[$duration\\]]($style)"
 
 [username]
 style_user = "bold fg:black bg:blue"
@@ -42,9 +47,20 @@ format = "on [$symbol$branch]($style) "
 
 [git_status]
 style = "bold red"
-format = "[$all_status]($style)"
+format = "[$all_status]($style) "
 conflicted = "!"
 untracked = "?"
 modified = "●"
 staged = "+"
 deleted = "✘"
+
+[status]
+style = "bold red"
+format = "\n[$symbol$status]($style)"
+disabled = false
+
+[time]
+style = "cyan"
+format = " [$time]($style)"
+time_format = "%R"
+disabled = false

@@ -2,15 +2,16 @@
 import os, hooks as _
 from libqtile import layout, widget
 from libqtile.lazy import lazy
-from libqtile.config import Bar, Click, Drag, Group, Key, KeyChord, Match, Screen
+from libqtile.config import Bar, Drag, Group, Key, KeyChord, Match, Screen
 
 # Keys aliases constants
-MOD = ["mod4"]
-S_MOD = ["mod4", "shift"]
-C_MOD = ["mod4", "control"]
-A_MOD = ["mod4", "mod1"]
-CA_MOD = ["mod4", "mod1", "control"]
-SCA_MOD = ["mod4", "mod1", "control", "shift"]
+_mod    = "mod4"
+MOD     = [_mod]
+S_MOD   = [_mod, "shift"]
+C_MOD   = [_mod, "control"]
+A_MOD   = [_mod, "mod1"]
+CA_MOD  = [_mod, "mod1", "control"]
+SCA_MOD = [_mod, "mod1", "control", "shift"]
 
 # Import environment variables
 term = os.environ["TERMINAL"]
@@ -371,8 +372,8 @@ screen_defaults = dict(backgroud = colors[0], size = 24)
 
 # Screen settings
 screens = [
+    Screen(top = Bar(widgets = widgets2, **screen_defaults)),
     Screen(top = Bar(widgets = widgets1, **screen_defaults)),
-    Screen(top = Bar(widgets = widgets2, **screen_defaults))
 ]
 
 # Other settings
