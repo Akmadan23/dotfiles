@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This is a very simple script to launch a game selected with fzf between games in the $dir directory.
+# In each game directory there must be a `_run` symlink to the game binary.
+
+dir="$HOME/Documenti/Games"
+# shellcheck disable=SC2012
+game="$(ls "$dir" | shuf | fzf)"
+
+if [ -n "$game" ]; then
+    echo "Starting '$game'"
+    echo "------------------------------------------"
+    cd "$dir/$game" || exit 1
+    exec ./_run
+else
+    echo "Game not selected."
+fi
