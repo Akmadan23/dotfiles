@@ -4,14 +4,18 @@ text = [
     { command = "nvim" },
     { command = "micro" },
     { command = "gedit", fork = true, silent = true },
-    { command = "bat", confirm_exit = true }
+    { command = "bat", confirm_exit = true },
 ]
 
 image = [
-    { command = "sxiv", fork = true, silent = true },
-    { command = "gimp", fork = true, silent = true },
-    { command = "krita", fork = true, silent = true },
-    { command = "mediainfo", confirm_exit = true }
+    { command = "imv",      fork = true, silent = true },
+    { command = "nsxiv",    fork = true, silent = true },
+    { command = "sxiv",     fork = true, silent = true },
+    { command = "eom",      fork = true, silent = true },
+    { command = "eog",      fork = true, silent = true },
+    { command = "gimp",     fork = true, silent = true },
+    { command = "krita",    fork = true, silent = true },
+    { command = "mediainfo", confirm_exit = true },
 ]
 
 video = [
@@ -20,166 +24,153 @@ video = [
 ]
 
 audio = [
-    { command = "mpv", args = [ "--" ], fork = true, silent = true },
+    # { command = "mpv", args = [ "--" ], fork = true, silent = true },
+    { command = "rhythmbox", fork = true, silent = true },
     { command = "deadbeef", fork = true, silent = true },
-    { command = "mediainfo", confirm_exit = true }
+    { command = "mediainfo", confirm_exit = true },
 ]
 
 office = [
     { command = "libreoffice", fork = true, silent = true },
-    { command = "onlyoffice", fork = true, silent = true }
+    { command = "onlyoffice", fork = true, silent = true },
 ]
 
 [extension]
 
 ## text formats
-build.inherit = "text"
-c.inherit = "text"
-cmake.inherit = "text"
-conf.inherit = "text"
-cpp.inherit = "text"
-css.inherit = "text"
-csv.inherit = "text"
-cu.inherit = "text"
+build.inherit   = "text"
+c.inherit       = "text"
+cmake.inherit   = "text"
+conf.inherit    = "text"
+cpp.inherit     = "text"
+css.inherit     = "text"
+csv.inherit     = "text"
+cu.inherit      = "text"
 desktop.inherit = "text"
-eex.inherit = "text"
-env.inherit = "text"
-ex.inherit = "text"
-exs.inherit = "text"
-go.inherit = "text"
-h.inherit = "text"
-hpp.inherit = "text"
-hs.inherit = "text"
-html.inherit = "text"
-ini.inherit = "text"
-java.inherit = "text"
-js.inherit = "text"
-json.inherit = "text"
-kt.inherit = "text"
-lua.inherit = "text"
-ly.inherit = "text"
-log.inherit = "text"
-md.inherit = "text"
-micro.inherit = "text"
-ninja.inherit = "text"
-py.inherit = "text"
-rkt.inherit = "text"
-rs.inherit = "text"
-scss.inherit = "text"
-sh.inherit = "text"
-srt.inherit = "text"
-tex.inherit = "text"
-toml.inherit = "text"
-tsx.inherit = "text"
-txt.inherit = "text"
-vim.inherit = "text"
-xml.inherit = "text"
-yaml.inherit = "text"
-yml.inherit = "text"
+eex.inherit     = "text"
+env.inherit     = "text"
+ex.inherit      = "text"
+exs.inherit     = "text"
+go.inherit      = "text"
+h.inherit       = "text"
+hpp.inherit     = "text"
+hs.inherit      = "text"
+html.inherit    = "text"
+ini.inherit     = "text"
+java.inherit    = "text"
+js.inherit      = "text"
+json.inherit    = "text"
+kt.inherit      = "text"
+lua.inherit     = "text"
+ly.inherit      = "text"
+log.inherit     = "text"
+md.inherit      = "text"
+micro.inherit   = "text"
+ninja.inherit   = "text"
+py.inherit      = "text"
+rkt.inherit     = "text"
+rs.inherit      = "text"
+scss.inherit    = "text"
+sh.inherit      = "text"
+srt.inherit     = "text"
+tex.inherit     = "text"
+toml.inherit    = "text"
+tsx.inherit     = "text"
+txt.inherit     = "text"
+vim.inherit     = "text"
+xml.inherit     = "text"
+yaml.inherit    = "text"
+yml.inherit     = "text"
 
-## image formats
-bmp.inherit = "image"
-gif.inherit = "image"
-heic.inherit = "image"
-jpeg.inherit = "image"
-jpe.inherit = "image"
-jpg.inherit = "image"
-pgm.inherit = "image"
-png.inherit = "image"
-ppm.inherit = "image"
-tiff.inherit = "image"
+# image
+bmp.inherit     = "image"
+gif.inherit     = "image"
+heic.inherit    = "image"
+jpeg.inherit    = "image"
+jpg.inherit     = "image"
+pgm.inherit     = "image"
+png.inherit     = "image"
+ppm.inherit     = "image"
+tiff.inherit    = "image"
+webp.inherit    = "image"
 
 svg.app_list = [
-    { command = "firefox", fork = true, silent = true },
-    { command = "inkscape", fork = true, silent = true }
+    { command = "firefox",  fork = true, silent = true },
+    { command = "inkscape", fork = true, silent = true },
 ]
 
-## video formats
-avi.inherit = "video"
-av1.inherit = "video"
-flv.inherit = "video"
-mkv.inherit = "video"
-m4v.inherit = "video"
-mov.inherit = "video"
-mp4.inherit = "video"
-webm.inherit = "video"
-webp.inherit = "video"
-wmv.inherit = "video"
+# videos
+3gp.inherit     = "video"
+avi.inherit     = "video"
+av1.inherit     = "video"
+flv.inherit     = "video"
+mkv.inherit     = "video"
+m4v.inherit     = "video"
+mov.inherit     = "video"
+mp4.inherit     = "video"
+webm.inherit    = "video"
+wmv.inherit     = "video"
 
-## audio formats
-flac.inherit = "audio"
-m3u.inherit = "audio"
-m4a.inherit = "audio"
-mp3.inherit = "audio"
-ogg.inherit = "audio"
-wav.inherit = "audio"
-ts.inherit = "audio"
+# audio
+flac.inherit    = "audio"
+m3u.inherit     = "audio"
+m4a.inherit     = "audio"
+mp3.inherit     = "audio"
+ogg.inherit     = "audio"
+wav.inherit     = "audio"
 
 # office formats
-odt.inherit = "office"
-ods.inherit = "office"
-odp.inherit = "office"
-odf.inherit = "office"
-doc.inherit = "office"
-xls.inherit = "office"
-ppt.inherit = "office"
-docx.inherit = "office"
-xlsx.inherit = "office"
-pptx.inherit = "office"
+odt.inherit     = "office"
+ods.inherit     = "office"
+odp.inherit     = "office"
+odf.inherit     = "office"
+doc.inherit     = "office"
+docx.inherit    = "office"
+xls.inherit     = "office"
+xlsx.inherit    = "office"
+ppt.inherit     = "office"
+pptx.inherit    = "office"
 
 # archive formats
-7z.app_list = [
-    { command = "7z", args = [ "x" ], confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
+7z.app_list     = [{ command = "7z",    args = ["x"],       confirm_exit = true }]
+bz2.app_list    = [{ command = "tar",   args = ["-xvjf"],   confirm_exit = true }]
+gz.app_list     = [{ command = "tar",   args = ["-xvzf"],   confirm_exit = true }]
+tar.app_list    = [{ command = "tar",   args = ["-xvf"],    confirm_exit = true }]
+tgz.app_list    = [{ command = "tar",   args = ["-xvzf"],   confirm_exit = true }]
+rar.app_list    = [{ command = "unrar", args = ["e"],       confirm_exit = true }]
+xz.app_list     = [{ command = "tar",   args = ["-xvJf"],   confirm_exit = true }]
+zip.app_list    = [{ command = "unzip",                     confirm_exit = true }]
 
-bz2.app_list = [
-    { command = "tar", args = [ "-xvjf" ], confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
+# misc
 
-gz.app_list = [
-    { command = "tar", args = [ "-xvzf" ], confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
-
-tar.app_list = [
-    { command = "tar", args = [ "-xvf" ], confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
-
-tgz.app_list = [
-    { command = "tar", args = [ "-xvzf" ], confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
-
-rar.app_list = [
-    { command = "unrar", args = [ "e" ], confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
-
-xz.app_list = [
-    { command = "tar", args = [ "-xvJf" ], confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
-
-zip.app_list = [
-    { command = "unzip", confirm_exit = true },
-    { command = "file-roller", fork = true, silent = true }
-]
-
-# misc formats
 pdf.app_list = [
     { command = "zathura", fork = true, silent = true },
     { command = "evince", fork = true, silent = true },
-    { command = "okular", fork = true, silent = true }
+    { command = "okular", fork = true, silent = true },
 ]
 
 torrent.app_list = [
-    { command = "transmission-gtk" }
+    { command = "transmission-gtk", fork = true, silent = true },
 ]
 
 aup.app_list = [
-    { command = "audacity", fork = true, silent = true }
+    { command = "tenacity", fork = true, silent = true },
+    { command = "audacity", fork = true, silent = true },
 ]
 
+blend.app_list = [
+    { command = "blender", fork = true, silent = true },
+]
+
+ardour.app_list = [
+    { command = "LANG=en ardour8", fork = true, silent = true },
+    { command = "nvim" },
+]
+
+[mimetype]
+text.inherit = "text"
+image.inherit = "image"
+video.inherit = "video"
+
+[mimetype.application.subtype.octet-stream]
+inherit = "video"

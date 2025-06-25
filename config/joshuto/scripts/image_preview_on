@@ -1,0 +1,57 @@
+#!/usr/bin/bash
+
+test -z "$JOSHUTO_WRAP_ID" && exit 1
+exec &>>"$JOSHUTO_LOGFILE"
+
+path="$1"       # Full path of the previewed file
+x="$2"          # x coordinate of upper left cell of preview area
+y="$3"          # y coordinate of upper left cell of preview area
+width="$4"      # Width of the preview pane (number of fitting characters)
+height="$5"     # Height of the preview pane (number of fitting characters)
+
+# Find out mimetype and extension
+mimetype=$(file --mime-type -Lb -- "$path")
+# extension=$(echo "${path##*.}" | awk '{print tolower($0)}')
+hash="$(echo "$path" | sha1sum | cut -d ' ' -f 1)"
+
+case "$mimetype" in
+    image/svg*|image/vnd.dwg|image/x-xcf|video/x-ms-asf)
+        remove_image
+        exit 1
+        ;;
+    image/*)
+        y_offset=3
+        show_image "$path" "$x" $((y + y_offset)) "$width" $((height - y_offset))
+        ;;
+    video/*)
+        cached_path="$JOSHUTO_CACHE/$hash.jpg"
+
+        if [[ ! -f "$cached_path" ]]; then
+            ffmpegthumbnailer -i "$path" -f -m -c jpeg -s 0 -o "$cached_path" || {
+                remove_image
+                rm "$cached_path"
+                exit 1
+            }
+        fi
+
+        y_offset=5
+        show_image "$cached_path" "$x" $((y + y_offset)) "$width" $((height - y_offset))
+        ;;
+    application/pdf)
+        cached_path="$JOSHUTO_CACHE/$hash.jpg"
+
+        if [[ ! -f "$cached_path" ]]; then
+            pdftoppm -f 1 -l 1 -jpeg \
+                -scale-to-x 1920 \
+                -scale-to-y -1 \
+                -singlefile \
+                -- "$path" "${cached_path%.*}" || exit 1
+        fi
+
+        show_image "$cached_path" "$x" "$y" "$width" "$height"
+        ;;
+    *)
+        remove_image
+        exit 1
+        ;;
+esac

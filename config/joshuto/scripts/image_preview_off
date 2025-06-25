@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+test -z "$JOSHUTO_WRAP_ID" && exit 1
+remove_image

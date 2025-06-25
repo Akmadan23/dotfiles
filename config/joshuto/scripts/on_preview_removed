@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# shellcheck disable=all
+
+test -z "$joshuto_wrap_id" && exit 1
+remove_image

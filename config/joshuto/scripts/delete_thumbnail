@@ -1,0 +1,5 @@
+#!/bin/bash
+
+hash="$(echo "$1" | sha1sum | cut -d ' ' -f 1)"
+thumbnail="$XDG_CACHE_HOME/joshuto/thumbnails/$hash.jpg"
+[ -f "$thumbnail" ] && rm "$thumbnail" || exit 0

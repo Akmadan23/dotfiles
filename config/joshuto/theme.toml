@@ -1,112 +1,85 @@
+# case_insensitive_ext = true
+
+[tabs.active]
+invert = true
+bold = true
+
 [selection]
 fg = "light_yellow"
 bold = true
+prefix = " "
 
-[selection.prefix]
-prefix = "  "
-size = 2
+[regular]
+fg = "light_white"
 
 [executable]
 fg = "light_green"
-bold = true
-
-[regular]
-fg = "white"
 
 [directory]
-fg = "light_blue"
+fg = "blue"
 bold = true
 
 [link]
-fg = "light_cyan"
+fg = "cyan"
+bold = true
+
+[link_invalid]
+fg = "red"
 bold = true
 
 [socket]
 fg = "light_magenta"
 bold = true
 
+[visual_mode_selection]
+bg = "black"
+fg = "light_yellow"
+bold = true
+prefix = "  "
+
 [ext]
 
-[ext.bmp]
-fg = "yellow"
+# images
+bmp.fg  = "yellow"
+gif.fg  = "yellow"
+ico.fg  = "yellow"
+jpeg.fg = "yellow"
+jpg.fg  = "yellow"
+png.fg  = "yellow"
+ppm.fg  = "yellow"
+svg.fg  = "yellow"
+webp.fg = "yellow"
 
-[ext.jpg]
-fg = "yellow"
+# audio/videos
+3gp.fg  = "magenta"
+avi.fg  = "magenta"
+flac.fg = "magenta"
+m3u.fg  = "magenta"
+m4a.fg  = "magenta"
+m4v.fg  = "magenta"
+mid.fg  = "magenta"
+mkv.fg  = "magenta"
+mp3.fg  = "magenta"
+mp4.fg  = "magenta"
+mov.fg  = "magenta"
+ogg.fg  = "magenta"
+ts.fg   = "magenta"
+wav.fg  = "magenta"
+webm.fg = "magenta"
+wmv.fg  = "magenta"
 
-[ext.jpeg]
-fg = "yellow"
-
-[ext.png]
-fg = "yellow"
-
-[ext.webp]
-fg = "yellow"
-
-[ext.ppm]
-fg = "yellow"
-
-[ext.svg]
-fg = "yellow"
-
-[ext.gif]
-fg = "yellow"
-
-[ext.wav]
-fg = "magenta"
-
-[ext.flac]
-fg = "magenta"
-
-[ext.mp3]
-fg = "magenta"
-
-[ext.avi]
-fg = "magenta"
-
-[ext.m3u]
-fg = "magenta"
-
-[ext.mov]
-fg = "magenta"
-
-[ext.mp4]
-fg = "magenta"
-
-[ext.mkv]
-fg = "magenta"
-
-[ext.m4a]
-fg = "magenta"
-
-[ext.ts]
-fg = "magenta"
-
-[ext.webm]
-fg = "magenta"
-
-[ext.wmv]
-fg = "magenta"
-
-[ext.7z]
-fg = "red"
-
-[ext.zip]
-fg = "red"
-
-[ext.bz2]
-fg = "red"
-
-[ext.gz]
-fg = "red"
-
-[ext.tar]
-fg = "red"
-
-[ext.tgz]
-fg = "red"
-
-[ext.xz]
-fg = "red"
-
-[ext.rar]
-fg = "red"
+# archives
+7z.fg   = "red"
+apk.fg  = "red"
+bz2.fg  = "red"
+deb.fg  = "red"
+gz.fg   = "red"
+jar.fg  = "red"
+rar.fg  = "red"
+rpm.fg  = "red"
+tar.fg  = "red"
+tgz.fg  = "red"
+xz.fg   = "red"
+xopp.fg = "red"
+zip.fg  = "red"
+zst.fg  = "red"

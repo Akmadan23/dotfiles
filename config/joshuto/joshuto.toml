@@ -1,32 +1,46 @@
 xdg_open = false
 xdg_open_fork = false
+case_sensitive_ext = false
+case_insensitive_ext = true
 use_trash = true
 watch_files = true
+numbered_command = true
+focus_on_create = true
+zoxide_update = true
 
 [display]
 automatically_count_files = true
-collapse_preview = true
-# ratios for parent view (optional), current view and preview
-column_ratio = [1, 4, 4]
+collapse_preview = false
+column_ratio = [1, 4, 3]
 scroll_offset = 6
 show_borders = true
 show_hidden = false
 show_icons = true
 tilde_in_titlebar = true
-# none, absolute, relative
-line_number_style = "none"
+mode = "default"                # default, hsplit
+linemode = "size"               # size, mtime, user, group, perm
+line_number_style = "absolute"  # none, absolute, relative
 
 [display.sort]
-# lexical, mtime, natural
-method = "natural"
+method = "natural"  # natural, lexical, mtime, size, ext
 case_sensitive = false
 directories_first = true
 reverse = false
 
 [preview]
-max_preview_size = 2097152 # 2MB
-preview_script = "~/.config/ranger/scope.sh"
+max_preview_size = 1_000_000_000_000
+preview_protocol = "disabled"
+preview_script = "~/.config/joshuto/scripts/text_preview"
+preview_shown_hook_script = "~/.config/joshuto/scripts/image_preview_on"
+preview_removed_hook_script = "~/.config/joshuto/scripts/image_preview_off"
 
 [tab]
-# inherit, home, root
-home_page = "home"
+home_page = "inherit" # inherit, home, root
+
+[cmd_aliases]
+q = "close_tab"
+Q = "close_tab"
+qa = "quit"
+Qa = "quit"
+quit = "close_tab"
+delete_thumbnail = "spawn /home/azad/.config/joshuto/scripts/delete_thumbnail %p"

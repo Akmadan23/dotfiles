@@ -1,0 +1,11 @@
+bookmark = [
+    { key = "u", path = "~/Documenti/UNI" },
+    { key = "c", path = "~/.config" },
+    { key = "l", path = "~/.local" },
+    { key = "t", path = "~/.local/share/Trash/files" },
+
+    { key = "r", path = "/" },
+    { key = "e", path = "/etc" },
+    { key = "m", path = "/run/media/azad" },
+    { key = "x", path = "/opt/_extra_" },
+]
