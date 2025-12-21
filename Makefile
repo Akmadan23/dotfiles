@@ -1,16 +1,11 @@
 # Variables
 DIRS = $(notdir $(wildcard config/*))
-FILES = .Xresources .stalonetrayrc
 
 update:
 	@rm -rf config/zsh/plugins
 
 	@for d in $(DIRS); do \
 		cp -r ~/.config/$$d config; \
-	done
-
-	@for f in $(FILES); do \
-		cp ~/$$f .; \
 	done
 
 	@echo "Dotfiles updated successfully."
