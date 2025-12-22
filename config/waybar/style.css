@@ -1,0 +1,189 @@
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, Cantarell, Roboto, Arial, sans-serif;
+    font-size: 14px;
+}
+
+window#waybar {
+    background-color: transparent;
+    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.empty {
+    background-color: transparent;
+}
+
+window#waybar.solo {
+    background-color: #000000;
+    margin: 0;
+}
+
+window#waybar:not(.solo) {
+    margin: 10px;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces button {
+    padding: 0 7px 0 3px;
+    /* text-align: center; */
+    background-color: transparent;
+    color: #ffffff;
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    text-shadow: none;
+}
+
+#workspaces button.empty {
+	color: #2D3436;
+}
+
+#workspaces button.visible {
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+/* #workspaces button.active { */
+/*     box-shadow: inset 0 -3px #66D8EF; */
+/* } */
+
+#workspaces button.visible.hosting-monitor:not(.active) {
+    box-shadow: inset 0 -3px #66D8EF;
+}
+
+#workspaces button.active.hosting-monitor {
+    box-shadow: inset 0 -3px #66D8EF;
+    background: linear-gradient(transparent, #66D8EF);
+}
+
+#workspaces button.urgent {
+    background: linear-gradient(transparent, #eb4d4b);
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-updates,
+#tray,
+#idle_inhibitor,
+#power-profiles-daemon {
+    padding: 0 10px;
+}
+
+#window {
+    margin: 0 4px;
+}
+
+#custom-updates {
+    box-shadow: inset 0 -3px #FFFFFF;
+}
+
+#memory, #cpu, #temperature {
+    box-shadow: inset 0 -3px #A6E22E;
+}
+
+#temperature.critical {
+    box-shadow: inset 0 -3px #F92672;
+}
+
+#pulseaudio {
+    box-shadow: inset 0 -3px #E6DB74;
+}
+
+#pulseaudio.muted {
+    background: linear-gradient(transparent, #E6DB74);
+}
+
+#backlight {
+    box-shadow: inset 0 -3px #66D8EF;
+}
+
+#battery {
+    box-shadow: inset 0 -3px #FD971F;
+}
+
+#battery.charging, #battery.plugged {
+    box-shadow: inset 0 -3px #A6E22E;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#network {
+    box-shadow: inset 0 -3px #FFFFFF;
+}
+
+#network.disconnected {
+    box-shadow: inset 0 -3px #F92672;
+}
+
+#clock {
+    box-shadow: inset 0 -3px #465457;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#power-profiles-daemon {
+    padding-right: 12px;
+}
+
+#power-profiles-daemon.balanced {
+    box-shadow: none;
+}
+
+#power-profiles-daemon.performance {
+    box-shadow: inset 0 -3px #f53c3c;
+}
+
+#power-profiles-daemon.power-saver {
+    box-shadow: inset 0 -3px #2ecc71;
+}
+
+#idle_inhibitor {
+    box-shadow: none;
+}
+
+#idle_inhibitor.activated {
+    box-shadow: inset 0 -3px #ffffff;
+}
