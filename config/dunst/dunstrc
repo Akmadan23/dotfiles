@@ -1,5 +1,5 @@
 [global]
-monitor = 0
+follow = mouse
 title = Dunst
 class = Dunst
 font = Cantarell 10
@@ -10,7 +10,7 @@ alignment = left
 icon_position = left
 icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/apps/
 max_icon_size = 32
-frame_width = 0
+frame_width = 2
 padding = 8
 horizontal_padding = 8
 separator_height = 0
@@ -26,6 +26,8 @@ ignore_newline = false
 show_indicators = false
 stack_duplicates = false
 hide_duplicate_count = true
+background = "#000000AA"
+foreground = "#F8F8F0"
 
 [shortcuts]
 close = ctrl+space
@@ -34,27 +36,15 @@ context = ctrl+shift+period
 
 [urgency_low]
 timeout = 2
-background = "#66D8EF"
-foreground = "#000000"
+frame_color = "#66D8EF"
 default_icon = preferences-system-details-symbolic.symbolic
 
 [urgency_normal]
-timeout = 4
-background = "#465457"
-foreground = "#F8F8F0"
+timeout = 5
+frame_color = "#465457"
 default_icon = preferences-system-notifications-symbolic.symbolic
 
 [urgency_critical]
 timeout = 60
-background = "#FD971F"
-foreground = "#000000"
+frame_color = "#FD971F"
 default_icon = dialog-warning-symbolic.symbolic
-
-[volume]
-stack_tag = amixer
-alignment = center
-timeout = 2
-background = "#E6DB74"
-foreground = "#000000"
-icon_position = top
-history_ignore = true
