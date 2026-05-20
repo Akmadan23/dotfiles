@@ -58,9 +58,10 @@
         "persistent-workspaces": {
             "*": [1, 2, 3, 4, 5],
         },
+        "all-outputs": true,
         "move-to-monitor": true,
-        "on-scroll-up": "hyprctl dispatch focusworkspaceoncurrentmonitor -1",
-        "on-scroll-down": "hyprctl dispatch focusworkspaceoncurrentmonitor +1",
+        "on-scroll-up": "hyprctl dispatch hl.dsp.focus({ workspace = '+1', on_current_monitor = true })",
+        "on-scroll-down": "hyprctl dispatch hl.dsp.focus({ workspace = '-1', on_current_monitor = true })",
     },
     "hyprland/windowcount": {
         "format": "[{}]",
@@ -93,9 +94,10 @@
         "spacing": 8,
     },
     "clock": {
-        "format": "{:%H:%M}",
-        "format-alt": "{:%A %d %B %Y}",
+        "format": "{:%A %d %B, %H:%M}",
+        // "format-alt": "{:%A %d %B, %H:%M}",
         "tooltip-format": "<big>{:%Y %b}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "gscal",
     },
     "cpu": {
         "format": "   {avg_frequency} GHz ({usage}%)",
@@ -144,13 +146,12 @@
       }
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "    {essid} ({signalStrength}%)",
+        "format-wifi": "    {signalStrength}%",
         "format-ethernet": "   {ipaddr}/{cidr}",
-        "tooltip-format": "   {ifname} via {gwaddr}",
         "format-linked": "   {ifname} (No IP)",
         "format-disconnected": "⚠   Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "tooltip-format": "{essid}     {ifname} via {gwaddr}",
     },
     "pulseaudio": {
         "scroll-step": 5, // %, can be a float
@@ -181,7 +182,7 @@
             "reboot": "reboot",
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate",
-            "logout": "hyprctl dispatch exit",
+            "logout": "uwsm stop",
         }
     },
     "custom/updates": {
