@@ -29,10 +29,10 @@ reverse = false
 
 [preview]
 max_preview_size = 1_000_000_000_000
-preview_protocol = "disabled"
+preview_protocol = "kitty"
 preview_script = "~/.config/joshuto/scripts/text_preview"
-preview_shown_hook_script = "~/.config/joshuto/scripts/image_preview_on"
-preview_removed_hook_script = "~/.config/joshuto/scripts/image_preview_off"
+# preview_shown_hook_script = "~/.config/joshuto/scripts/image_preview_on"
+# preview_removed_hook_script = "~/.config/joshuto/scripts/image_preview_off"
 
 [tab]
 home_page = "inherit" # inherit, home, root

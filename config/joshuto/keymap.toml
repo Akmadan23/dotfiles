@@ -13,7 +13,7 @@ keymap = [
     { keys = ["="],             command = "set_mode" },
     { keys = [":"],             command = ":" },
     { keys = ["s"],             command = ":shell " },
-    { keys = ["S"],             command = "spawn alacritty" },
+    { keys = ["S"],             command = "spawn kitty" },
     { keys = ["r"],             command = "open_with" },
     { keys = ["m", "d"],        command = ":mkdir " },
     { keys = ["m", "f"],        command = ":touch " },

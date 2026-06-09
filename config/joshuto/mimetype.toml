@@ -8,6 +8,7 @@ text = [
 ]
 
 image = [
+    { command = "imv-dir",      fork = true, silent = true },
     { command = "imv",      fork = true, silent = true },
     { command = "nsxiv",    fork = true, silent = true },
     { command = "sxiv",     fork = true, silent = true },
@@ -143,14 +144,9 @@ zip.app_list    = [{ command = "unzip",                     confirm_exit = true 
 
 # misc
 
-pdf.app_list = [
-    { command = "zathura", fork = true, silent = true },
-    { command = "evince", fork = true, silent = true },
-    { command = "okular", fork = true, silent = true },
-]
-
-torrent.app_list = [
-    { command = "transmission-gtk", fork = true, silent = true },
+ardour.app_list = [
+    { command = "LANG=en ardour8", fork = true, silent = true },
+    { command = "nvim" },
 ]
 
 aup.app_list = [
@@ -162,9 +158,20 @@ blend.app_list = [
     { command = "blender", fork = true, silent = true },
 ]
 
-ardour.app_list = [
-    { command = "LANG=en ardour8", fork = true, silent = true },
-    { command = "nvim" },
+pdf.app_list = [
+    { command = "zathura", fork = true, silent = true },
+    { command = "evince", fork = true, silent = true },
+    { command = "okular", fork = true, silent = true },
+    { command = "xournalpp", fork = true, silent = true },
+    { command = "pdfarranger", fork = true, silent = true },
+]
+
+torrent.app_list = [
+    { command = "transmission-gtk", fork = true, silent = true },
+]
+
+xopp.app_list = [
+    { command = "xournalpp", fork = true, silent = true },
 ]
 
 [mimetype]
